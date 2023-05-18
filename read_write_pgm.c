@@ -112,8 +112,11 @@ void read_pgm_image(unsigned char **world, int *maxval, long *local_size, long *
         //printf("BEFORE fopen file=%s\n", image_filename);
         image_file = fopen(image_filename, "r");
         //printf("AFTER fopen file=%s image_file=%p\n", image_filename, image_file);
-        if (!image_file || ferror(image_file) != 0)
-            printf("ERROR read_pgm_image - image_file error occurred while reading file=%s\n", image_filename);
+        if (!image_file || ferror(image_file) != 0) {
+            printf("ERROR occurred while reading file=%s\n", image_filename);
+            perror("Error occurred while reading file\n");
+            exit(EXIT_FAILURE);
+        }
         *world = NULL;
         *world_size = *local_size = *maxval = 0;
         char magic_number_p5[3];
