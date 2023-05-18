@@ -174,14 +174,14 @@ void run_ordered(char *filename, int times, int s, int *argc, char **argv[], int
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-    /*Read the matrix:
+    /* Read the local chunk world data from file:
       - Calculate the number of local rows
-      - Allocate the memory of word (world_size*(local_rows+2)). The first row
-        is used to store the value last row of the previous process (size-1 if
-        rank == 0) and the last row is used to store the first row of the previous
-        process. In the case of a single MPI Task the first row will store the row
-        of the world and the last line will store the first row of the world
-      - Read the values: the first value is stored in world[world_size]
+      - Allocate memory for the local world (world_size*(local_rows+2)).
+        The first row is used to store the last row of the previous thread (mpi_size-1 if mpi_rank == 0)
+        and the last row is used to store the first row of the next thread process.
+        In the case of a single MPI Task the first row will store the last row
+        of the world_local and the last row will store the first row of the world_local
+      - Read the values: the first value is stored in world_local[world_size]
     */
     read_pgm_image(&world, &maxval, &local_size, &world_size, filename, rank, size, debug_info);
 

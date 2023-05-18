@@ -143,7 +143,7 @@ void update_parallel_static(int mpi_rank, int mpi_size, MPI_Status *mpi_status, 
         //if (number_of_dead_neighbours >= 5 & number_of_dead_neighbours <= 6)
         //    world_next[i] = ALIVE;
         if (world_local[y * world_size + x] == ALIVE) { // if actual cell is alive
-            if (number_of_dead_neighbours == 4 || number_of_dead_neighbours == 5)
+            if (number_of_dead_neighbours == 5 || number_of_dead_neighbours == 6)
                 world_next[i] = ALIVE;
         } else // actual cell is dead
         if (number_of_dead_neighbours == 5) {
@@ -208,7 +208,7 @@ void update_serial_static(unsigned char *world, unsigned char *world_next, long 
         //if (number_of_dead_neighbours >= 5 & number_of_dead_neighbours <= 6)
         //    world_next[i] = ALIVE;
         if (world[y * world_size + x] == ALIVE) { // if actual cell is alive
-            if (number_of_dead_neighbours == 4 || number_of_dead_neighbours == 5)
+            if (number_of_dead_neighbours == 5 || number_of_dead_neighbours == 6)
                 world_next[i] = ALIVE;
         } else // actual cell is dead
         if (number_of_dead_neighbours == 5) {
@@ -223,7 +223,7 @@ void iterate_static_parallel(const int mpi_rank, const int mpi_size, unsigned ch
     if (debug_info > 0)
         printf("DEBUG1 - iterate_static_parallel - BEGIN - mpi_rank=%d/%d, world_size=%ld\n", mpi_rank, mpi_size, world_size);
     unsigned char *world_local_actual = *world_local;
-    //Allocate the memory for the next state
+    //Allocate memory for the next state
     unsigned char *world_local_next = (unsigned char *) malloc(world_size * (local_size + 2) * sizeof(unsigned char));
     char *image_filename_suffix = (char *) malloc(60);
     // NOTE: can't use omp parallel here, iteration can't go on for each chunk
@@ -270,7 +270,7 @@ void iterate_static_serial(const int mpi_rank, const int mpi_size, unsigned char
     if (debug_info > 0)
         printf("DEBUG1 - iterate_static_serial - BEGIN - mpi_rank=%d/%d, world_size=%ld\n", mpi_rank, mpi_size, world_size);
     unsigned char *world_local_actual = *world_local;
-    //Allocate the memory for the next state
+    //Allocate memory for the next state
     unsigned char *world_local_next = (unsigned char *) malloc(world_size * (local_size + 2) * sizeof(unsigned char));
     char *image_filename_suffix = (char *) malloc(60);
 #pragma omp parallel default(none) shared(number_of_steps, debug_info, mpi_rank, mpi_size, world_local, world_local_actual, world_local_next, world_size, local_size, mpi_status, mpi_request, number_of_steps_between_file_dumps, image_filename_suffix, directoryname)
@@ -312,6 +312,7 @@ void iterate_static_serial(const int mpi_rank, const int mpi_size, unsigned char
 }
 
 void run_static(char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int debug_info) {
+// TODO: compute the correct size for MPI message allocation
 #define MAX_STRING_LENGTH 256
     char message[MAX_STRING_LENGTH];
     char *directoryname;
@@ -388,7 +389,7 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
 
     /* Read the local chunk world data from file:
       - Calculate the number of local rows
-      - Allocate the memory for the local world_local (world_size*(local_rows+2)).
+      - Allocate memory for the local world (world_size*(local_rows+2)).
         The first row is used to store the last row of the previous thread (mpi_size-1 if mpi_rank == 0)
         and the last row is used to store the first row of the next thread process.
         In the case of a single MPI Task the first row will store the last row
