@@ -17,7 +17,7 @@ void initialize_parallel(long total_size, int mpi_size, int mpi_rank, int debug_
     unsigned char *world_chunk;
     world_chunk = (unsigned char *) malloc(total_size * (chunk_size + 1) * sizeof(unsigned char));
     MPI_Barrier(MPI_COMM_WORLD);
-#pragma omp parallel
+#pragma omp parallel default(none) shared(mpi_rank, total_size, chunk_size, world_chunk)
     {
         int seed = get_unique_seed(omp_get_thread_num(), mpi_rank);
         srand(seed);
@@ -34,7 +34,8 @@ void initialize_parallel(long total_size, int mpi_size, int mpi_rank, int debug_
     }
     //if (debug_info > 1 && mpi_rank == 0)
     //    printf("\n");
-    write_pgm_image_chunk(world_chunk, 255, total_size, chunk_size, "", IMAGE_FILE_CHUNK_INIT_PREFIX, "", FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
+    write_pgm_image_chunk(world_chunk, 255, total_size, chunk_size, "", IMAGE_FILE_CHUNK_INIT_PREFIX, "", FILE_EXTENSION_PGMPART, mpi_rank, mpi_size
+                          , debug_info);
     free(world_chunk);
     if (debug_info > 0)
         printf("DEBUG1 - initialize_parallel - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
@@ -47,7 +48,7 @@ void initialize_serial(long total_size, int debug_info) {
         printf("DEBUG2 - initialize_serial - values: ");
     unsigned char *world;
     world = (unsigned char *) malloc(total_size * (total_size + 1) * sizeof(unsigned char));
-#pragma omp parallel
+#pragma omp parallel default(none) shared(total_size, debug_info, world)
     {
         int seed = get_unique_seed(omp_get_thread_num(), 0);
         srand(seed);

@@ -28,6 +28,7 @@ void update_parallel_static(int mpi_rank, int mpi_size, MPI_Status *mpi_status, 
         // and last row to mpi_rank + 1.
         // process 0      sends his first row to process mpi_size -1
         // process mpi_size-1 sends his last  row to process 0
+        // TODO: chunk size passed as INT by MPI, needs better implementation to work with bigger sizes
         if (mpi_rank != 0 && mpi_rank != mpi_size - 1) {
             MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_0, MPI_COMM_WORLD, mpi_request);
             MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, tag_1, MPI_COMM_WORLD, mpi_request);
@@ -226,7 +227,6 @@ void iterate_static_parallel(const int mpi_rank, const int mpi_size, unsigned ch
     unsigned char *world_local_next = (unsigned char *) malloc(world_size * (local_size + 2) * sizeof(unsigned char));
     char *image_filename_suffix = (char *) malloc(60);
     // NOTE: can't use omp parallel here, iteration can't go on for each chunk
-    // TODO: chunk size passed as INT by MPI, needs better implementation to work with bigger sizes
     // each MPI process exchanges data with other segments of same iteration
     // it's ok for serial only (-np 1)
     {

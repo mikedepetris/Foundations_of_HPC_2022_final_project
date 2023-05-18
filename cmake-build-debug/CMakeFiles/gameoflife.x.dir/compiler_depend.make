@@ -364,7 +364,6 @@ CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o: ../read_write_pgm.c \
   /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
   /usr/include/x86_64-linux-gnu/bits/stat.h \
   /usr/include/x86_64-linux-gnu/bits/struct_stat.h \
-  /usr/include/libgen.h \
   /usr/include/string.h \
   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
@@ -565,8 +564,6 @@ CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o: ../read_write_pgm.c \
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
 
 /usr/include/x86_64-linux-gnu/bits/getopt_core.h:
-
-/usr/include/libgen.h:
 
 /usr/include/x86_64-linux-gnu/sys/types.h:
 

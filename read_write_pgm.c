@@ -1,5 +1,4 @@
 #include <sys/stat.h>
-#include <libgen.h>
 #include <string.h>
 #include "read_write_pgm.h"
 
@@ -177,8 +176,6 @@ void read_pgm_image(unsigned char **world, int *maxval, long *local_size, long *
     MPI_Barrier(MPI_COMM_WORLD);
     if (debug_info > 0)
         printf("DEBUG1 - read_pgm_image - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
-
-    return;
 }
 
 int file_merge(const char *filename1, const char *filename2, int debug_info) {
