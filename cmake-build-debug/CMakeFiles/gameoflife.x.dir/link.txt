@@ -1,0 +1,1 @@
+/usr/bin/mpicc  -fopenmp -g CMakeFiles/gameoflife.x.dir/gameoflife.c.o CMakeFiles/gameoflife.x.dir/iterate_static.c.o CMakeFiles/gameoflife.x.dir/initialize.c.o CMakeFiles/gameoflife.x.dir/iterate_ordered.c.o CMakeFiles/gameoflife.x.dir/iterate_wave.c.o CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o -o gameoflife.x 

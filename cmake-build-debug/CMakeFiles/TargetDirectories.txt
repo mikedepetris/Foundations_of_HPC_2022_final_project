@@ -1,0 +1,3 @@
+/mnt/c/dev/HPC/gameoflife/cmake-build-debug/CMakeFiles/gameoflife.x.dir
+/mnt/c/dev/HPC/gameoflife/cmake-build-debug/CMakeFiles/edit_cache.dir
+/mnt/c/dev/HPC/gameoflife/cmake-build-debug/CMakeFiles/rebuild_cache.dir

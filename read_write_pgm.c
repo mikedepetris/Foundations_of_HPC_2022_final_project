@@ -1,0 +1,215 @@
+#include <sys/stat.h>
+#include <libgen.h>
+#include <string.h>
+#include "read_write_pgm.h"
+
+/*
+* Create directory if it doesn't exist
+*/
+void create_directory(char *directory_name, int debug_info) {
+    if (debug_info == 1)
+        printf("DEBUG1 - create_directory: %s\n", directory_name);
+    struct stat st = {0};
+    if (stat(directory_name, &st) == -1)
+        mkdir(directory_name, 0700);
+}
+
+void calculate_sizes_indexes(int rank, int size, long world_size, long *first_row, long *last_row, long *local_size) {
+    *local_size = world_size % size - rank <= 0 ? (long) (world_size / size) : (long) (world_size / size) + 1;
+    *first_row = world_size % size - rank >= 0 ?
+                 rank * (long) (world_size / size) + rank :
+                 rank * (long) (world_size / size) + world_size % size;
+    *last_row = (*first_row) + (*local_size) - 1;
+}
+
+void write_pgm_image_complete(void *image, int maxval, int xsize, int ysize, const char *image_name) {
+    FILE *image_file;
+    image_file = fopen(image_name, "w");
+    int color_depth = 1 + (maxval > 255);
+    fprintf(image_file, "P5\n#" PGM_COMMENT "\n%d %d\n%d\n", xsize, ysize, maxval);
+    fwrite(image, 1, xsize * ysize * color_depth, image_file);
+    fclose(image_file);
+}
+
+void write_pgm_image_chunk(unsigned char *world_local, int maxval, long world_size, long local_size, const char *directoryname
+                           , const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension
+                           , int mpi_rank, int mpi_size, int debug_info) {
+    if (debug_info > 0)
+        printf("DEBUG1 - write_pgm_image_chunk - BEGIN - mpi_rank=%d/%d, directoryname=%s, image_filename_prefix=%s, image_filename_suffix=%s, image_filename_extension=%s\n",
+               mpi_rank, mpi_size, directoryname, image_filename_prefix, image_filename_suffix, image_filename_extension);
+    if (debug_info > 1) {
+        for (long long i = 0; i < world_size * (local_size + 2); i++) {
+            if (i % 16 == 0)
+                printf("DEBUG2 - write_pgm_image_chunk 0 - %d/%d %08X: ", mpi_rank, mpi_size, (unsigned int) i);
+            printf("%02X ", world_local[i]);
+            if (i % 16 == 15)
+                printf("\n");
+        }
+        printf("\n");
+    }
+    int color_depth = 1 + (maxval > 255);
+    FILE *chunk_file = NULL;
+    // TODO: calculate correct string size
+    char *file_name = (char *) malloc(256);
+    if (directoryname && strlen(directoryname) > 0)
+        sprintf(file_name, "%s/%s%03d_%03d%s.%s", directoryname, image_filename_prefix, mpi_size, mpi_rank, image_filename_suffix, image_filename_extension);
+    else
+        sprintf(file_name, "%s%03d_%03d%s.%s", image_filename_prefix, mpi_size, mpi_rank, image_filename_suffix, image_filename_extension);
+    if (debug_info > 0)
+        printf("DEBUG1 - write_pgm_image_chunk - file_name=%s\n", file_name);
+//    // dupes required or file_name would be changed
+//    char *ts1 = strdup(file_name);
+//    char *ts2 = strdup(file_name);
+//    char *dir_name = dirname(ts1);
+//    char *base_name = basename(ts2);
+//    if (debug_info > 0)
+//        printf("DEBUG1 - write_pgm_image_chunk - file_name=%s, dir_name=%s, base_name=%s\n", file_name, dir_name, base_name);
+//    create_directory(dir_name, debug_info);
+    chunk_file = fopen(file_name, "w");
+    if (debug_info > 0)
+        printf("DEBUG1 - write_pgm_image_chunk - 0 - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
+    if (chunk_file == NULL) {
+        printf("ERROR in write_pgm_image_chunk - the file %s could not be opened", file_name);
+        exit(1);
+    }
+    if (debug_info > 0)
+        printf("DEBUG1 - write_pgm_image_chunk - 1 - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
+    // write pgm header in first chunk
+    if (mpi_rank == 0)
+        //printf("P5\n#" PGM_COMMENT "\n%ld %ld\n%d\n", world_size, world_size, maxval);
+        fprintf(chunk_file, "P5\n#" PGM_COMMENT "\n%ld %ld\n%d\n", world_size, world_size, maxval);
+    if (debug_info > 0)
+        printf("DEBUG1 - write_pgm_image_chunk - 2 - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
+    if (ferror(chunk_file) != 0)
+        printf("ERROR write_pgm_image_chunk - chunk_file error occurred while writing file_name=%s\n", file_name);
+    if (debug_info > 0)
+        printf("DEBUG1 - write_pgm_image_chunk - 3 - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
+    if (debug_info > 0)
+        printf("DEBUG1 - write_pgm_image_chunk - ferror(chunk_file)=%d\n", ferror(chunk_file));
+    if (debug_info > 0)
+        printf("DEBUG1 - write_pgm_image_chunk - 4 - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
+    fwrite(&world_local[world_size], 1, world_size * local_size * color_depth, chunk_file);
+    if (debug_info > 0)
+        printf("DEBUG1 - write_pgm_image_chunk - 5 - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
+    if (ferror(chunk_file) != 0)
+        printf("ERROR write_pgm_image_chunk - chunk_file error occurred while writing file_name=%s\n", file_name);
+    if (debug_info > 0)
+        printf("DEBUG1 - write_pgm_image_chunk - ferror(chunk_file)=%d\n", ferror(chunk_file));
+    fclose(chunk_file);
+    free(file_name);
+    if (debug_info > 0)
+        printf("DEBUG1 - write_pgm_image_chunk - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
+}
+
+void read_pgm_image(unsigned char **world, int *maxval, long *local_size, long *world_size, const char *image_filename
+                    , int mpi_rank, int mpi_size, int debug_info) {
+    if (debug_info > 0)
+        printf("DEBUG1 - read_pgm_image - BEGIN - mpi_rank=%d/%d, image_filename=%s\n", mpi_rank, mpi_size, image_filename);
+    size_t number_of_read_chars = 0;
+    MPI_Status mpi_status;
+    long first_row, last_row;
+    if (mpi_rank == 0) {
+        FILE *image_file;
+        image_file = fopen(image_filename, "r");
+        if (ferror(image_file) != 0)
+            printf("ERROR read_pgm_image - image_file error occurred while reading file=%s\n", image_filename);
+        *world = NULL;
+        *world_size = *local_size = *maxval = 0;
+        char magic_number_p5[3];
+        size_t number_of_matches;
+        number_of_matches = fscanf(image_file, "%2s%*c", magic_number_p5);
+        number_of_read_chars += number_of_matches * strlen(magic_number_p5);
+        if (debug_info > 1)
+            printf("DEBUG2 - read_pgm_image - magic_number_p5=%s, number_of_matches=%zu, number_of_read_chars=%zu\n", magic_number_p5, number_of_matches,
+                   number_of_read_chars);
+        char *line;
+        size_t line_buffer_size = sizeof("# " PGM_COMMENT "\n");
+        line = (char *) malloc(line_buffer_size * sizeof(char));
+        if (line == NULL) {
+            perror("Unable to allocate buffer");
+            exit(1);
+        }
+        size_t number_of_chars = getline(&line, &line_buffer_size, image_file);
+        number_of_read_chars += number_of_chars;
+        if (debug_info > 1)
+            printf("DEBUG2 - read_pgm_image - number_of_chars=%zu, line=%s, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu\n", number_of_chars, line, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars);
+        // skip comments
+        while ((number_of_chars > 0) && (line[0] == '#')) {
+            number_of_chars = getline(&line, &line_buffer_size, image_file);
+            number_of_read_chars += number_of_chars;
+        }
+        if (debug_info > 1)
+            printf("DEBUG2 - read_pgm_image - after skipping comments number_of_chars=%zu, number_of_read_chars=%zu\n", number_of_chars, number_of_read_chars);
+        long temp;
+        if (number_of_chars > 0) {
+            number_of_matches = sscanf(line, "%ld%*c%ld%*c%d%*c", &temp, world_size, maxval);
+            if (number_of_matches < 3)
+                number_of_chars = getline(&line, &line_buffer_size, image_file);
+            number_of_read_chars += number_of_chars;
+            number_of_matches = sscanf(line, "%d%*c", maxval);
+        } else {
+            *maxval = -1;
+            free(line);
+            return;
+        }
+        if (debug_info > 1)
+            printf("DEBUG2 - read_pgm_image - HEADER END number_of_chars=%zu, line=%s, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu\n", number_of_chars, line, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars);
+        fclose(image_file);
+        free(line);
+    }
+    MPI_Bcast(&number_of_read_chars, 1, MPI_LONG, 0, MPI_COMM_WORLD);
+    MPI_Bcast(world_size, 1, MPI_LONG, 0, MPI_COMM_WORLD);
+    calculate_sizes_indexes(mpi_rank, mpi_size, *world_size, &first_row, &last_row, local_size);
+    if (debug_info > 1)
+        printf("DEBUG2 - read_pgm_image - mpi_rank=%d/%d *world_size=%ld, first_row=%ld, last_row=%ld, local_size=%ld\n", mpi_rank, mpi_size, *world_size,
+               first_row, last_row, *local_size);
+    int color_depth = 1 + (*maxval > 255);
+    MPI_File fh;
+    MPI_File_open(MPI_COMM_WORLD, image_filename, MPI_MODE_RDONLY, MPI_INFO_NULL, &fh);
+    unsigned int to_read_size = (*world_size) * (*local_size) * color_depth;
+    MPI_File_seek(fh, number_of_read_chars + 1 + first_row * *world_size, MPI_SEEK_CUR);
+    if ((*world = (unsigned char *) malloc((*local_size + 2) * (*world_size) * sizeof(unsigned char))) == NULL)
+        return;
+    unsigned char *v = *world;
+    MPI_File_read(fh, &v[*world_size], to_read_size, MPI_UNSIGNED_CHAR, &mpi_status);
+    MPI_Barrier(MPI_COMM_WORLD);
+    if (debug_info > 0)
+        printf("DEBUG1 - read_pgm_image - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
+
+    return;
+}
+
+int file_merge(const char *filename1, const char *filename2, int debug_info) {
+    if (debug_info > 0)
+        printf("DEBUG1 - file_merge - appending %s to %s.\n", filename2, filename1);
+    FILE *f1, *f2;
+    f1 = fopen(filename1, "a");
+    f2 = fopen(filename2, "r");
+    if (f1 == NULL || f2 == NULL) {
+        perror("Error joining file chunks\n");
+        exit(EXIT_FAILURE);
+    }
+//    // calculate f2 size
+//    fseek(f2, 0, SEEK_END);
+//    long size = ftell(f2);
+//    rewind(f2);
+//    unsigned char buffer[size]; // fails if too big
+//    fread(buffer, sizeof(buffer), 1, f2);
+//    fclose(f2);
+//    fwrite(buffer, sizeof(buffer), 1, f1);
+//    fclose(f1);
+
+    size_t read_size;
+    unsigned char buffer[4096]; // 4k buffer
+    do {
+        read_size = fread(buffer, 1, sizeof(buffer), f2);
+        if (debug_info > 1)
+            printf("DEBUG2 - file_merge - appending %s to %s. read_size=%zu\n", filename2, filename1, read_size);
+        if (read_size <= 0) break;
+        fwrite(buffer, read_size, 1, f1);
+    } while (read_size == sizeof buffer); // if it was a full buffer, loop again
+    fclose(f1);
+    fclose(f2);
+
+    return 0;
+}

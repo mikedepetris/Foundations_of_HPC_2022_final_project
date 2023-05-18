@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="gameoflife"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/mnt/c/dev/HPC/gameoflife/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gameoflife.x">
+				<Option output="/mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/dev/HPC/gameoflife/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/x86_64-linux-gnu/openmpi/include"/>
+					<Add directory="/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 gameoflife.x"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gameoflife.x/fast">
+				<Option output="/mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/dev/HPC/gameoflife/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/x86_64-linux-gnu/openmpi/include"/>
+					<Add directory="/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 gameoflife.x/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/mnt/c/dev/HPC/gameoflife/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/mnt/c/dev/HPC/gameoflife/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/dev/HPC/gameoflife/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/mnt/c/dev/HPC/gameoflife/gameoflife.c">
+			<Option target="gameoflife.x"/>
+		</Unit>
+		<Unit filename="/mnt/c/dev/HPC/gameoflife/gameoflife.h">
+			<Option target="gameoflife.x"/>
+		</Unit>
+		<Unit filename="/mnt/c/dev/HPC/gameoflife/initialize.c">
+			<Option target="gameoflife.x"/>
+		</Unit>
+		<Unit filename="/mnt/c/dev/HPC/gameoflife/initialize.h">
+			<Option target="gameoflife.x"/>
+		</Unit>
+		<Unit filename="/mnt/c/dev/HPC/gameoflife/iterate_ordered.c">
+			<Option target="gameoflife.x"/>
+		</Unit>
+		<Unit filename="/mnt/c/dev/HPC/gameoflife/iterate_static.c">
+			<Option target="gameoflife.x"/>
+		</Unit>
+		<Unit filename="/mnt/c/dev/HPC/gameoflife/iterate_wave.c">
+			<Option target="gameoflife.x"/>
+		</Unit>
+		<Unit filename="/mnt/c/dev/HPC/gameoflife/read_write_pgm.c">
+			<Option target="gameoflife.x"/>
+		</Unit>
+		<Unit filename="/mnt/c/dev/HPC/gameoflife/read_write_pgm.h">
+			<Option target="gameoflife.x"/>
+		</Unit>
+		<Unit filename="/mnt/c/dev/HPC/gameoflife/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
