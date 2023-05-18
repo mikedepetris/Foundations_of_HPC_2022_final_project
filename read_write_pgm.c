@@ -35,8 +35,8 @@ void write_pgm_image_chunk(unsigned char *world_local, int maxval, long world_si
                            , const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension
                            , int mpi_rank, int mpi_size, int debug_info) {
     if (debug_info > 0)
-        printf("DEBUG1 - write_pgm_image_chunk - BEGIN - mpi_rank=%d/%d, directoryname=%s, image_filename_prefix=%s, image_filename_suffix=%s, image_filename_extension=%s\n",
-               mpi_rank, mpi_size, directoryname, image_filename_prefix, image_filename_suffix, image_filename_extension);
+        printf("DEBUG1 - write_pgm_image_chunk - BEGIN - mpi_rank=%d/%d, directoryname=%s, image_filename_prefix=%s, image_filename_suffix=%s, image_filename_extension=%s\n"
+               , mpi_rank, mpi_size, directoryname, image_filename_prefix, image_filename_suffix, image_filename_extension);
     if (debug_info > 1) {
         for (long long i = 0; i < world_size * (local_size + 2); i++) {
             if (i % 16 == 0)
@@ -120,8 +120,8 @@ void read_pgm_image(unsigned char **world, int *maxval, long *local_size, long *
         number_of_matches = fscanf(image_file, "%2s%*c", magic_number_p5);
         number_of_read_chars += number_of_matches * strlen(magic_number_p5);
         if (debug_info > 1)
-            printf("DEBUG2 - read_pgm_image - magic_number_p5=%s, number_of_matches=%zu, number_of_read_chars=%zu\n", magic_number_p5, number_of_matches,
-                   number_of_read_chars);
+            printf("DEBUG2 - read_pgm_image - magic_number_p5=%s, number_of_matches=%zu, number_of_read_chars=%zu\n", magic_number_p5, number_of_matches
+                   , number_of_read_chars);
         char *line;
         size_t line_buffer_size = sizeof("# " PGM_COMMENT "\n");
         line = (char *) malloc(line_buffer_size * sizeof(char));
@@ -132,7 +132,8 @@ void read_pgm_image(unsigned char **world, int *maxval, long *local_size, long *
         size_t number_of_chars = getline(&line, &line_buffer_size, image_file);
         number_of_read_chars += number_of_chars;
         if (debug_info > 1)
-            printf("DEBUG2 - read_pgm_image - number_of_chars=%zu, line=%s, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu\n", number_of_chars, line, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars);
+            printf("DEBUG2 - read_pgm_image - number_of_chars=%zu, line=%s, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu\n"
+                   , number_of_chars, line, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars);
         // skip comments
         while ((number_of_chars > 0) && (line[0] == '#')) {
             number_of_chars = getline(&line, &line_buffer_size, image_file);
@@ -153,7 +154,8 @@ void read_pgm_image(unsigned char **world, int *maxval, long *local_size, long *
             return;
         }
         if (debug_info > 1)
-            printf("DEBUG2 - read_pgm_image - HEADER END number_of_chars=%zu, line=%s, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu\n", number_of_chars, line, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars);
+            printf("DEBUG2 - read_pgm_image - HEADER END number_of_chars=%zu, line=%s, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu\n"
+                   , number_of_chars, line, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars);
         fclose(image_file);
         free(line);
     }
@@ -161,8 +163,8 @@ void read_pgm_image(unsigned char **world, int *maxval, long *local_size, long *
     MPI_Bcast(world_size, 1, MPI_LONG, 0, MPI_COMM_WORLD);
     calculate_sizes_indexes(mpi_rank, mpi_size, *world_size, &first_row, &last_row, local_size);
     if (debug_info > 1)
-        printf("DEBUG2 - read_pgm_image - mpi_rank=%d/%d *world_size=%ld, first_row=%ld, last_row=%ld, local_size=%ld\n", mpi_rank, mpi_size, *world_size,
-               first_row, last_row, *local_size);
+        printf("DEBUG2 - read_pgm_image - mpi_rank=%d/%d *world_size=%ld, first_row=%ld, last_row=%ld, local_size=%ld\n", mpi_rank, mpi_size, *world_size
+               , first_row, last_row, *local_size);
     int color_depth = 1 + (*maxval > 255);
     MPI_File fh;
     MPI_File_open(MPI_COMM_WORLD, image_filename, MPI_MODE_RDONLY, MPI_INFO_NULL, &fh);
