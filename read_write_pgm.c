@@ -122,7 +122,7 @@ void read_pgm_image(unsigned char **world, int *maxval, long *local_size, long *
             printf("DEBUG2 - read_pgm_image - magic_number_p5=%s, number_of_matches=%zu, number_of_read_chars=%zu\n", magic_number_p5, number_of_matches
                    , number_of_read_chars);
         char *line;
-        size_t line_buffer_size = sizeof("# " PGM_COMMENT "\n");
+        size_t line_buffer_size = strlen("# " PGM_COMMENT "\n");
         line = (char *) malloc(line_buffer_size * sizeof(char));
         if (line == NULL) {
             perror("Unable to allocate buffer");

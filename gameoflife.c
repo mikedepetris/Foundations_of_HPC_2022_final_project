@@ -68,8 +68,11 @@ char is_defined_filename = 0;
 void get_arguments_util(int argc, char *argv[]) {
     char *optstring = "D::hirk:f:n:e:s:";
     int c;
+    printf(" ");
     while ((c = getopt(argc, argv, optstring)) != -1) {
-        //printf("DEBUG - getopt c=%c\n", c);
+//        printf("DEBUG - getopt c=%c\n", c);
+//        if (optarg)
+//            printf("DEBUG - optarg=%s\n", optarg);
         switch (c) {
             case 'D':
                 debug_info = 1;
@@ -99,7 +102,7 @@ void get_arguments_util(int argc, char *argv[]) {
                 //printf("DEBUG - case 'e': evolution_type=%d\n", evolution_type);
                 break;
             case 'f':
-                filename = (char *) malloc(sizeof(optarg) + 1);
+                filename = (char *) malloc(strlen(optarg) + 1);
                 sprintf(filename, "%s", optarg);
                 is_defined_filename = 1;
                 break;
@@ -185,6 +188,8 @@ int main(int argc, char *argv[]) {
         if (debug_info > 0 && mpi_rank == 0)
             printf("DEBUG1 - initialization request - END\n");
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_STATIC) {
+        if (debug_info > 1)
+            printf("DEBUG2 - run_static request\n");
         run_static(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, debug_info);
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_ORDERED) {
         printf("Run request with EVOLUTION_ORDERED of %d steps of filename=%s\n", number_of_steps, filename);

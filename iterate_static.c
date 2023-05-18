@@ -13,6 +13,26 @@
 //#define DEBUG_ADVANCED
 //#define DEBUG_ADVANCED_B
 
+void strreplace(char *string, const char *find, const char *replaceWith) {
+    if (strstr(string, find) != NULL) {
+        char *temporaryString = malloc(strlen(strstr(string, find) + strlen(find)) + 1);
+        strcpy(temporaryString, strstr(string, find) + strlen(find));    //Create a string with what's after the replaced part
+        *strstr(string, find) = '\0';    //Take away the part to replace and the part after it in the initial string
+        strcat(string, replaceWith);    //Concat the first part of the string with the part to replace with
+        strcat(string, temporaryString);    //Concat the first part of the string with the part after the replaced part
+        free(temporaryString);    //Free the memory to avoid memory leaks
+    }
+}
+
+char *replace_char(char *str, char find, char replace) {
+    char *current_pos = strchr(str, find);
+    while (current_pos) {
+        *current_pos = replace;
+        current_pos = strchr(current_pos, find);
+    }
+    return str;
+}
+
 void update_parallel_static(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, unsigned char *world_next
                             , long long world_size, long local_size, int iteration_step) {
 #pragma omp master
@@ -285,8 +305,7 @@ void iterate_static_serial(const int mpi_rank, const int mpi_size, unsigned char
                 // save snap if it's time
                 if (iteration_step % number_of_steps_between_file_dumps == 0) {
                     sprintf(image_filename_suffix, "_%05d", iteration_step);
-                    write_pgm_image_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC
-                                          , image_filename_suffix
+                    write_pgm_image_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, image_filename_suffix
                                           , FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
                     if (debug_info > 1)
                         printf("DEBUG2 - iterate_static_serial 1 - snap written mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size
@@ -360,6 +379,7 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
         directoryname = malloc(strlen(filename) + strlen(string_with_timestamp) + 1);
         strcpy(directoryname, filename);
         strcat(directoryname, string_with_timestamp);
+        replace_char(directoryname, '/', '_');
         free(string_with_timestamp);
         if (debug_info > 0)
             printf("DEBUG1 - run_static 1b - rank %d/%d, strlen(directoryname)=%lu, directoryname=%s\n", mpi_rank, mpi_size, strlen(directoryname)
