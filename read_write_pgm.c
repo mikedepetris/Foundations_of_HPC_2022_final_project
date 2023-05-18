@@ -69,7 +69,7 @@ void write_pgm_image_chunk(unsigned char *world_local, int maxval, long world_si
     if (debug_info > 0)
         printf("DEBUG1 - write_pgm_image_chunk - 0 - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
     if (chunk_file == NULL) {
-        printf("ERROR in write_pgm_image_chunk - the file %s could not be opened", file_name);
+        printf("ERROR in write_pgm_image_chunk - the file %s could not be opened\n", file_name);
         exit(1);
     }
     if (debug_info > 0)

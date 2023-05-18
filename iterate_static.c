@@ -10,8 +10,8 @@
 #define IMAGE_FILENAME_PREFIX_SNAP_STATIC "snap_static"
 #define IMAGE_FILENAME_PREFIX_FINAL_STATIC "final_static"
 
-#define DEBUG_ADVANCED
-#define DEBUG_ADVANCED_B
+//#define DEBUG_ADVANCED
+//#define DEBUG_ADVANCED_B
 
 void update_parallel_static(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, unsigned char *world_next
                             , long long world_size, long local_size, int iteration_step) {
@@ -132,11 +132,22 @@ void update_parallel_static(int mpi_rank, int mpi_size, MPI_Status *mpi_status, 
         printf("DEBUGA - update_parallel_static 4 - mpi_rank=%d/%d, iteration_step=%d, i/local_size=%03lld/%ld x=%03ld, y=%03ld sum=%d\n", mpi_rank, mpi_size
                , iteration_step, i, local_size, x, y, sum);
 #endif
+        // default is: cell will die
         world_next[i] = DEAD;
-        int cond = sum / DEAD;
-        //Update the cell
-        if (cond >= 5 & cond <= 6)
+        int number_of_dead_neighbours = sum / DEAD; // 8-sum/255
+        // https://en.wikipedia.org/wiki/Conway's_Game_of_Life
+        // Any live cell with two or three live neighbours survives.    : 1+2=3 1+3=4 means 8-3=5 8-4=4 dead
+        // Any dead cell with three live neighbours becomes a live cell.: 3           means 8-3=5       dead
+        // All other live cells die in the next generation. Similarly, all other dead cells stay dead.
+        //if (number_of_dead_neighbours >= 5 & number_of_dead_neighbours <= 6)
+        //    world_next[i] = ALIVE;
+        if (world_local[y * world_size + x] == ALIVE) { // if actual cell is alive
+            if (number_of_dead_neighbours == 4 || number_of_dead_neighbours == 5)
+                world_next[i] = ALIVE;
+        } else // actual cell is dead
+        if (number_of_dead_neighbours == 5) {
             world_next[i] = ALIVE;
+        }
     }
 #pragma omp barrier
 }
@@ -174,22 +185,34 @@ void update_serial_static(unsigned char *world, unsigned char *world_next, long 
         long y_prev = y - 1;
         long y_next = y + 1;
         // Determine the number of dead neighbours
-        int sum = world[y_prev * world_size + x_prev] +
-                  world[y_prev * world_size + x] +
-                  world[y_prev * world_size + x_next] +
-                  world[y * world_size + x_prev] +
-                  world[y * world_size + x_next] +
-                  world[y_next * world_size + x_prev] +
-                  world[y_next * world_size + x] +
-                  world[y_next * world_size + x_next];
+        int sum = world[y_prev * world_size + x_prev] + // top left
+                  world[y_prev * world_size + x] +      // top
+                  world[y_prev * world_size + x_next] + // top right
+                  world[y * world_size + x_prev] +      // left
+                  world[y * world_size + x_next] +      // right
+                  world[y_next * world_size + x_prev] + // low left
+                  world[y_next * world_size + x] +      // low
+                  world[y_next * world_size + x_next];  // low right
 #ifdef DEBUG_ADVANCED
         printf("DEBUGA - update_serial_static 4 - iteration_step=%d, i/world_size=%03lld/%ld x=%03ld, y=%03ld sum=%d\n", iteration_step, i, world_size, x, y
                , sum);
 #endif
+        // default is: cell will die
         world_next[i] = DEAD;
-        int cond = sum / DEAD;
-        if (cond >= 5 & cond <= 6)
+        int number_of_dead_neighbours = sum / DEAD; // 8-sum/255
+        // https://en.wikipedia.org/wiki/Conway's_Game_of_Life
+        // Any live cell with two or three live neighbours survives.    : 1+2=3 1+3=4 means 8-3=5 8-4=4 dead
+        // Any dead cell with three live neighbours becomes a live cell.: 3           means 8-3=5       dead
+        // All other live cells die in the next generation. Similarly, all other dead cells stay dead.
+        //if (number_of_dead_neighbours >= 5 & number_of_dead_neighbours <= 6)
+        //    world_next[i] = ALIVE;
+        if (world[y * world_size + x] == ALIVE) { // if actual cell is alive
+            if (number_of_dead_neighbours == 4 || number_of_dead_neighbours == 5)
+                world_next[i] = ALIVE;
+        } else // actual cell is dead
+        if (number_of_dead_neighbours == 5) {
             world_next[i] = ALIVE;
+        }
     }
 }
 
@@ -209,9 +232,11 @@ void iterate_static_parallel(const int mpi_rank, const int mpi_size, unsigned ch
     {
         for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_static_parallel 0 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num()
+                printf("DEBUG2 - iterate_static_parallel 0 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size
+                       , omp_get_thread_num()
                        , omp_get_max_threads(), iteration_step, number_of_steps);
-            update_parallel_static(mpi_rank, mpi_size, mpi_status, mpi_request, world_local_actual, world_local_next, world_size, local_size, iteration_step);
+            update_parallel_static(mpi_rank, mpi_size, mpi_status, mpi_request, world_local_actual, world_local_next, world_size, local_size
+                                   , iteration_step);
             // save snap if it's time
             if (iteration_step % number_of_steps_between_file_dumps == 0) {
                 sprintf(image_filename_suffix, "_%05d", iteration_step);
@@ -226,7 +251,8 @@ void iterate_static_parallel(const int mpi_rank, const int mpi_size, unsigned ch
             world_local_actual = world_local_next;
             world_local_next = temp;
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_static_parallel 2 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num()
+                printf("DEBUG2 - iterate_static_parallel 2 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size
+                       , omp_get_thread_num()
                        , omp_get_max_threads(), iteration_step, number_of_steps);
         }
     }
@@ -259,7 +285,8 @@ void iterate_static_serial(const int mpi_rank, const int mpi_size, unsigned char
                 // save snap if it's time
                 if (iteration_step % number_of_steps_between_file_dumps == 0) {
                     sprintf(image_filename_suffix, "_%05d", iteration_step);
-                    write_pgm_image_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, image_filename_suffix
+                    write_pgm_image_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC
+                                          , image_filename_suffix
                                           , FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
                     if (debug_info > 1)
                         printf("DEBUG2 - iterate_static_serial 1 - snap written mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size
@@ -338,7 +365,7 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
                    , directoryname);
         // Broadcast the string to all other processes
         if (mpi_size > 1)
-            MPI_Bcast(directoryname, (int) strlen(directoryname), MPI_CHAR, 0, MPI_COMM_WORLD);
+            MPI_Bcast(directoryname, (int) strlen(directoryname) + 1, MPI_CHAR, 0, MPI_COMM_WORLD);
         create_directory(directoryname, debug_info);
     } else {
         // Other processes
@@ -346,7 +373,8 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
         directoryname = malloc(strlen(message) + 1);
         strcpy(directoryname, message);
         if (debug_info > 1)
-            printf("DEBUG2 - run_static 1c - rank %d/%d, directoryname=%s\n", mpi_rank, mpi_size, directoryname);
+            printf("DEBUG2 - run_static 1c - rank %d/%d, LEN=%lu directoryname=%s, LEN=%lu message=%s\n", mpi_rank, mpi_size, strlen(directoryname)
+                   , directoryname, strlen(message), message);
     }
 
     //image_filename_prefix_snap_static = malloc(strlen(filename) + strlen(string_with_timestamp) + 1 + strlen(filename) + 1);
@@ -379,7 +407,8 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
         iterate_static_serial(mpi_rank, mpi_size, &world_local, world_size, local_size, number_of_steps, number_of_steps_between_file_dumps, directoryname
                               , &mpi_status, &mpi_request, debug_info);
     if (debug_info > 1)
-        printf("DEBUG2 - run_static 4 - ITERATED - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, directoryname=%s, filename=%s\n", mpi_rank, mpi_size
+        printf("DEBUG2 - run_static 4 - ITERATED - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, directoryname=%s, filename=%s\n", mpi_rank
+               , mpi_size
                , maxval, local_size, world_size, directoryname, filename);
     // wait for all iterations to complete
     MPI_Barrier(MPI_COMM_WORLD);
@@ -428,7 +457,8 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
                        , directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, mpi_size, mpi_rank, iteration_step, "", FILE_EXTENSION_PGMPART);
             for (int i = 0; i < mpi_size; i++) {
                 if (debug_info > 1)
-                    printf("DEBUG2 - run_static 5a5: LEN=%lu %s/%s%03d_%03d_%05d%s.%s\n", snap_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC
+                    printf("DEBUG2 - run_static 5a5: LEN=%lu %s/%s%03d_%03d_%05d%s.%s\n", snap_chunks_fn_len, directoryname
+                           , IMAGE_FILENAME_PREFIX_SNAP_STATIC
                            , mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
                 snap_chunks_fn[i] = (char *) malloc(snap_chunks_fn_len);
                 sprintf(snap_chunks_fn[i], "%s/%s%03d_%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, mpi_size, i, iteration_step, ""
