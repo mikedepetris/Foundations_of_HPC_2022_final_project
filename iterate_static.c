@@ -203,6 +203,7 @@ void iterate_static_parallel(const int mpi_rank, const int mpi_size, unsigned ch
     unsigned char *world_local_next = (unsigned char *) malloc(world_size * (local_size + 2) * sizeof(unsigned char));
     char *image_filename_suffix = (char *) malloc(60);
     // NOTE: can't use omp parallel here, iteration can't go on for each chunk
+    // TODO: chunk size passed as INT by MPI, needs better implementation to work with bigger sizes
     // each MPI process exchanges data with other segments of same iteration
     // it's ok for serial only (-np 1)
     {
@@ -357,7 +358,7 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
     if (debug_info > 0)
         printf("DEBUG1 - run_static 2 - rank %d/%d directoryname=%s\n", mpi_rank, mpi_size, directoryname);
 
-    /* Read the world_local:
+    /* Read the local chunk world data from file:
       - Calculate the number of local rows
       - Allocate the memory for the local world_local (world_size*(local_rows+2)).
         The first row is used to store the last row of the previous thread (mpi_size-1 if mpi_rank == 0)
