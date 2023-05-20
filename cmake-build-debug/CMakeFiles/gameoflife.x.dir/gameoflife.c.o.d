@@ -59,4 +59,5 @@ CMakeFiles/gameoflife.x.dir/gameoflife.c.o: \
  /usr/lib/x86_64-linux-gnu/openmpi/include/mpi.h \
  /usr/lib/x86_64-linux-gnu/openmpi/include/mpi_portable_platform.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h /usr/include/string.h \
- /usr/include/strings.h /mnt/c/dev/HPC/gameoflife/read_write_pgm.h
+ /usr/include/strings.h /mnt/c/dev/HPC/gameoflife/read_write_pgm.h \
+ /mnt/c/dev/HPC/gameoflife/gameoflife.h

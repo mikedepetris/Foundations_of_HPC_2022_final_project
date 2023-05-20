@@ -13,27 +13,7 @@
 //#define DEBUG_ADVANCED
 //#define DEBUG_ADVANCED_B
 
-void strreplace(char *string, const char *find, const char *replaceWith) {
-    if (strstr(string, find) != NULL) {
-        char *temporaryString = malloc(strlen(strstr(string, find) + strlen(find)) + 1);
-        strcpy(temporaryString, strstr(string, find) + strlen(find));    //Create a string with what's after the replaced part
-        *strstr(string, find) = '\0';    //Take away the part to replace and the part after it in the initial string
-        strcat(string, replaceWith);    //Concat the first part of the string with the part to replace with
-        strcat(string, temporaryString);    //Concat the first part of the string with the part after the replaced part
-        free(temporaryString);    //Free the memory to avoid memory leaks
-    }
-}
-
-char *replace_char(char *str, char find, char replace) {
-    char *current_pos = strchr(str, find);
-    while (current_pos) {
-        *current_pos = replace;
-        current_pos = strchr(current_pos, find);
-    }
-    return str;
-}
-
-void update_parallel_static(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, unsigned char *world_next
+void update_static_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, unsigned char *world_next
                             , long long world_size, long local_size, int iteration_step) {
 #pragma omp master
     {
@@ -128,14 +108,14 @@ void update_parallel_static(int mpi_rank, int mpi_size, MPI_Status *mpi_status, 
         printf("DEBUGB - update_parallel_static 2 - mpi_rank=%d/%d, iteration_step=%d, i/local_size=%lld/%ld\n", mpi_rank, mpi_size, iteration_step, i
                , local_size);
 #endif
-        //Calculate position of the actual cell
+        // actual cell coordinates
         long x = i % world_size;
         long y = i / world_size;
 #ifdef DEBUG_ADVANCED_B
         printf("DEBUGB - update_parallel_static 3 - mpi_rank=%d/%d, iteration_step=%d, i/local_size=%03lld/%ld x=%03ld, y=%03ld\n", mpi_rank, mpi_size
                , iteration_step, i, local_size, x, y);
 #endif
-        // Calculate the neighbours
+        // neighbours of actual cell
         long x_prev = x - 1 >= 0 ? x - 1 : world_size - 1;
         long x_next = x + 1 < world_size ? x + 1 : 0;
         long y_prev = y - 1;
@@ -173,7 +153,7 @@ void update_parallel_static(int mpi_rank, int mpi_size, MPI_Status *mpi_status, 
 #pragma omp barrier
 }
 
-void update_serial_static(unsigned char *world, unsigned char *world_next, long world_size, int iteration_step) {
+void update_static_serial(unsigned char *world, unsigned char *world_next, long world_size, int iteration_step) {
 #ifdef DEBUG_ADVANCED
     printf("DEBUGA - update_serial_static 0 - world_size=%ld, world_size * (world_size + 1)=%ld\n", world_size, world_size * (world_size + 1));
 #endif
@@ -197,10 +177,10 @@ void update_serial_static(unsigned char *world, unsigned char *world_next, long 
 #endif
 #pragma omp for
     for (long long i = world_size; i < world_size * (world_size + 1); i++) {
-        // Calculate position of the actual cell
+        // actual cell coordinates
         long x = i % world_size;
         long y = i / world_size;
-        //Calculate the neighbours
+        // neighbours of actual cell
         long x_prev = x - 1 >= 0 ? x - 1 : world_size - 1;
         long x_next = x + 1 < world_size ? x + 1 : 0;
         long y_prev = y - 1;
@@ -237,9 +217,9 @@ void update_serial_static(unsigned char *world, unsigned char *world_next, long 
     }
 }
 
-void iterate_static_parallel(const int mpi_rank, const int mpi_size, unsigned char **world_local, const long world_size, const long local_size
-                             , const int number_of_steps, const int number_of_steps_between_file_dumps, const char *directoryname, MPI_Status *mpi_status
-                             , MPI_Request *mpi_request, int debug_info) {
+void iterate_static_parallel(const int mpi_rank, const int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char **world_local
+                             , const long world_size, const long local_size, const int number_of_steps, const int number_of_steps_between_file_dumps
+                             , const char *directoryname, int debug_info) {
     if (debug_info > 0)
         printf("DEBUG1 - iterate_static_parallel - BEGIN - mpi_rank=%d/%d, world_size=%ld\n", mpi_rank, mpi_size, world_size);
     unsigned char *world_local_actual = *world_local;
@@ -252,12 +232,10 @@ void iterate_static_parallel(const int mpi_rank, const int mpi_size, unsigned ch
     {
         for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_static_parallel 0 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size
-                       , omp_get_thread_num()
+                printf("DEBUG2 - iterate_static_parallel 0 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num()
                        , omp_get_max_threads(), iteration_step, number_of_steps);
-            update_parallel_static(mpi_rank, mpi_size, mpi_status, mpi_request, world_local_actual, world_local_next, world_size, local_size
-                                   , iteration_step);
-            // save snap if it's time
+            update_static_parallel(mpi_rank, mpi_size, mpi_status, mpi_request, world_local_actual, world_local_next, world_size, local_size, iteration_step);
+            // when needed save snapshot
             if (iteration_step % number_of_steps_between_file_dumps == 0) {
                 sprintf(image_filename_suffix, "_%05d", iteration_step);
                 write_pgm_image_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, image_filename_suffix
@@ -271,8 +249,7 @@ void iterate_static_parallel(const int mpi_rank, const int mpi_size, unsigned ch
             world_local_actual = world_local_next;
             world_local_next = temp;
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_static_parallel 2 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size
-                       , omp_get_thread_num()
+                printf("DEBUG2 - iterate_static_parallel 2 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num()
                        , omp_get_max_threads(), iteration_step, number_of_steps);
         }
     }
@@ -284,9 +261,9 @@ void iterate_static_parallel(const int mpi_rank, const int mpi_size, unsigned ch
         printf("DEBUG2 - iterate_static_parallel END - mpi_rank=%d/%d, omp_rank=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads());
 }
 
-void iterate_static_serial(const int mpi_rank, const int mpi_size, unsigned char **world_local, const long world_size, const long local_size
-                           , const int number_of_steps, const int number_of_steps_between_file_dumps, const char *directoryname, MPI_Status *mpi_status
-                           , MPI_Request *mpi_request, int debug_info) {
+void iterate_static_serial(const int mpi_rank, const int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char **world_local
+                           , const long world_size, const long local_size, const int number_of_steps, const int number_of_steps_between_file_dumps
+                           , const char *directoryname, int debug_info) {
     if (debug_info > 0)
         printf("DEBUG1 - iterate_static_serial - BEGIN - mpi_rank=%d/%d, world_size=%ld\n", mpi_rank, mpi_size, world_size);
     unsigned char *world_local_actual = *world_local;
@@ -299,10 +276,10 @@ void iterate_static_serial(const int mpi_rank, const int mpi_size, unsigned char
             if (debug_info > 1)
                 printf("DEBUG2 - iterate_static_serial 0 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num()
                        , omp_get_max_threads(), iteration_step, number_of_steps);
-            update_serial_static(world_local_actual, world_local_next, world_size, iteration_step);
+            update_static_serial(world_local_actual, world_local_next, world_size, iteration_step);
 #pragma omp master
             {
-                // save snap if it's time
+                // when needed save snapshot
                 if (iteration_step % number_of_steps_between_file_dumps == 0) {
                     sprintf(image_filename_suffix, "_%05d", iteration_step);
                     write_pgm_image_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, image_filename_suffix
@@ -345,7 +322,7 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
     int mpi_provided_thread_level;
     MPI_Init_thread(argc, argv, MPI_THREAD_FUNNELED, &mpi_provided_thread_level);
     if (mpi_provided_thread_level < MPI_THREAD_FUNNELED) {
-        printf("a problem arised asking for MPI_THREAD_FUNNELED level\n");
+        printf("a problem occurred asking for MPI_THREAD_FUNNELED level\n");
         MPI_Finalize();
         exit(1);
     }
@@ -361,7 +338,6 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
         printf("DEBUG1 - run_static BEGIN - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
 
     if (mpi_rank == 0) {
-        //char *image_filename_prefix_snap_static;
         // Concatenate: directory name + timestamp
         size_t timestamp_size = strlen("_static_2023-02-13_23:37:01");
         char *string_with_timestamp = malloc(timestamp_size + 1);
@@ -371,8 +347,6 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
         unsigned long len = strftime(string_with_timestamp, timestamp_size + 1, "_static_%Y-%m-%d_%H_%M_%S", timenow);
         if (debug_info > 0)
             printf("DEBUG1 - run_static 1 - rank %d/%d, len=%ld string_with_timestamp=%s\n", mpi_rank, mpi_size, len, string_with_timestamp);
-        //image_filename_prefix_snap_static = (char *) malloc(60);
-        //sprintf(image_filename_prefix_snap_static, "snap/snap_ordered_");
         if (debug_info > 0)
             printf("DEBUG1 - run_static 1a - rank %d/%d, strlen(filename) + strlen(string_with_timestamp) + 1=%lu\n", mpi_rank, mpi_size,
                     strlen(filename) + strlen(string_with_timestamp) + 1);
@@ -397,23 +371,17 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
             printf("DEBUG2 - run_static 1c - rank %d/%d, LEN=%lu directoryname=%s, LEN=%lu message=%s\n", mpi_rank, mpi_size, strlen(directoryname)
                    , directoryname, strlen(message), message);
     }
-
-    //image_filename_prefix_snap_static = malloc(strlen(filename) + strlen(string_with_timestamp) + 1 + strlen(filename) + 1);
-    //strcpy(image_filename_prefix_snap_static, filename);
-    //strcat(image_filename_prefix_snap_static, string_with_timestamp);
-    //strcat(image_filename_prefix_snap_static, "/");
-    //strcat(image_filename_prefix_snap_static, filename);
     MPI_Barrier(MPI_COMM_WORLD);
     if (debug_info > 0)
         printf("DEBUG1 - run_static 2 - rank %d/%d directoryname=%s\n", mpi_rank, mpi_size, directoryname);
 
-    /* Read the local chunk world data from file:
+    /* Read the local data chunk of the world from file:
       - Calculate the number of local rows
       - Allocate memory for the local world (world_size*(local_rows+2)).
         The first row is used to store the last row of the previous thread (mpi_size-1 if mpi_rank == 0)
         and the last row is used to store the first row of the next thread process.
         In the case of a single MPI Task the first row will store the last row
-        of the world_local and the last row will store the first row of the world_local
+        of the world and the last row will store the first row of the world
       - Read the values: the first value is stored in world_local[world_size]
     */
     read_pgm_image(&world_local, &maxval, &local_size, &world_size, filename, mpi_rank, mpi_size, debug_info);
@@ -422,14 +390,13 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
                , world_size, filename);
 
     if (mpi_size > 1)
-        iterate_static_parallel(mpi_rank, mpi_size, &world_local, world_size, local_size, number_of_steps, number_of_steps_between_file_dumps, directoryname
-                                , &mpi_status, &mpi_request, debug_info);
+        iterate_static_parallel(mpi_rank, mpi_size, &mpi_status, &mpi_request, &world_local, world_size, local_size, number_of_steps
+                                , number_of_steps_between_file_dumps, directoryname, debug_info);
     else
-        iterate_static_serial(mpi_rank, mpi_size, &world_local, world_size, local_size, number_of_steps, number_of_steps_between_file_dumps, directoryname
-                              , &mpi_status, &mpi_request, debug_info);
+        iterate_static_serial(mpi_rank, mpi_size, &mpi_status, &mpi_request, &world_local, world_size, local_size, number_of_steps
+                              , number_of_steps_between_file_dumps, directoryname, debug_info);
     if (debug_info > 1)
-        printf("DEBUG2 - run_static 4 - ITERATED - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, directoryname=%s, filename=%s\n", mpi_rank
-               , mpi_size
+        printf("DEBUG2 - run_static 4 - ITERATED - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, directoryname=%s, filename=%s\n", mpi_rank, mpi_size
                , maxval, local_size, world_size, directoryname, filename);
     // wait for all iterations to complete
     MPI_Barrier(MPI_COMM_WORLD);
@@ -552,6 +519,8 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
             free(final_chunks_fn[i]); // TODO: verify
     }
 
+    if (mpi_rank == 0)
+        printf("mpi=%d, omp=%d, total time=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start);
     if (mpi_rank == 0 && debug_info > 0)
         //DEBUG1 - run_static 6 - mpi=2, omp=2, time taken=0.007455
         printf("DEBUG1 - run_static 6 - mpi=%d, omp=%d, time taken=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start);

@@ -70,7 +70,8 @@ CMakeFiles/gameoflife.x.dir/gameoflife.c.o: ../gameoflife.c \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
   /usr/include/string.h \
   /usr/include/strings.h \
-  ../read_write_pgm.h
+  ../read_write_pgm.h \
+  ../gameoflife.h
 
 CMakeFiles/gameoflife.x.dir/initialize.c.o: ../initialize.c \
   /usr/include/stdc-predef.h \
@@ -204,6 +205,8 @@ CMakeFiles/gameoflife.x.dir/iterate_ordered.c.o: ../iterate_ordered.c \
   /usr/lib/x86_64-linux-gnu/openmpi/include/mpi.h \
   /usr/lib/x86_64-linux-gnu/openmpi/include/mpi_portable_platform.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
   ../read_write_pgm.h \
   ../gameoflife.h
 

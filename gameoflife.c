@@ -8,12 +8,7 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include "initialize.h"
-
-void run_static(char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int debug_info);
-
-void run_ordered(char *filename, int times, int s, int *argc, char **argv[]);
-
-void run_wave(char *filename, int times, int s, int *argc, char **argv[]);
+#include "gameoflife.h"
 
 #define DEFAULT_WORLD_SIZE 10000
 #define DEFAULT_NUMBER_OF_STEPS 100
@@ -29,8 +24,6 @@ void run_wave(char *filename, int times, int s, int *argc, char **argv[]);
 #define EVOLUTION_WAVE 2
 #define EVOLUTION_BLACK_WHITE 3
 
-#define CPU_TIME (clock_gettime( CLOCK_MONOTONIC, &ts ), (double)ts.tv_sec + (double)ts.tv_nsec * 1e-9)
-
 /**
  * map of the command line arguments to vars
  *    -i initialize a playground
@@ -39,7 +32,7 @@ void run_wave(char *filename, int times, int s, int *argc, char **argv[]);
  *    -e [0|1] evolution type; 0 "ordered", 1 "static", 2 "wave", 3 "black-white"
  *    -f string the name of the file to be either read or written
  *    -n num. value number of steps to be calculated
- *    -s num. value every how many steps a number_of_steps_between_file_dumps of the system is saved on a file
+ *    -s num. value every how many steps a dump of the system is saved on a file
  *       (0 meaning only at the end)
  *
  * arg_action_to_take: action to be performed (HELP, INIT or RUN)
@@ -192,18 +185,19 @@ int main(int argc, char *argv[]) {
             printf("DEBUG2 - run_static request\n");
         run_static(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, debug_info);
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_ORDERED) {
-        printf("Run request with EVOLUTION_ORDERED of %d steps of filename=%s\n", number_of_steps, filename);
-        run_ordered(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv);
+        if (debug_info > 1)
+            printf("Run request with EVOLUTION_ORDERED of %d steps of filename=%s\n", number_of_steps, filename);
+        run_ordered(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, debug_info);
         if (debug_info > 0)
             printf("DEBUG1 - run EVOLUTION_ORDERED request - END\n");
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_WAVE) {
         printf("Run request with EVOLUTION_WAVE of %d steps of filename=%s\n", number_of_steps, filename);
-        run_wave(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv);
+        run_wave(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, debug_info);
         if (debug_info > 0)
             printf("DEBUG1 - run EVOLUTION_WAVE request - END\n");
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_BLACK_WHITE) {
         printf("Run request with EVOLUTION_BLACK_WHITE evolution of %d steps of filename=%s\n", number_of_steps, filename);
-        //TODO: run_bw(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv);
+        //TODO: run_bw(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, debug_info);
         if (debug_info > 0)
             printf("DEBUG1 - run EVOLUTION_BLACK_WHITE request - END\n");
     }
@@ -214,4 +208,24 @@ int main(int argc, char *argv[]) {
         free(filename);
     if (debug_info > 1)
         printf("DEBUG2 - END\n");
+}
+
+void strreplace(char *string, const char *find, const char *replaceWith) {
+    if (strstr(string, find) != NULL) {
+        char *temporaryString = malloc(strlen(strstr(string, find) + strlen(find)) + 1);
+        strcpy(temporaryString, strstr(string, find) + strlen(find));    //Create a string with what's after the replaced part
+        *strstr(string, find) = '\0';    //Take away the part to replace and the part after it in the initial string
+        strcat(string, replaceWith);    //Concat the first part of the string with the part to replace with
+        strcat(string, temporaryString);    //Concat the first part of the string with the part after the replaced part
+        free(temporaryString);    //Free the memory to avoid memory leaks
+    }
+}
+
+char *replace_char(char *str, char find, char replace) {
+    char *current_pos = strchr(str, find);
+    while (current_pos) {
+        *current_pos = replace;
+        current_pos = strchr(current_pos, find);
+    }
+    return str;
 }

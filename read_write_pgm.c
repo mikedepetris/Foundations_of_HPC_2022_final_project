@@ -147,6 +147,7 @@ void read_pgm_image(unsigned char **world, int *maxval, long *local_size, long *
             printf("DEBUG2 - read_pgm_image - after skipping comments number_of_chars=%zu, number_of_read_chars=%zu\n", number_of_chars, number_of_read_chars);
         long temp;
         if (number_of_chars > 0) {
+            // maxval is used to store unused width side, we consider square world only world_size x world_size
             number_of_matches = sscanf(line, "%ld%*c%ld%*c%d%*c", &temp, world_size, maxval);
             if (number_of_matches < 3)
                 number_of_chars = getline(&line, &line_buffer_size, image_file);
@@ -158,13 +159,20 @@ void read_pgm_image(unsigned char **world, int *maxval, long *local_size, long *
             return;
         }
         if (debug_info > 1)
-            printf("DEBUG2 - read_pgm_image - HEADER END number_of_chars=%zu, line=%s, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu\n"
-                   , number_of_chars, line, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars);
+//            printf("DEBUG2 - read_pgm_image - HEADER END "
+//                   "number_of_chars=%zu, line=%s, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu, "
+//                   "world_size=%ld, maxval=%d\n"
+//                   , number_of_chars, line, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars, *world_size, *maxval);
+            printf("DEBUG2 - read_pgm_image - HEADER END "
+                   "number_of_chars=%zu, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu, "
+                   "world_size=%ld, maxval=%d\n"
+                   , number_of_chars, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars, *world_size, *maxval);
         fclose(image_file);
         free(line);
     }
     MPI_Bcast(&number_of_read_chars, 1, MPI_LONG, 0, MPI_COMM_WORLD);
     MPI_Bcast(world_size, 1, MPI_LONG, 0, MPI_COMM_WORLD);
+    MPI_Bcast(maxval, 1, MPI_INT, 0, MPI_COMM_WORLD);
     calculate_sizes_indexes(mpi_rank, mpi_size, *world_size, &first_row, &last_row, local_size);
     if (debug_info > 1)
         printf("DEBUG2 - read_pgm_image - mpi_rank=%d/%d *world_size=%ld, first_row=%ld, last_row=%ld, local_size=%ld\n", mpi_rank, mpi_size, *world_size
