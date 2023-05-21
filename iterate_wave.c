@@ -10,7 +10,7 @@
 #ifndef RW_PGM
 #define RW_PGM
 
-void write_pgm_image_complete(void *image, int maxval, int xsize, int ysize, const char *image_name);
+double write_pgm_image_complete(void *image, int maxval, int xsize, int ysize, const char *image_name);
 
 #endif
 

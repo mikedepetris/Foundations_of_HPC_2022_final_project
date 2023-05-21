@@ -14,8 +14,8 @@
 
 #define CPU_TIME (clock_gettime( CLOCK_MONOTONIC, &ts ), (double)ts.tv_sec + (double)ts.tv_nsec * 1e-9)
 
-//#define TAG_0 0
-//#define TAG_1 1
+#define TAG_0 0
+#define TAG_1 1
 #define TAG_X 65365
 
 void strreplace(char *string, const char *find, const char *replaceWith);
