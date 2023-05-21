@@ -155,7 +155,9 @@ void update_ordered(unsigned char *world, unsigned char *world_prev, long world_
     }
 }
 
-void run_wave(char *filename, int times, int s, int *argc, char **argv[], int debug_info) {
+void run_wave(char *filename, int number_of_steps, int s, int *argc, char **argv[], int debug_info) {
+    printf("Run request with EVOLUTION_WAVE of %d steps of filename=%s\n", number_of_steps, filename);
+
     int omp_rank, omp_size;
     unsigned char *world;
 
@@ -186,7 +188,7 @@ void run_wave(char *filename, int times, int s, int *argc, char **argv[], int de
 
         copy_world(world, world_prev, world_size);
 
-        for (int i = 1; i <= times; i++) {
+        for (int i = 1; i <= number_of_steps; i++) {
             update_ordered(world, world_prev, world_size, next_update);
             if (i % s == 0) {
 #pragma omp master

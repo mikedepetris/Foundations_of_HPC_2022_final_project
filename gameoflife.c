@@ -61,7 +61,7 @@ char is_defined_filename = 0;
 void get_arguments_util(int argc, char *argv[]) {
     char *optstring = "D::hirk:f:n:e:s:";
     int c;
-    printf(" ");
+    //printf(" ");
     while ((c = getopt(argc, argv, optstring)) != -1) {
 //        printf("DEBUG - getopt c=%c\n", c);
 //        if (optarg)
@@ -191,12 +191,14 @@ int main(int argc, char *argv[]) {
         if (debug_info > 0)
             printf("DEBUG1 - run EVOLUTION_ORDERED request - END\n");
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_WAVE) {
-        printf("Run request with EVOLUTION_WAVE of %d steps of filename=%s\n", number_of_steps, filename);
+        if (debug_info > 1)
+            printf("Run request with EVOLUTION_WAVE of %d steps of filename=%s\n", number_of_steps, filename);
         run_wave(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, debug_info);
         if (debug_info > 0)
             printf("DEBUG1 - run EVOLUTION_WAVE request - END\n");
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_BLACK_WHITE) {
-        printf("Run request with EVOLUTION_BLACK_WHITE evolution of %d steps of filename=%s\n", number_of_steps, filename);
+        if (debug_info > 1)
+            printf("Run request with EVOLUTION_BLACK_WHITE evolution of %d steps of filename=%s\n", number_of_steps, filename);
         //TODO: run_bw(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, debug_info);
         if (debug_info > 0)
             printf("DEBUG1 - run EVOLUTION_BLACK_WHITE request - END\n");

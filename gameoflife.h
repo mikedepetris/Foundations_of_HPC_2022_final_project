@@ -26,6 +26,6 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
 
 void run_ordered(char *filename, int times, int s, int *argc, char **argv[], int debug_info);
 
-void run_wave(char *filename, int times, int s, int *argc, char **argv[], int debug_info);
+void run_wave(char *filename, int number_of_steps, int s, int *argc, char **argv[], int debug_info);
 
 #endif //GAMEOFLIFE_GAMEOFLIFE_H
