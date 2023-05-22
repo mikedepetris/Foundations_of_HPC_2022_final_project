@@ -403,7 +403,7 @@ double iterate_whiteblack_serial(const int mpi_rank, const int mpi_size, MPI_Sta
                     sprintf(image_filename_suffix, "_%05d", iteration_step);
                     t_io += write_pgm_image_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK
                                                   , image_filename_suffix
-                                                  , FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
+                                                  , FILE_EXTENSION_PGM, mpi_rank, mpi_size, debug_info);
                     if (debug_info > 1)
                         printf("DEBUG2 - iterate_whiteblack_serial 1 - snap written mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size
                                , omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
@@ -433,6 +433,9 @@ void run_whiteblack(char *filename, int number_of_steps, int number_of_steps_bet
 #define MAX_STRING_LENGTH 256
     char message[MAX_STRING_LENGTH];
     char *directoryname;
+    const unsigned char *file_extension_pgm = FILE_EXTENSION_PGM;
+    const unsigned char *file_extension_pgmpart = FILE_EXTENSION_PGMPART;
+    const unsigned char *partial_file_extension = file_extension_pgmpart; // default is partial chunk
     // chunk of the world_local for each MPI process
     unsigned char *world_local;
     long world_size = 0;
@@ -483,6 +486,8 @@ void run_whiteblack(char *filename, int number_of_steps, int number_of_steps_bet
         // Broadcast the string to all other processes
         if (mpi_size > 1)
             MPI_Bcast(directoryname, (int) strlen(directoryname) + 1, MPI_CHAR, 0, MPI_COMM_WORLD);
+        else
+            partial_file_extension = file_extension_pgm;
         t_io += create_directory(directoryname, debug_info);
     } else {
         // Other processes
@@ -524,7 +529,7 @@ void run_whiteblack(char *filename, int number_of_steps, int number_of_steps_bet
     // wait for all iterations to complete
     MPI_Barrier(MPI_COMM_WORLD);
     // write final iteration output
-    t_io += write_pgm_image_chunk(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK, "", FILE_EXTENSION_PGMPART
+    t_io += write_pgm_image_chunk(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK, "", partial_file_extension
                                   , mpi_rank
                                   , mpi_size, debug_info);
     MPI_Barrier(MPI_COMM_WORLD);
@@ -580,7 +585,7 @@ void run_whiteblack(char *filename, int number_of_steps, int number_of_steps_bet
             }
             if (debug_info > 0)
                 for (int i = 0; i < mpi_size; i++)
-                    printf("DEBUG1 - run_whiteblack 5a7:: %s\n", snap_chunks_fn[i]);
+                    printf("DEBUG1 - run_whiteblack 5a7: %s\n", snap_chunks_fn[i]);
             for (int i = 0; i < mpi_size; i++)
                 t_io += file_merge(snap_fn, snap_chunks_fn[i], debug_info); // TODO: manage error result
             // delete chunks but keep them in debug mode

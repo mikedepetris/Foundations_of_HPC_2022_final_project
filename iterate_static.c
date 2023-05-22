@@ -462,7 +462,7 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
             }
             if (debug_info > 0)
                 for (int i = 0; i < mpi_size; i++)
-                    printf("DEBUG1 - run_static 5a7:: %s\n", snap_chunks_fn[i]);
+                    printf("DEBUG1 - run_static 5a7: %s\n", snap_chunks_fn[i]);
             for (int i = 0; i < mpi_size; i++)
                 t_io += file_merge(snap_fn, snap_chunks_fn[i], debug_info); // TODO: manage error result
             // delete chunks but keep them in debug mode
