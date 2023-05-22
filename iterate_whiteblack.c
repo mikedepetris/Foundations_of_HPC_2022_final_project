@@ -269,15 +269,15 @@ void update_white_serial(unsigned char *world, unsigned char *world_next, long w
         world[world_size * (world_size + 1) + i] = world[world_size + i];
     }
 #ifdef DEBUG_ADVANCED_B
-//#pragma omp barrier
-    for (long long i = 0; i < world_size * (world_size + 2); i++) {
-        if (i % 16 == 0)
-            printf("DEBUGB - update_white_serial 1 - %08X: ", (unsigned int) i);
-        printf("%02X ", world[i]);
-        if (i % 16 == 15)
-            printf("\n");
-    }
-    printf("\n");
+    //#pragma omp barrier
+        for (long long i = 0; i < world_size * (world_size + 2); i++) {
+            if (i % 16 == 0)
+                printf("DEBUGB - update_white_serial 1 - %08X: ", (unsigned int) i);
+            printf("%02X ", world[i]);
+            if (i % 16 == 15)
+                printf("\n");
+        }
+        printf("\n");
 #endif
 //#pragma omp for
     // update even cells, white on the chessboard (cell 0,0 is white)
@@ -299,15 +299,15 @@ void update_black_serial(unsigned char *world, unsigned char *world_next, long w
         world[world_size * (world_size + 1) + i] = world[world_size + i];
     }
 #ifdef DEBUG_ADVANCED_B
-//#pragma omp barrier
-    for (long long i = 0; i < world_size * (world_size + 2); i++) {
-        if (i % 16 == 0)
-            printf("DEBUGB - update_white_serial 1 - %08X: ", (unsigned int) i);
-        printf("%02X ", world[i]);
-        if (i % 16 == 15)
-            printf("\n");
-    }
-    printf("\n");
+    //#pragma omp barrier
+        for (long long i = 0; i < world_size * (world_size + 2); i++) {
+            if (i % 16 == 0)
+                printf("DEBUGB - update_white_serial 1 - %08X: ", (unsigned int) i);
+            printf("%02X ", world[i]);
+            if (i % 16 == 15)
+                printf("\n");
+        }
+        printf("\n");
 #endif
 //#pragma omp for
     // update odd cells, black on the chessboard (cell 0,0 is white)

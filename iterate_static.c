@@ -265,8 +265,8 @@ double iterate_static_parallel(const int mpi_rank, const int mpi_size, MPI_Statu
 }
 
 double iterate_static_serial(const int mpi_rank, const int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char **world_local
-                           , const long world_size, const long local_size, const int number_of_steps, const int number_of_steps_between_file_dumps
-                           , const char *directoryname, int debug_info) {
+                             , const long world_size, const long local_size, const int number_of_steps, const int number_of_steps_between_file_dumps
+                             , const char *directoryname, int debug_info) {
     double t_io = 0;
     if (debug_info > 0)
         printf("DEBUG1 - iterate_static_serial - BEGIN - mpi_rank=%d/%d, world_size=%ld\n", mpi_rank, mpi_size, world_size);
@@ -286,8 +286,9 @@ double iterate_static_serial(const int mpi_rank, const int mpi_size, MPI_Status 
                 // when needed save snapshot
                 if (iteration_step % number_of_steps_between_file_dumps == 0) {
                     sprintf(image_filename_suffix, "_%05d", iteration_step);
-                    t_io += write_pgm_image_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, image_filename_suffix
-                                          , FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
+                    t_io += write_pgm_image_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC
+                                                  , image_filename_suffix
+                                                  , FILE_EXTENSION_PGM, mpi_rank, mpi_size, debug_info);
                     if (debug_info > 1)
                         printf("DEBUG2 - iterate_static_serial 1 - snap written mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size
                                , omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
@@ -317,6 +318,9 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
 #define MAX_STRING_LENGTH 256
     char message[MAX_STRING_LENGTH];
     char *directoryname;
+    const unsigned char *file_extension_pgm = FILE_EXTENSION_PGM;
+    const unsigned char *file_extension_pgmpart = FILE_EXTENSION_PGMPART;
+    const unsigned char *partial_file_extension = file_extension_pgmpart; // default is partial chunk
     // chunk of the world_local for each MPI process
     unsigned char *world_local;
     long world_size = 0;
@@ -367,6 +371,8 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
         // Broadcast the string to all other processes
         if (mpi_size > 1)
             MPI_Bcast(directoryname, (int) strlen(directoryname) + 1, MPI_CHAR, 0, MPI_COMM_WORLD);
+        else
+            partial_file_extension = file_extension_pgm;
         t_io += create_directory(directoryname, debug_info);
     } else {
         // Other processes
@@ -397,18 +403,19 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
 
     if (mpi_size > 1)
         t_io += iterate_static_parallel(mpi_rank, mpi_size, &mpi_status, &mpi_request, &world_local, world_size, local_size, number_of_steps
-                                , number_of_steps_between_file_dumps, directoryname, debug_info);
+                                        , number_of_steps_between_file_dumps, directoryname, debug_info);
     else
         t_io += iterate_static_serial(mpi_rank, mpi_size, &mpi_status, &mpi_request, &world_local, world_size, local_size, number_of_steps
-                              , number_of_steps_between_file_dumps, directoryname, debug_info);
+                                      , number_of_steps_between_file_dumps, directoryname, debug_info);
     if (debug_info > 1)
         printf("DEBUG2 - run_static 4 - ITERATED - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, directoryname=%s, filename=%s\n", mpi_rank, mpi_size
                , maxval, local_size, world_size, directoryname, filename);
     // wait for all iterations to complete
     MPI_Barrier(MPI_COMM_WORLD);
     // write final iteration output
-    t_io += write_pgm_image_chunk(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_FINAL_STATIC, "", FILE_EXTENSION_PGMPART, mpi_rank
-                          , mpi_size, debug_info);
+    t_io += write_pgm_image_chunk(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_FINAL_STATIC, "", partial_file_extension
+                                  , mpi_rank
+                                  , mpi_size, debug_info);
     MPI_Barrier(MPI_COMM_WORLD);
     // merge chunks of final output if needed
     // TODO: when size=1 raname changing extension removing "part"

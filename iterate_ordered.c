@@ -218,7 +218,7 @@ double iterate_ordered_serial(unsigned char *world, long world_size, int number_
         if (iteration_step % number_of_steps_between_file_dumps == 0) {
             sprintf(image_filename_suffix, "_%05d", iteration_step);
             t_io += write_pgm_image_chunk(world, 255, world_size, world_size, directoryname, image_filename_prefix, image_filename_suffix
-                                          , FILE_EXTENSION_PGMPART, 0, 1
+                                          , FILE_EXTENSION_PGM, 0, 1
                                           , debug_info);
         }
     }
@@ -232,6 +232,9 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
 #define MAX_STRING_LENGTH 256
     char message[MAX_STRING_LENGTH];
     char *directoryname;
+    const unsigned char *file_extension_pgm = FILE_EXTENSION_PGM;
+    const unsigned char *file_extension_pgmpart = FILE_EXTENSION_PGMPART;
+    const unsigned char *partial_file_extension = file_extension_pgmpart; // default is partial chunk
     // chunk of the world_local for each MPI process
     unsigned char *world_local;
     long world_size = 0;
@@ -282,6 +285,8 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
         // Broadcast the string to all other processes
         if (mpi_size > 1)
             MPI_Bcast(directoryname, (int) strlen(directoryname) + 1, MPI_CHAR, 0, MPI_COMM_WORLD);
+        else
+            partial_file_extension = file_extension_pgm;
         t_io += create_directory(directoryname, debug_info);
     } else {
         // Other processes
@@ -321,7 +326,7 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
     // wait for all iterations to complete
     MPI_Barrier(MPI_COMM_WORLD);
     // write final iteration output
-    t_io += write_pgm_image_chunk(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED, "", FILE_EXTENSION_PGMPART
+    t_io += write_pgm_image_chunk(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED, "", partial_file_extension
                                   , mpi_rank
                                   , mpi_size, debug_info);
     MPI_Barrier(MPI_COMM_WORLD);
