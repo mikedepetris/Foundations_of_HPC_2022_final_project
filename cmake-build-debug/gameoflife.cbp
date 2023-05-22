@@ -101,6 +101,9 @@
 		<Unit filename="/mnt/c/dev/HPC/gameoflife/iterate_wave.c">
 			<Option target="gameoflife.x"/>
 		</Unit>
+		<Unit filename="/mnt/c/dev/HPC/gameoflife/iterate_whiteblack.c">
+			<Option target="gameoflife.x"/>
+		</Unit>
 		<Unit filename="/mnt/c/dev/HPC/gameoflife/read_write_pgm.c">
 			<Option target="gameoflife.x"/>
 		</Unit>

@@ -6,4 +6,4 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fopenmp")
 #It is C settings only, C++ needs CMAKE_CXX_FLAGS
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fopenmp")
 
-add_executable(gameoflife.x gameoflife.c iterate_static.c initialize.c iterate_ordered.c iterate_wave.c read_write_pgm.c read_write_pgm.h initialize.h gameoflife.c gameoflife.h)
+add_executable(gameoflife.x gameoflife.c iterate_static.c initialize.c iterate_ordered.c iterate_wave.c read_write_pgm.c read_write_pgm.h initialize.h gameoflife.c gameoflife.h iterate_whiteblack.c)

@@ -22,7 +22,7 @@
 #define EVOLUTION_ORDERED 0
 #define EVOLUTION_STATIC 1
 #define EVOLUTION_WAVE 2
-#define EVOLUTION_BLACK_WHITE 3
+#define EVOLUTION_WHITEBLACK 3
 
 /**
  * map of the command line arguments to vars
@@ -37,7 +37,7 @@
  *
  * arg_action_to_take: action to be performed (HELP, INIT or RUN)
  * k: number of rows and columns of the image
- * e: evolution type (EVOLUTION_ORDERED, EVOLUTION_STATIC, EVOLUTION_WAVE, EVOLUTION_BLACK_WHITE)
+ * e: evolution type (EVOLUTION_ORDERED, EVOLUTION_STATIC, EVOLUTION_WAVE, EVOLUTION_WHITEBLACK)
  * f: name of the file to be read or written (REQUIRED!)
  * n: number of evolutions
  * s: save the image every "s" evolutions
@@ -196,12 +196,12 @@ int main(int argc, char *argv[]) {
         run_wave(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, debug_info);
         if (debug_info > 0)
             printf("DEBUG1 - run EVOLUTION_WAVE request - END\n");
-    } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_BLACK_WHITE) {
+    } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_WHITEBLACK) {
         if (debug_info > 1)
-            printf("Run request with EVOLUTION_BLACK_WHITE evolution of %d steps of filename=%s\n", number_of_steps, filename);
-        //TODO: run_bw(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, debug_info);
+            printf("Run request with EVOLUTION_WHITEBLACK evolution of %d steps of filename=%s\n", number_of_steps, filename);
+        run_whiteblack(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, debug_info);
         if (debug_info > 0)
-            printf("DEBUG1 - run EVOLUTION_BLACK_WHITE request - END\n");
+            printf("DEBUG1 - run EVOLUTION_WHITEBLACK request - END\n");
     }
 
     if (debug_info > 1)

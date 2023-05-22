@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/gameoflife.x.dir/iterate_static.c.o.d"
   "CMakeFiles/gameoflife.x.dir/iterate_wave.c.o"
   "CMakeFiles/gameoflife.x.dir/iterate_wave.c.o.d"
+  "CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.o"
+  "CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.o.d"
   "CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o"
   "CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o.d"
   "gameoflife.x"

@@ -249,6 +249,30 @@ iterate_wave.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_wave.c.s
 .PHONY : iterate_wave.c.s
 
+iterate_whiteblack.o: iterate_whiteblack.c.o
+.PHONY : iterate_whiteblack.o
+
+# target to build an object file
+iterate_whiteblack.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.o
+.PHONY : iterate_whiteblack.c.o
+
+iterate_whiteblack.i: iterate_whiteblack.c.i
+.PHONY : iterate_whiteblack.i
+
+# target to preprocess a source file
+iterate_whiteblack.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.i
+.PHONY : iterate_whiteblack.c.i
+
+iterate_whiteblack.s: iterate_whiteblack.c.s
+.PHONY : iterate_whiteblack.s
+
+# target to generate assembly for a file
+iterate_whiteblack.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.s
+.PHONY : iterate_whiteblack.c.s
+
 read_write_pgm.o: read_write_pgm.c.o
 .PHONY : read_write_pgm.o
 
@@ -297,6 +321,9 @@ help:
 	@echo "... iterate_wave.o"
 	@echo "... iterate_wave.i"
 	@echo "... iterate_wave.s"
+	@echo "... iterate_whiteblack.o"
+	@echo "... iterate_whiteblack.i"
+	@echo "... iterate_whiteblack.s"
 	@echo "... read_write_pgm.o"
 	@echo "... read_write_pgm.i"
 	@echo "... read_write_pgm.s"
