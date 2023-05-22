@@ -13,10 +13,57 @@
 //#define DEBUG_ADVANCED
 //#define DEBUG_ADVANCED_B
 
-void
-update_whiteblack_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, unsigned char *world_next
+void update_cell(const unsigned char *world, unsigned char *world_next, long world_size, long long int i) {// actual cell coordinates
+#ifdef DEBUG_ADVANCED_B
+    printf("DEBUGB - update_cell 1 - mpi_rank=%d/%d, iteration_step=%d, i/local_size=%lld/%ld\n", mpi_rank, mpi_size, iteration_step, i
+               , local_size);
+#endif
+    // actual cell coordinates
+    long x = i % world_size;
+    long y = i / world_size;
+#ifdef DEBUG_ADVANCED_B
+    printf("DEBUGB - update_cell 2 - mpi_rank=%d/%d, iteration_step=%d, i/local_size=%03lld/%ld x=%03ld, y=%03ld\n", mpi_rank, mpi_size
+               , iteration_step, i, local_size, x, y);
+#endif
+    // neighbours of actual cell
+    long x_prev = x - 1 >= 0 ? x - 1 : world_size - 1;
+    long x_next = x + 1 < world_size ? x + 1 : 0;
+    long y_prev = y - 1;
+    long y_next = y + 1;
+    // setermine the number of dead neighbours
+    int sum = world[y_prev * world_size + x_prev] + // top left
+              world[y_prev * world_size + x] +      // top
+              world[y_prev * world_size + x_next] + // top right
+              world[y * world_size + x_prev] +      // left
+              world[y * world_size + x_next] +      // right
+              world[y_next * world_size + x_prev] + // low left
+              world[y_next * world_size + x] +      // low
+              world[y_next * world_size + x_next];  // low right
+#ifdef DEBUG_ADVANCED
+    printf("DEBUGA - update_cell 3 - mpi_rank=%d/%d, iteration_step=%d, i/local_size=%03lld/%ld x=%03ld, y=%03ld sum=%d\n", mpi_rank, mpi_size, iteration_step, i, local_size, x, y, sum);
+    //printf("DEBUGA - update_cell 3 - iteration_step=%d, i/world_size=%03lld/%ld x=%03ld, y=%03ld sum=%d\n", iteration_step, i, world_size, x, y, sum);
+#endif
+// default is: cell will die
+    world_next[i] = DEAD;
+    int number_of_dead_neighbours = sum / DEAD; // 8-sum/255
+// https://en.wikipedia.org/wiki/Conway's_Game_of_Life
+// Any live cell with two or three live neighbours survives.    : 1+2=3 1+3=4 means 8-3=5 8-4=4 dead
+// Any dead cell with three live neighbours becomes a live cell.: 3           means 8-3=5       dead
+// All other live cells die in the next generation. Similarly, all other dead cells stay dead.
+//if (number_of_dead_neighbours >= 5 & number_of_dead_neighbours <= 6)
+//    world_next[i] = ALIVE;
+    if (world[y * world_size + x] == ALIVE) { // if actual cell is alive
+        if (number_of_dead_neighbours == 5 || number_of_dead_neighbours == 6)
+            world_next[i] = ALIVE;
+    } else // actual cell is dead
+    if (number_of_dead_neighbours == 5) {
+        world_next[i] = ALIVE;
+    }
+}
+
+void update_white_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, unsigned char *world_next
                            , long long world_size, long local_size, int iteration_step) {
-#pragma omp master
+//#pragma omp master
     {
         // tags definition for the MPI message exchange
         int tag_0 = 2 * iteration_step;
@@ -103,94 +150,111 @@ update_whiteblack_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
     printf("DEBUGA - update_parallel_whiteblack 1 - mpi_rank=%d/%d, iteration_step=%d, local_size=%ld, world_size * (local_size + 1)=%lld\n", mpi_rank, mpi_size
            , iteration_step, local_size, world_size * (local_size + 1));
 #endif
-#pragma omp for
-    for (long long i = world_size; i < world_size * (local_size + 1); i++) {
-#ifdef DEBUG_ADVANCED_B
-        printf("DEBUGB - update_parallel_whiteblack 2 - mpi_rank=%d/%d, iteration_step=%d, i/local_size=%lld/%ld\n", mpi_rank, mpi_size, iteration_step, i
-               , local_size);
-#endif
-        // actual cell coordinates
-        long x = i % world_size;
-        long y = i / world_size;
-#ifdef DEBUG_ADVANCED_B
-        printf("DEBUGB - update_parallel_whiteblack 3 - mpi_rank=%d/%d, iteration_step=%d, i/local_size=%03lld/%ld x=%03ld, y=%03ld\n", mpi_rank, mpi_size
-               , iteration_step, i, local_size, x, y);
-#endif
-        // neighbours of actual cell
-        long x_prev = x - 1 >= 0 ? x - 1 : world_size - 1;
-        long x_next = x + 1 < world_size ? x + 1 : 0;
-        long y_prev = y - 1;
-        long y_next = y + 1;
-        // Determine the number of dead neighbours
-        int sum = world_local[y_prev * world_size + x_prev] +
-                  world_local[y_prev * world_size + x] +
-                  world_local[y_prev * world_size + x_next] +
-                  world_local[y * world_size + x_prev] +
-                  world_local[y * world_size + x_next] +
-                  world_local[y_next * world_size + x_prev] +
-                  world_local[y_next * world_size + x] +
-                  world_local[y_next * world_size + x_next];
-#ifdef DEBUG_ADVANCED
-        printf("DEBUGA - update_parallel_whiteblack 4 - mpi_rank=%d/%d, iteration_step=%d, i/local_size=%03lld/%ld x=%03ld, y=%03ld sum=%d\n", mpi_rank, mpi_size
-               , iteration_step, i, local_size, x, y, sum);
-#endif
-        // default is: cell will die
-        world_next[i] = DEAD;
-        int number_of_dead_neighbours = sum / DEAD; // 8-sum/255
-        // https://en.wikipedia.org/wiki/Conway's_Game_of_Life
-        // Any live cell with two or three live neighbours survives.    : 1+2=3 1+3=4 means 8-3=5 8-4=4 dead
-        // Any dead cell with three live neighbours becomes a live cell.: 3           means 8-3=5       dead
-        // All other live cells die in the next generation. Similarly, all other dead cells stay dead.
-        //if (number_of_dead_neighbours >= 5 & number_of_dead_neighbours <= 6)
-        //    world_next[i] = ALIVE;
-        if (world_local[y * world_size + x] == ALIVE) { // if actual cell is alive
-            if (number_of_dead_neighbours == 5 || number_of_dead_neighbours == 6)
-                world_next[i] = ALIVE;
-        } else // actual cell is dead
-        if (number_of_dead_neighbours == 5) {
-            world_next[i] = ALIVE;
-        }
+//#pragma omp for
+    // update even cells, white on the chessboard (cell 0,0 is white)
+    for (long long i = world_size; i < world_size * (local_size + 1); i += 2) {
+        update_cell(world_local, world_next, world_size, i);
+        world_next[i + 1] = world_local[i + 1]; // copy next odd black cell
     }
-#pragma omp barrier
+//#pragma omp barrier
 }
 
-void update_cell(const unsigned char *world, unsigned char *world_next, long world_size, long long int i) {// actual cell coordinates
-    long x = i % world_size;
-    long y = i / world_size;
-    // neighbours of actual cell
-    long x_prev = x - 1 >= 0 ? x - 1 : world_size - 1;
-    long x_next = x + 1 < world_size ? x + 1 : 0;
-    long y_prev = y - 1;
-    long y_next = y + 1;
-    // Determine the number of dead neighbours
-    int sum = world[y_prev * world_size + x_prev] + // top left
-              world[y_prev * world_size + x] +      // top
-              world[y_prev * world_size + x_next] + // top right
-              world[y * world_size + x_prev] +      // left
-              world[y * world_size + x_next] +      // right
-              world[y_next * world_size + x_prev] + // low left
-              world[y_next * world_size + x] +      // low
-              world[y_next * world_size + x_next];  // low right
+void update_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, unsigned char *world_next
+                           , long long world_size, long local_size, int iteration_step) {
+//#pragma omp master
+    {
+        // tags definition for the MPI message exchange
+        int tag_0 = 2 * iteration_step;
+        int tag_1 = 2 * iteration_step + 1;
+
 #ifdef DEBUG_ADVANCED
-    printf("DEBUGA - update_serial_whiteblack 4 - iteration_step=%d, i/world_size=%03lld/%ld x=%03ld, y=%03ld sum=%d\n", iteration_step, i, world_size, x, y
-               , sum);
+        printf("DEBUGA - update_parallel_whiteblack - mpi_rank=%d/%d, world_size=%lld, local_size=%ld\n", mpi_rank, mpi_size, world_size, local_size);
 #endif
-// default is: cell will die
-    world_next[i] = DEAD;
-    int number_of_dead_neighbours = sum / DEAD; // 8-sum/255
-// https://en.wikipedia.org/wiki/Conway's_Game_of_Life
-// Any live cell with two or three live neighbours survives.    : 1+2=3 1+3=4 means 8-3=5 8-4=4 dead
-// Any dead cell with three live neighbours becomes a live cell.: 3           means 8-3=5       dead
-// All other live cells die in the next generation. Similarly, all other dead cells stay dead.
-//if (number_of_dead_neighbours >= 5 & number_of_dead_neighbours <= 6)
-//    world_next[i] = ALIVE;
-    if (world[y * world_size + x] == ALIVE) { // if actual cell is alive
-        if (number_of_dead_neighbours == 5 || number_of_dead_neighbours == 6)
-            world_next[i] = ALIVE;
-    } else // actual cell is dead
-    if (number_of_dead_neighbours == 5) {
-        world_next[i] = ALIVE;
+        // each process send his first row to the process with mpi_rank-1
+        // and last row to mpi_rank + 1.
+        // process 0      sends his first row to process mpi_size -1
+        // process mpi_size-1 sends his last  row to process 0
+        // TODO: chunk size passed as INT by MPI, needs better implementation to work with bigger sizes
+        if (mpi_rank != 0 && mpi_rank != mpi_size - 1) {
+            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_0, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, tag_1, MPI_COMM_WORLD, mpi_request);
+            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, tag_0, MPI_COMM_WORLD, mpi_status);
+            MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_1, MPI_COMM_WORLD, mpi_status);
+        }
+        if (mpi_rank == 0) {
+#ifdef DEBUG_ADVANCED_B
+            if (iteration_step == 1) {
+                printf("DEBUGB - update_parallel_whiteblack 0a - mpi_rank=%d/%d, iteration_step=%d, world_local[0-7]=%d %d %d %d %d %d %d %d\n", mpi_rank, mpi_size
+                       , iteration_step, world_local[world_size], world_local[world_size + 1], world_local[world_size + 2], world_local[world_size + 3]
+                       , world_local[world_size + 4], world_local[world_size + 5], world_local[world_size + 6], world_local[world_size + 7]);
+                for (long long i = 0; i < world_size * (local_size + 2); i++) {
+                    if (i % 16 == 0)
+                        printf("DEBUGB - update_parallel_whiteblack 0a - %08X: ", (unsigned int) i);
+                    //printf("%d ", world_local[i] == DEAD); 0/1
+                    printf("%02X ", world_local[i]);
+                    if (i % 16 == 15)
+                        printf("\n");
+                }
+                printf("\n");
+            }
+#endif
+            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, tag_0, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, tag_1, MPI_COMM_WORLD, mpi_request);
+            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, tag_0, MPI_COMM_WORLD, mpi_status);
+            MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, tag_1, MPI_COMM_WORLD, mpi_status);
+#ifdef DEBUG_ADVANCED
+            if (iteration_step == 1) {
+#ifdef DEBUG_ADVANCED_B
+                printf("DEBUGB - update_parallel_whiteblack 0b - mpi_rank=%d/%d, iteration_step=%d, world_local[0-7]=%d %d %d %d %d %d %d %d\n", mpi_rank, mpi_size
+                       , iteration_step, world_local[world_size], world_local[world_size + 1], world_local[world_size + 2], world_local[world_size + 3]
+                       , world_local[world_size + 4], world_local[world_size + 5], world_local[world_size + 6], world_local[world_size + 7]);
+#endif
+                for (long long i = 0; i < world_size * (local_size + 2); i++) {
+                    if (i % 16 == 0)
+                        printf("DEBUGA - update_parallel_whiteblack 0b - %08X: ", (unsigned int) i);
+                    //printf("%d ", world_local[i] == DEAD); 0/1
+                    printf("%02X ", world_local[i]);
+                    if (i % 16 == 15)
+                        printf("\n");
+                }
+                printf("\n");
+            }
+#endif
+        }
+        if (mpi_rank == mpi_size - 1) {
+            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_0, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, tag_1, MPI_COMM_WORLD, mpi_request);
+            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, tag_0, MPI_COMM_WORLD, mpi_status);
+            MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_1, MPI_COMM_WORLD, mpi_status);
+#ifdef DEBUG_ADVANCED
+            if (iteration_step == 1) {
+                printf("DEBUGA - update_parallel_whiteblack 0c - mpi_rank=%d/%d, iteration_step=%d, world_local[0-7]=%d %d %d %d %d %d %d %d\n", mpi_rank, mpi_size
+                       , iteration_step, world_local[world_size], world_local[world_size + 1], world_local[world_size + 2], world_local[world_size + 3]
+                       , world_local[world_size + 4], world_local[world_size + 5], world_local[world_size + 6], world_local[world_size + 7]);
+                for (long long i = 0; i < world_size * (local_size + 2); i++) {
+                    if (i % 16 == 0)
+                        printf("DEBUGA - update_parallel_whiteblack 0c - %08X: ", (unsigned int) i);
+                    //printf("%d ", world_local[i] == DEAD); 0/1
+                    printf("%02X ", world_local[i]);
+                    if (i % 16 == 15)
+                        printf("\n");
+                }
+                printf("\n");
+            }
+#endif
+        }
     }
+#ifdef DEBUG_ADVANCED
+    printf("DEBUGA - update_parallel_whiteblack 1 - mpi_rank=%d/%d, iteration_step=%d, local_size=%ld, world_size * (local_size + 1)=%lld\n", mpi_rank, mpi_size
+           , iteration_step, local_size, world_size * (local_size + 1));
+#endif
+//#pragma omp for
+    // update even cells, white on the chessboard (cell 0,0 is white)
+    for (long long i = world_size + 1; i < world_size * (local_size + 1); i += 2) {
+        world_next[i - 1] = world_local[i - 1]; // copy previous even white cell
+        update_cell(world_local, world_next, world_size, i);
+    }
+//#pragma omp barrier
 }
 
 void update_white_serial(unsigned char *world, unsigned char *world_next, long world_size, int iteration_step) {
@@ -205,7 +269,7 @@ void update_white_serial(unsigned char *world, unsigned char *world_next, long w
         world[world_size * (world_size + 1) + i] = world[world_size + i];
     }
 #ifdef DEBUG_ADVANCED_B
-#pragma omp barrier
+//#pragma omp barrier
     for (long long i = 0; i < world_size * (world_size + 2); i++) {
         if (i % 16 == 0)
             printf("DEBUGB - update_white_serial 1 - %08X: ", (unsigned int) i);
@@ -235,7 +299,7 @@ void update_black_serial(unsigned char *world, unsigned char *world_next, long w
         world[world_size * (world_size + 1) + i] = world[world_size + i];
     }
 #ifdef DEBUG_ADVANCED_B
-#pragma omp barrier
+//#pragma omp barrier
     for (long long i = 0; i < world_size * (world_size + 2); i++) {
         if (i % 16 == 0)
             printf("DEBUGB - update_white_serial 1 - %08X: ", (unsigned int) i);
@@ -248,8 +312,8 @@ void update_black_serial(unsigned char *world, unsigned char *world_next, long w
 //#pragma omp for
     // update odd cells, black on the chessboard (cell 0,0 is white)
     for (long long i = world_size + 1; i < world_size * (world_size + 1); i += 2) {
+        world_next[i - 1] = world[i - 1]; // copy previous even white cell
         update_cell(world, world_next, world_size, i);
-        world_next[i + 1] = world[i + 1]; // copy next odd black cell
     }
 }
 
@@ -262,8 +326,9 @@ double iterate_whiteblack_parallel(const int mpi_rank, const int mpi_size, MPI_S
     unsigned char *world_local_actual = *world_local;
     //Allocate memory for the next state
     unsigned char *world_local_next = (unsigned char *) malloc(world_size * (local_size + 2) * sizeof(unsigned char));
+    unsigned char *temp; // temp pointer
     char *image_filename_suffix = (char *) malloc(60);
-    // NOTE: can't use omp parallel here, iteration can't go on for each chunk
+    // NOTE: can't use omp parallel here, iteration can't go on each chunk
     // each MPI process exchanges data with other segments of same iteration
     // it's ok for serial only (-np 1)
     {
@@ -271,8 +336,13 @@ double iterate_whiteblack_parallel(const int mpi_rank, const int mpi_size, MPI_S
             if (debug_info > 1)
                 printf("DEBUG2 - iterate_whiteblack_parallel 0 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size
                        , omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
-            update_whiteblack_parallel(mpi_rank, mpi_size, mpi_status, mpi_request, world_local_actual, world_local_next, world_size, local_size
-                                       , iteration_step);
+
+            update_white_parallel(mpi_rank, mpi_size, mpi_status, mpi_request, world_local_actual, world_local_next, world_size, local_size, iteration_step);
+            // pointers swap to reuse allocated world_local and world_local_next for next iteration
+            temp = world_local_actual;
+            world_local_actual = world_local_next;
+            world_local_next = temp;
+            update_black_parallel(mpi_rank, mpi_size, mpi_status, mpi_request, world_local_actual, world_local_next, world_size, local_size, iteration_step);
             // when needed save snapshot
             if (iteration_step % number_of_steps_between_file_dumps == 0) {
                 sprintf(image_filename_suffix, "_%05d", iteration_step);
@@ -284,7 +354,7 @@ double iterate_whiteblack_parallel(const int mpi_rank, const int mpi_size, MPI_S
                            , omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
             }
             // pointers swap to reuse allocated world_local and world_local_next for next iteration
-            unsigned char *temp = world_local_actual;
+            temp = world_local_actual;
             world_local_actual = world_local_next;
             world_local_next = temp;
             if (debug_info > 1)
@@ -312,7 +382,7 @@ double iterate_whiteblack_serial(const int mpi_rank, const int mpi_size, MPI_Sta
     unsigned char *world_local_next = (unsigned char *) malloc(world_size * (local_size + 2) * sizeof(unsigned char));
     unsigned char *temp; // temp pointer
     char *image_filename_suffix = (char *) malloc(60);
-#pragma omp parallel default(none) private(temp) shared(number_of_steps, debug_info, mpi_rank, mpi_size, world_local, world_local_actual, world_local_next, world_size, local_size, mpi_status, mpi_request, number_of_steps_between_file_dumps, image_filename_suffix, directoryname, t_io)
+//#pragma omp parallel default(none) private(temp) shared(number_of_steps, debug_info, mpi_rank, mpi_size, world_local, world_local_actual, world_local_next, world_size, local_size, mpi_status, mpi_request, number_of_steps_between_file_dumps, image_filename_suffix, directoryname, t_io)
     {
         for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
             if (debug_info > 1)
@@ -320,13 +390,13 @@ double iterate_whiteblack_serial(const int mpi_rank, const int mpi_size, MPI_Sta
                        , omp_get_max_threads(), iteration_step, number_of_steps);
 
             update_white_serial(world_local_actual, world_local_next, world_size, iteration_step);
-#pragma omp barrier
+//#pragma omp barrier
             // pointers swap to reuse allocated world_local and world_local_next for next iteration
             temp = world_local_actual;
             world_local_actual = world_local_next;
             world_local_next = temp;
             update_black_serial(world_local_actual, world_local_next, world_size, iteration_step);
-#pragma omp master
+//#pragma omp master
             {
                 // when needed save snapshot
                 if (iteration_step % number_of_steps_between_file_dumps == 0) {
@@ -343,7 +413,7 @@ double iterate_whiteblack_serial(const int mpi_rank, const int mpi_size, MPI_Sta
                 world_local_actual = world_local_next;
                 world_local_next = temp;
             }
-#pragma omp barrier
+//#pragma omp barrier
             if (debug_info > 1)
                 printf("DEBUG2 - iterate_whiteblack_serial 2 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num()
                        , omp_get_max_threads(), iteration_step, number_of_steps);
