@@ -34,8 +34,8 @@ void initialize_parallel(long total_size, int mpi_size, int mpi_rank, int debug_
     }
     //if (debug_info > 1 && mpi_rank == 0)
     //    printf("\n");
-    write_pgm_image_chunk(world_chunk, 255, total_size, chunk_size, "", IMAGE_FILE_CHUNK_INIT_PREFIX, "", FILE_EXTENSION_PGMPART, mpi_rank, mpi_size
-                          , debug_info);
+    file_pgm_write_chunk(world_chunk, 255, total_size, chunk_size, "", IMAGE_FILE_CHUNK_INIT_PREFIX, "",
+                         FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
     free(world_chunk);
     if (debug_info > 0)
         printf("DEBUG1 - initialize_parallel - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
@@ -65,7 +65,8 @@ void initialize_serial(long total_size, int debug_info) {
     }
     if (debug_info > 1)
         printf("\n");
-    write_pgm_image_chunk(world, 255, total_size, total_size, "", IMAGE_FILE_CHUNK_INIT_PREFIX, "", FILE_EXTENSION_PGMPART, 0, 1, debug_info);
+    file_pgm_write_chunk(world, 255, total_size, total_size, "", IMAGE_FILE_CHUNK_INIT_PREFIX, "",
+                         FILE_EXTENSION_PGMPART, 0, 1, debug_info);
     free(world);
     if (debug_info > 0)
         printf("DEBUG1 - initialize_serial - END\n");
@@ -108,7 +109,7 @@ void initialization(long world_size, const char *filename, int *argc, char ***ar
         if (debug_info > 0)
             printf("DEBUG1 - initialization - remove_result: %d\n", remove_result);
         for (int i = 0; i < mpi_size; i++)
-            file_merge(pathname, fn[i], debug_info); // TODO: manage error result
+            file_chunk_merge(pathname, fn[i], debug_info); // TODO: manage error result
         // delete chunks but keep them in debug mode
         if (debug_info == 0)
             for (int i = 0; i < mpi_size; i++)

@@ -33,9 +33,10 @@ void update_ordered_parallel(unsigned char *world_local, long world_size, long l
         int number_of_dead_neighbours = sum / DEAD;
         // Update cell
         if (world_local[y * world_size + x] == ALIVE // if actual cell is alive
-            && (number_of_dead_neighbours == 5 || number_of_dead_neighbours == 6)) {} // do nothing world_local[i] = ALIVE;
-        else if (world_local[y * world_size + x] == DEAD // if actual cell is dead
-                 && (number_of_dead_neighbours == 5))
+            && (number_of_dead_neighbours == 5 || number_of_dead_neighbours == 6)) {
+            // do nothing world_local[i] = ALIVE;
+        } else if (world_local[y * world_size + x] == DEAD // if actual cell is dead
+                   && (number_of_dead_neighbours == 5))
             world_local[i] = ALIVE;
         else // default is: cell will die
             world_local[i] = DEAD;
@@ -68,9 +69,10 @@ void update_ordered_serial(unsigned char *world, long world_size) {
         int number_of_dead_neighbours = sum / DEAD;
         // Update cell
         if (world[y * world_size + x] == ALIVE // if actual cell is alive
-            && (number_of_dead_neighbours == 5 || number_of_dead_neighbours == 6)) {} // do nothing world_local[i] = ALIVE;
-        else if (world[y * world_size + x] == DEAD // if actual cell is dead
-                 && (number_of_dead_neighbours == 5))
+            && (number_of_dead_neighbours == 5 || number_of_dead_neighbours == 6)) {
+            // do nothing world_local[i] = ALIVE;
+        } else if (world[y * world_size + x] == DEAD // if actual cell is dead
+                   && (number_of_dead_neighbours == 5))
             world[i] = ALIVE;
         else // default is: cell will die
             world[i] = DEAD;
@@ -86,37 +88,45 @@ void update_ordered_serial(unsigned char *world, long world_size) {
 
 }
 
-double iterate_ordered_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, long world_size
-                                , long local_size, int number_of_steps, int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
+double iterate_ordered_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request,
+                                unsigned char *world_local, long world_size, long local_size, int number_of_steps,
+                                int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
     // TODO: better filenames
     char *image_filename_suffix = (char *) malloc(60);
     double t_io = 0;
     // before cycling the iterations, send the needed first ghost row
     if (mpi_rank == mpi_size - 1)
-        if (debug_info > 1) printf("DEBUG2 - iterate_ordered_parallel 00 SEND iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", -1, mpi_rank, TAG_0, TAG_1);
+        if (debug_info > 1)
+            printf("DEBUG2 - iterate_ordered_parallel 00 SEND iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", -1, mpi_rank,
+                   TAG_0, TAG_1);
     // last chunk process (mpi_size - 1): send last row to first chunk process (0)
-    MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, TAG_X, MPI_COMM_WORLD, mpi_request);
+    MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, TAG_X, MPI_COMM_WORLD,
+              mpi_request);
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
         if (mpi_rank != 0) {
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_ordered_parallel 0 SEND iteration=%d rank=%d, TAG_0=%d, TAG_1=%d, last row to %d with TAG_1\n", iteration_step
-                       , mpi_rank, TAG_0, TAG_1, mpi_rank - 1);
+                printf("DEBUG2 - iterate_ordered_parallel 0 SEND iteration=%d rank=%d, TAG_0=%d, TAG_1=%d, last row to %d with TAG_1\n",
+                       iteration_step, mpi_rank, TAG_0, TAG_1, mpi_rank - 1);
             // all chunks except first: send first row to previous chunk
-            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, TAG_1, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, TAG_1, MPI_COMM_WORLD,
+                      mpi_request);
             //MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, TAG_1, MPI_COMM_WORLD, mpi_request);
         }
         if (mpi_rank == mpi_size - 1) {
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_ordered_parallel 1 WAIT iteration=%d rank=%d, TAG_0=%d, TAG_1=%d, first ghost row from %d with TAG_1\n", iteration_step
-                       , mpi_rank, TAG_0, TAG_1, mpi_rank - 1);
+                printf("DEBUG2 - iterate_ordered_parallel 1 WAIT iteration=%d rank=%d, TAG_0=%d, TAG_1=%d, first ghost row from %d with TAG_1\n",
+                       iteration_step, mpi_rank, TAG_0, TAG_1, mpi_rank - 1);
             // last chunk process (mpi_size - 1): wait to receive first ghost row from previous process
             MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, TAG_1, MPI_COMM_WORLD, mpi_status);
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_ordered_parallel 1 REC1 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
+                printf("DEBUG2 - iterate_ordered_parallel 1 REC1 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n",
+                       iteration_step, mpi_rank, TAG_0, TAG_1);
             // and last ghost row from chunk zero
-            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, TAG_X, MPI_COMM_WORLD, mpi_status);
+            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, TAG_X,
+                     MPI_COMM_WORLD, mpi_status);
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_ordered_parallel 1 REC2 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
+                printf("DEBUG2 - iterate_ordered_parallel 1 REC2 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n",
+                       iteration_step, mpi_rank, TAG_0, TAG_1);
         }
         if (mpi_rank == 0) {
 //            if (debug_info > 1) {
@@ -135,27 +145,35 @@ double iterate_ordered_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_stat
 //            }
             // first chunk: wait to receive first ghost row from last chunk and last ghost row from chunk 1
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_ordered_parallel 2 WAIT iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
+                printf("DEBUG2 - iterate_ordered_parallel 2 WAIT iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n",
+                       iteration_step, mpi_rank, TAG_0, TAG_1);
             MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, TAG_X, MPI_COMM_WORLD, mpi_status);
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_ordered_parallel 2 REC1 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
+                printf("DEBUG2 - iterate_ordered_parallel 2 REC1 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n",
+                       iteration_step, mpi_rank, TAG_0, TAG_1);
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_ordered_parallel 2 WAIT2 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d, last ghost row from %d with TAG_1\n", iteration_step
-                       , mpi_rank, TAG_0, TAG_1, 1);
-            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, TAG_1, MPI_COMM_WORLD, mpi_status);
+                printf("DEBUG2 - iterate_ordered_parallel 2 WAIT2 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d, last ghost row from %d with TAG_1\n",
+                       iteration_step, mpi_rank, TAG_0, TAG_1, 1);
+            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, TAG_1,
+                     MPI_COMM_WORLD, mpi_status);
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_ordered_parallel 2 REC2 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
+                printf("DEBUG2 - iterate_ordered_parallel 2 REC2 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n",
+                       iteration_step, mpi_rank, TAG_0, TAG_1);
         }
         if (mpi_rank != 0 && mpi_rank != mpi_size - 1) {
             // middle chunk: wait to receive first ghost row from previous chunk and last ghost row from next chunk
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_ordered_parallel 3 WAIT iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
+                printf("DEBUG2 - iterate_ordered_parallel 3 WAIT iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n",
+                       iteration_step, mpi_rank, TAG_0, TAG_1);
             MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, TAG_1, MPI_COMM_WORLD, mpi_status);
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_ordered_parallel 3 REC1 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
-            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, TAG_1, MPI_COMM_WORLD, mpi_status);
+                printf("DEBUG2 - iterate_ordered_parallel 3 REC1 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n",
+                       iteration_step, mpi_rank, TAG_0, TAG_1);
+            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, TAG_1,
+                     MPI_COMM_WORLD, mpi_status);
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_ordered_parallel 3 REC2 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
+                printf("DEBUG2 - iterate_ordered_parallel 3 REC2 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n",
+                       iteration_step, mpi_rank, TAG_0, TAG_1);
 //            if (debug_info > 1)
 //                printf("DEBUG2 - iterate_ordered_parallel 1RCD - rank %d/%d, iteration_step=%d, world_local[0-31]=%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n"
 //                       , mpi_rank, mpi_size, iteration_step
@@ -171,32 +189,40 @@ double iterate_ordered_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_stat
         }
 
         if (debug_info > 1)
-            printf("DEBUG2 - iterate_ordered_parallel BEFORE UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
+            printf("DEBUG2 - iterate_ordered_parallel BEFORE UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n",
+                   iteration_step, mpi_rank, TAG_0, TAG_1);
         update_ordered_parallel(world_local, world_size, local_size);
         if (debug_info > 1)
-            printf("DEBUG2 - iterate_ordered_parallel AFTER UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
+            printf("DEBUG2 - iterate_ordered_parallel AFTER UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n",
+                   iteration_step, mpi_rank, TAG_0, TAG_1);
 
         if (mpi_rank == 0) {
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_ordered_parallel 4 SEND iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
+                printf("DEBUG2 - iterate_ordered_parallel 4 SEND iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n",
+                       iteration_step, mpi_rank, TAG_0, TAG_1);
             // last row to next chunk process 0+1=1
-            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, TAG_1, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, TAG_1, MPI_COMM_WORLD,
+                      mpi_request);
             // first chunk: process 0 sends its first row to the last chunk process mpi_size-1
-            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, TAG_X, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, TAG_X, MPI_COMM_WORLD,
+                      mpi_request);
         }
         if (mpi_rank != 0 && mpi_rank != mpi_size - 1)
             // middle chunk: send last row to next chunk
-            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, TAG_1, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, TAG_1,
+                      MPI_COMM_WORLD, mpi_request);
         if (mpi_rank == mpi_size - 1 && iteration_step != number_of_steps) { // skip last iteration, no update needed
             // last chunk: send last row to first chunk zero
-            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, TAG_X, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, TAG_X, MPI_COMM_WORLD,
+                      mpi_request);
         }
         MPI_Barrier(MPI_COMM_WORLD);
         if (iteration_step % number_of_steps_between_file_dumps == 0) {
             sprintf(image_filename_suffix, "_%05d", iteration_step);
-            t_io = write_pgm_image_chunk(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED, image_filename_suffix
-                                         , FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
-            //write_pgm_image_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
+            t_io = file_pgm_write_chunk(world_local, 255, world_size, local_size, directoryname,
+                                        IMAGE_FILENAME_PREFIX_SNAP_ORDERED, image_filename_suffix,
+                                        FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
+            //file_pgm_write_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
         }
         if (debug_info > 1) printf("DEBUG2 - iterate_ordered_parallel end iteration cycle\n");
     }
@@ -207,8 +233,8 @@ double iterate_ordered_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_stat
     return t_io;
 }
 
-double iterate_ordered_serial(unsigned char *world, long world_size, int number_of_steps, int number_of_steps_between_file_dumps, const char *directoryname
-                              , int debug_info) {
+double iterate_ordered_serial(unsigned char *world, long world_size, int number_of_steps,
+                              int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
     double t_io = 0;
     char *image_filename_prefix = (char *) malloc(60);
     sprintf(image_filename_prefix, "snap_ordered_");
@@ -217,9 +243,8 @@ double iterate_ordered_serial(unsigned char *world, long world_size, int number_
         update_ordered_serial(world, world_size);
         if (iteration_step % number_of_steps_between_file_dumps == 0) {
             sprintf(image_filename_suffix, "_%05d", iteration_step);
-            t_io += write_pgm_image_chunk(world, 255, world_size, world_size, directoryname, image_filename_prefix, image_filename_suffix
-                                          , FILE_EXTENSION_PGM, 0, 1
-                                          , debug_info);
+            t_io += file_pgm_write_chunk(world, 255, world_size, world_size, directoryname, image_filename_prefix,
+                                         image_filename_suffix, FILE_EXTENSION_PGM, 0, 1, debug_info);
         }
     }
     free(image_filename_prefix);
@@ -227,7 +252,8 @@ double iterate_ordered_serial(unsigned char *world, long world_size, int number_
     return t_io;
 }
 
-void run_ordered(char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int debug_info) {
+void run_ordered(char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[],
+                 int debug_info) {
 // TODO: compute the correct size for MPI message allocation
 #define MAX_STRING_LENGTH 256
     char message[MAX_STRING_LENGTH];
@@ -256,8 +282,8 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
     MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
     if (mpi_rank == 0)
-        printf("Run request with EVOLUTION_ORDERED of %d steps of filename=%s saving snaps each %d steps\n", number_of_steps, filename
-               , number_of_steps_between_file_dumps);
+        printf("Run request with EVOLUTION_ORDERED of %d steps of filename=%s saving snaps each %d steps\n",
+               number_of_steps, filename, number_of_steps_between_file_dumps);
     if (debug_info > 0)
         printf("DEBUG1 - run_ordered BEGIN - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
 
@@ -270,32 +296,34 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
         timenow = gmtime(&now);
         unsigned long len = strftime(string_with_timestamp, timestamp_size + 1, "_ordered_%Y-%m-%d_%H_%M_%S", timenow);
         if (debug_info > 0)
-            printf("DEBUG1 - run_ordered 1 - rank %d/%d, len=%ld string_with_timestamp=%s\n", mpi_rank, mpi_size, len, string_with_timestamp);
+            printf("DEBUG1 - run_ordered 1 - rank %d/%d, len=%ld string_with_timestamp=%s\n", mpi_rank, mpi_size, len,
+                   string_with_timestamp);
         if (debug_info > 0)
-            printf("DEBUG1 - run_ordered 1a - rank %d/%d, strlen(filename) + strlen(string_with_timestamp) + 1=%lu\n", mpi_rank, mpi_size,
-                    strlen(filename) + strlen(string_with_timestamp) + 1);
+            printf("DEBUG1 - run_ordered 1a - rank %d/%d, strlen(filename) + strlen(string_with_timestamp) + 1=%lu\n",
+                   mpi_rank, mpi_size,
+                   strlen(filename) + strlen(string_with_timestamp) + 1);
         directoryname = malloc(strlen(filename) + strlen(string_with_timestamp) + 1);
         strcpy(directoryname, filename);
         strcat(directoryname, string_with_timestamp);
         replace_char(directoryname, '/', '_');
         free(string_with_timestamp);
         if (debug_info > 0)
-            printf("DEBUG1 - run_ordered 1b - rank %d/%d, strlen(directoryname)=%lu, directoryname=%s\n", mpi_rank, mpi_size, strlen(directoryname)
-                   , directoryname);
+            printf("DEBUG1 - run_ordered 1b - rank %d/%d, strlen(directoryname)=%lu, directoryname=%s\n", mpi_rank,
+                   mpi_size, strlen(directoryname), directoryname);
         // Broadcast the string to all other processes
         if (mpi_size > 1)
             MPI_Bcast(directoryname, (int) strlen(directoryname) + 1, MPI_CHAR, 0, MPI_COMM_WORLD);
         else
             partial_file_extension = file_extension_pgm;
-        t_io += create_directory(directoryname, debug_info);
+        t_io += make_directory(directoryname, debug_info);
     } else {
         // Other processes
         MPI_Bcast(message, MAX_STRING_LENGTH, MPI_CHAR, 0, MPI_COMM_WORLD);
         directoryname = malloc(strlen(message) + 1);
         strcpy(directoryname, message);
         if (debug_info > 1)
-            printf("DEBUG2 - run_ordered 1c - rank %d/%d, LEN=%lu directoryname=%s, LEN=%lu message=%s\n", mpi_rank, mpi_size, strlen(directoryname)
-                   , directoryname, strlen(message), message);
+            printf("DEBUG2 - run_ordered 1c - rank %d/%d, LEN=%lu directoryname=%s, LEN=%lu message=%s\n", mpi_rank,
+                   mpi_size, strlen(directoryname), directoryname, strlen(message), message);
     }
     MPI_Barrier(MPI_COMM_WORLD);
     if (debug_info > 0)
@@ -303,32 +331,34 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
 
     /* Read the local data chunk of the world from file:
       - Calculate the number of local rows
-      - Allocate memory for the local world (world_size*(local_rows+2)).
+      - Allocate memory for the local world plus 2 "ghost" rows (world_size*(local_rows+2)).
         The first row is used to store the last row of the previous thread (mpi_size-1 if mpi_rank == 0)
         and the last row is used to store the first row of the next thread process.
         In the case of a single MPI Task the first row will store the last row
         of the world and the last row will store the first row of the world
       - Read the values: the first value is stored in world_local[world_size]
     */
-    t_io += read_pgm_image(&world_local, &maxval, &local_size, &world_size, filename, mpi_rank, mpi_size, debug_info);
+    t_io += file_pgm_read(&world_local, &maxval, &local_size, &world_size, filename, mpi_rank, mpi_size, debug_info);
     if (debug_info > 0)
-        printf("DEBUG1 - run_ordered 3 - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, filename=%s\n", mpi_rank, mpi_size, maxval, local_size
-               , world_size, filename);
+        printf("DEBUG1 - run_ordered 3 - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, filename=%s\n",
+               mpi_rank, mpi_size, maxval, local_size, world_size, filename);
 
     if (mpi_size > 1)
-        t_io += iterate_ordered_parallel(mpi_rank, mpi_size, &mpi_status, &mpi_request, world_local, world_size, local_size, number_of_steps
-                                         , number_of_steps_between_file_dumps, directoryname, debug_info);
+        t_io += iterate_ordered_parallel(mpi_rank, mpi_size, &mpi_status, &mpi_request, world_local, world_size,
+                                         local_size, number_of_steps, number_of_steps_between_file_dumps, directoryname,
+                                         debug_info);
     else
-        t_io += iterate_ordered_serial(world_local, world_size, number_of_steps, number_of_steps_between_file_dumps, directoryname, debug_info);
+        t_io += iterate_ordered_serial(world_local, world_size, number_of_steps, number_of_steps_between_file_dumps,
+                                       directoryname, debug_info);
     if (debug_info > 1)
-        printf("DEBUG2 - run_ordered 4 - ITERATED - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, directoryname=%s, filename=%s\n", mpi_rank, mpi_size
-               , maxval, local_size, world_size, directoryname, filename);
+        printf("DEBUG2 - run_ordered 4 - ITERATED - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, directoryname=%s, filename=%s\n",
+               mpi_rank, mpi_size, maxval, local_size, world_size, directoryname, filename);
     // wait for all iterations to complete
     MPI_Barrier(MPI_COMM_WORLD);
     // write final iteration output
-    t_io += write_pgm_image_chunk(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED, "", partial_file_extension
-                                  , mpi_rank
-                                  , mpi_size, debug_info);
+    t_io += file_pgm_write_chunk(world_local, 255, world_size, local_size, directoryname,
+                                 IMAGE_FILENAME_PREFIX_FINAL_ORDERED, "", partial_file_extension, mpi_rank, mpi_size,
+                                 debug_info);
     MPI_Barrier(MPI_COMM_WORLD);
     // merge chunks of final output if needed
     // TODO: when size=1 rename changing extension removing "part"
@@ -346,37 +376,45 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
         // join chunks of all iteration steps
         for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
             if (debug_info > 1)
-                printf("DEBUG2 - run_ordered 5a0 - rank %d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, iteration_step, number_of_steps);
+                printf("DEBUG2 - run_ordered 5a0 - rank %d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size,
+                       iteration_step, number_of_steps);
             if (debug_info > 1)
-                printf("DEBUG2 - run_ordered 5a1 - rank %d/%d, snap_chunks_fn=%s/%s%03d_%05d%s.%s\n", mpi_rank, mpi_size, directoryname
-                       , IMAGE_FILENAME_PREFIX_SNAP_ORDERED, mpi_size, iteration_step, "", FILE_EXTENSION_PGM);
+                printf("DEBUG2 - run_ordered 5a1 - rank %d/%d, snap_chunks_fn=%s/%s%03d_%05d%s.%s\n", mpi_rank,
+                       mpi_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED, mpi_size, iteration_step, "",
+                       FILE_EXTENSION_PGM);
             // filename of joined iteration snap
             char *snap_fn;
             unsigned long snap_fn_len =
-                    strlen("/000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_ORDERED) + strlen(FILE_EXTENSION_PGM) + 1;
+                    strlen("/000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_ORDERED) +
+                    strlen(FILE_EXTENSION_PGM) + 1;
             if (debug_info > 1)
-                printf("DEBUG2 - run_ordered 5a2 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%05d%s.%s\n", mpi_rank, mpi_size, snap_fn_len, directoryname
-                       , IMAGE_FILENAME_PREFIX_SNAP_ORDERED, mpi_size, iteration_step, "", FILE_EXTENSION_PGM);
+                printf("DEBUG2 - run_ordered 5a2 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%05d%s.%s\n", mpi_rank,
+                       mpi_size, snap_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED, mpi_size,
+                       iteration_step, "", FILE_EXTENSION_PGM);
             snap_fn = (char *) malloc(snap_fn_len);
-            sprintf(snap_fn, "%s/%s%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED, mpi_size, iteration_step, "", FILE_EXTENSION_PGM);
+            sprintf(snap_fn, "%s/%s%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED, mpi_size,
+                    iteration_step, "", FILE_EXTENSION_PGM);
             if (debug_info > 1)
-                printf("DEBUG2 - run_ordered 5a3 - snap_fn_len=%ld, strlen(%s)=%ld\n", snap_fn_len, snap_fn, strlen(snap_fn));
+                printf("DEBUG2 - run_ordered 5a3 - snap_fn_len=%ld, strlen(%s)=%ld\n", snap_fn_len, snap_fn,
+                       strlen(snap_fn));
 
             // array of filenames of snap chunks to be joined
             char *snap_chunks_fn[mpi_size];
             unsigned long snap_chunks_fn_len =
-                    strlen("/000_000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_ORDERED) + strlen(FILE_EXTENSION_PGMPART) + 1;
+                    strlen("/000_000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_ORDERED) +
+                    strlen(FILE_EXTENSION_PGMPART) + 1;
             if (debug_info > 1) // test chunks fn length
-                printf("DEBUG2 - run_ordered 5a4 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%03d_%05d%s.%s\n", mpi_rank, mpi_size, snap_chunks_fn_len
-                       , directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED, mpi_size, mpi_rank, iteration_step, "", FILE_EXTENSION_PGMPART);
+                printf("DEBUG2 - run_ordered 5a4 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%03d_%05d%s.%s\n",
+                       mpi_rank, mpi_size, snap_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED,
+                       mpi_size, mpi_rank, iteration_step, "", FILE_EXTENSION_PGMPART);
             for (int i = 0; i < mpi_size; i++) {
                 if (debug_info > 1)
-                    printf("DEBUG2 - run_ordered 5a5: LEN=%lu %s/%s%03d_%03d_%05d%s.%s\n", snap_chunks_fn_len, directoryname
-                           , IMAGE_FILENAME_PREFIX_SNAP_ORDERED
-                           , mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
+                    printf("DEBUG2 - run_ordered 5a5: LEN=%lu %s/%s%03d_%03d_%05d%s.%s\n", snap_chunks_fn_len,
+                           directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED, mpi_size, i, iteration_step, "",
+                           FILE_EXTENSION_PGMPART);
                 snap_chunks_fn[i] = (char *) malloc(snap_chunks_fn_len);
-                sprintf(snap_chunks_fn[i], "%s/%s%03d_%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED, mpi_size, i, iteration_step, ""
-                        , FILE_EXTENSION_PGMPART);
+                sprintf(snap_chunks_fn[i], "%s/%s%03d_%03d_%05d%s.%s", directoryname,
+                        IMAGE_FILENAME_PREFIX_SNAP_ORDERED, mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
                 if (debug_info > 1)
                     printf("DEBUG2 - run_ordered 5a6: LEN=%lu %s\n", strlen(snap_chunks_fn[i]), snap_chunks_fn[i]);
             }
@@ -384,7 +422,7 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
                 for (int i = 0; i < mpi_size; i++)
                     printf("DEBUG1 - run_ordered 5a7: %s\n", snap_chunks_fn[i]);
             for (int i = 0; i < mpi_size; i++)
-                t_io += file_merge(snap_fn, snap_chunks_fn[i], debug_info); // TODO: manage error result
+                t_io += file_chunk_merge(snap_fn, snap_chunks_fn[i], debug_info); // TODO: manage error result
             // delete chunks but keep them in debug mode
             double t_temp = MPI_Wtime();
             if (debug_info == 0)
@@ -403,14 +441,18 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
                 strlen("/000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_ORDERED) +
                 strlen(FILE_EXTENSION_PGM) + 1;
         final_fn = (char *) malloc(final_fn_len);
-        sprintf(final_fn, "%s/%s%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED, mpi_size, "", FILE_EXTENSION_PGM);
+        sprintf(final_fn, "%s/%s%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED, mpi_size, "",
+                FILE_EXTENSION_PGM);
         if (debug_info > 1) {
             // NB: strlen=string length, sizeof=length+1 one more char for the terminating zero
-            printf("DEBUG2 - run_ordered 5b0 - final_fn_len=%ld, strlen(%s)=%ld\n", final_fn_len, final_fn, strlen(final_fn));
+            printf("DEBUG2 - run_ordered 5b0 - final_fn_len=%ld, strlen(%s)=%ld\n", final_fn_len, final_fn,
+                   strlen(final_fn));
             printf("DEBUG2 - run_ordered 5b1 - strlen(\"/000_000.\")=%ld\n", strlen("/000_000."));
             printf("DEBUG2 - run_ordered 5b2 - strlen(%s)=%ld\n", directoryname, strlen(directoryname));
-            printf("DEBUG2 - run_ordered 5b3 - sizeof(%s)=%ld\n", IMAGE_FILENAME_PREFIX_FINAL_ORDERED, sizeof(IMAGE_FILENAME_PREFIX_FINAL_ORDERED));
-            printf("DEBUG2 - run_ordered 5b4 - sizeof(%s)=%ld\n", FILE_EXTENSION_PGMPART, sizeof(FILE_EXTENSION_PGMPART));
+            printf("DEBUG2 - run_ordered 5b3 - sizeof(%s)=%ld\n", IMAGE_FILENAME_PREFIX_FINAL_ORDERED,
+                   sizeof(IMAGE_FILENAME_PREFIX_FINAL_ORDERED));
+            printf("DEBUG2 - run_ordered 5b4 - sizeof(%s)=%ld\n", FILE_EXTENSION_PGMPART,
+                   sizeof(FILE_EXTENSION_PGMPART));
         }
         // array of filenames of chunks to be joined
         char *final_chunks_fn[mpi_size];
@@ -418,14 +460,16 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
                 strlen("/000_000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_ORDERED) +
                 strlen(FILE_EXTENSION_PGMPART) + 1;
         if (debug_info > 1) // test chunks fn length
-            printf("DEBUG2 - run_ordered 5 - MERGE CHUNKS FINAL rank %d/%d, LEN=%lu, final_chunks_fn=%s/%s%03d_%03d%s.%s\n", mpi_rank, mpi_size
-                   , final_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED, mpi_size, mpi_rank, "", FILE_EXTENSION_PGMPART);
+            printf("DEBUG2 - run_ordered 5 - MERGE CHUNKS FINAL rank %d/%d, LEN=%lu, final_chunks_fn=%s/%s%03d_%03d%s.%s\n",
+                   mpi_rank, mpi_size, final_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED,
+                   mpi_size, mpi_rank, "", FILE_EXTENSION_PGMPART);
         for (int i = 0; i < mpi_size; i++) {
             if (debug_info > 1)
-                printf("DEBUG2 - run_ordered - JOIN1a: LEN=%lu %s/%s%03d_%03d%s.%s\n", final_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED
-                       , mpi_size, i, "", FILE_EXTENSION_PGMPART);
+                printf("DEBUG2 - run_ordered - JOIN1a: LEN=%lu %s/%s%03d_%03d%s.%s\n", final_chunks_fn_len,
+                       directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED, mpi_size, i, "", FILE_EXTENSION_PGMPART);
             final_chunks_fn[i] = (char *) malloc(final_chunks_fn_len);
-            sprintf(final_chunks_fn[i], "%s/%s%03d_%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED, mpi_size, i, "", FILE_EXTENSION_PGMPART);
+            sprintf(final_chunks_fn[i], "%s/%s%03d_%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED,
+                    mpi_size, i, "", FILE_EXTENSION_PGMPART);
             if (debug_info > 1)
                 printf("DEBUG2 - run_ordered - JOIN1b: LEN=%lu %s\n", strlen(final_chunks_fn[i]), final_chunks_fn[i]);
         }
@@ -437,7 +481,7 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
         //if (debug_info > 0)
         //    printf("DEBUG1 - initialization - remove_result: %d\n", remove_result);
         for (int i = 0; i < mpi_size; i++)
-            t_io += file_merge(final_fn, final_chunks_fn[i], debug_info); // TODO: manage error result
+            t_io += file_chunk_merge(final_fn, final_chunks_fn[i], debug_info); // TODO: manage error result
         // delete chunks but keep them in debug mode
         double t_temp = MPI_Wtime();
         if (debug_info == 0)
@@ -450,10 +494,12 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
     }
 
     if (mpi_rank == 0)
-        printf("mpi=%d, omp=%d, total time=%f, I/O time=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io);
+        printf("mpi=%d, omp=%d, total time=%f, I/O time=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start,
+               t_io);
     if (mpi_rank == 0 && debug_info > 0)
         //DEBUG1 - run_ordered 6 - mpi=2, omp=2, time taken=0.007455
-        printf("DEBUG1 - run_ordered 6 - mpi=%d, omp=%d, time taken=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start);
+        printf("DEBUG1 - run_ordered 6 - mpi=%d, omp=%d, time taken=%f\n", mpi_size, omp_get_max_threads(),
+               MPI_Wtime() - t_start);
     MPI_Finalize();
     free(directoryname);
     if (debug_info > 1)

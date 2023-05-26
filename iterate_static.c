@@ -239,9 +239,9 @@ double iterate_static_parallel(const int mpi_rank, const int mpi_size, MPI_Statu
             // when needed save snapshot
             if (iteration_step % number_of_steps_between_file_dumps == 0) {
                 sprintf(image_filename_suffix, "_%05d", iteration_step);
-                t_io += write_pgm_image_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC
-                                              , image_filename_suffix
-                                              , FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
+                t_io += file_pgm_write_chunk(world_local_next, 255, world_size, local_size, directoryname,
+                                             IMAGE_FILENAME_PREFIX_SNAP_STATIC, image_filename_suffix,
+                                             FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
                 if (debug_info > 1)
                     printf("DEBUG2 - iterate_static_parallel 1 - snap written mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size
                            , omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
@@ -286,9 +286,9 @@ double iterate_static_serial(const int mpi_rank, const int mpi_size, MPI_Status 
                 // when needed save snapshot
                 if (iteration_step % number_of_steps_between_file_dumps == 0) {
                     sprintf(image_filename_suffix, "_%05d", iteration_step);
-                    t_io += write_pgm_image_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC
-                                                  , image_filename_suffix
-                                                  , FILE_EXTENSION_PGM, mpi_rank, mpi_size, debug_info);
+                    t_io += file_pgm_write_chunk(world_local_next, 255, world_size, local_size, directoryname,
+                                                 IMAGE_FILENAME_PREFIX_SNAP_STATIC, image_filename_suffix,
+                                                 FILE_EXTENSION_PGM, mpi_rank, mpi_size, debug_info);
                     if (debug_info > 1)
                         printf("DEBUG2 - iterate_static_serial 1 - snap written mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size
                                , omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
@@ -373,7 +373,7 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
             MPI_Bcast(directoryname, (int) strlen(directoryname) + 1, MPI_CHAR, 0, MPI_COMM_WORLD);
         else
             partial_file_extension = file_extension_pgm;
-        t_io += create_directory(directoryname, debug_info);
+        t_io += make_directory(directoryname, debug_info);
     } else {
         // Other processes
         MPI_Bcast(message, MAX_STRING_LENGTH, MPI_CHAR, 0, MPI_COMM_WORLD);
@@ -389,14 +389,14 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
 
     /* Read the local data chunk of the world from file:
       - Calculate the number of local rows
-      - Allocate memory for the local world (world_size*(local_rows+2)).
+      - Allocate memory for the local world plus 2 "ghost" rows (world_size*(local_rows+2)).
         The first row is used to store the last row of the previous thread (mpi_size-1 if mpi_rank == 0)
         and the last row is used to store the first row of the next thread process.
         In the case of a single MPI Task the first row will store the last row
         of the world and the last row will store the first row of the world
       - Read the values: the first value is stored in world_local[world_size]
     */
-    t_io += read_pgm_image(&world_local, &maxval, &local_size, &world_size, filename, mpi_rank, mpi_size, debug_info);
+    t_io += file_pgm_read(&world_local, &maxval, &local_size, &world_size, filename, mpi_rank, mpi_size, debug_info);
     if (debug_info > 0)
         printf("DEBUG1 - run_static 3 - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, filename=%s\n", mpi_rank, mpi_size, maxval, local_size
                , world_size, filename);
@@ -413,9 +413,9 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
     // wait for all iterations to complete
     MPI_Barrier(MPI_COMM_WORLD);
     // write final iteration output
-    t_io += write_pgm_image_chunk(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_FINAL_STATIC, "", partial_file_extension
-                                  , mpi_rank
-                                  , mpi_size, debug_info);
+    t_io += file_pgm_write_chunk(world_local, 255, world_size, local_size, directoryname,
+                                 IMAGE_FILENAME_PREFIX_FINAL_STATIC, "", partial_file_extension, mpi_rank, mpi_size,
+                                 debug_info);
     MPI_Barrier(MPI_COMM_WORLD);
     // merge chunks of final output if needed
     // TODO: when size=1 raname changing extension removing "part"
@@ -471,7 +471,7 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
                 for (int i = 0; i < mpi_size; i++)
                     printf("DEBUG1 - run_static 5a7: %s\n", snap_chunks_fn[i]);
             for (int i = 0; i < mpi_size; i++)
-                t_io += file_merge(snap_fn, snap_chunks_fn[i], debug_info); // TODO: manage error result
+                t_io += file_chunk_merge(snap_fn, snap_chunks_fn[i], debug_info); // TODO: manage error result
             // delete chunks but keep them in debug mode
             double t_temp = MPI_Wtime();
             if (debug_info == 0)
@@ -524,7 +524,7 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
         //if (debug_info > 0)
         //    printf("DEBUG1 - initialization - remove_result: %d\n", remove_result);
         for (int i = 0; i < mpi_size; i++)
-            t_io += file_merge(final_fn, final_chunks_fn[i], debug_info); // TODO: manage error result
+            t_io += file_chunk_merge(final_fn, final_chunks_fn[i], debug_info); // TODO: manage error result
         // delete chunks but keep them in debug mode
         double t_temp = MPI_Wtime();
         if (debug_info == 0)
