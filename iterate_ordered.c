@@ -237,7 +237,7 @@ double iterate_ordered_serial(unsigned char *world, long world_size, int number_
                               int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
     double t_io = 0;
     char *image_filename_prefix = (char *) malloc(60);
-    sprintf(image_filename_prefix, "snap_ordered_");
+    sprintf(image_filename_prefix, IMAGE_FILENAME_PREFIX_SNAP_ORDERED);
     char *image_filename_suffix = (char *) malloc(60);
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
         update_ordered_serial(world, world_size);
