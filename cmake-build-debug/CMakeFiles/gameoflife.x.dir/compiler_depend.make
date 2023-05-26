@@ -340,10 +340,9 @@ CMakeFiles/gameoflife.x.dir/iterate_wave.c.o: ../iterate_wave.c \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
   /usr/lib/x86_64-linux-gnu/openmpi/include/mpi.h \
   /usr/lib/x86_64-linux-gnu/openmpi/include/mpi_portable_platform.h \
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
   /usr/include/string.h \
   /usr/include/strings.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
-  ../initialize.h \
   ../read_write_pgm.h \
   ../gameoflife.h
 
