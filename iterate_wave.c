@@ -7,8 +7,8 @@
 #include "read_write_pgm.h"
 #include "gameoflife.h"
 
-#define IMAGE_FILENAME_PREFIX_SNAP_WAVE "snap_wave"
-#define IMAGE_FILENAME_PREFIX_FINAL_WAVE "final_wave"
+#define IMAGE_FILENAME_PREFIX_SNAP_WAVE "snapshot"
+#define IMAGE_FILENAME_PREFIX_FINAL_WAVE "final"
 
 void update_wave_parallel(unsigned char *world_local, long world_size, long local_size) {
     //printf("DEBUGB - update_wave_parallel 2 - world_size=%ld local_size=%ld\n", world_size, local_size);
@@ -374,7 +374,8 @@ void run_wave(char *filename, int number_of_steps, int number_of_steps_between_f
         //sprintf(file_name, "%s/%s%03d_%03d%s.%s", directoryname, image_filename_prefix, mpi_size, mpi_rank, image_filename_suffix, image_filename_extension);
         //DEBUG2 - run_wave 5 - MERGE CHUNKS rank 0/2, pattern_random16.pgm_wave_2023-05-16_08_45_36/final_wave002_000.pgmpart
         // join chunks of all iteration steps
-        for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
+        for (int iteration_step = number_of_steps_between_file_dumps;
+             iteration_step <= number_of_steps; iteration_step += number_of_steps_between_file_dumps) {
             if (debug_info > 1)
                 printf("DEBUG2 - run_wave 5a0 - rank %d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, iteration_step,
                        number_of_steps);
@@ -385,15 +386,16 @@ void run_wave(char *filename, int number_of_steps, int number_of_steps_between_f
             // filename of joined iteration snap
             char *snap_fn;
             unsigned long snap_fn_len =
-                    strlen("/000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_WAVE) +
+//                  strlen("/000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_WAVE) +
+                    strlen("/_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_WAVE) +
                     strlen(FILE_EXTENSION_PGM) + 1;
             if (debug_info > 1)
                 printf("DEBUG2 - run_wave 5a2 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%05d%s.%s\n", mpi_rank,
                        mpi_size, snap_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, iteration_step,
                        "", FILE_EXTENSION_PGM);
             snap_fn = (char *) malloc(snap_fn_len);
-            sprintf(snap_fn, "%s/%s%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size,
-                    iteration_step, "", FILE_EXTENSION_PGM);
+//          sprintf(snap_fn, "%s/%s%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, iteration_step, "", FILE_EXTENSION_PGM);
+            sprintf(snap_fn, "%s/%s_%05d.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, iteration_step, FILE_EXTENSION_PGM);
             if (debug_info > 1)
                 printf("DEBUG2 - run_wave 5a3 - snap_fn_len=%ld, strlen(%s)=%ld\n", snap_fn_len, snap_fn,
                        strlen(snap_fn));
@@ -401,7 +403,7 @@ void run_wave(char *filename, int number_of_steps, int number_of_steps_between_f
             // array of filenames of snap chunks to be joined
             char *snap_chunks_fn[mpi_size];
             unsigned long snap_chunks_fn_len =
-                    strlen("/000_000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_WAVE) +
+                    strlen("/_000_000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_WAVE) +
                     strlen(FILE_EXTENSION_PGMPART) + 1;
             if (debug_info > 1) // test chunks fn length
                 printf("DEBUG2 - run_wave 5a4 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%03d_%05d%s.%s\n",
@@ -413,8 +415,8 @@ void run_wave(char *filename, int number_of_steps, int number_of_steps_between_f
                            directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, i, iteration_step, "",
                            FILE_EXTENSION_PGMPART);
                 snap_chunks_fn[i] = (char *) malloc(snap_chunks_fn_len);
-                sprintf(snap_chunks_fn[i], "%s/%s%03d_%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE,
-                        mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
+                sprintf(snap_chunks_fn[i], "%s/%s_%03d_%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
+//              sprintf(snap_chunks_fn[i], "%s/%s%05d.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, iteration_step, FILE_EXTENSION_PGMPART);
                 if (debug_info > 1)
                     printf("DEBUG2 - run_wave 5a6: LEN=%lu %s\n", strlen(snap_chunks_fn[i]), snap_chunks_fn[i]);
             }
@@ -438,11 +440,12 @@ void run_wave(char *filename, int number_of_steps, int number_of_steps_between_f
         // filename of joined final output
         char *final_fn;
         unsigned long final_fn_len =
-                strlen("/000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_WAVE) +
+//              strlen("/000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_WAVE) +
+                strlen("/.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_WAVE) +
                 strlen(FILE_EXTENSION_PGM) + 1;
         final_fn = (char *) malloc(final_fn_len);
-        sprintf(final_fn, "%s/%s%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, mpi_size, "",
-                FILE_EXTENSION_PGM);
+//      sprintf(final_fn, "%s/%s%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, mpi_size, "", FILE_EXTENSION_PGM);
+        sprintf(final_fn, "%s/%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, FILE_EXTENSION_PGM);
         if (debug_info > 1) {
             // NB: strlen=string length, sizeof=length+1 one more char for the terminating zero
             printf("DEBUG2 - run_wave 5b0 - final_fn_len=%ld, strlen(%s)=%ld\n", final_fn_len, final_fn,
@@ -456,7 +459,7 @@ void run_wave(char *filename, int number_of_steps, int number_of_steps_between_f
         // array of filenames of chunks to be joined
         char *final_chunks_fn[mpi_size];
         unsigned long final_chunks_fn_len =
-                strlen("/000_000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_WAVE) +
+                strlen("/_000_000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_WAVE) +
                 strlen(FILE_EXTENSION_PGMPART) + 1;
         if (debug_info > 1) // test chunks fn length
             printf("DEBUG2 - run_wave 5 - MERGE CHUNKS FINAL rank %d/%d, LEN=%lu, final_chunks_fn=%s/%s%03d_%03d%s.%s\n",
@@ -467,8 +470,8 @@ void run_wave(char *filename, int number_of_steps, int number_of_steps_between_f
                 printf("DEBUG2 - run_wave - JOIN1a: LEN=%lu %s/%s%03d_%03d%s.%s\n", final_chunks_fn_len, directoryname,
                        IMAGE_FILENAME_PREFIX_FINAL_WAVE, mpi_size, i, "", FILE_EXTENSION_PGMPART);
             final_chunks_fn[i] = (char *) malloc(final_chunks_fn_len);
-            sprintf(final_chunks_fn[i], "%s/%s%03d_%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE,
-                    mpi_size, i, "", FILE_EXTENSION_PGMPART);
+            sprintf(final_chunks_fn[i], "%s/%s_%03d_%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, mpi_size, i, "", FILE_EXTENSION_PGMPART);
+//          sprintf(final_chunks_fn[i], "%s/%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, FILE_EXTENSION_PGMPART);
             if (debug_info > 1)
                 printf("DEBUG2 - run_wave - JOIN1b: LEN=%lu %s\n", strlen(final_chunks_fn[i]), final_chunks_fn[i]);
         }

@@ -7,8 +7,8 @@
 #include "read_write_pgm.h"
 #include "gameoflife.h"
 
-#define IMAGE_FILENAME_PREFIX_SNAP_ORDERED "snap_ordered"
-#define IMAGE_FILENAME_PREFIX_FINAL_ORDERED "final_ordered"
+#define IMAGE_FILENAME_PREFIX_SNAP_ORDERED "snapshot"
+#define IMAGE_FILENAME_PREFIX_FINAL_ORDERED "final"
 
 void update_ordered_parallel(unsigned char *world_local, long world_size, long local_size) {
     //printf("DEBUGB - update_ordered_parallel 2 - world_size=%ld local_size=%ld\n", world_size, local_size);
@@ -288,13 +288,18 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
         printf("DEBUG1 - run_ordered BEGIN - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
 
     if (mpi_rank == 0) {
-        // Concatenate: directory name + timestamp
-        size_t timestamp_size = strlen("_ordered_2023-02-13_23:37:01");
-        char *string_with_timestamp = malloc(timestamp_size + 1);
+        // concatenate: directory name + steps + mpi_size + timestamp
+        size_t string_with_num_size = strlen("_ordered_000_000_%Y-%m-%d_%H_%M_%S");
+        char *string_with_num = malloc(string_with_num_size + 1);
+        sprintf(string_with_num, "_ordered_%03d_%03d_%%Y-%%m-%%d_%%H_%%M_%%S", number_of_steps, mpi_size);
+
+        size_t string_with_timestamp_size = strlen("_ordered_000_000_2023-02-13_23:37:01");
+        char *string_with_timestamp = malloc(string_with_timestamp_size + 1);
         struct tm *timenow;
         time_t now = time(NULL);
         timenow = gmtime(&now);
-        unsigned long len = strftime(string_with_timestamp, timestamp_size + 1, "_ordered_%Y-%m-%d_%H_%M_%S", timenow);
+        unsigned long len = strftime(string_with_timestamp, string_with_timestamp_size + 1, string_with_num, timenow);
+        free(string_with_num);
         if (debug_info > 0)
             printf("DEBUG1 - run_ordered 1 - rank %d/%d, len=%ld string_with_timestamp=%s\n", mpi_rank, mpi_size, len,
                    string_with_timestamp);
@@ -374,7 +379,8 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
         //sprintf(file_name, "%s/%s%03d_%03d%s.%s", directoryname, image_filename_prefix, mpi_size, mpi_rank, image_filename_suffix, image_filename_extension);
         //DEBUG2 - run_ordered 5 - MERGE CHUNKS rank 0/2, pattern_random16.pgm_ordered_2023-05-16_08_45_36/final_ordered002_000.pgmpart
         // join chunks of all iteration steps
-        for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
+        for (int iteration_step = number_of_steps_between_file_dumps;
+             iteration_step <= number_of_steps; iteration_step += number_of_steps_between_file_dumps) {
             if (debug_info > 1)
                 printf("DEBUG2 - run_ordered 5a0 - rank %d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size,
                        iteration_step, number_of_steps);
@@ -385,15 +391,17 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
             // filename of joined iteration snap
             char *snap_fn;
             unsigned long snap_fn_len =
-                    strlen("/000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_ORDERED) +
+//                  strlen("/000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_ORDERED) +
+                    strlen("/_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_ORDERED) +
                     strlen(FILE_EXTENSION_PGM) + 1;
             if (debug_info > 1)
                 printf("DEBUG2 - run_ordered 5a2 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%05d%s.%s\n", mpi_rank,
                        mpi_size, snap_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED, mpi_size,
                        iteration_step, "", FILE_EXTENSION_PGM);
             snap_fn = (char *) malloc(snap_fn_len);
-            sprintf(snap_fn, "%s/%s%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED, mpi_size,
-                    iteration_step, "", FILE_EXTENSION_PGM);
+//          sprintf(snap_fn, "%s/%s%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED, mpi_size, iteration_step, "", FILE_EXTENSION_PGM);
+            sprintf(snap_fn, "%s/%s_%05d.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED, iteration_step,
+                    FILE_EXTENSION_PGM);
             if (debug_info > 1)
                 printf("DEBUG2 - run_ordered 5a3 - snap_fn_len=%ld, strlen(%s)=%ld\n", snap_fn_len, snap_fn,
                        strlen(snap_fn));
@@ -401,7 +409,7 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
             // array of filenames of snap chunks to be joined
             char *snap_chunks_fn[mpi_size];
             unsigned long snap_chunks_fn_len =
-                    strlen("/000_000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_ORDERED) +
+                    strlen("/_000_000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_ORDERED) +
                     strlen(FILE_EXTENSION_PGMPART) + 1;
             if (debug_info > 1) // test chunks fn length
                 printf("DEBUG2 - run_ordered 5a4 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%03d_%05d%s.%s\n",
@@ -413,8 +421,9 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
                            directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED, mpi_size, i, iteration_step, "",
                            FILE_EXTENSION_PGMPART);
                 snap_chunks_fn[i] = (char *) malloc(snap_chunks_fn_len);
-                sprintf(snap_chunks_fn[i], "%s/%s%03d_%03d_%05d%s.%s", directoryname,
+                sprintf(snap_chunks_fn[i], "%s/%s_%03d_%03d_%05d%s.%s", directoryname,
                         IMAGE_FILENAME_PREFIX_SNAP_ORDERED, mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
+//              sprintf(snap_chunks_fn[i], "%s/%s%05d.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED, iteration_step, FILE_EXTENSION_PGMPART);
                 if (debug_info > 1)
                     printf("DEBUG2 - run_ordered 5a6: LEN=%lu %s\n", strlen(snap_chunks_fn[i]), snap_chunks_fn[i]);
             }
@@ -438,11 +447,12 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
         // filename of joined final output
         char *final_fn;
         unsigned long final_fn_len =
-                strlen("/000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_ORDERED) +
+//              strlen("/000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_ORDERED) +
+                strlen("/.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_ORDERED) +
                 strlen(FILE_EXTENSION_PGM) + 1;
         final_fn = (char *) malloc(final_fn_len);
-        sprintf(final_fn, "%s/%s%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED, mpi_size, "",
-                FILE_EXTENSION_PGM);
+//      sprintf(final_fn, "%s/%s%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED, mpi_size, "", FILE_EXTENSION_PGM);
+        sprintf(final_fn, "%s/%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED, FILE_EXTENSION_PGM);
         if (debug_info > 1) {
             // NB: strlen=string length, sizeof=length+1 one more char for the terminating zero
             printf("DEBUG2 - run_ordered 5b0 - final_fn_len=%ld, strlen(%s)=%ld\n", final_fn_len, final_fn,
@@ -457,7 +467,7 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
         // array of filenames of chunks to be joined
         char *final_chunks_fn[mpi_size];
         unsigned long final_chunks_fn_len =
-                strlen("/000_000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_ORDERED) +
+                strlen("/_000_000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_ORDERED) +
                 strlen(FILE_EXTENSION_PGMPART) + 1;
         if (debug_info > 1) // test chunks fn length
             printf("DEBUG2 - run_ordered 5 - MERGE CHUNKS FINAL rank %d/%d, LEN=%lu, final_chunks_fn=%s/%s%03d_%03d%s.%s\n",
@@ -465,11 +475,10 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
                    mpi_size, mpi_rank, "", FILE_EXTENSION_PGMPART);
         for (int i = 0; i < mpi_size; i++) {
             if (debug_info > 1)
-                printf("DEBUG2 - run_ordered - JOIN1a: LEN=%lu %s/%s%03d_%03d%s.%s\n", final_chunks_fn_len,
+                printf("DEBUG2 - run_ordered - JOIN1a: LEN=%lu %s/%s_%03d_%03d%s.%s\n", final_chunks_fn_len,
                        directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED, mpi_size, i, "", FILE_EXTENSION_PGMPART);
             final_chunks_fn[i] = (char *) malloc(final_chunks_fn_len);
-            sprintf(final_chunks_fn[i], "%s/%s%03d_%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED,
-                    mpi_size, i, "", FILE_EXTENSION_PGMPART);
+            sprintf(final_chunks_fn[i], "%s/%s_%03d_%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED, mpi_size, i, "", FILE_EXTENSION_PGMPART);
             if (debug_info > 1)
                 printf("DEBUG2 - run_ordered - JOIN1b: LEN=%lu %s\n", strlen(final_chunks_fn[i]), final_chunks_fn[i]);
         }

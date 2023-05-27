@@ -7,8 +7,8 @@
 #include "read_write_pgm.h"
 #include "gameoflife.h"
 
-#define IMAGE_FILENAME_PREFIX_SNAP_STATIC "snap_static"
-#define IMAGE_FILENAME_PREFIX_FINAL_STATIC "final_static"
+#define IMAGE_FILENAME_PREFIX_SNAP_STATIC "snapshot"
+#define IMAGE_FILENAME_PREFIX_FINAL_STATIC "final"
 
 //#define DEBUG_ADVANCED
 //#define DEBUG_ADVANCED_B
@@ -431,7 +431,8 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
         //sprintf(file_name, "%s/%s%03d_%03d%s.%s", directoryname, image_filename_prefix, mpi_size, mpi_rank, image_filename_suffix, image_filename_extension);
         //DEBUG2 - run_static 5 - MERGE CHUNKS rank 0/2, pattern_random16.pgm_static_2023-05-16_08_45_36/final_static002_000.pgmpart
         // join chunks of all iteration steps
-        for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
+        for (int iteration_step = number_of_steps_between_file_dumps;
+             iteration_step <= number_of_steps; iteration_step += number_of_steps_between_file_dumps) {
             if (debug_info > 1)
                 printf("DEBUG2 - run_static 5a0 - rank %d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, iteration_step, number_of_steps);
             if (debug_info > 1)
@@ -440,19 +441,21 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
             // filename of joined iteration snap
             char *snap_fn;
             unsigned long snap_fn_len =
-                    strlen("/000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_STATIC) + strlen(FILE_EXTENSION_PGM) + 1;
+//              strlen("/000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_STATIC) + strlen(FILE_EXTENSION_PGM) + 1;
+                strlen("/_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_STATIC) + strlen(FILE_EXTENSION_PGM) + 1;
             if (debug_info > 1)
                 printf("DEBUG2 - run_static 5a2 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%05d%s.%s\n", mpi_rank, mpi_size, snap_fn_len, directoryname
                        , IMAGE_FILENAME_PREFIX_SNAP_STATIC, mpi_size, iteration_step, "", FILE_EXTENSION_PGM);
             snap_fn = (char *) malloc(snap_fn_len);
-            sprintf(snap_fn, "%s/%s%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, mpi_size, iteration_step, "", FILE_EXTENSION_PGM);
+//          sprintf(snap_fn, "%s/%s%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, mpi_size, iteration_step, "", FILE_EXTENSION_PGM);
+            sprintf(snap_fn, "%s/%s_%05d.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, iteration_step, FILE_EXTENSION_PGM);
             if (debug_info > 1)
                 printf("DEBUG2 - run_static 5a3 - snap_fn_len=%ld, strlen(%s)=%ld\n", snap_fn_len, snap_fn, strlen(snap_fn));
 
             // array of filenames of snap chunks to be joined
             char *snap_chunks_fn[mpi_size];
             unsigned long snap_chunks_fn_len =
-                    strlen("/000_000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_STATIC) + strlen(FILE_EXTENSION_PGMPART) + 1;
+                    strlen("/_000_000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_STATIC) + strlen(FILE_EXTENSION_PGMPART) + 1;
             if (debug_info > 1) // test chunks fn length
                 printf("DEBUG2 - run_static 5a4 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%03d_%05d%s.%s\n", mpi_rank, mpi_size, snap_chunks_fn_len
                        , directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, mpi_size, mpi_rank, iteration_step, "", FILE_EXTENSION_PGMPART);
@@ -462,8 +465,8 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
                            , IMAGE_FILENAME_PREFIX_SNAP_STATIC
                            , mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
                 snap_chunks_fn[i] = (char *) malloc(snap_chunks_fn_len);
-                sprintf(snap_chunks_fn[i], "%s/%s%03d_%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, mpi_size, i, iteration_step, ""
-                        , FILE_EXTENSION_PGMPART);
+                sprintf(snap_chunks_fn[i], "%s/%s_%03d_%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
+//              sprintf(snap_chunks_fn[i], "%s/%s%05d.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, iteration_step, FILE_EXTENSION_PGMPART);
                 if (debug_info > 1)
                     printf("DEBUG2 - run_static 5a6: LEN=%lu %s\n", strlen(snap_chunks_fn[i]), snap_chunks_fn[i]);
             }
@@ -487,10 +490,12 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
         // filename of joined final output
         char *final_fn;
         unsigned long final_fn_len =
-                strlen("/000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_STATIC) +
+//              strlen("/000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_STATIC) +
+                strlen("/.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_STATIC) +
                 strlen(FILE_EXTENSION_PGM) + 1;
         final_fn = (char *) malloc(final_fn_len);
-        sprintf(final_fn, "%s/%s%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_STATIC, mpi_size, "", FILE_EXTENSION_PGM);
+//      sprintf(final_fn, "%s/%s%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_STATIC, mpi_size, "", FILE_EXTENSION_PGM);
+        sprintf(final_fn, "%s/%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_STATIC, FILE_EXTENSION_PGM);
         if (debug_info > 1) {
             // NB: strlen=string length, sizeof=length+1 one more char for the terminating zero
             printf("DEBUG2 - run_static 5b0 - final_fn_len=%ld, strlen(%s)=%ld\n", final_fn_len, final_fn, strlen(final_fn));
@@ -502,7 +507,7 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
         // array of filenames of chunks to be joined
         char *final_chunks_fn[mpi_size];
         unsigned long final_chunks_fn_len =
-                strlen("/000_000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_STATIC) +
+                strlen("/_000_000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_STATIC) +
                 strlen(FILE_EXTENSION_PGMPART) + 1;
         if (debug_info > 1) // test chunks fn length
             printf("DEBUG2 - run_static 5 - MERGE CHUNKS FINAL rank %d/%d, LEN=%lu, final_chunks_fn=%s/%s%03d_%03d%s.%s\n", mpi_rank, mpi_size
@@ -512,7 +517,7 @@ void run_static(char *filename, int number_of_steps, int number_of_steps_between
                 printf("DEBUG2 - run_static - JOIN1a: LEN=%lu %s/%s%03d_%03d%s.%s\n", final_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_FINAL_STATIC
                        , mpi_size, i, "", FILE_EXTENSION_PGMPART);
             final_chunks_fn[i] = (char *) malloc(final_chunks_fn_len);
-            sprintf(final_chunks_fn[i], "%s/%s%03d_%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_STATIC, mpi_size, i, "", FILE_EXTENSION_PGMPART);
+            sprintf(final_chunks_fn[i], "%s/%s_%03d_%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_STATIC, mpi_size, i, "", FILE_EXTENSION_PGMPART);
             if (debug_info > 1)
                 printf("DEBUG2 - run_static - JOIN1b: LEN=%lu %s\n", strlen(final_chunks_fn[i]), final_chunks_fn[i]);
         }

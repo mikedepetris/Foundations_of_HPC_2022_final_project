@@ -52,10 +52,14 @@ double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_s
     FILE *chunk_file = NULL;
     // TODO: calculate correct string size
     char *file_name = (char *) malloc(256);
-    if (directoryname && strlen(directoryname) > 0)
-        sprintf(file_name, "%s/%s%03d_%03d%s.%s", directoryname, image_filename_prefix, mpi_size, mpi_rank, image_filename_suffix, image_filename_extension);
+
+    if (mpi_size > 1)
+    //if (directoryname && strlen(directoryname) > 0)
+        sprintf(file_name, "%s/%s_%03d_%03d%s.%s", directoryname, image_filename_prefix, mpi_size, mpi_rank, image_filename_suffix, image_filename_extension);
     else
-        sprintf(file_name, "%s%03d_%03d%s.%s", image_filename_prefix, mpi_size, mpi_rank, image_filename_suffix, image_filename_extension);
+        sprintf(file_name, "%s/%s%s.%s", directoryname, image_filename_prefix, image_filename_suffix, image_filename_extension);
+    // this never happens:
+    //else sprintf(file_name, "%s%03d_%03d%s.%s", image_filename_prefix, mpi_size, mpi_rank, image_filename_suffix, image_filename_extension);
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_write_chunk - file_name=%s\n", file_name);
 //    // dupes required or file_name would be changed
@@ -205,8 +209,14 @@ double file_chunk_merge(const char *filename1, const char *filename2, int debug_
     FILE *f1, *f2;
     double t_temp = MPI_Wtime();
     f1 = fopen(filename1, "a");
+    if (f1 == NULL) {
+        printf("Error joining file chunks: file=%s\n", filename1);
+        perror("Error joining file chunks\n");
+        exit(EXIT_FAILURE);
+    }
     f2 = fopen(filename2, "r");
-    if (f1 == NULL || f2 == NULL) {
+    if (f2 == NULL) {
+        printf("Error joining file chunks: file=%s\n", filename2);
         perror("Error joining file chunks\n");
         exit(EXIT_FAILURE);
     }

@@ -98,7 +98,7 @@ void initialization(long world_size, const char *filename, int *argc, char ***ar
         for (int i = 0; i < mpi_size; i++) {
             if (debug_info > 0)
                 printf("DEBUG1 - initialization - JOIN1: %s%03d_%03d.%s\n", IMAGE_FILE_CHUNK_INIT_PREFIX, mpi_size, i, FILE_EXTENSION_PGMPART);
-            fn[i] = (char *) malloc(strlen(IMAGE_FILE_CHUNK_INIT_PREFIX) + 16 + 1);
+            fn[i] = (char *) malloc(strlen(IMAGE_FILE_CHUNK_INIT_PREFIX) + strlen("000_000.") + strlen(FILE_EXTENSION_PGMPART) + 1);
             sprintf(fn[i], "%s%03d_%03d.%s", IMAGE_FILE_CHUNK_INIT_PREFIX, mpi_size, i, FILE_EXTENSION_PGMPART);
         }
         if (debug_info > 0)
