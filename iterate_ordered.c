@@ -366,7 +366,6 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
                                  debug_info);
     MPI_Barrier(MPI_COMM_WORLD);
     // merge chunks of final output if needed
-    // TODO: when size=1 rename changing extension removing "part"
     if (mpi_size > 1 && mpi_rank == 0) {
         // Join the chunks into a single image file
         //    final_ordered002.pgm              (final output with 2 MPI processes)

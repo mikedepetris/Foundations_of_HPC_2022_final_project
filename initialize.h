@@ -13,7 +13,7 @@
 #include <string.h>
 #include "read_write_pgm.h"
 
-#define IMAGE_FILE_CHUNK_INIT_PREFIX "chunk_init_"
+#define IMAGE_FILENAME_PREFIX_INIT "init"
 
 void initialization(long world_size, const char *filename, int *argc, char ***argv, int mpi_rank, int mpi_size, int debug_info);
 

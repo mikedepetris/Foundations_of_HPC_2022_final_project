@@ -54,12 +54,16 @@ double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_s
     char *file_name = (char *) malloc(256);
 
     if (mpi_size > 1)
-    //if (directoryname && strlen(directoryname) > 0)
-        sprintf(file_name, "%s/%s_%03d_%03d%s.%s", directoryname, image_filename_prefix, mpi_size, mpi_rank, image_filename_suffix, image_filename_extension);
+        // add slash to directoryname if specified
+        if (directoryname && strlen(directoryname) > 0)
+            sprintf(file_name, "%s/%s_%03d_%03d%s.%s", directoryname, image_filename_prefix, mpi_size, mpi_rank, image_filename_suffix, image_filename_extension);
+        else
+            sprintf(file_name, "%s_%03d_%03d%s.%s", image_filename_prefix, mpi_size, mpi_rank, image_filename_suffix, image_filename_extension);
     else
-        sprintf(file_name, "%s/%s%s.%s", directoryname, image_filename_prefix, image_filename_suffix, image_filename_extension);
-    // this never happens:
-    //else sprintf(file_name, "%s%03d_%03d%s.%s", image_filename_prefix, mpi_size, mpi_rank, image_filename_suffix, image_filename_extension);
+        if (directoryname && strlen(directoryname) > 0)
+            sprintf(file_name, "%s/%s%s.%s", directoryname, image_filename_prefix, image_filename_suffix, image_filename_extension);
+        else
+            sprintf(file_name, "%s%s.%s", image_filename_prefix, image_filename_suffix, image_filename_extension);
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_write_chunk - file_name=%s\n", file_name);
 //    // dupes required or file_name would be changed

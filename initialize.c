@@ -7,9 +7,11 @@ int get_unique_seed(int omp_rank, int mpi_rank) {
 
 void initialize_parallel(long total_size, int mpi_size, int mpi_rank, int debug_info) {
     long chunk_size; // chunk of rows of each MPI task: world_chunk rows / number of threads (mpi_size)
-    chunk_size = total_size % mpi_size - mpi_rank <= 0 ? (long) (total_size / mpi_size) : (long) (total_size / mpi_size) + 1;
+    chunk_size =
+            total_size % mpi_size - mpi_rank <= 0 ? (long) (total_size / mpi_size) : (long) (total_size / mpi_size) + 1;
     if (debug_info > 0) {
-        printf("DEBUG1 - initialize_parallel - BEGIN - rank=%d/%d, chunk_size=%ld/%ld\n", mpi_rank, mpi_size, chunk_size, total_size);
+        printf("DEBUG1 - initialize_parallel - BEGIN - rank=%d/%d, chunk_size=%ld/%ld\n", mpi_rank, mpi_size,
+               chunk_size, total_size);
         // not much sense in parallel execution
         //if (debug_info > 1  && mpi_rank == 0)
         //  printf("DEBUG2 - initialize_parallel - values: ");
@@ -34,14 +36,14 @@ void initialize_parallel(long total_size, int mpi_size, int mpi_rank, int debug_
     }
     //if (debug_info > 1 && mpi_rank == 0)
     //    printf("\n");
-    file_pgm_write_chunk(world_chunk, 255, total_size, chunk_size, "", IMAGE_FILE_CHUNK_INIT_PREFIX, "",
+    file_pgm_write_chunk(world_chunk, 255, total_size, chunk_size, "", IMAGE_FILENAME_PREFIX_INIT, "",
                          FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
     free(world_chunk);
     if (debug_info > 0)
         printf("DEBUG1 - initialize_parallel - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
 }
 
-void initialize_serial(long total_size, int debug_info) {
+void initialize_serial(const char *filename, long total_size, int debug_info) {
     if (debug_info > 0)
         printf("DEBUG1 - initialize_serial - BEGIN\n");
     if (debug_info > 1)
@@ -65,14 +67,14 @@ void initialize_serial(long total_size, int debug_info) {
     }
     if (debug_info > 1)
         printf("\n");
-    file_pgm_write_chunk(world, 255, total_size, total_size, "", IMAGE_FILE_CHUNK_INIT_PREFIX, "",
-                         FILE_EXTENSION_PGMPART, 0, 1, debug_info);
+    file_pgm_write_chunk(world, 255, total_size, total_size, "", filename, "", FILE_EXTENSION_PGM, 0, 1, debug_info);
     free(world);
     if (debug_info > 0)
         printf("DEBUG1 - initialize_serial - END\n");
 }
 
-void initialization(long world_size, const char *filename, int *argc, char ***argv, int mpi_rank, int mpi_size, int debug_info) {
+void initialization(long world_size, const char *filename, int *argc, char ***argv, int mpi_rank, int mpi_size,
+                    int debug_info) {
     if (debug_info > 0 && mpi_rank == 0)
         printf("DEBUG1 - initialization - BEGIN filename=%s\n", filename);
     // Concatenate: pathname + extension
@@ -84,7 +86,7 @@ void initialization(long world_size, const char *filename, int *argc, char ***ar
         //printf("DEBUG1 - initialization - pathname=%s\n", pathname);
         printf("DEBUG1 - initialization - rank %d/%d, pathname=%s\n", mpi_rank, mpi_size, pathname);
     if (mpi_size == 1)
-        initialize_serial(world_size, debug_info);
+        initialize_serial(filename, world_size, debug_info);
     else
         initialize_parallel(world_size, mpi_size, mpi_rank, debug_info);
     MPI_Barrier(MPI_COMM_WORLD);
@@ -93,13 +95,15 @@ void initialization(long world_size, const char *filename, int *argc, char ***ar
     //        init_004_001.pgmpart
     //        init_004_002.pgmpart
     //        init_004_003.pgmpart
-    if (mpi_rank == 0) {
+    if (mpi_size > 1 && mpi_rank == 0) {
         char *fn[mpi_size];
         for (int i = 0; i < mpi_size; i++) {
             if (debug_info > 0)
-                printf("DEBUG1 - initialization - JOIN1: %s%03d_%03d.%s\n", IMAGE_FILE_CHUNK_INIT_PREFIX, mpi_size, i, FILE_EXTENSION_PGMPART);
-            fn[i] = (char *) malloc(strlen(IMAGE_FILE_CHUNK_INIT_PREFIX) + strlen("000_000.") + strlen(FILE_EXTENSION_PGMPART) + 1);
-            sprintf(fn[i], "%s%03d_%03d.%s", IMAGE_FILE_CHUNK_INIT_PREFIX, mpi_size, i, FILE_EXTENSION_PGMPART);
+                printf("DEBUG1 - initialization - JOIN1: %s%03d_%03d.%s\n", IMAGE_FILENAME_PREFIX_INIT, mpi_size, i,
+                       FILE_EXTENSION_PGMPART);
+            fn[i] = (char *) malloc(
+                    strlen(IMAGE_FILENAME_PREFIX_INIT) + strlen("_000_000.") + strlen(FILE_EXTENSION_PGMPART) + 1);
+            sprintf(fn[i], "%s_%03d_%03d.%s", IMAGE_FILENAME_PREFIX_INIT, mpi_size, i, FILE_EXTENSION_PGMPART);
         }
         if (debug_info > 0)
             for (int i = 0; i < mpi_size; i++)
