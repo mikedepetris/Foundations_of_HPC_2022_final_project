@@ -80,7 +80,8 @@ double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_s
         printf("DEBUG1 - file_pgm_write_chunk - 0 - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
     if (chunk_file == NULL) {
         printf("ERROR in file_pgm_write_chunk - the file %s could not be opened\n", file_name);
-        exit(1);
+        perror("ERROR in file_pgm_write_chunk - the file could not be opened\n");
+        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
     }
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_write_chunk - 1 - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
@@ -129,7 +130,7 @@ double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long 
         if (!image_file || ferror(image_file) != 0) {
             printf("ERROR occurred while reading file=%s\n", image_filename);
             perror("Error occurred while reading file\n");
-            exit(EXIT_FAILURE);
+            MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
         }
         *world = NULL;
         *world_size = *local_size = *maxval = 0;
@@ -144,8 +145,8 @@ double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long 
         size_t line_buffer_size = strlen("# " PGM_COMMENT "\n");
         line = (char *) malloc(line_buffer_size * sizeof(char));
         if (line == NULL) {
-            perror("Unable to allocate buffer");
-            exit(1);
+            perror("Unable to allocate buffer\n");
+            MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
         }
         size_t number_of_chars = getline(&line, &line_buffer_size, image_file);
         number_of_read_chars += number_of_chars;
@@ -216,13 +217,13 @@ double file_chunk_merge(const char *filename1, const char *filename2, int debug_
     if (f1 == NULL) {
         printf("Error joining file chunks: file=%s\n", filename1);
         perror("Error joining file chunks\n");
-        exit(EXIT_FAILURE);
+        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
     }
     f2 = fopen(filename2, "r");
     if (f2 == NULL) {
         printf("Error joining file chunks: file=%s\n", filename2);
         perror("Error joining file chunks\n");
-        exit(EXIT_FAILURE);
+        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
     }
 //    // calculate f2 size
 //    fseek(f2, 0, SEEK_END);

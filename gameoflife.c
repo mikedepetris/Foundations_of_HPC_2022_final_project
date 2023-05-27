@@ -150,7 +150,8 @@ int main(int argc, char *argv[]) {
             printf("      -k  <num> playground size (default value %d)                                   \n", DEFAULT_WORLD_SIZE);
             printf("      -e  [0|1|2|3] evolution type (0: ordered, 1: static, 2: wave, 3: black-white   \n");
             printf("      -f  <string> filename to be written (initialization) or read (run)             \n");
-            printf("      -n  <num> number of steps to be iterated (default value %d)                    \n", DEFAULT_NUMBER_OF_STEPS);
+            printf("      -n  <num> number of steps to be iterated (default value %d, max %d)            \n", DEFAULT_NUMBER_OF_STEPS, MAX_NUMBER_OF_STEPS);
+            printf("                                                                                     \n");
             printf("      -s  <num> number of steps between two dumps (default 0: print only last state) \n");
             printf("      -h  print help about program usage                                             \n");
             printf("      -D  print debug informations                                                   \n");

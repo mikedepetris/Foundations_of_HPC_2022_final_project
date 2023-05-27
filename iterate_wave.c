@@ -89,9 +89,7 @@ void update_wave_serial(unsigned char *world, long world_size) {
 
 }
 
-double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request,
-                             unsigned char *world_local, long world_size, long local_size, int number_of_steps,
-                             int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
+double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, long world_size, long local_size, int number_of_steps, int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
     // TODO: better filenames
     char *image_filename_suffix = (char *) malloc(60);
     double t_io = 0;
@@ -234,8 +232,7 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
     return t_io;
 }
 
-double iterate_wave_serial(unsigned char *world, long world_size, int number_of_steps
-                           , int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
+double iterate_wave_serial(unsigned char *world, long world_size, int number_of_steps, int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
     double t_io = 0;
     char *image_filename_prefix = (char *) malloc(60);
     sprintf(image_filename_prefix, IMAGE_FILENAME_PREFIX_SNAP_WAVE);
@@ -253,8 +250,7 @@ double iterate_wave_serial(unsigned char *world, long world_size, int number_of_
     return t_io;
 }
 
-void run_wave(char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[],
-              int debug_info) {
+void run_wave(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int debug_info) {
 // TODO: compute the correct size for MPI message allocation
 #define MAX_STRING_LENGTH 256
     char message[MAX_STRING_LENGTH];
@@ -272,9 +268,8 @@ void run_wave(char *filename, int number_of_steps, int number_of_steps_between_f
     int mpi_provided_thread_level;
     MPI_Init_thread(argc, argv, MPI_THREAD_FUNNELED, &mpi_provided_thread_level);
     if (mpi_provided_thread_level < MPI_THREAD_FUNNELED) {
-        printf("a problem occurred asking for MPI_THREAD_FUNNELED level\n");
-        MPI_Finalize();
-        exit(1);
+        perror("a problem occurred asking for MPI_THREAD_FUNNELED level\n");
+        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
     }
     // start time and time accumulators
     double t_start = MPI_Wtime();
@@ -283,12 +278,16 @@ void run_wave(char *filename, int number_of_steps, int number_of_steps_between_f
     MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
     if (mpi_rank == 0)
-        printf("Run request with EVOLUTION_WAVE of %d steps of filename=%s saving snaps each %d steps\n",
-               number_of_steps, filename, number_of_steps_between_file_dumps);
+        printf("Run request with EVOLUTION_WAVE of %d steps of filename=%s saving snaps each %d steps\n", number_of_steps, filename, number_of_steps_between_file_dumps);
     if (debug_info > 0)
         printf("DEBUG1 - run_wave BEGIN - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
 
     if (mpi_rank == 0) {
+        if (number_of_steps > MAX_NUMBER_OF_STEPS) {
+            printf("Value %d is too big to be passed as -n <num> number of steps to be iterated, max admitted value is %d\n", number_of_steps, MAX_NUMBER_OF_STEPS);
+            perror("Value is too big to be passed as -n <num> number of steps to be iterated\n");
+            MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+        }
         // concatenate: directory name + steps + mpi_size + timestamp
         size_t string_with_num_size = strlen("_" EVOLUTION_TYPE "_00000_000_%Y-%m-%d_%H_%M_%S");
         char *string_with_num = malloc(string_with_num_size + 1);
@@ -501,12 +500,10 @@ void run_wave(char *filename, int number_of_steps, int number_of_steps_between_f
     }
 
     if (mpi_rank == 0)
-        printf("mpi=%d, omp=%d, total time=%f, I/O time=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start,
-               t_io);
+        printf("mpi=%d, omp=%d, total time=%f, I/O time=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io);
     if (mpi_rank == 0 && debug_info > 0)
         //DEBUG1 - run_wave 6 - mpi=2, omp=2, time taken=0.007455
-        printf("DEBUG1 - run_wave 6 - mpi=%d, omp=%d, time taken=%f\n", mpi_size, omp_get_max_threads(),
-               MPI_Wtime() - t_start);
+        printf("DEBUG1 - run_wave 6 - mpi=%d, omp=%d, time taken=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start);
     MPI_Finalize();
     free(directoryname);
     if (debug_info > 1)
