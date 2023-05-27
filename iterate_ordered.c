@@ -7,6 +7,7 @@
 #include "read_write_pgm.h"
 #include "gameoflife.h"
 
+#define EVOLUTION_TYPE "ordered"
 #define IMAGE_FILENAME_PREFIX_SNAP_ORDERED "snapshot"
 #define IMAGE_FILENAME_PREFIX_FINAL_ORDERED "final"
 
@@ -289,11 +290,11 @@ void run_ordered(char *filename, int number_of_steps, int number_of_steps_betwee
 
     if (mpi_rank == 0) {
         // concatenate: directory name + steps + mpi_size + timestamp
-        size_t string_with_num_size = strlen("_ordered_000_000_%Y-%m-%d_%H_%M_%S");
+        size_t string_with_num_size = strlen("_" EVOLUTION_TYPE "_00000_000_%Y-%m-%d_%H_%M_%S");
         char *string_with_num = malloc(string_with_num_size + 1);
-        sprintf(string_with_num, "_ordered_%03d_%03d_%%Y-%%m-%%d_%%H_%%M_%%S", number_of_steps, mpi_size);
+        sprintf(string_with_num, "_" EVOLUTION_TYPE "_%05d_%03d_%%Y-%%m-%%d_%%H_%%M_%%S", number_of_steps, mpi_size);
 
-        size_t string_with_timestamp_size = strlen("_ordered_000_000_2023-02-13_23:37:01");
+        size_t string_with_timestamp_size = strlen("_" EVOLUTION_TYPE "_00000_000_2023-02-13_23:37:01");
         char *string_with_timestamp = malloc(string_with_timestamp_size + 1);
         struct tm *timenow;
         time_t now = time(NULL);

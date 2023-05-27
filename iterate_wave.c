@@ -7,6 +7,7 @@
 #include "read_write_pgm.h"
 #include "gameoflife.h"
 
+#define EVOLUTION_TYPE "wave"
 #define IMAGE_FILENAME_PREFIX_SNAP_WAVE "snapshot"
 #define IMAGE_FILENAME_PREFIX_FINAL_WAVE "final"
 
@@ -288,13 +289,18 @@ void run_wave(char *filename, int number_of_steps, int number_of_steps_between_f
         printf("DEBUG1 - run_wave BEGIN - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
 
     if (mpi_rank == 0) {
-        // Concatenate: directory name + timestamp
-        size_t timestamp_size = strlen("_wave_2023-02-13_23:37:01");
-        char *string_with_timestamp = malloc(timestamp_size + 1);
+        // concatenate: directory name + steps + mpi_size + timestamp
+        size_t string_with_num_size = strlen("_" EVOLUTION_TYPE "_00000_000_%Y-%m-%d_%H_%M_%S");
+        char *string_with_num = malloc(string_with_num_size + 1);
+        sprintf(string_with_num, "_" EVOLUTION_TYPE "_%05d_%03d_%%Y-%%m-%%d_%%H_%%M_%%S", number_of_steps, mpi_size);
+
+        size_t string_with_timestamp_size = strlen("_" EVOLUTION_TYPE "_00000_000_2023-02-13_23:37:01");
+        char *string_with_timestamp = malloc(string_with_timestamp_size + 1);
         struct tm *timenow;
         time_t now = time(NULL);
         timenow = gmtime(&now);
-        unsigned long len = strftime(string_with_timestamp, timestamp_size + 1, "_wave_%Y-%m-%d_%H_%M_%S", timenow);
+        unsigned long len = strftime(string_with_timestamp, string_with_timestamp_size + 1, string_with_num, timenow);
+        free(string_with_num);
         if (debug_info > 0)
             printf("DEBUG1 - run_wave 1 - rank %d/%d, len=%ld string_with_timestamp=%s\n", mpi_rank, mpi_size, len,
                    string_with_timestamp);
