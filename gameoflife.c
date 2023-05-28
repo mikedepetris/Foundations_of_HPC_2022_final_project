@@ -1,6 +1,6 @@
 /**
  * Author: Mike De Petris
- * Date: February 12, 2023,
+ * Date: February 12, 2023
  * Purpose: parallel version of a variant of the famous Conway's "game of life"
  */
 
@@ -52,7 +52,7 @@ char *filename;
 char is_defined_filename = 0;
 
 /**
- * Given a the argc (number of arguments) and argv (array of arguments) of the main function,
+ * Given a the argc (number of arguments) and argv (array of arguments) of the main function
  * this function parses the arguments and sets the global variables accordingly.
  *
  * @param argc number of arguments

@@ -10,8 +10,7 @@ void initialize_parallel(long total_size, int mpi_size, int mpi_rank, int debug_
     chunk_size =
             total_size % mpi_size - mpi_rank <= 0 ? (long) (total_size / mpi_size) : (long) (total_size / mpi_size) + 1;
     if (debug_info > 0) {
-        printf("DEBUG1 - initialize_parallel - BEGIN - rank=%d/%d, chunk_size=%ld/%ld\n", mpi_rank, mpi_size,
-               chunk_size, total_size);
+        printf("DEBUG1 - initialize_parallel - BEGIN - rank=%d/%d, chunk_size=%ld/%ld\n", mpi_rank, mpi_size, chunk_size, total_size);
         // not much sense in parallel execution
         //if (debug_info > 1  && mpi_rank == 0)
         //  printf("DEBUG2 - initialize_parallel - values: ");
@@ -36,8 +35,7 @@ void initialize_parallel(long total_size, int mpi_size, int mpi_rank, int debug_
     }
     //if (debug_info > 1 && mpi_rank == 0)
     //    printf("\n");
-    file_pgm_write_chunk(world_chunk, 255, total_size, chunk_size, "", IMAGE_FILENAME_PREFIX_INIT, "",
-                         FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
+    file_pgm_write_chunk(world_chunk, 255, total_size, chunk_size, "", IMAGE_FILENAME_PREFIX_INIT, "", FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
     free(world_chunk);
     if (debug_info > 0)
         printf("DEBUG1 - initialize_parallel - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
@@ -73,8 +71,7 @@ void initialize_serial(const char *filename, long total_size, int debug_info) {
         printf("DEBUG1 - initialize_serial - END\n");
 }
 
-void initialization(long world_size, const char *filename, int *argc, char ***argv, int mpi_rank, int mpi_size,
-                    int debug_info) {
+void initialization(long world_size, const char *filename, int *argc, char ***argv, int mpi_rank, int mpi_size, int debug_info) {
     if (debug_info > 0 && mpi_rank == 0)
         printf("DEBUG1 - initialization - BEGIN filename=%s\n", filename);
     // Concatenate: pathname + extension
@@ -99,8 +96,7 @@ void initialization(long world_size, const char *filename, int *argc, char ***ar
         char *fn[mpi_size];
         for (int i = 0; i < mpi_size; i++) {
             if (debug_info > 0)
-                printf("DEBUG1 - initialization - JOIN1: %s%03d_%03d.%s\n", IMAGE_FILENAME_PREFIX_INIT, mpi_size, i,
-                       FILE_EXTENSION_PGMPART);
+                printf("DEBUG1 - initialization - JOIN1: %s%03d_%03d.%s\n", IMAGE_FILENAME_PREFIX_INIT, mpi_size, i, FILE_EXTENSION_PGMPART);
             fn[i] = (char *) malloc(
                     strlen(IMAGE_FILENAME_PREFIX_INIT) + strlen("_000_000.") + strlen(FILE_EXTENSION_PGMPART) + 1);
             sprintf(fn[i], "%s_%03d_%03d.%s", IMAGE_FILENAME_PREFIX_INIT, mpi_size, i, FILE_EXTENSION_PGMPART);

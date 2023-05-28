@@ -32,12 +32,9 @@ double file_pgm_write_all(void *image, int maxval, int xsize, int ysize, const c
     fclose(image_file);
 }
 
-double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_size, long local_size, const char *directoryname
-                           , const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension
-                           , int mpi_rank, int mpi_size, int debug_info) {
+double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_size, long local_size, const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension, int mpi_rank, int mpi_size, int debug_info) {
     if (debug_info > 0)
-        printf("DEBUG1 - file_pgm_write_chunk - BEGIN - mpi_rank=%d/%d, directoryname=%s, image_filename_prefix=%s, image_filename_suffix=%s, image_filename_extension=%s\n"
-               , mpi_rank, mpi_size, directoryname, image_filename_prefix, image_filename_suffix, image_filename_extension);
+        printf("DEBUG1 - file_pgm_write_chunk - BEGIN - mpi_rank=%d/%d, directoryname=%s, image_filename_prefix=%s, image_filename_suffix=%s, image_filename_extension=%s\n", mpi_rank, mpi_size, directoryname, image_filename_prefix, image_filename_suffix, image_filename_extension);
     if (debug_info > 1) {
         for (long long i = 0; i < world_size * (local_size + 2); i++) {
             if (i % 16 == 0)
@@ -114,8 +111,7 @@ double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_s
     return t_taken;
 }
 
-double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long *world_size, const char *image_filename
-                    , int mpi_rank, int mpi_size, int debug_info) {
+double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long *world_size, const char *image_filename, int mpi_rank, int mpi_size, int debug_info) {
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_read - BEGIN - mpi_rank=%d/%d, image_filename=%s\n", mpi_rank, mpi_size, image_filename);
     size_t number_of_read_chars = 0;
@@ -139,8 +135,7 @@ double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long 
         number_of_matches = fscanf(image_file, "%2s%*c", magic_number_p5);
         number_of_read_chars += number_of_matches * strlen(magic_number_p5);
         if (debug_info > 1)
-            printf("DEBUG2 - file_pgm_read - magic_number_p5=%s, number_of_matches=%zu, number_of_read_chars=%zu\n", magic_number_p5, number_of_matches
-                   , number_of_read_chars);
+            printf("DEBUG2 - file_pgm_read - magic_number_p5=%s, number_of_matches=%zu, number_of_read_chars=%zu\n", magic_number_p5, number_of_matches, number_of_read_chars);
         char *line;
         size_t line_buffer_size = strlen("# " PGM_COMMENT "\n");
         line = (char *) malloc(line_buffer_size * sizeof(char));
@@ -151,8 +146,7 @@ double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long 
         size_t number_of_chars = getline(&line, &line_buffer_size, image_file);
         number_of_read_chars += number_of_chars;
         if (debug_info > 1)
-            printf("DEBUG2 - file_pgm_read - number_of_chars=%zu, line=%s, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu\n"
-                   , number_of_chars, line, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars);
+            printf("DEBUG2 - file_pgm_read - number_of_chars=%zu, line=%s, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu\n", number_of_chars, line, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars);
         // skip comments
         while ((number_of_chars > 0) && (line[0] == '#')) {
             number_of_chars = getline(&line, &line_buffer_size, image_file);
@@ -175,12 +169,10 @@ double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long 
         }
         if (debug_info > 1)
 //            printf("DEBUG2 - file_pgm_read - HEADER END "
-//                   "number_of_chars=%zu, line=%s, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu, "
-//                   "world_size=%ld, maxval=%d\n"
+//                   "number_of_chars=%zu, line=%s, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu, world_size=%ld, maxval=%d\n"
 //                   , number_of_chars, line, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars, *world_size, *maxval);
             printf("DEBUG2 - file_pgm_read - HEADER END "
-                   "number_of_chars=%zu, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu, "
-                   "world_size=%ld, maxval=%d\n"
+                   "number_of_chars=%zu, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu, world_size=%ld, maxval=%d\n"
                    , number_of_chars, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars, *world_size, *maxval);
         fclose(image_file);
         free(line);
@@ -190,8 +182,7 @@ double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long 
     MPI_Bcast(maxval, 1, MPI_INT, 0, MPI_COMM_WORLD);
     calculate_sizes_indexes(mpi_rank, mpi_size, *world_size, &first_row, &last_row, local_size);
     if (debug_info > 1)
-        printf("DEBUG2 - file_pgm_read - mpi_rank=%d/%d *world_size=%ld, first_row=%ld, last_row=%ld, local_size=%ld\n", mpi_rank, mpi_size, *world_size
-               , first_row, last_row, *local_size);
+        printf("DEBUG2 - file_pgm_read - mpi_rank=%d/%d *world_size=%ld, first_row=%ld, last_row=%ld, local_size=%ld\n", mpi_rank, mpi_size, *world_size, first_row, last_row, *local_size);
     int color_depth = 1 + (*maxval > 255);
     MPI_File fh;
     MPI_File_open(MPI_COMM_WORLD, image_filename, MPI_MODE_RDONLY, MPI_INFO_NULL, &fh);

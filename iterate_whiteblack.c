@@ -14,18 +14,15 @@
 //#define DEBUG_ADVANCED
 //#define DEBUG_ADVANCED_B
 
-void update_cell(const unsigned char *world, unsigned char *world_next, long world_size,
-                 long long int i) {// actual cell coordinates
+void update_cell(const unsigned char *world, unsigned char *world_next, long world_size, long long int i) {// actual cell coordinates
 #ifdef DEBUG_ADVANCED_B
-    printf("DEBUGB - update_cell 1 - mpi_rank=%d/%d, iteration_step=%d, i/local_size=%lld/%ld\n", mpi_rank, mpi_size, iteration_step, i
-               , local_size);
+    printf("DEBUGB - update_cell 1 - mpi_rank=%d/%d, iteration_step=%d, i/local_size=%lld/%ld\n", mpi_rank, mpi_size, iteration_step, i, local_size);
 #endif
     // actual cell coordinates
     long x = i % world_size;
     long y = i / world_size;
 #ifdef DEBUG_ADVANCED_B
-    printf("DEBUGB - update_cell 2 - mpi_rank=%d/%d, iteration_step=%d, i/local_size=%03lld/%ld x=%03ld, y=%03ld\n", mpi_rank, mpi_size
-               , iteration_step, i, local_size, x, y);
+    printf("DEBUGB - update_cell 2 - mpi_rank=%d/%d, iteration_step=%d, i/local_size=%03lld/%ld x=%03ld, y=%03ld\n", mpi_rank, mpi_size, iteration_step, i, local_size, x, y);
 #endif
     // neighbours of actual cell
     long x_prev = x - 1 >= 0 ? x - 1 : world_size - 1;
@@ -63,9 +60,7 @@ void update_cell(const unsigned char *world, unsigned char *world_next, long wor
     }
 }
 
-void update_white_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request,
-                           unsigned char *world_local, unsigned char *world_next, long long world_size, long local_size,
-                           int iteration_step) {
+void update_white_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, unsigned char *world_next, long long world_size, long local_size, int iteration_step) {
 //#pragma omp master
     {
         // tags definition for the MPI message exchange
@@ -81,12 +76,9 @@ void update_white_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
         // process mpi_size-1 sends his last  row to process 0
         // TODO: chunk size passed as INT by MPI, needs better implementation to work with bigger sizes
         if (mpi_rank != 0 && mpi_rank != mpi_size - 1) {
-            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_0, MPI_COMM_WORLD,
-                      mpi_request);
-            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, tag_1,
-                      MPI_COMM_WORLD, mpi_request);
-            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, tag_0,
-                     MPI_COMM_WORLD, mpi_status);
+            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_0, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, tag_1, MPI_COMM_WORLD, mpi_request);
+            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, tag_0, MPI_COMM_WORLD, mpi_status);
             MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_1, MPI_COMM_WORLD, mpi_status);
         }
         if (mpi_rank == 0) {
@@ -106,12 +98,9 @@ void update_white_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
                 printf("\n");
             }
 #endif
-            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, tag_0, MPI_COMM_WORLD,
-                      mpi_request);
-            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, tag_1, MPI_COMM_WORLD,
-                      mpi_request);
-            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, tag_0,
-                     MPI_COMM_WORLD, mpi_status);
+            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, tag_0, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, tag_1, MPI_COMM_WORLD, mpi_request);
+            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, tag_0, MPI_COMM_WORLD, mpi_status);
             MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, tag_1, MPI_COMM_WORLD, mpi_status);
 #ifdef DEBUG_ADVANCED
             if (iteration_step == 1) {
@@ -133,12 +122,9 @@ void update_white_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
 #endif
         }
         if (mpi_rank == mpi_size - 1) {
-            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_0, MPI_COMM_WORLD,
-                      mpi_request);
-            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, tag_1, MPI_COMM_WORLD,
-                      mpi_request);
-            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, tag_0,
-                     MPI_COMM_WORLD, mpi_status);
+            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_0, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, tag_1, MPI_COMM_WORLD, mpi_request);
+            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, tag_0, MPI_COMM_WORLD, mpi_status);
             MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_1, MPI_COMM_WORLD, mpi_status);
 #ifdef DEBUG_ADVANCED
             if (iteration_step == 1) {
@@ -159,8 +145,7 @@ void update_white_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
         }
     }
 #ifdef DEBUG_ADVANCED
-    printf("DEBUGA - update_parallel_whiteblack 1 - mpi_rank=%d/%d, iteration_step=%d, local_size=%ld, world_size * (local_size + 1)=%lld\n", mpi_rank, mpi_size
-           , iteration_step, local_size, world_size * (local_size + 1));
+    printf("DEBUGA - update_parallel_whiteblack 1 - mpi_rank=%d/%d, iteration_step=%d, local_size=%ld, world_size * (local_size + 1)=%lld\n", mpi_rank, mpi_size, iteration_step, local_size, world_size * (local_size + 1));
 #endif
 //#pragma omp for
     // update even cells, white on the chessboard (cell 0,0 is white)
@@ -171,9 +156,7 @@ void update_white_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
 //#pragma omp barrier
 }
 
-void update_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request,
-                           unsigned char *world_local, unsigned char *world_next, long long world_size, long local_size,
-                           int iteration_step) {
+void update_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, unsigned char *world_next, long long world_size, long local_size, int iteration_step) {
 //#pragma omp master
     {
         // tags definition for the MPI message exchange
@@ -189,12 +172,9 @@ void update_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
         // process mpi_size-1 sends his last  row to process 0
         // TODO: chunk size passed as INT by MPI, needs better implementation to work with bigger sizes
         if (mpi_rank != 0 && mpi_rank != mpi_size - 1) {
-            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_0, MPI_COMM_WORLD,
-                      mpi_request);
-            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, tag_1,
-                      MPI_COMM_WORLD, mpi_request);
-            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, tag_0,
-                     MPI_COMM_WORLD, mpi_status);
+            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_0, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, tag_1, MPI_COMM_WORLD, mpi_request);
+            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, tag_0, MPI_COMM_WORLD, mpi_status);
             MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_1, MPI_COMM_WORLD, mpi_status);
         }
         if (mpi_rank == 0) {
@@ -214,12 +194,9 @@ void update_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
                 printf("\n");
             }
 #endif
-            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, tag_0, MPI_COMM_WORLD,
-                      mpi_request);
-            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, tag_1, MPI_COMM_WORLD,
-                      mpi_request);
-            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, tag_0,
-                     MPI_COMM_WORLD, mpi_status);
+            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, tag_0, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, tag_1, MPI_COMM_WORLD, mpi_request);
+            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, tag_0, MPI_COMM_WORLD, mpi_status);
             MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, tag_1, MPI_COMM_WORLD, mpi_status);
 #ifdef DEBUG_ADVANCED
             if (iteration_step == 1) {
@@ -241,12 +218,9 @@ void update_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
 #endif
         }
         if (mpi_rank == mpi_size - 1) {
-            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_0, MPI_COMM_WORLD,
-                      mpi_request);
-            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, tag_1, MPI_COMM_WORLD,
-                      mpi_request);
-            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, tag_0,
-                     MPI_COMM_WORLD, mpi_status);
+            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_0, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, tag_1, MPI_COMM_WORLD, mpi_request);
+            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, tag_0, MPI_COMM_WORLD, mpi_status);
             MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_1, MPI_COMM_WORLD, mpi_status);
 #ifdef DEBUG_ADVANCED
             if (iteration_step == 1) {
@@ -267,8 +241,7 @@ void update_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
         }
     }
 #ifdef DEBUG_ADVANCED
-    printf("DEBUGA - update_parallel_whiteblack 1 - mpi_rank=%d/%d, iteration_step=%d, local_size=%ld, world_size * (local_size + 1)=%lld\n", mpi_rank, mpi_size
-           , iteration_step, local_size, world_size * (local_size + 1));
+    printf("DEBUGA - update_parallel_whiteblack 1 - mpi_rank=%d/%d, iteration_step=%d, local_size=%ld, world_size * (local_size + 1)=%lld\n", mpi_rank, mpi_size, iteration_step, local_size, world_size * (local_size + 1));
 #endif
 //#pragma omp for
     // update even cells, white on the chessboard (cell 0,0 is white)
@@ -340,10 +313,7 @@ void update_black_serial(unsigned char *world, unsigned char *world_next, long w
 }
 
 double
-iterate_whiteblack_parallel(const int mpi_rank, const int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request,
-                            unsigned char **world_local, const long world_size, const long local_size,
-                            const int number_of_steps, const int number_of_steps_between_file_dumps,
-                            const char *directoryname, int debug_info) {
+iterate_whiteblack_parallel(const int mpi_rank, const int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char **world_local, const long world_size, const long local_size, const int number_of_steps, const int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
     double t_io = 0;
     if (debug_info > 0)
         printf("DEBUG1 - iterate_whiteblack_parallel - BEGIN - mpi_rank=%d/%d, world_size=%ld\n", mpi_rank, mpi_size, world_size);
@@ -360,18 +330,14 @@ iterate_whiteblack_parallel(const int mpi_rank, const int mpi_size, MPI_Status *
     {
         for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_whiteblack_parallel 0 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n",
-                       mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads(), iteration_step,
-                       number_of_steps);
+                printf("DEBUG2 - iterate_whiteblack_parallel 0 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
 
-            update_white_parallel(mpi_rank, mpi_size, mpi_status, mpi_request, world_local_actual, world_local_next,
-                                  world_size, local_size, iteration_step);
+            update_white_parallel(mpi_rank, mpi_size, mpi_status, mpi_request, world_local_actual, world_local_next, world_size, local_size, iteration_step);
             // pointers swap to reuse allocated world_local and world_local_next for next iteration
             temp = world_local_actual;
             world_local_actual = world_local_next;
             world_local_next = temp;
-            update_black_parallel(mpi_rank, mpi_size, mpi_status, mpi_request, world_local_actual, world_local_next,
-                                  world_size, local_size, iteration_step);
+            update_black_parallel(mpi_rank, mpi_size, mpi_status, mpi_request, world_local_actual, world_local_next, world_size, local_size, iteration_step);
             // when needed save snapshot
             if (iteration_step % number_of_steps_between_file_dumps == 0) {
                 sprintf(image_filename_suffix, "_%05d", iteration_step);
@@ -384,9 +350,7 @@ iterate_whiteblack_parallel(const int mpi_rank, const int mpi_size, MPI_Status *
             world_local_actual = world_local_next;
             world_local_next = temp;
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_whiteblack_parallel 2 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n",
-                       mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads(), iteration_step,
-                       number_of_steps);
+                printf("DEBUG2 - iterate_whiteblack_parallel 2 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
         }
     }
     if (debug_info > 1)
@@ -399,14 +363,10 @@ iterate_whiteblack_parallel(const int mpi_rank, const int mpi_size, MPI_Status *
 }
 
 double
-iterate_whiteblack_serial(const int mpi_rank, const int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request,
-                          unsigned char **world_local, const long world_size, const long local_size,
-                          const int number_of_steps, const int number_of_steps_between_file_dumps,
-                          const char *directoryname, int debug_info) {
+iterate_whiteblack_serial(const int mpi_rank, const int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char **world_local, const long world_size, const long local_size, const int number_of_steps, const int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
     double t_io = 0;
     if (debug_info > 0)
-        printf("DEBUG1 - iterate_whiteblack_serial - BEGIN - mpi_rank=%d/%d, world_size=%ld\n", mpi_rank, mpi_size,
-               world_size);
+        printf("DEBUG1 - iterate_whiteblack_serial - BEGIN - mpi_rank=%d/%d, world_size=%ld\n", mpi_rank, mpi_size, world_size);
     unsigned char *world_local_actual = *world_local;
     // allocate memory for the next state
     unsigned char *world_local_next = (unsigned char *) malloc(world_size * (local_size + 2) * sizeof(unsigned char));
@@ -418,9 +378,7 @@ iterate_whiteblack_serial(const int mpi_rank, const int mpi_size, MPI_Status *mp
     {
         for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_whiteblack_serial 0 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n",
-                       mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads(), iteration_step,
-                       number_of_steps);
+                printf("DEBUG2 - iterate_whiteblack_serial 0 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
 
             update_white_serial(world_local_actual, world_local_next, world_size, iteration_step);
 //#pragma omp barrier
@@ -453,8 +411,7 @@ iterate_whiteblack_serial(const int mpi_rank, const int mpi_size, MPI_Status *mp
     free(world_local_next_original);
     free(image_filename_suffix);
     if (debug_info > 1)
-        printf("DEBUG2 - iterate_whiteblack_serial END - mpi_rank=%d/%d, omp_rank=%d/%d\n", mpi_rank, mpi_size,
-               omp_get_thread_num(), omp_get_max_threads());
+        printf("DEBUG2 - iterate_whiteblack_serial END - mpi_rank=%d/%d, omp_rank=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads());
     return t_io;
 }
 
@@ -509,20 +466,16 @@ void run_whiteblack(const char *filename, int number_of_steps, int number_of_ste
         unsigned long len = strftime(string_with_timestamp, string_with_timestamp_size + 1, string_with_num, timenow);
         free(string_with_num);
         if (debug_info > 0)
-            printf("DEBUG1 - run_whiteblack 1 - rank %d/%d, len=%ld string_with_timestamp=%s\n", mpi_rank, mpi_size,
-                   len, string_with_timestamp);
+            printf("DEBUG1 - run_whiteblack 1 - rank %d/%d, len=%ld string_with_timestamp=%s\n", mpi_rank, mpi_size, len, string_with_timestamp);
         if (debug_info > 0)
-            printf("DEBUG1 - run_whiteblack 1a - rank %d/%d, strlen(filename) + strlen(string_with_timestamp) + 1=%lu\n",
-                   mpi_rank, mpi_size,
-                   strlen(filename) + strlen(string_with_timestamp) + 1);
+            printf("DEBUG1 - run_whiteblack 1a - rank %d/%d, strlen(filename) + strlen(string_with_timestamp) + 1=%lu\n", mpi_rank, mpi_size, strlen(filename) + strlen(string_with_timestamp) + 1);
         directoryname = malloc(strlen(filename) + strlen(string_with_timestamp) + 1);
         strcpy(directoryname, filename);
         strcat(directoryname, string_with_timestamp);
         replace_char(directoryname, '/', '_');
         free(string_with_timestamp);
         if (debug_info > 0)
-            printf("DEBUG1 - run_whiteblack 1b - rank %d/%d, strlen(directoryname)=%lu, directoryname=%s\n", mpi_rank,
-                   mpi_size, strlen(directoryname), directoryname);
+            printf("DEBUG1 - run_whiteblack 1b - rank %d/%d, strlen(directoryname)=%lu, directoryname=%s\n", mpi_rank, mpi_size, strlen(directoryname), directoryname);
         // Broadcast the string to all other processes
         if (mpi_size > 1)
             MPI_Bcast(directoryname, (int) strlen(directoryname) + 1, MPI_CHAR, 0, MPI_COMM_WORLD);
@@ -535,8 +488,7 @@ void run_whiteblack(const char *filename, int number_of_steps, int number_of_ste
         directoryname = malloc(strlen(message) + 1);
         strcpy(directoryname, message);
         if (debug_info > 1)
-            printf("DEBUG2 - run_whiteblack 1c - rank %d/%d, LEN=%lu directoryname=%s, LEN=%lu message=%s\n", mpi_rank,
-                   mpi_size, strlen(directoryname), directoryname, strlen(message), message);
+            printf("DEBUG2 - run_whiteblack 1c - rank %d/%d, LEN=%lu directoryname=%s, LEN=%lu message=%s\n", mpi_rank, mpi_size, strlen(directoryname), directoryname, strlen(message), message);
     }
     MPI_Barrier(MPI_COMM_WORLD);
     if (debug_info > 0)
@@ -553,26 +505,18 @@ void run_whiteblack(const char *filename, int number_of_steps, int number_of_ste
     */
     t_io += file_pgm_read(&world_local, &maxval, &local_size, &world_size, filename, mpi_rank, mpi_size, debug_info);
     if (debug_info > 0)
-        printf("DEBUG1 - run_whiteblack 3 - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, filename=%s\n",
-               mpi_rank, mpi_size, maxval, local_size, world_size, filename);
+        printf("DEBUG1 - run_whiteblack 3 - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, filename=%s\n", mpi_rank, mpi_size, maxval, local_size, world_size, filename);
 
     if (mpi_size > 1)
-        t_io += iterate_whiteblack_parallel(mpi_rank, mpi_size, &mpi_status, &mpi_request, &world_local, world_size,
-                                            local_size, number_of_steps, number_of_steps_between_file_dumps,
-                                            directoryname, debug_info);
+        t_io += iterate_whiteblack_parallel(mpi_rank, mpi_size, &mpi_status, &mpi_request, &world_local, world_size, local_size, number_of_steps, number_of_steps_between_file_dumps, directoryname, debug_info);
     else
-        t_io += iterate_whiteblack_serial(mpi_rank, mpi_size, &mpi_status, &mpi_request, &world_local, world_size,
-                                          local_size, number_of_steps, number_of_steps_between_file_dumps,
-                                          directoryname, debug_info);
+        t_io += iterate_whiteblack_serial(mpi_rank, mpi_size, &mpi_status, &mpi_request, &world_local, world_size, local_size, number_of_steps, number_of_steps_between_file_dumps, directoryname, debug_info);
     if (debug_info > 1)
-        printf("DEBUG2 - run_whiteblack 4 - ITERATED - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, directoryname=%s, filename=%s\n",
-               mpi_rank, mpi_size, maxval, local_size, world_size, directoryname, filename);
+        printf("DEBUG2 - run_whiteblack 4 - ITERATED - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, directoryname=%s, filename=%s\n", mpi_rank, mpi_size, maxval, local_size, world_size, directoryname, filename);
     // wait for all iterations to complete
     MPI_Barrier(MPI_COMM_WORLD);
     // write final iteration output
-    t_io += file_pgm_write_chunk(world_local, 255, world_size, local_size, directoryname,
-                                 IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK, "", partial_file_extension, mpi_rank, mpi_size,
-                                 debug_info);
+    t_io += file_pgm_write_chunk(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK, "", partial_file_extension, mpi_rank, mpi_size, debug_info);
     MPI_Barrier(MPI_COMM_WORLD);
     // merge chunks of final output if needed
     // TODO: when size=1 raname changing extension removing "part"
@@ -591,48 +535,30 @@ void run_whiteblack(const char *filename, int number_of_steps, int number_of_ste
         for (int iteration_step = number_of_steps_between_file_dumps;
              iteration_step <= number_of_steps; iteration_step += number_of_steps_between_file_dumps) {
             if (debug_info > 1)
-                printf("DEBUG2 - run_whiteblack 5a0 - rank %d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size,
-                       iteration_step, number_of_steps);
+                printf("DEBUG2 - run_whiteblack 5a0 - rank %d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, iteration_step, number_of_steps);
             if (debug_info > 1)
-                printf("DEBUG2 - run_whiteblack 5a1 - rank %d/%d, snap_chunks_fn=%s/%s%03d_%05d%s.%s\n", mpi_rank,
-                       mpi_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK, mpi_size, iteration_step, "",
-                       FILE_EXTENSION_PGM);
+                printf("DEBUG2 - run_whiteblack 5a1 - rank %d/%d, snap_chunks_fn=%s/%s%03d_%05d%s.%s\n", mpi_rank, mpi_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK, mpi_size, iteration_step, "", FILE_EXTENSION_PGM);
             // filename of joined iteration snap
             char *snap_fn;
-            unsigned long snap_fn_len =
-//                  strlen("/000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK) + strlen(FILE_EXTENSION_PGM) + 1;
-                    strlen("/_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK) +
-                    strlen(FILE_EXTENSION_PGM) + 1;
+            unsigned long snap_fn_len = strlen("/_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK) + strlen(FILE_EXTENSION_PGM) + 1;
             if (debug_info > 1)
-                printf("DEBUG2 - run_whiteblack 5a2 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%05d%s.%s\n",
-                       mpi_rank, mpi_size, snap_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK, mpi_size,
-                       iteration_step, "", FILE_EXTENSION_PGM);
+                printf("DEBUG2 - run_whiteblack 5a2 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%05d%s.%s\n", mpi_rank, mpi_size, snap_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK, mpi_size, iteration_step, "", FILE_EXTENSION_PGM);
             snap_fn = (char *) malloc(snap_fn_len);
 //          sprintf(snap_fn, "%s/%s%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK, mpi_size, iteration_step, "", FILE_EXTENSION_PGM);
-            sprintf(snap_fn, "%s/%s_%05d.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK, iteration_step,
-                    FILE_EXTENSION_PGM);
+            sprintf(snap_fn, "%s/%s_%05d.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK, iteration_step, FILE_EXTENSION_PGM);
             if (debug_info > 1)
-                printf("DEBUG2 - run_whiteblack 5a3 - snap_fn_len=%ld, strlen(%s)=%ld\n", snap_fn_len, snap_fn,
-                       strlen(snap_fn));
+                printf("DEBUG2 - run_whiteblack 5a3 - snap_fn_len=%ld, strlen(%s)=%ld\n", snap_fn_len, snap_fn, strlen(snap_fn));
 
             // array of filenames of snap chunks to be joined
             char *snap_chunks_fn[mpi_size];
-            unsigned long snap_chunks_fn_len =
-//                  strlen("/000_000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK) + strlen(FILE_EXTENSION_PGMPART) + 1;
-                    strlen("/_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK) +
-                    strlen(FILE_EXTENSION_PGMPART) + 1;
+            unsigned long snap_chunks_fn_len = strlen("/_000_000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK) + strlen(FILE_EXTENSION_PGMPART) + 1;
             if (debug_info > 1) // test chunks fn length
-                printf("DEBUG2 - run_whiteblack 5a4 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%03d_%05d%s.%s\n",
-                       mpi_rank, mpi_size, snap_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK,
-                       mpi_size, mpi_rank, iteration_step, "", FILE_EXTENSION_PGMPART);
+                printf("DEBUG2 - run_whiteblack 5a4 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%03d_%05d%s.%s\n", mpi_rank, mpi_size, snap_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK, mpi_size, mpi_rank, iteration_step, "", FILE_EXTENSION_PGMPART);
             for (int i = 0; i < mpi_size; i++) {
                 if (debug_info > 1)
-                    printf("DEBUG2 - run_whiteblack 5a5: LEN=%lu %s/%s%03d_%03d_%05d%s.%s\n", snap_chunks_fn_len,
-                           directoryname, IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK, mpi_size, i, iteration_step, "",
-                           FILE_EXTENSION_PGMPART);
+                    printf("DEBUG2 - run_whiteblack 5a5: LEN=%lu %s/%s%03d_%03d_%05d%s.%s\n", snap_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK, mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
                 snap_chunks_fn[i] = (char *) malloc(snap_chunks_fn_len);
-                sprintf(snap_chunks_fn[i], "%s/%s_%03d_%03d_%05d%s.%s", directoryname,
-                        IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK, mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
+                sprintf(snap_chunks_fn[i], "%s/%s_%03d_%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK, mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
 //              sprintf(snap_chunks_fn[i], "%s/%s%05d.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK, iteration_step, FILE_EXTENSION_PGMPART);
                 if (debug_info > 1)
                     printf("DEBUG2 - run_whiteblack 5a6: LEN=%lu %s\n", strlen(snap_chunks_fn[i]), snap_chunks_fn[i]);
@@ -665,35 +591,25 @@ void run_whiteblack(const char *filename, int number_of_steps, int number_of_ste
         sprintf(final_fn, "%s/%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK, FILE_EXTENSION_PGM);
         if (debug_info > 1) {
             // NB: strlen=string length, sizeof=length+1 one more char for the terminating zero
-            printf("DEBUG2 - run_whiteblack 5b0 - final_fn_len=%ld, strlen(%s)=%ld\n", final_fn_len, final_fn,
-                   strlen(final_fn));
+            printf("DEBUG2 - run_whiteblack 5b0 - final_fn_len=%ld, strlen(%s)=%ld\n", final_fn_len, final_fn, strlen(final_fn));
             printf("DEBUG2 - run_whiteblack 5b1 - strlen(\"/000_000.\")=%ld\n", strlen("/000_000."));
             printf("DEBUG2 - run_whiteblack 5b2 - strlen(%s)=%ld\n", directoryname, strlen(directoryname));
-            printf("DEBUG2 - run_whiteblack 5b3 - sizeof(%s)=%ld\n", IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK,
-                   sizeof(IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK));
-            printf("DEBUG2 - run_whiteblack 5b4 - sizeof(%s)=%ld\n", FILE_EXTENSION_PGMPART,
-                   sizeof(FILE_EXTENSION_PGMPART));
+            printf("DEBUG2 - run_whiteblack 5b3 - sizeof(%s)=%ld\n", IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK, sizeof(IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK));
+            printf("DEBUG2 - run_whiteblack 5b4 - sizeof(%s)=%ld\n", FILE_EXTENSION_PGMPART, sizeof(FILE_EXTENSION_PGMPART));
         }
         // array of filenames of chunks to be joined
         char *final_chunks_fn[mpi_size];
-        unsigned long final_chunks_fn_len =
-                strlen("/_000_000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK) +
-                strlen(FILE_EXTENSION_PGMPART) + 1;
+        unsigned long final_chunks_fn_len = strlen("/_000_000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK) + strlen(FILE_EXTENSION_PGMPART) + 1;
         if (debug_info > 1) // test chunks fn length
-            printf("DEBUG2 - run_whiteblack 5 - MERGE CHUNKS FINAL rank %d/%d, LEN=%lu, final_chunks_fn=%s/%s%03d_%03d%s.%s\n",
-                   mpi_rank, mpi_size, final_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK,
-                   mpi_size, mpi_rank, "", FILE_EXTENSION_PGMPART);
+            printf("DEBUG2 - run_whiteblack 5 - MERGE CHUNKS FINAL rank %d/%d, LEN=%lu, final_chunks_fn=%s/%s%03d_%03d%s.%s\n", mpi_rank, mpi_size, final_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK, mpi_size, mpi_rank, "", FILE_EXTENSION_PGMPART);
         for (int i = 0; i < mpi_size; i++) {
             if (debug_info > 1)
-                printf("DEBUG2 - run_whiteblack - JOIN1a: LEN=%lu %s/%s%03d_%03d%s.%s\n", final_chunks_fn_len,
-                       directoryname, IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK, mpi_size, i, "", FILE_EXTENSION_PGMPART);
+                printf("DEBUG2 - run_whiteblack - JOIN1a: LEN=%lu %s/%s%03d_%03d%s.%s\n", final_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK, mpi_size, i, "", FILE_EXTENSION_PGMPART);
             final_chunks_fn[i] = (char *) malloc(final_chunks_fn_len);
-            sprintf(final_chunks_fn[i], "%s/%s_%03d_%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK,
-                    mpi_size, i, "", FILE_EXTENSION_PGMPART);
+            sprintf(final_chunks_fn[i], "%s/%s_%03d_%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK, mpi_size, i, "", FILE_EXTENSION_PGMPART);
 //          sprintf(final_chunks_fn[i], "%s/%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK, FILE_EXTENSION_PGMPART);
             if (debug_info > 1)
-                printf("DEBUG2 - run_whiteblack - JOIN1b: LEN=%lu %s\n", strlen(final_chunks_fn[i]),
-                       final_chunks_fn[i]);
+                printf("DEBUG2 - run_whiteblack - JOIN1b: LEN=%lu %s\n", strlen(final_chunks_fn[i]), final_chunks_fn[i]);
         }
         if (debug_info > 0)
             for (int i = 0; i < mpi_size; i++)
