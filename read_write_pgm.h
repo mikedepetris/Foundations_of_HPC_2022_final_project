@@ -13,7 +13,7 @@
 #define PGM_COMMENT " Created by GOL gameoflife"
 
 // calculate the first row, last row and the total number of rows of each MPI Task
-void calculate_sizes_indexes(int rank, int size, long world_size, long *first_row, long *last_row, long *local_size);
+void calculate_sizes_indexes(int mpi_rank, int mpi_size, long world_size, long *first_row, long *last_row, long *local_size);
 
 double file_pgm_write_all(void *image, int maxval, int xsize, int ysize, const char *image_name);
 

@@ -14,7 +14,7 @@
 //#define DEBUG_ADVANCED
 //#define DEBUG_ADVANCED_B
 
-void update_cell(const unsigned char *world, unsigned char *world_next, long world_size, long long int i) {// actual cell coordinates
+void update_cell(const unsigned char *world, unsigned char *world_next, long world_size, long long int i) {
 #ifdef DEBUG_ADVANCED_B
     printf("DEBUGB - update_cell 1 - mpi_rank=%d/%d, iteration_step=%d, i/local_size=%lld/%ld\n", mpi_rank, mpi_size, iteration_step, i, local_size);
 #endif
@@ -29,7 +29,7 @@ void update_cell(const unsigned char *world, unsigned char *world_next, long wor
     long x_next = x + 1 < world_size ? x + 1 : 0;
     long y_prev = y - 1;
     long y_next = y + 1;
-    // setermine the number of dead neighbours
+    // determine the number of dead neighbours
     int sum = world[y_prev * world_size + x_prev] + // top left
               world[y_prev * world_size + x] +      // top
               world[y_prev * world_size + x_next] + // top right
@@ -252,7 +252,7 @@ void update_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
 //#pragma omp barrier
 }
 
-void update_white_serial(unsigned char *world, unsigned char *world_next, long world_size, int iteration_step) {
+void update_white_serial(unsigned char *world, unsigned char *world_next, long world_size) {
 #ifdef DEBUG_ADVANCED
     printf("DEBUGA - update_white_serial 0 - world_size=%ld, world_size * (world_size + 1)=%ld\n", world_size, world_size * (world_size + 1));
 #endif
@@ -282,7 +282,7 @@ void update_white_serial(unsigned char *world, unsigned char *world_next, long w
     }
 }
 
-void update_black_serial(unsigned char *world, unsigned char *world_next, long world_size, int iteration_step) {
+void update_black_serial(unsigned char *world, unsigned char *world_next, long world_size) {
 #ifdef DEBUG_ADVANCED
     printf("DEBUGA - update_black_serial 0 - world_size=%ld, world_size * (world_size + 1)=%ld\n", world_size, world_size * (world_size + 1));
 #endif
@@ -380,13 +380,13 @@ iterate_whiteblack_serial(const int mpi_rank, const int mpi_size, MPI_Status *mp
             if (debug_info > 1)
                 printf("DEBUG2 - iterate_whiteblack_serial 0 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
 
-            update_white_serial(world_local_actual, world_local_next, world_size, iteration_step);
+            update_white_serial(world_local_actual, world_local_next, world_size);
 //#pragma omp barrier
             // pointers swap to reuse allocated world_local and world_local_next for next iteration
             temp = world_local_actual;
             world_local_actual = world_local_next;
             world_local_next = temp;
-            update_black_serial(world_local_actual, world_local_next, world_size, iteration_step);
+            update_black_serial(world_local_actual, world_local_next, world_size);
 //#pragma omp master
             {
                 // when needed save snapshot
@@ -613,11 +613,11 @@ void run_whiteblack(const char *filename, int number_of_steps, int number_of_ste
         }
         if (debug_info > 0)
             for (int i = 0; i < mpi_size; i++)
-                printf("DEBUG1 - initialization - JOIN2: %s\n", final_chunks_fn[i]);
+                printf("DEBUG1 - run_whiteblack - JOIN2: %s\n", final_chunks_fn[i]);
         // delete if already existing, unnecessary as we create a new dir
         //int remove_result = remove(pathname);
         //if (debug_info > 0)
-        //    printf("DEBUG1 - initialization - remove_result: %d\n", remove_result);
+        //    printf("DEBUG1 - run_whiteblack - remove_result: %d\n", remove_result);
         for (int i = 0; i < mpi_size; i++)
             t_io += file_chunk_merge(final_fn, final_chunks_fn[i], debug_info); // TODO: manage error result
         // delete chunks but keep them in debug mode

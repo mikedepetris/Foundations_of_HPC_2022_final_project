@@ -15,11 +15,11 @@ double make_directory(char *directory_name, int debug_info) {
     return MPI_Wtime() - t_temp;
 }
 
-void calculate_sizes_indexes(int rank, int size, long world_size, long *first_row, long *last_row, long *local_size) {
-    *local_size = world_size % size - rank <= 0 ? (long) (world_size / size) : (long) (world_size / size) + 1;
-    *first_row = world_size % size - rank >= 0 ?
-                 rank * (long) (world_size / size) + rank :
-                 rank * (long) (world_size / size) + world_size % size;
+void calculate_sizes_indexes(int mpi_rank, int mpi_size, long world_size, long *first_row, long *last_row, long *local_size) {
+    *local_size = world_size % mpi_size - mpi_rank <= 0 ? (long) (world_size / mpi_size) : (long) (world_size / mpi_size) + 1;
+    *first_row = world_size % mpi_size - mpi_rank >= 0 ?
+                 mpi_rank * (long) (world_size / mpi_size) + mpi_rank :
+                 mpi_rank * (long) (world_size / mpi_size) + world_size % mpi_size;
     *last_row = (*first_row) + (*local_size) - 1;
 }
 

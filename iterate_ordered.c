@@ -13,6 +13,7 @@
 
 void update_ordered_parallel(unsigned char *world_local, long world_size, long local_size) {
     //printf("DEBUGB - update_ordered_parallel 2 - world_size=%ld local_size=%ld\n", world_size, local_size);
+    // TODO: declare vars before loops to optimize performance
     for (long long i = world_size; i < world_size * (local_size + 1); i++) {
         // actual cell coordinates
         long x = i % world_size;
@@ -22,7 +23,7 @@ void update_ordered_parallel(unsigned char *world_local, long world_size, long l
         long x_next = x + 1 < world_size ? x + 1 : 0;
         long y_prev = y - 1;
         long y_next = y + 1;
-        // Determine the number of dead neighbours
+        // determine the number of dead neighbours
         int sum = world_local[y_prev * world_size + x_prev] +
                   world_local[y_prev * world_size + x] +
                   world_local[y_prev * world_size + x_next] +
@@ -49,6 +50,7 @@ void update_ordered_serial(unsigned char *world, long world_size) {
     for (long i = 0; i < world_size; i++)
         world[i] = world[world_size * world_size + i];
 
+    // TODO: declare vars before loops to optimize performance
     for (long long i = world_size; i < world_size * (world_size + 1); i++) {
         // actual cell coordinates
         long x = i % world_size;
@@ -58,7 +60,7 @@ void update_ordered_serial(unsigned char *world, long world_size) {
         long x_next = x + 1 < world_size ? x + 1 : 0;
         long y_prev = y - 1;
         long y_next = y + 1;
-        // Determine the number of dead neighbours
+        // determine the number of dead neighbours
         int sum = world[y_prev * world_size + x_prev] + // top left
                   world[y_prev * world_size + x] +      // top
                   world[y_prev * world_size + x_next] + // top right
@@ -94,11 +96,12 @@ double iterate_ordered_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_stat
     char *image_filename_suffix = (char *) malloc(60);
     double t_io = 0;
     // before cycling the iterations, send the needed first ghost row
-    if (mpi_rank == mpi_size - 1)
+    if (mpi_rank == mpi_size - 1) {
         if (debug_info > 1)
             printf("DEBUG2 - iterate_ordered_parallel 00 SEND iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", -1, mpi_rank, TAG_0, TAG_1);
-    // last chunk process (mpi_size - 1): send last row to first chunk process (0)
-    MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, TAG_X, MPI_COMM_WORLD, mpi_request);
+        // last chunk process (mpi_size - 1): send last row to first chunk process (0)
+        MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, TAG_X, MPI_COMM_WORLD, mpi_request);
+    }
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
         if (mpi_rank != 0) {
             if (debug_info > 1)
@@ -418,11 +421,11 @@ void run_ordered(const char *filename, int number_of_steps, int number_of_steps_
         }
         if (debug_info > 0)
             for (int i = 0; i < mpi_size; i++)
-                printf("DEBUG1 - initialization - JOIN2: %s\n", final_chunks_fn[i]);
+                printf("DEBUG1 - run_ordered - JOIN2: %s\n", final_chunks_fn[i]);
         // delete if already existing, unnecessary as we create a new dir
         //int remove_result = remove(pathname);
         //if (debug_info > 0)
-        //    printf("DEBUG1 - initialization - remove_result: %d\n", remove_result);
+        //    printf("DEBUG1 - run_ordered - remove_result: %d\n", remove_result);
         for (int i = 0; i < mpi_size; i++)
             t_io += file_chunk_merge(final_fn, final_chunks_fn[i], debug_info); // TODO: manage error result
         // delete chunks but keep them in debug mode
