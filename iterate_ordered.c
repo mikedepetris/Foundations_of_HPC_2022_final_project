@@ -94,7 +94,6 @@ void update_ordered_serial(unsigned char *world, long world_size) {
 double iterate_ordered_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, long world_size, long local_size, int number_of_steps, int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
     // TODO: better filenames
     char *image_filename_suffix = (char *) malloc(60);
-    double t_io = 0;
     // before cycling the iterations, send the needed first ghost row
     if (mpi_rank == mpi_size - 1) {
         if (debug_info > 1)
@@ -102,6 +101,7 @@ double iterate_ordered_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_stat
         // last chunk process (mpi_size - 1): send last row to first chunk process (0)
         MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, TAG_X, MPI_COMM_WORLD, mpi_request);
     }
+    double t_io = 0;
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
         if (mpi_rank != 0) {
             if (debug_info > 1)
@@ -209,10 +209,10 @@ double iterate_ordered_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_stat
 }
 
 double iterate_ordered_serial(unsigned char *world, long world_size, int number_of_steps, int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
-    double t_io = 0;
     char *image_filename_prefix = (char *) malloc(60);
     sprintf(image_filename_prefix, IMAGE_FILENAME_PREFIX_SNAP_ORDERED);
     char *image_filename_suffix = (char *) malloc(60);
+    double t_io = 0;
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
         update_ordered_serial(world, world_size);
         if (iteration_step % number_of_steps_between_file_dumps == 0) {
@@ -248,7 +248,6 @@ void run_ordered(const char *filename, int number_of_steps, int number_of_steps_
     }
     // start time and time accumulators
     double t_start = MPI_Wtime();
-    double t_io = 0;
     int mpi_rank, mpi_size;
     MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
@@ -257,6 +256,7 @@ void run_ordered(const char *filename, int number_of_steps, int number_of_steps_
     if (debug_info > 0)
         printf("DEBUG1 - run_ordered BEGIN - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
 
+    double t_io = 0;
     if (mpi_rank == 0) {
         if (number_of_steps > MAX_NUMBER_OF_STEPS) {
             printf("Value %d is too big to be passed as -n <num> number of steps to be iterated, max admitted value is %d\n", number_of_steps, MAX_NUMBER_OF_STEPS);

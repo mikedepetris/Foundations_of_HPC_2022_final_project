@@ -57,7 +57,7 @@ void update_wave_serial(unsigned char *world, long world_size, int iteration_ste
     // iterate the square wave from 1 cell to squares of size 3, 5, 7... up to world size
     // TODO: manage joined borders of the world when the world size is even
     //       updating of biggest square would lead to multiple cell updating
-    for (long square_size = 1; square_size <= world_size; square_size+=2) {
+    for (long square_size = 1; square_size <= world_size; square_size += 2) {
         if (debug_info > 1)
             printf("DEBUG2 - update_wave_serial 0 - iteration_step=%d, startX=%ld, startY=%ld, square_size=%ld\n", iteration_step, startX, startY, square_size);
         // integer division: 1/2=0 3/2=1 5/2=2 7/2=3...
@@ -249,14 +249,13 @@ void update_wave_serial(unsigned char *world, long world_size, int iteration_ste
     }
 }
 
-double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, long world_size, long local_size, int number_of_steps, int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
-    // TODO: calculate exact string length instead of malloc(60)
+double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, long world_size, long local_size, int number_of_steps, int number_of_steps_between_file_dumps, const char *directoryname
+                             , int debug_info) {
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
         printf("DEBUG2 - iterate_wave_parallel - char *image_filename_suffix = (char *) malloc(60); free(); BEFORE\n");
 #endif
     char *image_filename_suffix = (char *) malloc(60);
-    double t_io = 0;
     // before cycling the iterations, send the needed first ghost row
     if (mpi_rank == mpi_size - 1) {
         if (debug_info > 1)
@@ -264,6 +263,7 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
         // last chunk process (mpi_size - 1): send last row to first chunk process (0)
         MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, TAG_X, MPI_COMM_WORLD, mpi_request);
     }
+    double t_io = 0;
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
         if (mpi_rank != 0) {
             if (debug_info > 1)
@@ -380,11 +380,11 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
 }
 
 double iterate_wave_serial(unsigned char *world, long world_size, int number_of_steps, int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
-    double t_io = 0;
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
         printf("DEBUG2 - iterate_wave_serial - char *image_filename_prefix = (char *) malloc(60); free(); BEFORE\n");
 #endif
+    // TODO: calculate exact string length instead of malloc(60)
     char *image_filename_prefix = (char *) malloc(60);
     sprintf(image_filename_prefix, IMAGE_FILENAME_PREFIX_SNAP_WAVE);
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
@@ -392,6 +392,7 @@ double iterate_wave_serial(unsigned char *world, long world_size, int number_of_
         printf("DEBUG2 - iterate_wave_serial - char *image_filename_suffix = (char *) malloc(60); free(); BEFORE\n");
 #endif
     char *image_filename_suffix = (char *) malloc(60);
+    double t_io = 0;
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
         update_wave_serial(world, world_size, iteration_step, debug_info);
         if (iteration_step % number_of_steps_between_file_dumps == 0) {
@@ -447,7 +448,6 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
 #endif
     // start time and time accumulators
     double t_start = MPI_Wtime();
-    double t_io = 0;
     int mpi_rank, mpi_size;
     MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
@@ -456,6 +456,7 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
     if (debug_info > 0)
         printf("DEBUG1 - run_wave BEGIN - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
 
+    double t_io = 0;
     if (mpi_rank == 0) {
         if (number_of_steps > MAX_NUMBER_OF_STEPS) {
             printf("Value %d is too big to be passed as -n <num> number of steps to be iterated, max admitted value is %d\n", number_of_steps, MAX_NUMBER_OF_STEPS);
@@ -589,7 +590,8 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
             char *snap_chunks_fn[mpi_size];
             unsigned long snap_chunks_fn_len = strlen("/_000_000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_WAVE) + strlen(FILE_EXTENSION_PGMPART) + 1;
             if (debug_info > 1) // test chunks fn length
-                printf("DEBUG2 - run_wave 5a4 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%03d_%05d%s.%s\n", mpi_rank, mpi_size, snap_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, mpi_rank, iteration_step, "", FILE_EXTENSION_PGMPART);
+                printf("DEBUG2 - run_wave 5a4 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%03d_%05d%s.%s\n", mpi_rank, mpi_size, snap_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, mpi_rank, iteration_step, ""
+                       , FILE_EXTENSION_PGMPART);
             for (int i = 0; i < mpi_size; i++) {
                 if (debug_info > 1)
                     printf("DEBUG2 - run_wave 5a5: LEN=%lu %s/%s%03d_%03d_%05d%s.%s\n", snap_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
@@ -658,7 +660,8 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
         char *final_chunks_fn[mpi_size];
         unsigned long final_chunks_fn_len = strlen("/_000_000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_WAVE) + strlen(FILE_EXTENSION_PGMPART) + 1;
         if (debug_info > 1) // test chunks fn length
-            printf("DEBUG2 - run_wave 5 - MERGE CHUNKS FINAL rank %d/%d, LEN=%lu, final_chunks_fn=%s/%s%03d_%03d%s.%s\n", mpi_rank, mpi_size, final_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, mpi_size, mpi_rank, "", FILE_EXTENSION_PGMPART);
+            printf("DEBUG2 - run_wave 5 - MERGE CHUNKS FINAL rank %d/%d, LEN=%lu, final_chunks_fn=%s/%s%03d_%03d%s.%s\n", mpi_rank, mpi_size, final_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, mpi_size, mpi_rank, ""
+                   , FILE_EXTENSION_PGMPART);
         for (int i = 0; i < mpi_size; i++) {
             if (debug_info > 1)
                 printf("DEBUG2 - run_wave - JOIN1a: LEN=%lu %s/%s%03d_%03d%s.%s\n", final_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, mpi_size, i, "", FILE_EXTENSION_PGMPART);
