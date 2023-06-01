@@ -11,6 +11,9 @@
 #define IMAGE_FILENAME_PREFIX_SNAP_WAVE "snapshot"
 #define IMAGE_FILENAME_PREFIX_FINAL_WAVE "final"
 
+//#define DEBUG_ADVANCED_MALLOC_FREE
+#define DEBUG_ADVANCED_COORDINATES
+
 void update_wave_parallel(unsigned char *world_local, long world_size, long local_size) {
 //    //printf("DEBUGB - update_wave_parallel 2 - world_size=%ld local_size=%ld\n", world_size, local_size);
 //    // TODO: declare vars before loops to optimize performance
@@ -88,8 +91,10 @@ void update_wave_serial(unsigned char *world, long world_size, int iteration_ste
                       world[y_next * world_size + x_next];  // low right
             int number_of_dead_neighbours = sum / DEAD;
             array_index = y * world_size + x;
+#ifdef DEBUG_ADVANCED_COORDINATES
             if (debug_info > 1)
                 printf("DEBUG2 - update_wave_serial 1 - iteration_step=%d, startX=%ld, startY=%ld, square_size=%ld, i=%ld, x=%ld, y=%ld, array_index=%ld\n", iteration_step, startX, startY, square_size, i, x, y, array_index);
+#endif
             // Update cell
             if (world[array_index] == ALIVE // if actual cell is alive
                 && (number_of_dead_neighbours == 5 || number_of_dead_neighbours == 6)) {
@@ -126,8 +131,10 @@ void update_wave_serial(unsigned char *world, long world_size, int iteration_ste
                           world[y_next * world_size + x_next];  // low right
                 int number_of_dead_neighbours = sum / DEAD;
                 array_index = y * world_size + x;
+#ifdef DEBUG_ADVANCED_COORDINATES
                 if (debug_info > 1)
                     printf("DEBUG2 - update_wave_serial 2 - iteration_step=%d, startX=%ld, startY=%ld, square_size=%ld, j=%ld, x=%ld, y=%ld, array_index=%ld\n", iteration_step, startX, startY, square_size, j, x, y, array_index);
+#endif
                 // Update cell
                 if (world[array_index] == ALIVE // if actual cell is alive
                     && (number_of_dead_neighbours == 5 || number_of_dead_neighbours == 6)) {
@@ -162,8 +169,10 @@ void update_wave_serial(unsigned char *world, long world_size, int iteration_ste
                           world[y_next * world_size + x_next];  // low right
                 int number_of_dead_neighbours = sum / DEAD;
                 array_index = y * world_size + x;
+#ifdef DEBUG_ADVANCED_COORDINATES
                 if (debug_info > 1)
                     printf("DEBUG2 - update_wave_serial 3 - iteration_step=%d, startX=%ld, startY=%ld, square_size=%ld, i=%ld, x=%ld, y=%ld, array_index=%ld\n", iteration_step, startX, startY, square_size, i, x, y, array_index);
+#endif
                 // Update cell
                 if (world[array_index] == ALIVE // if actual cell is alive
                     && (number_of_dead_neighbours == 5 || number_of_dead_neighbours == 6)) {
@@ -198,8 +207,10 @@ void update_wave_serial(unsigned char *world, long world_size, int iteration_ste
                           world[y_next * world_size + x_next];  // low right
                 int number_of_dead_neighbours = sum / DEAD;
                 array_index = y * world_size + x;
+#ifdef DEBUG_ADVANCED_COORDINATES
                 if (debug_info > 1)
                     printf("DEBUG2 - update_wave_serial 4 - iteration_step=%d, startX=%ld, startY=%ld, square_size=%ld, j=%ld, x=%ld, y=%ld, array_index=%ld\n", iteration_step, startX, startY, square_size, j, x, y, array_index);
+#endif
                 // Update cell
                 if (world[array_index] == ALIVE // if actual cell is alive
                     && (number_of_dead_neighbours == 5 || number_of_dead_neighbours == 6)) {
@@ -239,9 +250,11 @@ void update_wave_serial(unsigned char *world, long world_size, int iteration_ste
 }
 
 double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, long world_size, long local_size, int number_of_steps, int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
-    // TODO: better filenames
+    // TODO: calculate exact string length instead of malloc(60)
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
         printf("DEBUG2 - iterate_wave_parallel - char *image_filename_suffix = (char *) malloc(60); free(); BEFORE\n");
+#endif
     char *image_filename_suffix = (char *) malloc(60);
     double t_io = 0;
     // before cycling the iterations, send the needed first ghost row
@@ -354,22 +367,30 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
     if (debug_info > 1) printf("DEBUG2 - iterate_wave_parallel end iteration\n");
 
     //free(image_filename_prefix);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
         printf("DEBUG2 - iterate_wave_parallel - free(image_filename_suffix); BEFORE\n");
+#endif
     free(image_filename_suffix);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
         printf("DEBUG2 - iterate_wave_parallel - free(image_filename_suffix); AFTER\n");
+#endif
     return t_io;
 }
 
 double iterate_wave_serial(unsigned char *world, long world_size, int number_of_steps, int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
     double t_io = 0;
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
         printf("DEBUG2 - iterate_wave_serial - char *image_filename_prefix = (char *) malloc(60); free(); BEFORE\n");
+#endif
     char *image_filename_prefix = (char *) malloc(60);
     sprintf(image_filename_prefix, IMAGE_FILENAME_PREFIX_SNAP_WAVE);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
         printf("DEBUG2 - iterate_wave_serial - char *image_filename_suffix = (char *) malloc(60); free(); BEFORE\n");
+#endif
     char *image_filename_suffix = (char *) malloc(60);
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
         update_wave_serial(world, world_size, iteration_step, debug_info);
@@ -378,16 +399,22 @@ double iterate_wave_serial(unsigned char *world, long world_size, int number_of_
             t_io += file_pgm_write_chunk(world, 255, world_size, world_size, directoryname, image_filename_prefix, image_filename_suffix, FILE_EXTENSION_PGM, 0, 1, debug_info);
         }
     }
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
         printf("DEBUG2 - iterate_wave_serial - free(image_filename_prefix); BEFORE\n");
+#endif
     free(image_filename_prefix);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1) {
         printf("DEBUG2 - iterate_wave_serial - free(image_filename_prefix); AFTER\n");
         printf("DEBUG2 - iterate_wave_serial - free(image_filename_suffix); BEFORE\n");
     }
+#endif
     free(image_filename_suffix);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
         printf("DEBUG2 - iterate_wave_serial - free(image_filename_suffix); AFTER\n");
+#endif
     return t_io;
 }
 
@@ -407,13 +434,17 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
     MPI_Status mpi_status;
     MPI_Request mpi_request;
     int mpi_provided_thread_level;
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
         printf("DEBUG2 - run_wave MPI_Init_thread free()\n");
+#endif
     MPI_Init_thread(argc, argv, MPI_THREAD_FUNNELED, &mpi_provided_thread_level);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (mpi_provided_thread_level < MPI_THREAD_FUNNELED) {
         perror("a problem occurred asking for MPI_THREAD_FUNNELED level\n");
         MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
     }
+#endif
     // start time and time accumulators
     double t_start = MPI_Wtime();
     double t_io = 0;
@@ -433,39 +464,53 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
         }
         // concatenate: directory name + steps + mpi_size + timestamp
         size_t string_with_num_size = strlen("_" EVOLUTION_TYPE "_00000_000_%Y-%m-%d_%H_%M_%S");
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)
             printf("DEBUG2 - run_wave - char *string_with_num = malloc(string_with_num_size + 1); free(); BEFORE\n");
+#endif
         char *string_with_num = malloc(string_with_num_size + 1);
         sprintf(string_with_num, "_" EVOLUTION_TYPE "_%05d_%03d_%%Y-%%m-%%d_%%H_%%M_%%S", number_of_steps, mpi_size);
 
         size_t string_with_timestamp_size = strlen("_" EVOLUTION_TYPE "_00000_000_2023-02-13_23:37:01");
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)
             printf("DEBUG2 - run_wave - char *string_with_timestamp = malloc(string_with_timestamp_size + 1); free(); BEFORE\n");
+#endif
         char *string_with_timestamp = malloc(string_with_timestamp_size + 1);
         struct tm *timenow;
         time_t now = time(NULL);
         timenow = gmtime(&now);
         unsigned long len = strftime(string_with_timestamp, string_with_timestamp_size + 1, string_with_num, timenow);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)
             printf("DEBUG2 - run_wave - free(string_with_num); BEFORE\n");
+#endif
         free(string_with_num);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)
             printf("DEBUG2 - run_wave - free(string_with_num); AFTER\n");
-        if (debug_info > 0)
+#endif
+        if (debug_info > 0) {
             printf("DEBUG1 - run_wave 1 - rank %d/%d, len=%ld string_with_timestamp=%s\n", mpi_rank, mpi_size, len, string_with_timestamp);
-        if (debug_info > 0)
             printf("DEBUG1 - run_wave 1a - rank %d/%d, strlen(filename) + strlen(string_with_timestamp) + 1=%lu\n", mpi_rank, mpi_size, strlen(filename) + strlen(string_with_timestamp) + 1);
+        }
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)
             printf("DEBUG2 - run_wave - directoryname = malloc(strlen(filename) + strlen(string_with_timestamp) + 1); free(); BEFORE\n");
+#endif
         directoryname = malloc(strlen(filename) + strlen(string_with_timestamp) + 1);
         strcpy(directoryname, filename);
         strcat(directoryname, string_with_timestamp);
         replace_char(directoryname, '/', '_');
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)
             printf("DEBUG2 - run_wave - free(string_with_timestamp); BEFORE\n");
+#endif
         free(string_with_timestamp);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)
             printf("DEBUG2 - run_wave - free(string_with_timestamp); AFTER\n");
+#endif
         if (debug_info > 0)
             printf("DEBUG1 - run_wave 1b - rank %d/%d, strlen(directoryname)=%lu, directoryname=%s\n", mpi_rank, mpi_size, strlen(directoryname), directoryname);
         // Broadcast the string to all other processes
@@ -477,8 +522,10 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
     } else {
         // Other processes
         MPI_Bcast(message, MAX_STRING_LENGTH, MPI_CHAR, 0, MPI_COMM_WORLD);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)
             printf("DEBUG2 - run_wave - directoryname = malloc(strlen(message) + 1); free(); BEFORE\n");
+#endif
         directoryname = malloc(strlen(message) + 1);
         strcpy(directoryname, message);
         if (debug_info > 1)
@@ -488,7 +535,7 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
     if (debug_info > 0)
         printf("DEBUG1 - run_wave 2 - rank %d/%d directoryname=%s\n", mpi_rank, mpi_size, directoryname);
 
-    // TODO: file_pgm_read always allocates the two ghost rows even when unused
+    // TODO: file_pgm_read always allocates the two ghost rows even when unused (wave)
     t_io += file_pgm_read(&world_local, &maxval, &local_size, &world_size, filename, mpi_rank, mpi_size, debug_info);
     if (debug_info > 0)
         printf("DEBUG1 - run_wave 3 - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, filename=%s\n", mpi_rank, mpi_size, maxval, local_size, world_size, filename);
@@ -528,8 +575,10 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
             unsigned long snap_fn_len = strlen("/_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_WAVE) + strlen(FILE_EXTENSION_PGM) + 1;
             if (debug_info > 1)
                 printf("DEBUG2 - run_wave 5a2 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%05d%s.%s\n", mpi_rank, mpi_size, snap_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, iteration_step, "", FILE_EXTENSION_PGM);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (debug_info > 1)
                 printf("DEBUG2 - run_wave - snap_fn = (char *) malloc(snap_fn_len); free(); BEFORE\n");
+#endif
             snap_fn = (char *) malloc(snap_fn_len);
 //          sprintf(snap_fn, "%s/%s%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, iteration_step, "", FILE_EXTENSION_PGM);
             sprintf(snap_fn, "%s/%s_%05d.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, iteration_step, FILE_EXTENSION_PGM);
@@ -544,8 +593,10 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
             for (int i = 0; i < mpi_size; i++) {
                 if (debug_info > 1)
                     printf("DEBUG2 - run_wave 5a5: LEN=%lu %s/%s%03d_%03d_%05d%s.%s\n", snap_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
                 if (debug_info > 1)
                     printf("DEBUG2 - run_wave - snap_chunks_fn[i] = (char *) malloc(snap_chunks_fn_len); free(); BEFORE\n");
+#endif
                 snap_chunks_fn[i] = (char *) malloc(snap_chunks_fn_len);
                 sprintf(snap_chunks_fn[i], "%s/%s_%03d_%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
 //              sprintf(snap_chunks_fn[i], "%s/%s%05d.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, iteration_step, FILE_EXTENSION_PGMPART);
@@ -563,17 +614,23 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
                 for (int i = 0; i < mpi_size; i++)
                     remove(snap_chunks_fn[i]);
             t_io += MPI_Wtime() - t_temp;
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (debug_info > 1)
                 printf("DEBUG2 - run_wave - free(snap_fn); BEFORE\n");
+#endif
             free(snap_fn);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (debug_info > 1) {
                 printf("DEBUG2 - run_wave - free(snap_fn); AFTER\n");
                 printf("DEBUG2 - run_wave - free(snap_chunks_fn[i]); BEFORE\n");
             }
+#endif
             for (int i = 0; i < mpi_size; i++)
                 free(snap_chunks_fn[i]); // TODO: verify
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (debug_info > 1)
                 printf("DEBUG2 - run_wave - free(snap_chunks_fn[i]); AFTER\n");
+#endif
         }
 
         // join chunks of final output
@@ -582,8 +639,10 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
         unsigned long final_fn_len =
 //              strlen("/000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_WAVE) +
                 strlen("/.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_WAVE) + strlen(FILE_EXTENSION_PGM) + 1;
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)
             printf("DEBUG2 - run_wave - final_fn = (char *) malloc(final_fn_len); free(); BEFORE\n");
+#endif
         final_fn = (char *) malloc(final_fn_len);
 //      sprintf(final_fn, "%s/%s%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, mpi_size, "", FILE_EXTENSION_PGM);
         sprintf(final_fn, "%s/%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, FILE_EXTENSION_PGM);
@@ -603,8 +662,10 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
         for (int i = 0; i < mpi_size; i++) {
             if (debug_info > 1)
                 printf("DEBUG2 - run_wave - JOIN1a: LEN=%lu %s/%s%03d_%03d%s.%s\n", final_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, mpi_size, i, "", FILE_EXTENSION_PGMPART);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (debug_info > 1)
                 printf("DEBUG2 - run_wave - final_chunks_fn[i] = (char *) malloc(final_chunks_fn_len); free(); BEFORE\n");
+#endif
             final_chunks_fn[i] = (char *) malloc(final_chunks_fn_len);
             sprintf(final_chunks_fn[i], "%s/%s_%03d_%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, mpi_size, i, "", FILE_EXTENSION_PGMPART);
 //          sprintf(final_chunks_fn[i], "%s/%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, FILE_EXTENSION_PGMPART);
@@ -626,17 +687,23 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
             for (int i = 0; i < mpi_size; i++)
                 remove(final_chunks_fn[i]);
         t_io += MPI_Wtime() - t_temp;
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)
             printf("DEBUG2 - run_wave - free(final_fn); BEFORE\n");
+#endif
         free(final_fn);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1) {
             printf("DEBUG2 - run_wave - free(final_fn); AFTER\n");
             printf("DEBUG2 - run_wave - free(final_chunks_fn[i]); BEFORE\n");
         }
+#endif
         for (int i = 0; i < mpi_size; i++)
             free(final_chunks_fn[i]); // TODO: verify
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)
             printf("DEBUG2 - run_wave - free(final_chunks_fn[i]); AFTER\n");
+#endif
     }
 
     if (mpi_rank == 0)
@@ -644,21 +711,29 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
     if (mpi_rank == 0 && debug_info > 0)
         //DEBUG1 - run_wave 6 - mpi=2, omp=2, time taken=0.007455
         printf("DEBUG1 - run_wave 6 - mpi=%d, omp=%d, time taken=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
         printf("DEBUG2 - run_wave - free(directoryname); BEFORE\n");
+#endif
     free(directoryname);
-    if (debug_info > 1)
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
+    if (debug_info > 1) {
         printf("DEBUG2 - run_wave - free(directoryname); AFTER\n");
-    if (debug_info > 1)
         printf("DEBUG2 - run_wave - BEFORE MPI_Finalize() free() - strlen(%s)=%ld\n", directoryname, strlen(directoryname));
+    }
+#endif
     MPI_Finalize();
     if (debug_info > 1)
         printf("DEBUG2 - run_wave 7 - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
         printf("DEBUG2 - run_wave - free(world_local); BEFORE\n");
+#endif
     free(world_local);
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
         printf("DEBUG2 - run_wave - free(world_local); AFTER\n");
+#endif
     if (debug_info > 1)
         printf("DEBUG2 - run_wave 8 - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
     if (debug_info > 0)

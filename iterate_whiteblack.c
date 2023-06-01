@@ -11,7 +11,7 @@
 #define IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK "snapshot"
 #define IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK "final"
 
-//#define DEBUG_ADVANCED
+//#define DEBUG_ADVANCED_MALLOC_FREE
 //#define DEBUG_ADVANCED_B
 
 void update_cell(const unsigned char *world, unsigned char *world_next, long world_size, long long int i) {
@@ -38,7 +38,7 @@ void update_cell(const unsigned char *world, unsigned char *world_next, long wor
               world[y_next * world_size + x_prev] + // low left
               world[y_next * world_size + x] +      // low
               world[y_next * world_size + x_next];  // low right
-#ifdef DEBUG_ADVANCED
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     printf("DEBUGA - update_cell 3 - mpi_rank=%d/%d, iteration_step=%d, i/local_size=%03lld/%ld x=%03ld, y=%03ld sum=%d\n", mpi_rank, mpi_size, iteration_step, i, local_size, x, y, sum);
     //printf("DEBUGA - update_cell 3 - iteration_step=%d, i/world_size=%03lld/%ld x=%03ld, y=%03ld sum=%d\n", iteration_step, i, world_size, x, y, sum);
 #endif
@@ -67,7 +67,7 @@ void update_white_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
         int tag_0 = 2 * iteration_step;
         int tag_1 = 2 * iteration_step + 1;
 
-#ifdef DEBUG_ADVANCED
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
         printf("DEBUGA - update_parallel_whiteblack - mpi_rank=%d/%d, world_size=%lld, local_size=%ld\n", mpi_rank, mpi_size, world_size, local_size);
 #endif
         // each process send his first row to the process with mpi_rank-1
@@ -102,7 +102,7 @@ void update_white_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
             MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, tag_1, MPI_COMM_WORLD, mpi_request);
             MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, tag_0, MPI_COMM_WORLD, mpi_status);
             MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, tag_1, MPI_COMM_WORLD, mpi_status);
-#ifdef DEBUG_ADVANCED
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (iteration_step == 1) {
 #ifdef DEBUG_ADVANCED_B
                 printf("DEBUGB - update_parallel_whiteblack 0b - mpi_rank=%d/%d, iteration_step=%d, world_local[0-7]=%d %d %d %d %d %d %d %d\n", mpi_rank, mpi_size
@@ -126,7 +126,7 @@ void update_white_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
             MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, tag_1, MPI_COMM_WORLD, mpi_request);
             MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, tag_0, MPI_COMM_WORLD, mpi_status);
             MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_1, MPI_COMM_WORLD, mpi_status);
-#ifdef DEBUG_ADVANCED
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (iteration_step == 1) {
                 printf("DEBUGA - update_parallel_whiteblack 0c - mpi_rank=%d/%d, iteration_step=%d, world_local[0-7]=%d %d %d %d %d %d %d %d\n", mpi_rank, mpi_size
                        , iteration_step, world_local[world_size], world_local[world_size + 1], world_local[world_size + 2], world_local[world_size + 3]
@@ -144,7 +144,7 @@ void update_white_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
 #endif
         }
     }
-#ifdef DEBUG_ADVANCED
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     printf("DEBUGA - update_parallel_whiteblack 1 - mpi_rank=%d/%d, iteration_step=%d, local_size=%ld, world_size * (local_size + 1)=%lld\n", mpi_rank, mpi_size, iteration_step, local_size, world_size * (local_size + 1));
 #endif
 //#pragma omp for
@@ -163,7 +163,7 @@ void update_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
         int tag_0 = 2 * iteration_step;
         int tag_1 = 2 * iteration_step + 1;
 
-#ifdef DEBUG_ADVANCED
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
         printf("DEBUGA - update_parallel_whiteblack - mpi_rank=%d/%d, world_size=%lld, local_size=%ld\n", mpi_rank, mpi_size, world_size, local_size);
 #endif
         // each process send his first row to the process with mpi_rank-1
@@ -198,7 +198,7 @@ void update_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
             MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, tag_1, MPI_COMM_WORLD, mpi_request);
             MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, tag_0, MPI_COMM_WORLD, mpi_status);
             MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, tag_1, MPI_COMM_WORLD, mpi_status);
-#ifdef DEBUG_ADVANCED
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (iteration_step == 1) {
 #ifdef DEBUG_ADVANCED_B
                 printf("DEBUGB - update_parallel_whiteblack 0b - mpi_rank=%d/%d, iteration_step=%d, world_local[0-7]=%d %d %d %d %d %d %d %d\n", mpi_rank, mpi_size
@@ -222,7 +222,7 @@ void update_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
             MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, tag_1, MPI_COMM_WORLD, mpi_request);
             MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, tag_0, MPI_COMM_WORLD, mpi_status);
             MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_1, MPI_COMM_WORLD, mpi_status);
-#ifdef DEBUG_ADVANCED
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (iteration_step == 1) {
                 printf("DEBUGA - update_parallel_whiteblack 0c - mpi_rank=%d/%d, iteration_step=%d, world_local[0-7]=%d %d %d %d %d %d %d %d\n", mpi_rank, mpi_size
                        , iteration_step, world_local[world_size], world_local[world_size + 1], world_local[world_size + 2], world_local[world_size + 3]
@@ -240,7 +240,7 @@ void update_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
 #endif
         }
     }
-#ifdef DEBUG_ADVANCED
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     printf("DEBUGA - update_parallel_whiteblack 1 - mpi_rank=%d/%d, iteration_step=%d, local_size=%ld, world_size * (local_size + 1)=%lld\n", mpi_rank, mpi_size, iteration_step, local_size, world_size * (local_size + 1));
 #endif
 //#pragma omp for
@@ -253,7 +253,7 @@ void update_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, M
 }
 
 void update_white_serial(unsigned char *world, unsigned char *world_next, long world_size) {
-#ifdef DEBUG_ADVANCED
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     printf("DEBUGA - update_white_serial 0 - world_size=%ld, world_size * (world_size + 1)=%ld\n", world_size, world_size * (world_size + 1));
 #endif
 // copy last row [world_size] before first [0]
@@ -283,7 +283,7 @@ void update_white_serial(unsigned char *world, unsigned char *world_next, long w
 }
 
 void update_black_serial(unsigned char *world, unsigned char *world_next, long world_size) {
-#ifdef DEBUG_ADVANCED
+#ifdef DEBUG_ADVANCED_MALLOC_FREE
     printf("DEBUGA - update_black_serial 0 - world_size=%ld, world_size * (world_size + 1)=%ld\n", world_size, world_size * (world_size + 1));
 #endif
 // copy last row [world_size] before first [0]
