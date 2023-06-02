@@ -14,40 +14,6 @@
 //#define DEBUG_ADVANCED_MALLOC_FREE
 #define DEBUG_ADVANCED_COORDINATES
 
-void update_wave_parallel(unsigned char *world_local, long world_size, long local_size) {
-//    //printf("DEBUGB - update_wave_parallel 2 - world_size=%ld local_size=%ld\n", world_size, local_size);
-//    // TODO: declare vars before loops to optimize performance
-//    for (long long i = world_size; i < world_size * (local_size + 1); i++) {
-//        // actual cell coordinates
-//        long x = i % world_size;
-//        long y = i / world_size;
-//        // neighbours of actual cell
-//        long x_prev = x - 1 >= 0 ? x - 1 : world_size - 1;
-//        long x_next = x + 1 < world_size ? x + 1 : 0;
-//        long y_prev = y - 1;
-//        long y_next = y + 1;
-//        // determine the number of dead neighbours
-//        int sum = world_local[y_prev * world_size + x_prev] +
-//                  world_local[y_prev * world_size + x] +
-//                  world_local[y_prev * world_size + x_next] +
-//                  world_local[y * world_size + x_prev] +
-//                  world_local[y * world_size + x_next] +
-//                  world_local[y_next * world_size + x_prev] +
-//                  world_local[y_next * world_size + x] +
-//                  world_local[y_next * world_size + x_next];
-//        int number_of_dead_neighbours = sum / DEAD;
-//        // Update cell
-//        if (world_local[y * world_size + x] == ALIVE // if actual cell is alive
-//            && (number_of_dead_neighbours == 5 || number_of_dead_neighbours == 6)) {
-//            // do nothing world_local[i] = ALIVE;
-//        } else if (world_local[y * world_size + x] == DEAD // if actual cell is dead
-//                   && (number_of_dead_neighbours == 5))
-//            world_local[i] = ALIVE;
-//        else // default is: cell will die
-//            world_local[i] = DEAD;
-//    }
-}
-
 void update_wave_serial(unsigned char *world, long world_size, int iteration_step, int debug_info) {
     // TODO: start from random point, at each iteration or all of them (pass coordinates to the function)
     // for testing purposes we want to be able to start from a given point to compare results
@@ -255,117 +221,72 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
     if (debug_info > 1)
         printf("DEBUG2 - iterate_wave_parallel - char *image_filename_suffix = (char *) malloc(60); free(); BEFORE\n");
 #endif
+    // TODO: calculate exact string length instead of malloc(60)
     char *image_filename_suffix = (char *) malloc(60);
-    // before cycling the iterations, send the needed first ghost row
-    if (mpi_rank == mpi_size - 1) {
-        if (debug_info > 1)
-            printf("DEBUG2 - iterate_wave_parallel 00 SEND iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", -1, mpi_rank, TAG_0, TAG_1);
-        // last chunk process (mpi_size - 1): send last row to first chunk process (0)
-        MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, TAG_X, MPI_COMM_WORLD, mpi_request);
-    }
+    // iterations has to be done by one single process
+    // so make process 0 gather all data from the others
+
     double t_io = 0;
-    for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
-        if (mpi_rank != 0) {
-            if (debug_info > 1)
-                printf("DEBUG2 - iterate_wave_parallel 0 SEND iteration=%d rank=%d, TAG_0=%d, TAG_1=%d, last row to %d with TAG_1\n", iteration_step, mpi_rank, TAG_0, TAG_1, mpi_rank - 1);
-            // all chunks except first: send first row to previous chunk
-            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, TAG_1, MPI_COMM_WORLD, mpi_request);
-            //MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, TAG_1, MPI_COMM_WORLD, mpi_request);
-        }
-        if (mpi_rank == mpi_size - 1) {
-            if (debug_info > 1)
-                printf("DEBUG2 - iterate_wave_parallel 1 WAIT iteration=%d rank=%d, TAG_0=%d, TAG_1=%d, first ghost row from %d with TAG_1\n", iteration_step, mpi_rank, TAG_0, TAG_1, mpi_rank - 1);
-            // last chunk process (mpi_size - 1): wait to receive first ghost row from previous process
-            MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, TAG_1, MPI_COMM_WORLD, mpi_status);
-            if (debug_info > 1)
-                printf("DEBUG2 - iterate_wave_parallel 1 REC1 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
-            // and last ghost row from chunk zero
-            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, TAG_X, MPI_COMM_WORLD, mpi_status);
-            if (debug_info > 1)
-                printf("DEBUG2 - iterate_wave_parallel 1 REC2 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
-        }
-        if (mpi_rank == 0) {
-//            if (debug_info > 1) {
-//                long pos = local_size * world_size;
-//                printf("DEBUG2 - iterate_wave_parallel 1SND - rank %d/%d, iteration_step=%d, world_local[0-31]=%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n"
-//                       , mpi_rank, mpi_size, iteration_step
-//                       , world_local[pos], world_local[pos + 1], world_local[pos + 2], world_local[pos + 3]
-//                       , world_local[pos + 4], world_local[pos + 5], world_local[pos + 6], world_local[pos + 7]
-//                       , world_local[pos + 8], world_local[pos + 9], world_local[pos + 10], world_local[pos + 11]
-//                       , world_local[pos + 12], world_local[pos + 13], world_local[pos + 14], world_local[pos + 15]
-//                       , world_local[pos + 16], world_local[pos + 17], world_local[pos + 18], world_local[pos + 19]
-//                       , world_local[pos + 20], world_local[pos + 21], world_local[pos + 22], world_local[pos + 23]
-//                       , world_local[pos + 24], world_local[pos + 25], world_local[pos + 26], world_local[pos + 27]
-//                       , world_local[pos + 28], world_local[pos + 29], world_local[pos + 30], world_local[pos + 31]
-//                );
-//            }
-            // first chunk: wait to receive first ghost row from last chunk and last ghost row from chunk 1
-            if (debug_info > 1)
-                printf("DEBUG2 - iterate_wave_parallel 2 WAIT iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
-            MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, TAG_X, MPI_COMM_WORLD, mpi_status);
-            if (debug_info > 1)
-                printf("DEBUG2 - iterate_wave_parallel 2 REC1 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
-            if (debug_info > 1)
-                printf("DEBUG2 - iterate_wave_parallel 2 WAIT2 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d, last ghost row from %d with TAG_1\n", iteration_step, mpi_rank, TAG_0, TAG_1, 1);
-            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, TAG_1, MPI_COMM_WORLD, mpi_status);
-            if (debug_info > 1)
-                printf("DEBUG2 - iterate_wave_parallel 2 REC2 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
-        }
-        if (mpi_rank != 0 && mpi_rank != mpi_size - 1) {
-            // middle chunk: wait to receive first ghost row from previous chunk and last ghost row from next chunk
-            if (debug_info > 1)
-                printf("DEBUG2 - iterate_wave_parallel 3 WAIT iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
-            MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, TAG_1, MPI_COMM_WORLD, mpi_status);
-            if (debug_info > 1)
-                printf("DEBUG2 - iterate_wave_parallel 3 REC1 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
-            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, TAG_1, MPI_COMM_WORLD, mpi_status);
-            if (debug_info > 1)
-                printf("DEBUG2 - iterate_wave_parallel 3 REC2 iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
-//            if (debug_info > 1)
-//                printf("DEBUG2 - iterate_wave_parallel 1RCD - rank %d/%d, iteration_step=%d, world_local[0-31]=%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n"
-//                       , mpi_rank, mpi_size, iteration_step
-//                       , world_local[0], world_local[1], world_local[2], world_local[3]
-//                       , world_local[4], world_local[5], world_local[6], world_local[7]
-//                       , world_local[8], world_local[9], world_local[10], world_local[11]
-//                       , world_local[12], world_local[13], world_local[14], world_local[15]
-//                       , world_local[16], world_local[17], world_local[18], world_local[19]
-//                       , world_local[20], world_local[21], world_local[22], world_local[23]
-//                       , world_local[24], world_local[25], world_local[26], world_local[27]
-//                       , world_local[28], world_local[29], world_local[30], world_local[31]
-//                       );
-        }
-
+    if (mpi_rank != 0) {
+        // other processes send matrix to process 0
+        MPI_Isend(world_local, local_size * world_size, MPI_UNSIGNED_CHAR, 0, 0, MPI_COMM_WORLD, mpi_request);
         if (debug_info > 1)
-            printf("DEBUG2 - iterate_wave_parallel BEFORE UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
-        update_wave_parallel(world_local, world_size, local_size);
-        if (debug_info > 1)
-            printf("DEBUG2 - iterate_wave_parallel AFTER UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
-
-        if (mpi_rank == 0) {
+            printf("DEBUG2 - iterate_wave_parallel - MPI_Isend mpi_rank=%d, local_size=%ld, world_size=%ld\n", mpi_rank, local_size, world_size);
+        for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_wave_parallel 4 SEND iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
-            // last row to next chunk process 0+1=1
-            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, TAG_1, MPI_COMM_WORLD, mpi_request);
-            // first chunk: process 0 sends its first row to the last chunk process mpi_size-1
-            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, TAG_X, MPI_COMM_WORLD, mpi_request);
+                printf("DEBUG2 - iterate_wave_parallel BEFORE UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
+            MPI_Recv(world_local, local_size * world_size, MPI_UNSIGNED_CHAR, 0, iteration_step, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            if (iteration_step % number_of_steps_between_file_dumps == 0) {
+                sprintf(image_filename_suffix, "_%05d", iteration_step);
+                t_io += file_pgm_write_chunk_noghost(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
+            }
         }
-        if (mpi_rank != 0 && mpi_rank != mpi_size - 1)
-            // middle chunk: send last row to next chunk
-            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, TAG_1, MPI_COMM_WORLD, mpi_request);
-        if (mpi_rank == mpi_size - 1 && iteration_step != number_of_steps) { // skip last iteration, no update needed
-            // last chunk: send last row to first chunk zero
-            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, TAG_X, MPI_COMM_WORLD, mpi_request);
+    } else {
+        // process 0 allocates the full matrix and receives data from all other processes
+        unsigned char *world = (unsigned char *) malloc(world_size * world_size * sizeof(unsigned char));
+        // copy values from process zero matrix
+        for (long long i = 0; i < local_size * world_size; i++)
+            world[i] = world_local[i];
+        // receive all other matrixes data
+        long size = world_size / mpi_size;
+        for (int i = 1; i < mpi_size; i++) {
+            MPI_Recv(&world[i * local_size * world_size], size * world_size, MPI_UNSIGNED_CHAR, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            if (debug_info > 1) {
+                long start = i * local_size * world_size;
+                printf("DEBUG2 - iterate_wave_parallel - MPI_Recv i=%d, local_size=%ld, size=%ld, world_size=%ld, start=%ld\n", i, local_size, size, world_size, start);
+                for (long long j = start; j < start + size * world_size; j++)
+                    printf("DEBUG2 - iterate_wave_parallel 0 world[%lld]=%d\n", j, world[j]);
+            }
         }
-        MPI_Barrier(MPI_COMM_WORLD);
-        if (iteration_step % number_of_steps_between_file_dumps == 0) {
-            sprintf(image_filename_suffix, "_%05d", iteration_step);
-            t_io = file_pgm_write_chunk(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
-            //file_pgm_write_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
+        if (debug_info > 1) {
+            for (long long i = 0; i < world_size * world_size; i++)
+                printf("DEBUG2 - iterate_wave_parallel 00 world[%lld]=%d\n", i, world[i]);
         }
-        if (debug_info > 1) printf("DEBUG2 - iterate_wave_parallel end iteration cycle\n");
-    }
-    if (debug_info > 1) printf("DEBUG2 - iterate_wave_parallel end iteration\n");
-
+        // save initial matrix copy as snapshot zero, we force mpi_size=1 to obtain a clean filename snapshot_00000
+        file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, "snapshot_00000", "", FILE_EXTENSION_PGM, 0, 1, debug_info);
+        // all processes do the iterations, process 0 does the update and sends results
+        for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
+            if (debug_info > 1)
+                printf("DEBUG2 - iterate_wave_parallel BEFORE UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
+            // square wave update, only serial
+            update_wave_serial(world, world_size, iteration_step, debug_info);
+            if (debug_info > 1)
+                printf("DEBUG2 - iterate_wave_parallel AFTER UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
+            // TODO: send back to all processes for parallel writing
+            for (int i = 1; i < mpi_size; i++)
+                MPI_Isend(&world[i * local_size * world_size], size * world_size, MPI_UNSIGNED_CHAR, i, iteration_step, MPI_COMM_WORLD, mpi_request);
+            //MPI_Barrier(MPI_COMM_WORLD);
+            if (iteration_step % number_of_steps_between_file_dumps == 0) {
+                sprintf(image_filename_suffix, "_%05d", iteration_step);
+                t_io += file_pgm_write_chunk_noghost(world, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
+            }
+            if (debug_info > 1) printf("DEBUG2 - iterate_wave_parallel end iteration cycle\n");
+        }
+        // copy values back to set final result
+        for (long long i = 0; i < local_size * world_size; i++)
+            world_local[i] = world[i];
+    } // process 0
+    if (debug_info > 1) printf("DEBUG2 - iterate_wave_parallel iteration END\n");
     //free(image_filename_prefix);
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
@@ -391,13 +312,15 @@ double iterate_wave_serial(unsigned char *world, long world_size, int number_of_
     if (debug_info > 1)
         printf("DEBUG2 - iterate_wave_serial - char *image_filename_suffix = (char *) malloc(60); free(); BEFORE\n");
 #endif
+    // save initial matrix copy as snapshot zero
+    file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, "snapshot_00000", "", FILE_EXTENSION_PGM, 0, 1, debug_info);
     char *image_filename_suffix = (char *) malloc(60);
     double t_io = 0;
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
         update_wave_serial(world, world_size, iteration_step, debug_info);
         if (iteration_step % number_of_steps_between_file_dumps == 0) {
             sprintf(image_filename_suffix, "_%05d", iteration_step);
-            t_io += file_pgm_write_chunk(world, 255, world_size, world_size, directoryname, image_filename_prefix, image_filename_suffix, FILE_EXTENSION_PGM, 0, 1, debug_info);
+            t_io += file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, image_filename_prefix, image_filename_suffix, FILE_EXTENSION_PGM, 0, 1, debug_info);
         }
     }
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
@@ -536,8 +459,7 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
     if (debug_info > 0)
         printf("DEBUG1 - run_wave 2 - rank %d/%d directoryname=%s\n", mpi_rank, mpi_size, directoryname);
 
-    // TODO: file_pgm_read always allocates the two ghost rows even when unused (wave)
-    t_io += file_pgm_read(&world_local, &maxval, &local_size, &world_size, filename, mpi_rank, mpi_size, debug_info);
+    t_io += file_pgm_read_noghost(&world_local, &maxval, &local_size, &world_size, filename, mpi_rank, mpi_size, debug_info);
     if (debug_info > 0)
         printf("DEBUG1 - run_wave 3 - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, filename=%s\n", mpi_rank, mpi_size, maxval, local_size, world_size, filename);
 
@@ -550,7 +472,7 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
     // wait for all iterations to complete
     MPI_Barrier(MPI_COMM_WORLD);
     // write final iteration output
-    t_io += file_pgm_write_chunk(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, "", partial_file_extension, mpi_rank, mpi_size, debug_info);
+    t_io += file_pgm_write_chunk_noghost(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, "", partial_file_extension, mpi_rank, mpi_size, debug_info);
     MPI_Barrier(MPI_COMM_WORLD);
     // merge chunks of final output if needed
     if (mpi_size > 1 && mpi_rank == 0) {
