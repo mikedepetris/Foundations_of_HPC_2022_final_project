@@ -27,9 +27,9 @@ char *replace_char(char *str, char find, char replace);
 
 void run_static(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int debug_info);
 
-void run_ordered(const char *filename, int times, int s, int *argc, char **argv[], int debug_info);
+void run_ordered(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int debug_info);
 
-void run_wave(const char *filename, int number_of_steps, int s, int *argc, char **argv[], int debug_info);
+void run_wave(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int debug_info);
 
 void run_whiteblack(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int debug_info);
 

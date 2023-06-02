@@ -14,12 +14,7 @@
 //#define DEBUG_ADVANCED_MALLOC_FREE
 #define DEBUG_ADVANCED_COORDINATES
 
-void update_wave_serial(unsigned char *world, long world_size, int iteration_step, int debug_info) {
-    // TODO: start from random point, at each iteration or all of them (pass coordinates to the function)
-    // for testing purposes we want to be able to start from a given point to compare results
-    long startX = 0; // rand() % SIZE;
-    long startY = 0; // rand() % SIZE;
-
+void update_wave_serial(unsigned char *world, long world_size, int iteration_step, long startX, long startY, int debug_info) {
     // iterate the square wave from 1 cell to squares of size 3, 5, 7... up to world size
     // TODO: manage joined borders of the world when the world size is even
     //       updating of biggest square would lead to multiple cell updating
@@ -229,13 +224,13 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
     double t_io = 0;
     if (mpi_rank != 0) {
         // other processes send matrix to process 0
-        MPI_Isend(world_local, local_size * world_size, MPI_UNSIGNED_CHAR, 0, 0, MPI_COMM_WORLD, mpi_request);
+        MPI_Isend(world_local, (int)local_size * world_size, MPI_UNSIGNED_CHAR, 0, 0, MPI_COMM_WORLD, mpi_request);
         if (debug_info > 1)
             printf("DEBUG2 - iterate_wave_parallel - MPI_Isend mpi_rank=%d, local_size=%ld, world_size=%ld\n", mpi_rank, local_size, world_size);
         for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
             if (debug_info > 1)
                 printf("DEBUG2 - iterate_wave_parallel BEFORE UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
-            MPI_Recv(world_local, local_size * world_size, MPI_UNSIGNED_CHAR, 0, iteration_step, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            MPI_Recv(world_local, (int)local_size * world_size, MPI_UNSIGNED_CHAR, 0, iteration_step, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
             if (iteration_step % number_of_steps_between_file_dumps == 0) {
                 sprintf(image_filename_suffix, "_%05d", iteration_step);
                 t_io += file_pgm_write_chunk_noghost(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
@@ -250,7 +245,7 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
         // receive all other matrixes data
         long size = world_size / mpi_size;
         for (int i = 1; i < mpi_size; i++) {
-            MPI_Recv(&world[i * local_size * world_size], size * world_size, MPI_UNSIGNED_CHAR, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            MPI_Recv(&world[i * local_size * world_size], (int)size * world_size, MPI_UNSIGNED_CHAR, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
             if (debug_info > 1) {
                 long start = i * local_size * world_size;
                 printf("DEBUG2 - iterate_wave_parallel - MPI_Recv i=%d, local_size=%ld, size=%ld, world_size=%ld, start=%ld\n", i, local_size, size, world_size, start);
@@ -264,17 +259,29 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
         }
         // save initial matrix copy as snapshot zero, we force mpi_size=1 to obtain a clean filename snapshot_00000
         file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, "snapshot_00000", "", FILE_EXTENSION_PGM, 0, 1, debug_info);
+
+        // TODO: start from random point, at each iteration or all of them (pass coordinates to the function)
+        // for testing purposes we want to be able to start from a given point to compare results
+        time_t t;
+        srand((unsigned) time(&t));
+        long x = rand() % world_size, y = rand() % world_size;
+        if (debug_info > 1) {
+            x = 0;
+            y = 0;
+        }
+        if (debug_info > 0)
+            printf("DEBUG2 - iterate_wave_parallel start point x=%ld, y=%ld END\n",x, y);
         // all processes do the iterations, process 0 does the update and sends results
         for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
             if (debug_info > 1)
                 printf("DEBUG2 - iterate_wave_parallel BEFORE UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
             // square wave update, only serial
-            update_wave_serial(world, world_size, iteration_step, debug_info);
+            update_wave_serial(world, world_size, iteration_step, x, y, debug_info);
             if (debug_info > 1)
                 printf("DEBUG2 - iterate_wave_parallel AFTER UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
             // TODO: send back to all processes for parallel writing
             for (int i = 1; i < mpi_size; i++)
-                MPI_Isend(&world[i * local_size * world_size], size * world_size, MPI_UNSIGNED_CHAR, i, iteration_step, MPI_COMM_WORLD, mpi_request);
+                MPI_Isend(&world[i * local_size * world_size], (int)size * world_size, MPI_UNSIGNED_CHAR, i, iteration_step, MPI_COMM_WORLD, mpi_request);
             //MPI_Barrier(MPI_COMM_WORLD);
             if (iteration_step % number_of_steps_between_file_dumps == 0) {
                 sprintf(image_filename_suffix, "_%05d", iteration_step);
@@ -314,10 +321,23 @@ double iterate_wave_serial(unsigned char *world, long world_size, int number_of_
 #endif
     // save initial matrix copy as snapshot zero
     file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, "snapshot_00000", "", FILE_EXTENSION_PGM, 0, 1, debug_info);
+
     char *image_filename_suffix = (char *) malloc(60);
     double t_io = 0;
+    // TODO: start from random point, at each iteration or all of them (pass coordinates to the function)
+    // for testing purposes we want to be able to start from a given point to compare results
+    // rand() % SIZE;
+    time_t t;
+    srand((unsigned) time(&t));
+    long x = rand() % world_size, y = rand() % world_size;
+    if (debug_info > 1) {
+        x = 0;
+        y = 0;
+    }
+    if (debug_info > 0)
+        printf("DEBUG2 - iterate_wave_serial start point x=%ld, y=%ld END\n",x, y);
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
-        update_wave_serial(world, world_size, iteration_step, debug_info);
+        update_wave_serial(world, world_size, iteration_step, x, y, debug_info);
         if (iteration_step % number_of_steps_between_file_dumps == 0) {
             sprintf(image_filename_suffix, "_%05d", iteration_step);
             t_io += file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, image_filename_prefix, image_filename_suffix, FILE_EXTENSION_PGM, 0, 1, debug_info);
