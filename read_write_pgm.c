@@ -275,11 +275,11 @@ double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long 
     MPI_File fh;
     MPI_File_open(MPI_COMM_WORLD, image_filename, MPI_MODE_RDONLY, MPI_INFO_NULL, &fh);
     unsigned int to_read_size = (*world_size) * (*local_size) * color_depth;
-    MPI_File_seek(fh, number_of_read_chars + 1 + first_row * *world_size, MPI_SEEK_CUR);
+    MPI_File_seek(fh, (int)number_of_read_chars + 1 + first_row * *world_size, MPI_SEEK_CUR);
     if ((*world = (unsigned char *) malloc((*local_size + 2) * (*world_size) * sizeof(unsigned char))) == NULL)
         return 0;
     unsigned char *v = *world;
-    MPI_File_read(fh, &v[*world_size], to_read_size, MPI_UNSIGNED_CHAR, &mpi_status);
+    MPI_File_read(fh, &v[*world_size], (int)to_read_size, MPI_UNSIGNED_CHAR, &mpi_status);
     //MPI_Barrier(MPI_COMM_WORLD);
     MPI_File_close(&fh);
     t_io += MPI_Wtime() - t_time_point;

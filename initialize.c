@@ -40,6 +40,7 @@ double initialize_parallel(long total_size, int mpi_size, int mpi_rank, int debu
     free(world_chunk);
     if (debug_info > 0)
         printf("DEBUG1 - initialize_parallel - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
+    return t_io;
 }
 
 double initialize_serial(const char *filename, long total_size, int debug_info) {

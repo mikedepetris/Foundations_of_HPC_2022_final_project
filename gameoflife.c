@@ -169,7 +169,7 @@ int main(int argc, char *argv[]) {
             printf("                                                                                     \n");
             printf("Parallel execution:                                                                  \n");
             printf("    mpirun -np 1 gameoflife.x -i -k 100 -f pattern_random                            \n");
-            printf("    mpirun -np 4 gameoflife.x -r -f pattern_random -n 3 -evolution_type 1 -s 0                    \n");
+            printf("    mpirun -np 4 gameoflife.x -r -f pattern_random -n 3 -e 1 -s 0                    \n");
         }
         MPI_Finalize();
         return 0;

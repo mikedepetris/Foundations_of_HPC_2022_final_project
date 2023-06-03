@@ -30,10 +30,10 @@ void update_static_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, 
         // process mpi_size-1 sends his last  row to process 0
         // TODO: chunk size passed as INT by MPI, needs better implementation to work with bigger sizes
         if (mpi_rank != 0 && mpi_rank != mpi_size - 1) {
-            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_0, MPI_COMM_WORLD, mpi_request);
-            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, tag_1, MPI_COMM_WORLD, mpi_request);
-            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, tag_0, MPI_COMM_WORLD, mpi_status);
-            MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_1, MPI_COMM_WORLD, mpi_status);
+            MPI_Isend(&world_local[world_size], (int)world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_0, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[(local_size) * world_size], (int)world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, tag_1, MPI_COMM_WORLD, mpi_request);
+            MPI_Recv(&world_local[(local_size + 1) * world_size], (int)world_size, MPI_UNSIGNED_CHAR, mpi_rank + 1, tag_0, MPI_COMM_WORLD, mpi_status);
+            MPI_Recv(world_local, (int)world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_1, MPI_COMM_WORLD, mpi_status);
         }
         if (mpi_rank == 0) {
 #ifdef DEBUG_ADVANCED_B
@@ -52,10 +52,10 @@ void update_static_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, 
                 printf("\n");
             }
 #endif
-            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, tag_0, MPI_COMM_WORLD, mpi_request);
-            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, tag_1, MPI_COMM_WORLD, mpi_request);
-            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 1, tag_0, MPI_COMM_WORLD, mpi_status);
-            MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, tag_1, MPI_COMM_WORLD, mpi_status);
+            MPI_Isend(&world_local[world_size], (int)world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, tag_0, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[(local_size) * world_size], (int)world_size, MPI_UNSIGNED_CHAR, 1, tag_1, MPI_COMM_WORLD, mpi_request);
+            MPI_Recv(&world_local[(local_size + 1) * world_size], (int)world_size, MPI_UNSIGNED_CHAR, 1, tag_0, MPI_COMM_WORLD, mpi_status);
+            MPI_Recv(world_local, (int)world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, tag_1, MPI_COMM_WORLD, mpi_status);
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (iteration_step == 1) {
 #ifdef DEBUG_ADVANCED_B
@@ -76,10 +76,10 @@ void update_static_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, 
 #endif
         }
         if (mpi_rank == mpi_size - 1) {
-            MPI_Isend(&world_local[world_size], world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_0, MPI_COMM_WORLD, mpi_request);
-            MPI_Isend(&world_local[(local_size) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, tag_1, MPI_COMM_WORLD, mpi_request);
-            MPI_Recv(&world_local[(local_size + 1) * world_size], world_size, MPI_UNSIGNED_CHAR, 0, tag_0, MPI_COMM_WORLD, mpi_status);
-            MPI_Recv(world_local, world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_1, MPI_COMM_WORLD, mpi_status);
+            MPI_Isend(&world_local[world_size], (int)world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_0, MPI_COMM_WORLD, mpi_request);
+            MPI_Isend(&world_local[(local_size) * world_size], (int)world_size, MPI_UNSIGNED_CHAR, 0, tag_1, MPI_COMM_WORLD, mpi_request);
+            MPI_Recv(&world_local[(local_size + 1) * world_size], (int)world_size, MPI_UNSIGNED_CHAR, 0, tag_0, MPI_COMM_WORLD, mpi_status);
+            MPI_Recv(world_local, (int)world_size, MPI_UNSIGNED_CHAR, mpi_rank - 1, tag_1, MPI_COMM_WORLD, mpi_status);
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (iteration_step == 1) {
                 printf("DEBUGA - update_parallel_static 0c - mpi_rank=%d/%d, iteration_step=%d, world_local[0-7]=%d %d %d %d %d %d %d %d\n", mpi_rank, mpi_size
@@ -136,7 +136,7 @@ void update_static_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, 
         // https://en.wikipedia.org/wiki/Conway's_Game_of_Life
         // Any live cell with two or three live neighbours survives.    : 1+2=3 1+3=4 means 8-3=5 8-4=4 dead
         // Any dead cell with three live neighbours becomes a live cell.: 3           means 8-3=5       dead
-        // All other live cells die in the next generation. Similarly, all other dead cells stay dead.
+        // All other alive cells die in the next generation. Similarly, all other dead cells stay dead.
         //if (number_of_dead_neighbours >= 5 & number_of_dead_neighbours <= 6)
         //    world_next[i] = ALIVE;
         if (world_local[y * world_size + x] == ALIVE) { // if actual cell is alive
@@ -201,7 +201,7 @@ void update_static_serial(unsigned char *world, unsigned char *world_next, long 
         // https://en.wikipedia.org/wiki/Conway's_Game_of_Life
         // Any live cell with two or three live neighbours survives.    : 1+2=3 1+3=4 means 8-3=5 8-4=4 dead
         // Any dead cell with three live neighbours becomes a live cell.: 3           means 8-3=5       dead
-        // All other live cells die in the next generation. Similarly, all other dead cells stay dead.
+        // All other alive cells die in the next generation. Similarly, all other dead cells stay dead.
         //if (number_of_dead_neighbours >= 5 & number_of_dead_neighbours <= 6)
         //    world_next[i] = ALIVE;
         if (world[y * world_size + x] == ALIVE) { // if actual cell is alive
@@ -315,9 +315,9 @@ void run_static(const char *filename, int number_of_steps, int number_of_steps_b
 #define MAX_STRING_LENGTH 256
     char message[MAX_STRING_LENGTH];
     char *directoryname;
-    const unsigned char *file_extension_pgm = FILE_EXTENSION_PGM;
-    const unsigned char *file_extension_pgmpart = FILE_EXTENSION_PGMPART;
-    const unsigned char *partial_file_extension = file_extension_pgmpart; // default is partial chunk
+    const char *file_extension_pgm = FILE_EXTENSION_PGM;
+    const char *file_extension_pgmpart = FILE_EXTENSION_PGMPART;
+    const char *partial_file_extension = file_extension_pgmpart; // default is partial chunk
     // chunk of the world_local for each MPI process
     unsigned char *world_local;
     long world_size = 0;

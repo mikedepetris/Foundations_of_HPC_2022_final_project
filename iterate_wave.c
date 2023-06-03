@@ -224,13 +224,13 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
 
     if (mpi_rank != 0) {
         // other processes send matrix to process 0
-        MPI_Isend(world_local, (int) local_size * world_size, MPI_UNSIGNED_CHAR, 0, 0, MPI_COMM_WORLD, mpi_request);
+        MPI_Isend(world_local, (int) (local_size * world_size), MPI_UNSIGNED_CHAR, 0, 0, MPI_COMM_WORLD, mpi_request);
         if (debug_info > 1)
             printf("DEBUG2 - iterate_wave_parallel - MPI_Isend mpi_rank=%d, local_size=%ld, world_size=%ld\n", mpi_rank, local_size, world_size);
         for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
             if (debug_info > 1)
                 printf("DEBUG2 - iterate_wave_parallel BEFORE UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
-            MPI_Recv(world_local, (int) local_size * world_size, MPI_UNSIGNED_CHAR, 0, iteration_step, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            MPI_Recv(world_local, (int) (local_size * world_size), MPI_UNSIGNED_CHAR, 0, iteration_step, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
             if (iteration_step % number_of_steps_between_file_dumps == 0) {
                 sprintf(image_filename_suffix, "_%05d", iteration_step);
                 t_io += file_pgm_write_chunk_noghost(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
@@ -245,7 +245,7 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
         // receive all other matrixes data
         long size = world_size / mpi_size;
         for (int i = 1; i < mpi_size; i++) {
-            MPI_Recv(&world[i * local_size * world_size], (int) size * world_size, MPI_UNSIGNED_CHAR, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            MPI_Recv(&world[i * local_size * world_size], (int) (size * world_size), MPI_UNSIGNED_CHAR, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
             if (debug_info > 1) {
                 long start = i * local_size * world_size;
                 printf("DEBUG2 - iterate_wave_parallel - MPI_Recv i=%d, local_size=%ld, size=%ld, world_size=%ld, start=%ld\n", i, local_size, size, world_size, start);
@@ -281,7 +281,7 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
                 printf("DEBUG2 - iterate_wave_parallel AFTER UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
             // TODO: send back to all processes for parallel writing
             for (int i = 1; i < mpi_size; i++)
-                MPI_Isend(&world[i * local_size * world_size], (int) size * world_size, MPI_UNSIGNED_CHAR, i, iteration_step, MPI_COMM_WORLD, mpi_request);
+                MPI_Isend(&world[i * local_size * world_size], (int) (size * world_size), MPI_UNSIGNED_CHAR, i, iteration_step, MPI_COMM_WORLD, mpi_request);
             //MPI_Barrier(MPI_COMM_WORLD);
             if (iteration_step % number_of_steps_between_file_dumps == 0) {
                 sprintf(image_filename_suffix, "_%05d", iteration_step);
@@ -369,9 +369,9 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
 #define MAX_STRING_LENGTH 256
     char message[MAX_STRING_LENGTH];
     char *directoryname;
-    const unsigned char *file_extension_pgm = FILE_EXTENSION_PGM;
-    const unsigned char *file_extension_pgmpart = FILE_EXTENSION_PGMPART;
-    const unsigned char *partial_file_extension = file_extension_pgmpart; // default is partial chunk
+    const char *file_extension_pgm = FILE_EXTENSION_PGM;
+    const char *file_extension_pgmpart = FILE_EXTENSION_PGMPART;
+    const char *partial_file_extension = file_extension_pgmpart; // default is partial
     // chunk of the world_local for each MPI process
     unsigned char *world_local;
     long world_size = 0;
