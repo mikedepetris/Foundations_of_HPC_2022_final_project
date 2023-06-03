@@ -20,6 +20,7 @@
 #define TAG_0 0
 #define TAG_1 1
 #define TAG_X 65365
+#define TAG_T 65364
 
 void strreplace(char *string, const char *find, const char *replaceWith);
 

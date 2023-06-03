@@ -199,7 +199,6 @@ double iterate_ordered_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_stat
         if (iteration_step % number_of_steps_between_file_dumps == 0) {
             sprintf(image_filename_suffix, "_%05d", iteration_step);
             t_io += file_pgm_write_chunk(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
-            //file_pgm_write_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
         }
         if (debug_info > 1) printf("DEBUG2 - iterate_ordered_parallel end iteration cycle\n");
     }
@@ -228,6 +227,7 @@ double iterate_ordered_serial(unsigned char *world, long world_size, int number_
 
 void run_ordered(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int debug_info) {
     double t_io = 0; // total I/O time spent
+    double t_io_accumulator = 0; // total I/O time spent by processes > 0
     double t_start = MPI_Wtime(); // start time
 // TODO: compute the correct size for MPI message allocation
 #define MAX_STRING_LENGTH 256
@@ -438,6 +438,15 @@ void run_ordered(const char *filename, int number_of_steps, int number_of_steps_
         free(final_fn);
         for (int i = 0; i < mpi_size; i++)
             free(final_chunks_fn[i]); // TODO: verify
+        double t_io_other = 0;
+        for (int i = 1; i < mpi_size; i++) {
+            MPI_Recv(&t_io_other, 1, MPI_DOUBLE, i, TAG_T, MPI_COMM_WORLD, &mpi_status);
+            t_io_accumulator += t_io_other;
+            if (debug_info > 1)
+                printf("DEBUG2 - run_ordered ACCU1 - i=%d, t_io_other=%f, t_io_accumulator=%f\n", i, t_io_other, t_io_accumulator);
+        }
+        if (debug_info > 0)
+            printf("DEBUG1 - run_ordered ACCU2 - t_io=%f, t_io_other=%f, t_io_accumulator=%f, t_io_accumulator / (mpi_size - 1)=%f\n", t_io, t_io_other, t_io_accumulator, t_io_accumulator / (mpi_size - 1));
     }
 
     if (mpi_rank == 0 && debug_info > 0)
@@ -451,7 +460,7 @@ void run_ordered(const char *filename, int number_of_steps, int number_of_steps_
     if (debug_info > 1)
         printf("DEBUG2 - run_ordered 8 - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
     if (mpi_rank == 0)
-        printf("mpi=%d, omp=%d, total time=%f, I/O time=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io);
+        printf("mpi=%d, omp=%d, total time=%f, I/O time=%f, I/O time t_io_accumulator=%f, t_io_accumulator mean=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator, t_io_accumulator / (mpi_size - 1));
     if (debug_info > 0)
         printf("DEBUG1 - run_ordered END - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
 }
