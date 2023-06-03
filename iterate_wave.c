@@ -212,6 +212,7 @@ void update_wave_serial(unsigned char *world, long world_size, int iteration_ste
 
 double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, long world_size, long local_size, int number_of_steps, int number_of_steps_between_file_dumps, const char *directoryname
                              , int debug_info) {
+    double t_io = 0; // returned value: total I/O time spent
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
         printf("DEBUG2 - iterate_wave_parallel - char *image_filename_suffix = (char *) malloc(60); free(); BEFORE\n");
@@ -221,16 +222,15 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
     // iterations has to be done by one single process
     // so make process 0 gather all data from the others
 
-    double t_io = 0;
     if (mpi_rank != 0) {
         // other processes send matrix to process 0
-        MPI_Isend(world_local, (int)local_size * world_size, MPI_UNSIGNED_CHAR, 0, 0, MPI_COMM_WORLD, mpi_request);
+        MPI_Isend(world_local, (int) local_size * world_size, MPI_UNSIGNED_CHAR, 0, 0, MPI_COMM_WORLD, mpi_request);
         if (debug_info > 1)
             printf("DEBUG2 - iterate_wave_parallel - MPI_Isend mpi_rank=%d, local_size=%ld, world_size=%ld\n", mpi_rank, local_size, world_size);
         for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
             if (debug_info > 1)
                 printf("DEBUG2 - iterate_wave_parallel BEFORE UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
-            MPI_Recv(world_local, (int)local_size * world_size, MPI_UNSIGNED_CHAR, 0, iteration_step, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            MPI_Recv(world_local, (int) local_size * world_size, MPI_UNSIGNED_CHAR, 0, iteration_step, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
             if (iteration_step % number_of_steps_between_file_dumps == 0) {
                 sprintf(image_filename_suffix, "_%05d", iteration_step);
                 t_io += file_pgm_write_chunk_noghost(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
@@ -245,7 +245,7 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
         // receive all other matrixes data
         long size = world_size / mpi_size;
         for (int i = 1; i < mpi_size; i++) {
-            MPI_Recv(&world[i * local_size * world_size], (int)size * world_size, MPI_UNSIGNED_CHAR, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            MPI_Recv(&world[i * local_size * world_size], (int) size * world_size, MPI_UNSIGNED_CHAR, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
             if (debug_info > 1) {
                 long start = i * local_size * world_size;
                 printf("DEBUG2 - iterate_wave_parallel - MPI_Recv i=%d, local_size=%ld, size=%ld, world_size=%ld, start=%ld\n", i, local_size, size, world_size, start);
@@ -258,7 +258,7 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
                 printf("DEBUG2 - iterate_wave_parallel 00 world[%lld]=%d\n", i, world[i]);
         }
         // save initial matrix copy as snapshot zero, we force mpi_size=1 to obtain a clean filename snapshot_00000
-        file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, "snapshot_00000", "", FILE_EXTENSION_PGM, 0, 1, debug_info);
+        t_io += file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, "snapshot_00000", "", FILE_EXTENSION_PGM, 0, 1, debug_info);
 
         // TODO: start from random point, at each iteration or all of them (pass coordinates to the function)
         // for testing purposes we want to be able to start from a given point to compare results
@@ -270,7 +270,7 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
             y = 0;
         }
         if (debug_info > 0)
-            printf("DEBUG2 - iterate_wave_parallel start point x=%ld, y=%ld END\n",x, y);
+            printf("DEBUG2 - iterate_wave_parallel start point x=%ld, y=%ld END\n", x, y);
         // all processes do the iterations, process 0 does the update and sends results
         for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
             if (debug_info > 1)
@@ -281,7 +281,7 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
                 printf("DEBUG2 - iterate_wave_parallel AFTER UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
             // TODO: send back to all processes for parallel writing
             for (int i = 1; i < mpi_size; i++)
-                MPI_Isend(&world[i * local_size * world_size], (int)size * world_size, MPI_UNSIGNED_CHAR, i, iteration_step, MPI_COMM_WORLD, mpi_request);
+                MPI_Isend(&world[i * local_size * world_size], (int) size * world_size, MPI_UNSIGNED_CHAR, i, iteration_step, MPI_COMM_WORLD, mpi_request);
             //MPI_Barrier(MPI_COMM_WORLD);
             if (iteration_step % number_of_steps_between_file_dumps == 0) {
                 sprintf(image_filename_suffix, "_%05d", iteration_step);
@@ -308,6 +308,7 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
 }
 
 double iterate_wave_serial(unsigned char *world, long world_size, int number_of_steps, int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
+    double t_io = 0; // returned value: total I/O time spent
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
         printf("DEBUG2 - iterate_wave_serial - char *image_filename_prefix = (char *) malloc(60); free(); BEFORE\n");
@@ -320,10 +321,9 @@ double iterate_wave_serial(unsigned char *world, long world_size, int number_of_
         printf("DEBUG2 - iterate_wave_serial - char *image_filename_suffix = (char *) malloc(60); free(); BEFORE\n");
 #endif
     // save initial matrix copy as snapshot zero
-    file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, "snapshot_00000", "", FILE_EXTENSION_PGM, 0, 1, debug_info);
+    t_io += file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, "snapshot_00000", "", FILE_EXTENSION_PGM, 0, 1, debug_info);
 
     char *image_filename_suffix = (char *) malloc(60);
-    double t_io = 0;
     // TODO: start from random point, at each iteration or all of them (pass coordinates to the function)
     // for testing purposes we want to be able to start from a given point to compare results
     // rand() % SIZE;
@@ -335,7 +335,7 @@ double iterate_wave_serial(unsigned char *world, long world_size, int number_of_
         y = 0;
     }
     if (debug_info > 0)
-        printf("DEBUG2 - iterate_wave_serial start point x=%ld, y=%ld END\n",x, y);
+        printf("DEBUG2 - iterate_wave_serial start point x=%ld, y=%ld END\n", x, y);
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
         update_wave_serial(world, world_size, iteration_step, x, y, debug_info);
         if (iteration_step % number_of_steps_between_file_dumps == 0) {
@@ -363,6 +363,8 @@ double iterate_wave_serial(unsigned char *world, long world_size, int number_of_
 }
 
 void run_wave(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int debug_info) {
+    double t_io = 0; // total I/O time spent
+    double t_start = MPI_Wtime(); // start time
 // TODO: compute the correct size for MPI message allocation
 #define MAX_STRING_LENGTH 256
     char message[MAX_STRING_LENGTH];
@@ -389,8 +391,6 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
         MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
     }
 #endif
-    // start time and time accumulators
-    double t_start = MPI_Wtime();
     int mpi_rank, mpi_size;
     MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
@@ -399,7 +399,6 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
     if (debug_info > 0)
         printf("DEBUG1 - run_wave BEGIN - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
 
-    double t_io = 0;
     if (mpi_rank == 0) {
         if (number_of_steps > MAX_NUMBER_OF_STEPS) {
             printf("Value %d is too big to be passed as -n <num> number of steps to be iterated, max admitted value is %d\n", number_of_steps, MAX_NUMBER_OF_STEPS);
@@ -553,11 +552,11 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
             for (int i = 0; i < mpi_size; i++)
                 t_io += file_chunk_merge(snap_fn, snap_chunks_fn[i], debug_info); // TODO: manage error result
             // delete chunks but keep them in debug mode
-            double t_temp = MPI_Wtime();
+            double t_point = MPI_Wtime();
             if (debug_info == 0)
                 for (int i = 0; i < mpi_size; i++)
                     remove(snap_chunks_fn[i]);
-            t_io += MPI_Wtime() - t_temp;
+            t_io += MPI_Wtime() - t_point;
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (debug_info > 1)
                 printf("DEBUG2 - run_wave - free(snap_fn); BEFORE\n");
@@ -627,11 +626,11 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
         for (int i = 0; i < mpi_size; i++)
             t_io += file_chunk_merge(final_fn, final_chunks_fn[i], debug_info); // TODO: manage error result
         // delete chunks but keep them in debug mode
-        double t_temp = MPI_Wtime();
+        double t_point = MPI_Wtime();
         if (debug_info == 0)
             for (int i = 0; i < mpi_size; i++)
                 remove(final_chunks_fn[i]);
-        t_io += MPI_Wtime() - t_temp;
+        t_io += MPI_Wtime() - t_point;
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)
             printf("DEBUG2 - run_wave - free(final_fn); BEFORE\n");
@@ -651,8 +650,6 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
 #endif
     }
 
-    if (mpi_rank == 0)
-        printf("mpi=%d, omp=%d, total time=%f, I/O time=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io);
     if (mpi_rank == 0 && debug_info > 0)
         //DEBUG1 - run_wave 6 - mpi=2, omp=2, time taken=0.007455
         printf("DEBUG1 - run_wave 6 - mpi=%d, omp=%d, time taken=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start);
@@ -681,6 +678,8 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
 #endif
     if (debug_info > 1)
         printf("DEBUG2 - run_wave 8 - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
+    if (mpi_rank == 0)
+        printf("mpi=%d, omp=%d, total time=%f, I/O time=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io);
     if (debug_info > 0)
         printf("DEBUG1 - run_wave END - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
 }

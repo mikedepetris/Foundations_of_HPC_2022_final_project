@@ -5,7 +5,8 @@ int get_unique_seed(int omp_rank, int mpi_rank) {
     return (int) (123 + omp_rank * mpi_rank * 7 + 8 * omp_rank * omp_rank + 9 * mpi_rank * mpi_rank * time(NULL));
 }
 
-void initialize_parallel(long total_size, int mpi_size, int mpi_rank, int debug_info) {
+double initialize_parallel(long total_size, int mpi_size, int mpi_rank, int debug_info) {
+    double t_io = 0; // returned value: total I/O time spent
     long chunk_size; // chunk of rows of each MPI task: world_chunk rows / number of threads (mpi_size)
     chunk_size =
             total_size % mpi_size - mpi_rank <= 0 ? (long) (total_size / mpi_size) : (long) (total_size / mpi_size) + 1;
@@ -35,13 +36,14 @@ void initialize_parallel(long total_size, int mpi_size, int mpi_rank, int debug_
     }
     //if (debug_info > 1 && mpi_rank == 0)
     //    printf("\n");
-    file_pgm_write_chunk(world_chunk, 255, total_size, chunk_size, "", IMAGE_FILENAME_PREFIX_INIT, "", FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
+    t_io += file_pgm_write_chunk(world_chunk, 255, total_size, chunk_size, "", IMAGE_FILENAME_PREFIX_INIT, "", FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
     free(world_chunk);
     if (debug_info > 0)
         printf("DEBUG1 - initialize_parallel - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
 }
 
-void initialize_serial(const char *filename, long total_size, int debug_info) {
+double initialize_serial(const char *filename, long total_size, int debug_info) {
+    double t_io = 0; // returned value: total I/O time spent
     if (debug_info > 0)
         printf("DEBUG1 - initialize_serial - BEGIN\n");
     if (debug_info > 1)
@@ -65,13 +67,16 @@ void initialize_serial(const char *filename, long total_size, int debug_info) {
     }
     if (debug_info > 1)
         printf("\n");
-    file_pgm_write_chunk(world, 255, total_size, total_size, "", filename, "", FILE_EXTENSION_PGM, 0, 1, debug_info);
+    t_io += file_pgm_write_chunk(world, 255, total_size, total_size, "", filename, "", FILE_EXTENSION_PGM, 0, 1, debug_info);
     free(world);
     if (debug_info > 0)
         printf("DEBUG1 - initialize_serial - END\n");
+    return t_io;
 }
 
 void initialization(long world_size, const char *filename, int *argc, char ***argv, int mpi_rank, int mpi_size, int debug_info) {
+    double t_io = 0; // total I/O time spent
+    double t_start = MPI_Wtime(); // start time
     if (debug_info > 0 && mpi_rank == 0)
         printf("DEBUG1 - initialization - BEGIN filename=%s\n", filename);
     // Concatenate: pathname + extension
@@ -109,7 +114,7 @@ void initialization(long world_size, const char *filename, int *argc, char ***ar
         if (debug_info > 0)
             printf("DEBUG1 - initialization - remove_result: %d\n", remove_result);
         for (int i = 0; i < mpi_size; i++)
-            file_chunk_merge(pathname, fn[i], debug_info); // TODO: manage error result
+            t_io += file_chunk_merge(pathname, fn[i], debug_info); // TODO: manage error result
         // delete chunks but keep them in debug mode
         if (debug_info == 0)
             for (int i = 0; i < mpi_size; i++)
@@ -129,6 +134,8 @@ void initialization(long world_size, const char *filename, int *argc, char ***ar
     MPI_Finalize();
     if (mpi_rank == 0)
         printf("Initialization completed, data written to file %s\n", pathname);
+    if (mpi_rank == 0)
+        printf("mpi=%d, omp=%d, total time=%f, I/O time=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io);
     if (debug_info > 0)
         printf("DEBUG1 - initialization - END - rank %d/%d\n", mpi_rank, mpi_size);
 }

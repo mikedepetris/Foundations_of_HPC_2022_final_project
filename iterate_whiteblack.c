@@ -312,9 +312,9 @@ void update_black_serial(unsigned char *world, unsigned char *world_next, long w
     }
 }
 
-double
-iterate_whiteblack_parallel(const int mpi_rank, const int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char **world_local, const long world_size, const long local_size, const int number_of_steps
-                            , const int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
+double iterate_whiteblack_parallel(const int mpi_rank, const int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char **world_local, const long world_size, const long local_size, const int number_of_steps
+                                   , const int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
+    double t_io = 0; // returned value: total I/O time spent
     if (debug_info > 0)
         printf("DEBUG1 - iterate_whiteblack_parallel - BEGIN - mpi_rank=%d/%d, world_size=%ld\n", mpi_rank, mpi_size, world_size);
     unsigned char *world_local_actual = *world_local;
@@ -324,7 +324,6 @@ iterate_whiteblack_parallel(const int mpi_rank, const int mpi_size, MPI_Status *
     unsigned char *world_local_next_original = world_local_next;
     unsigned char *temp; // temp pointer
     char *image_filename_suffix = (char *) malloc(60);
-    double t_io = 0;
     // NOTE: can't use omp parallel here, iteration can't go on each chunk
     // each MPI process exchanges data with other segments of same iteration
     // it's ok for serial only (-np 1)
@@ -363,6 +362,7 @@ iterate_whiteblack_parallel(const int mpi_rank, const int mpi_size, MPI_Status *
 
 double iterate_whiteblack_serial(const int mpi_rank, const int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char **world_local, const long world_size, const long local_size, const int number_of_steps
                                  , const int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
+    double t_io = 0; // returned value: total I/O time spent
     if (debug_info > 0)
         printf("DEBUG1 - iterate_whiteblack_serial - BEGIN - mpi_rank=%d/%d, world_size=%ld\n", mpi_rank, mpi_size, world_size);
     unsigned char *world_local_actual = *world_local;
@@ -372,7 +372,6 @@ double iterate_whiteblack_serial(const int mpi_rank, const int mpi_size, MPI_Sta
     unsigned char *world_local_next_original = world_local_next;
     unsigned char *temp; // temp pointer
     char *image_filename_suffix = (char *) malloc(60);
-    double t_io = 0;
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
         if (debug_info > 1)
             printf("DEBUG2 - iterate_whiteblack_serial 0 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
@@ -407,6 +406,8 @@ double iterate_whiteblack_serial(const int mpi_rank, const int mpi_size, MPI_Sta
 }
 
 void run_whiteblack(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int debug_info) {
+    double t_io = 0; // total I/O time spent
+    double t_start = MPI_Wtime(); // start time
 // TODO: compute the correct size for MPI message allocation
 #define MAX_STRING_LENGTH 256
     char message[MAX_STRING_LENGTH];
@@ -427,8 +428,6 @@ void run_whiteblack(const char *filename, int number_of_steps, int number_of_ste
         perror("a problem occurred asking for MPI_THREAD_FUNNELED level\n");
         MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
     }
-    // start time and time accumulators
-    double t_start = MPI_Wtime();
     int mpi_rank, mpi_size;
     MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
@@ -437,7 +436,6 @@ void run_whiteblack(const char *filename, int number_of_steps, int number_of_ste
     if (debug_info > 0)
         printf("DEBUG1 - run_whiteblack BEGIN - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
 
-    double t_io = 0;
     if (mpi_rank == 0) {
         if (number_of_steps > MAX_NUMBER_OF_STEPS) {
             printf("Value %d is too big to be passed as -n <num> number of steps to be iterated, max admitted value is %d\n", number_of_steps, MAX_NUMBER_OF_STEPS);
@@ -561,11 +559,11 @@ void run_whiteblack(const char *filename, int number_of_steps, int number_of_ste
             for (int i = 0; i < mpi_size; i++)
                 t_io += file_chunk_merge(snap_fn, snap_chunks_fn[i], debug_info); // TODO: manage error result
             // delete chunks but keep them in debug mode
-            double t_temp = MPI_Wtime();
+            double t_point = MPI_Wtime();
             if (debug_info == 0)
                 for (int i = 0; i < mpi_size; i++)
                     remove(snap_chunks_fn[i]);
-            t_io += MPI_Wtime() - t_temp;
+            t_io += MPI_Wtime() - t_point;
             free(snap_fn);
             for (int i = 0; i < mpi_size; i++)
                 free(snap_chunks_fn[i]); // TODO: verify
@@ -614,18 +612,16 @@ void run_whiteblack(const char *filename, int number_of_steps, int number_of_ste
         for (int i = 0; i < mpi_size; i++)
             t_io += file_chunk_merge(final_fn, final_chunks_fn[i], debug_info); // TODO: manage error result
         // delete chunks but keep them in debug mode
-        double t_temp = MPI_Wtime();
+        double t_point = MPI_Wtime();
         if (debug_info == 0)
             for (int i = 0; i < mpi_size; i++)
                 remove(final_chunks_fn[i]);
-        t_io += MPI_Wtime() - t_temp;
+        t_io += MPI_Wtime() - t_point;
         free(final_fn);
         for (int i = 0; i < mpi_size; i++)
             free(final_chunks_fn[i]); // TODO: verify
     }
 
-    if (mpi_rank == 0)
-        printf("mpi=%d, omp=%d, total time=%f, I/O time=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io);
     if (mpi_rank == 0 && debug_info > 0)
         //DEBUG1 - run_whiteblack 6 - mpi=2, omp=2, time taken=0.007455
         printf("DEBUG1 - run_whiteblack 6 - mpi=%d, omp=%d, total time=%f, I/O time taken=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io);
@@ -636,6 +632,8 @@ void run_whiteblack(const char *filename, int number_of_steps, int number_of_ste
     free(world_local);
     if (debug_info > 1)
         printf("DEBUG2 - run_whiteblack 8 - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
+    if (mpi_rank == 0)
+        printf("mpi=%d, omp=%d, total time=%f, I/O time=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io);
     if (debug_info > 0)
         printf("DEBUG1 - run_whiteblack END - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
 }

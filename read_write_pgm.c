@@ -9,10 +9,10 @@ double make_directory(char *directory_name, int debug_info) {
     if (debug_info == 1)
         printf("DEBUG1 - make_directory: %s\n", directory_name);
     struct stat st = {0};
-    double t_temp = MPI_Wtime();
+    double t_point = MPI_Wtime();
     if (stat(directory_name, &st) == -1)
         mkdir(directory_name, 0700);
-    return MPI_Wtime() - t_temp;
+    return MPI_Wtime() - t_point;
 }
 
 void calculate_sizes_indexes(int mpi_rank, int mpi_size, long world_size, long *first_row, long *last_row, long *local_size) {
@@ -34,6 +34,7 @@ void calculate_sizes_indexes(int mpi_rank, int mpi_size, long world_size, long *
 
 double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_size, long local_size, const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension, int mpi_rank
                             , int mpi_size, int debug_info) {
+    double t_io = 0; // returned value: total I/O time spent
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_write_chunk - BEGIN - mpi_rank=%d/%d, directoryname=%s, image_filename_prefix=%s, image_filename_suffix=%s, image_filename_extension=%s\n", mpi_rank, mpi_size, directoryname, image_filename_prefix, image_filename_suffix
                , image_filename_extension);
@@ -72,7 +73,6 @@ double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_s
 //    if (debug_info > 0)
 //        printf("DEBUG1 - file_pgm_write_chunk - file_name=%s, dir_name=%s, base_name=%s\n", file_name, dir_name, base_name);
 //    make_directory(dir_name, debug_info);
-    double t_taken = 0;
     double t_time_point = MPI_Wtime();
     chunk_file = fopen(file_name, "w");
     if (debug_info > 0)
@@ -106,16 +106,16 @@ double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_s
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_write_chunk - ferror(chunk_file)=%d\n", ferror(chunk_file));
     fclose(chunk_file);
-    t_taken += MPI_Wtime() - t_time_point;
+    t_io += MPI_Wtime() - t_time_point;
     free(file_name);
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_write_chunk - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
-    return t_taken;
+    return t_io;
 }
 
-double
-file_pgm_write_chunk_noghost(unsigned char *world_local, int maxval, long world_size, long local_size, const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension, int mpi_rank
-                             , int mpi_size, int debug_info) {
+double file_pgm_write_chunk_noghost(unsigned char *world_local, int maxval, long world_size, long local_size, const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension
+                                    , int mpi_rank, int mpi_size, int debug_info) {
+    double t_io = 0; // returned value: total I/O time spent
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_write_chunk_noghost - BEGIN - mpi_rank=%d/%d, directoryname=%s, image_filename_prefix=%s, image_filename_suffix=%s, image_filename_extension=%s\n", mpi_rank, mpi_size, directoryname, image_filename_prefix
                , image_filename_suffix, image_filename_extension);
@@ -155,7 +155,6 @@ file_pgm_write_chunk_noghost(unsigned char *world_local, int maxval, long world_
 //    if (debug_info > 0)
 //        printf("DEBUG1 - file_pgm_write_chunk_noghost - file_name=%s, dir_name=%s, base_name=%s\n", file_name, dir_name, base_name);
 //    make_directory(dir_name, debug_info);
-    double t_taken = 0;
     double t_time_point = MPI_Wtime();
     chunk_file = fopen(file_name, "w");
     if (debug_info > 0)
@@ -189,20 +188,20 @@ file_pgm_write_chunk_noghost(unsigned char *world_local, int maxval, long world_
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_write_chunk_noghost - ferror(chunk_file)=%d\n", ferror(chunk_file));
     fclose(chunk_file);
-    t_taken += MPI_Wtime() - t_time_point;
+    t_io += MPI_Wtime() - t_time_point;
     free(file_name);
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_write_chunk_noghost - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
-    return t_taken;
+    return t_io;
 }
 
 double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long *world_size, const char *image_filename, int mpi_rank, int mpi_size, int debug_info) {
+    double t_io = 0; // returned value: total I/O time spent
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_read - BEGIN - mpi_rank=%d/%d, image_filename=%s\n", mpi_rank, mpi_size, image_filename);
     size_t number_of_read_chars = 0;
     MPI_Status mpi_status;
     long first_row, last_row;
-    double t_taken = 0;
     double t_time_point = MPI_Wtime();
     if (mpi_rank == 0) {
         FILE *image_file;
@@ -262,7 +261,7 @@ double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long 
                    "number_of_chars=%zu, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu, world_size=%ld, maxval=%d\n"
                    , number_of_chars, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars, *world_size, *maxval);
         fclose(image_file);
-        t_taken += MPI_Wtime() - t_time_point;
+        t_io += MPI_Wtime() - t_time_point;
         free(line);
     }
     MPI_Bcast(&number_of_read_chars, 1, MPI_LONG, 0, MPI_COMM_WORLD);
@@ -283,19 +282,19 @@ double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long 
     MPI_File_read(fh, &v[*world_size], to_read_size, MPI_UNSIGNED_CHAR, &mpi_status);
     //MPI_Barrier(MPI_COMM_WORLD);
     MPI_File_close(&fh);
-    t_taken += MPI_Wtime() - t_time_point;
+    t_io += MPI_Wtime() - t_time_point;
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_read - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
-    return t_taken;
+    return t_io;
 }
 
 double file_pgm_read_noghost(unsigned char **world, int *maxval, long *local_size, long *world_size, const char *image_filename, int mpi_rank, int mpi_size, int debug_info) {
+    double t_io = 0; // returned value: total I/O time spent
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_read_noghost 0 - BEGIN - mpi_rank=%d/%d, image_filename=%s\n", mpi_rank, mpi_size, image_filename);
     size_t number_of_read_chars = 0;
     MPI_Status mpi_status;
     long first_row, last_row;
-    double t_taken = 0;
     double t_time_point = MPI_Wtime();
     if (mpi_rank == 0) {
         FILE *image_file;
@@ -352,7 +351,7 @@ double file_pgm_read_noghost(unsigned char **world, int *maxval, long *local_siz
                    "number_of_chars=%zu, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu, world_size=%ld, maxval=%d\n"
                    , number_of_chars, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars, *world_size, *maxval);
         fclose(image_file);
-        t_taken += MPI_Wtime() - t_time_point;
+        t_io += MPI_Wtime() - t_time_point;
         free(line);
     }
     MPI_Bcast(&number_of_read_chars, 1, MPI_LONG, 0, MPI_COMM_WORLD);
@@ -380,13 +379,13 @@ double file_pgm_read_noghost(unsigned char **world, int *maxval, long *local_siz
     MPI_File_read(fh, *world, (int) to_read_size, MPI_UNSIGNED_CHAR, &mpi_status);
     //MPI_Barrier(MPI_COMM_WORLD);
     MPI_File_close(&fh);
-    t_taken += MPI_Wtime() - t_time_point;
+    t_io += MPI_Wtime() - t_time_point;
     if (debug_info > 1)
         printf("DEBUG2 - file_pgm_read_noghost 6 - mpi_rank=%d/%d *world_size=%ld, first_row=%ld, last_row=%ld, local_size=%ld, color_depth=%d, to_read_size=%zu\n"
                , mpi_rank, mpi_size, *world_size, first_row, last_row, *local_size, color_depth, to_read_size);
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_read_noghost 7 - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
-    return t_taken;
+    return t_io;
 }
 
 double file_chunk_merge(const char *filename1, const char *filename2, int debug_info) {
