@@ -326,6 +326,10 @@ void run_ordered(const char *filename, int number_of_steps, int number_of_steps_
     MPI_Barrier(MPI_COMM_WORLD);
     // write final iteration output
     t_io += file_pgm_write_chunk(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_FINAL_ORDERED, "", partial_file_extension, mpi_rank, mpi_size, debug_info);
+    // all processes send io-time to process zero
+    if (mpi_rank > 0)
+        MPI_Isend(&t_io, 1, MPI_DOUBLE, 0, TAG_T, MPI_COMM_WORLD, &mpi_request);
+
     MPI_Barrier(MPI_COMM_WORLD);
     // merge chunks of final output if needed
     if (mpi_size > 1 && mpi_rank == 0) {

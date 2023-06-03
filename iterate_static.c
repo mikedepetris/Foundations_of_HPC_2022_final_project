@@ -416,7 +416,6 @@ void run_static(const char *filename, int number_of_steps, int number_of_steps_b
 
     MPI_Barrier(MPI_COMM_WORLD);
     // merge chunks of final output if needed
-    // TODO: when size=1 raname changing extension removing "part"
     if (mpi_size > 1 && mpi_rank == 0) {
         // Join the chunks into a single image file
         //    final_static002.pgm              (final output with 2 MPI processes)
