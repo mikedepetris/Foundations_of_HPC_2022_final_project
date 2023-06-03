@@ -632,7 +632,7 @@ void run_whiteblack(const char *filename, int number_of_steps, int number_of_ste
                 printf("DEBUG2 - run_whiteblack ACCU1 - i=%d, t_io_other=%f, t_io_accumulator=%f\n", i, t_io_other, t_io_accumulator);
         }
         if (debug_info > 0)
-            printf("DEBUG1 - run_whiteblack ACCU2 - t_io=%f, t_io_other=%f, t_io_accumulator=%f, t_io_accumulator / (mpi_size - 1)=%f\n", t_io, t_io_other, t_io_accumulator, t_io_accumulator / (mpi_size - 1));
+            printf("DEBUG1 - run_whiteblack ACCU2 - t_io=%f, t_io_other=%f, t_io_accumulator=%f, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1)=%f\n", t_io, t_io_other, t_io_accumulator, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
     }
 
     if (mpi_rank == 0 && debug_info > 0)
@@ -646,7 +646,7 @@ void run_whiteblack(const char *filename, int number_of_steps, int number_of_ste
     if (debug_info > 1)
         printf("DEBUG2 - run_whiteblack 8 - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
     if (mpi_rank == 0)
-        printf("mpi=%d, omp=%d, total time=%f, I/O time=%f, I/O time t_io_accumulator=%f, t_io_accumulator mean=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator, t_io_accumulator / (mpi_size - 1));
+        printf("mpi=%d, omp=%d, total time=%f, I/O time=%f, I/O time t_io_accumulator=%f, t_io_accumulator mean=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
     if (debug_info > 0)
         printf("DEBUG1 - run_whiteblack END - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
 }

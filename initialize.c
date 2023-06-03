@@ -139,7 +139,7 @@ void initialization(long world_size, const char *filename, int *argc, char ***ar
         printf("Initialization completed, data written to file %s\n", pathname);
     if (mpi_rank == 0)
         printf("mpi=%d, omp=%d, total time=%f, I/O time=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io);
-        //printf("mpi=%d, omp=%d, total time=%f, I/O time=%f, I/O time t_io_accumulator=%f, t_io_accumulator mean=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator, t_io_accumulator / (mpi_size - 1));
+        //printf("mpi=%d, omp=%d, total time=%f, I/O time=%f, I/O time t_io_accumulator=%f, t_io_accumulator mean=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
     if (debug_info > 0)
         printf("DEBUG1 - initialization - END - rank %d/%d\n", mpi_rank, mpi_size);
 }
