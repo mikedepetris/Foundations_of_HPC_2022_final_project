@@ -23,14 +23,14 @@ void calculate_sizes_indexes(int mpi_rank, int mpi_size, long world_size, long *
     *last_row = (*first_row) + (*local_size) - 1;
 }
 
-double file_pgm_write_all(void *image, int maxval, int xsize, int ysize, const char *image_name) {
-    FILE *image_file;
-    image_file = fopen(image_name, "w");
-    int color_depth = 1 + (maxval > 255);
-    fprintf(image_file, "P5\n#" PGM_COMMENT "\n%d %d\n%d\n", xsize, ysize, maxval);
-    fwrite(image, 1, xsize * ysize * color_depth, image_file);
-    fclose(image_file);
-}
+//double file_pgm_write_all(void *image, int maxval, int xsize, int ysize, const char *image_name) {
+//    FILE *image_file;
+//    image_file = fopen(image_name, "w");
+//    int color_depth = 1 + (maxval > 255);
+//    fprintf(image_file, "P5\n#" PGM_COMMENT "\n%d %d\n%d\n", xsize, ysize, maxval);
+//    fwrite(image, 1, xsize * ysize * color_depth, image_file);
+//    fclose(image_file);
+//}
 
 double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_size, long local_size, const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension, int mpi_rank
                             , int mpi_size, int debug_info) {
@@ -72,7 +72,8 @@ double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_s
 //    if (debug_info > 0)
 //        printf("DEBUG1 - file_pgm_write_chunk - file_name=%s, dir_name=%s, base_name=%s\n", file_name, dir_name, base_name);
 //    make_directory(dir_name, debug_info);
-    double t_temp = MPI_Wtime();
+    double t_taken = 0;
+    double t_time_point = MPI_Wtime();
     chunk_file = fopen(file_name, "w");
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_write_chunk - 0 - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
@@ -105,7 +106,7 @@ double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_s
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_write_chunk - ferror(chunk_file)=%d\n", ferror(chunk_file));
     fclose(chunk_file);
-    const double t_taken = MPI_Wtime() - t_temp;
+    t_taken += MPI_Wtime() - t_time_point;
     free(file_name);
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_write_chunk - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
@@ -154,7 +155,8 @@ file_pgm_write_chunk_noghost(unsigned char *world_local, int maxval, long world_
 //    if (debug_info > 0)
 //        printf("DEBUG1 - file_pgm_write_chunk_noghost - file_name=%s, dir_name=%s, base_name=%s\n", file_name, dir_name, base_name);
 //    make_directory(dir_name, debug_info);
-    double t_temp = MPI_Wtime();
+    double t_taken = 0;
+    double t_time_point = MPI_Wtime();
     chunk_file = fopen(file_name, "w");
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_write_chunk_noghost - 0 - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
@@ -187,7 +189,7 @@ file_pgm_write_chunk_noghost(unsigned char *world_local, int maxval, long world_
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_write_chunk_noghost - ferror(chunk_file)=%d\n", ferror(chunk_file));
     fclose(chunk_file);
-    const double t_taken = MPI_Wtime() - t_temp;
+    t_taken += MPI_Wtime() - t_time_point;
     free(file_name);
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_write_chunk_noghost - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
@@ -200,7 +202,8 @@ double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long 
     size_t number_of_read_chars = 0;
     MPI_Status mpi_status;
     long first_row, last_row;
-    double t_temp = MPI_Wtime();
+    double t_taken = 0;
+    double t_time_point = MPI_Wtime();
     if (mpi_rank == 0) {
         FILE *image_file;
         //printf("BEFORE fopen file=%s\n", image_filename);
@@ -259,6 +262,7 @@ double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long 
                    "number_of_chars=%zu, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu, world_size=%ld, maxval=%d\n"
                    , number_of_chars, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars, *world_size, *maxval);
         fclose(image_file);
+        t_taken += MPI_Wtime() - t_time_point;
         free(line);
     }
     MPI_Bcast(&number_of_read_chars, 1, MPI_LONG, 0, MPI_COMM_WORLD);
@@ -268,6 +272,7 @@ double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long 
     if (debug_info > 1)
         printf("DEBUG2 - file_pgm_read - mpi_rank=%d/%d *world_size=%ld, first_row=%ld, last_row=%ld, local_size=%ld\n", mpi_rank, mpi_size, *world_size, first_row, last_row, *local_size);
     int color_depth = 1 + (*maxval > 255);
+    t_time_point = MPI_Wtime();
     MPI_File fh;
     MPI_File_open(MPI_COMM_WORLD, image_filename, MPI_MODE_RDONLY, MPI_INFO_NULL, &fh);
     unsigned int to_read_size = (*world_size) * (*local_size) * color_depth;
@@ -276,8 +281,9 @@ double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long 
         return 0;
     unsigned char *v = *world;
     MPI_File_read(fh, &v[*world_size], to_read_size, MPI_UNSIGNED_CHAR, &mpi_status);
-    const double t_taken = MPI_Wtime() - t_temp;
-    MPI_Barrier(MPI_COMM_WORLD);
+    //MPI_Barrier(MPI_COMM_WORLD);
+    MPI_File_close(&fh);
+    t_taken += MPI_Wtime() - t_time_point;
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_read - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
     return t_taken;
@@ -289,7 +295,8 @@ double file_pgm_read_noghost(unsigned char **world, int *maxval, long *local_siz
     size_t number_of_read_chars = 0;
     MPI_Status mpi_status;
     long first_row, last_row;
-    double t_temp = MPI_Wtime();
+    double t_taken = 0;
+    double t_time_point = MPI_Wtime();
     if (mpi_rank == 0) {
         FILE *image_file;
         //printf("BEFORE fopen file=%s\n", image_filename);
@@ -345,6 +352,7 @@ double file_pgm_read_noghost(unsigned char **world, int *maxval, long *local_siz
                    "number_of_chars=%zu, strlen(line)=%zu, line_buffer_size=%zu, line_buffer_size * sizeof(char)=%zu, number_of_read_chars=%zu, world_size=%ld, maxval=%d\n"
                    , number_of_chars, strlen(line), line_buffer_size, line_buffer_size * sizeof(char), number_of_read_chars, *world_size, *maxval);
         fclose(image_file);
+        t_taken += MPI_Wtime() - t_time_point;
         free(line);
     }
     MPI_Bcast(&number_of_read_chars, 1, MPI_LONG, 0, MPI_COMM_WORLD);
@@ -352,6 +360,7 @@ double file_pgm_read_noghost(unsigned char **world, int *maxval, long *local_siz
     MPI_Bcast(maxval, 1, MPI_INT, 0, MPI_COMM_WORLD);
     calculate_sizes_indexes(mpi_rank, mpi_size, *world_size, &first_row, &last_row, local_size);
     int color_depth = 1 + (*maxval > 255);
+    t_time_point = MPI_Wtime();
     MPI_File fh;
     MPI_File_open(MPI_COMM_WORLD, image_filename, MPI_MODE_RDONLY, MPI_INFO_NULL, &fh);
     size_t to_read_size = (*world_size) * (*local_size) * color_depth;
@@ -369,11 +378,12 @@ double file_pgm_read_noghost(unsigned char **world, int *maxval, long *local_siz
         printf("DEBUG2 - file_pgm_read_noghost 5c - mpi_rank=%d/%d *world_size=%ld, first_row=%ld, last_row=%ld, local_size=%ld, color_depth=%d, to_read_size=%d, seek_result=%d, malloc((*local_size) * (*world_size) * sizeof(unsigned char))=malloc(%lu)\n"
                , mpi_rank, mpi_size, *world_size, first_row, last_row, *local_size, color_depth, (int) to_read_size, seek_result, (*local_size) * (*world_size) * sizeof(unsigned char));
     MPI_File_read(fh, *world, (int) to_read_size, MPI_UNSIGNED_CHAR, &mpi_status);
-    const double t_taken = MPI_Wtime() - t_temp;
+    //MPI_Barrier(MPI_COMM_WORLD);
+    MPI_File_close(&fh);
+    t_taken += MPI_Wtime() - t_time_point;
     if (debug_info > 1)
         printf("DEBUG2 - file_pgm_read_noghost 6 - mpi_rank=%d/%d *world_size=%ld, first_row=%ld, last_row=%ld, local_size=%ld, color_depth=%d, to_read_size=%zu\n"
                , mpi_rank, mpi_size, *world_size, first_row, last_row, *local_size, color_depth, to_read_size);
-    MPI_Barrier(MPI_COMM_WORLD);
     if (debug_info > 0)
         printf("DEBUG1 - file_pgm_read_noghost 7 - END - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
     return t_taken;
@@ -383,7 +393,7 @@ double file_chunk_merge(const char *filename1, const char *filename2, int debug_
     if (debug_info > 0)
         printf("DEBUG1 - file_chunk_merge - appending %s to %s.\n", filename2, filename1);
     FILE *f1, *f2;
-    double t_temp = MPI_Wtime();
+    double t_time_point = MPI_Wtime();
     f1 = fopen(filename1, "a");
     if (f1 == NULL) {
         printf("Error joining file chunks: file=%s\n", filename1);
@@ -418,5 +428,5 @@ double file_chunk_merge(const char *filename1, const char *filename2, int debug_
     fclose(f1);
     fclose(f2);
 
-    return MPI_Wtime() - t_temp;
+    return MPI_Wtime() - t_time_point;
 }
