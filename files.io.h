@@ -2,8 +2,8 @@
 // Created by mikedepetris on 12/05/2023.
 //
 
-#ifndef GAMEOFLIFE_READ_WRITE_PGM_H
-#define GAMEOFLIFE_READ_WRITE_PGM_H
+#ifndef GAMEOFLIFE_FILES_IO_H
+#define GAMEOFLIFE_FILES_IO_H
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -29,4 +29,4 @@ double file_pgm_read_noghost(unsigned char **world, int *maxval, long *local_siz
 
 double file_chunk_merge(const char *filename1, const char *filename2, int debug_info);
 
-#endif //GAMEOFLIFE_READ_WRITE_PGM_H
+#endif //GAMEOFLIFE_FILES_IO_H

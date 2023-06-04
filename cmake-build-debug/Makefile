@@ -153,30 +153,6 @@ gameoflife.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/gameoflife.c.s
 .PHONY : gameoflife.c.s
 
-initialize.o: initialize.c.o
-.PHONY : initialize.o
-
-# target to build an object file
-initialize.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/initialize.c.o
-.PHONY : initialize.c.o
-
-initialize.i: initialize.c.i
-.PHONY : initialize.i
-
-# target to preprocess a source file
-initialize.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/initialize.c.i
-.PHONY : initialize.c.i
-
-initialize.s: initialize.c.s
-.PHONY : initialize.s
-
-# target to generate assembly for a file
-initialize.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/initialize.c.s
-.PHONY : initialize.c.s
-
 iterate_ordered.o: iterate_ordered.c.o
 .PHONY : iterate_ordered.o
 
@@ -273,6 +249,30 @@ iterate_whiteblack.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.s
 .PHONY : iterate_whiteblack.c.s
 
+new_playground.o: new_playground.c.o
+.PHONY : new_playground.o
+
+# target to build an object file
+new_playground.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/new_playground.c.o
+.PHONY : new_playground.c.o
+
+new_playground.i: new_playground.c.i
+.PHONY : new_playground.i
+
+# target to preprocess a source file
+new_playground.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/new_playground.c.i
+.PHONY : new_playground.c.i
+
+new_playground.s: new_playground.c.s
+.PHONY : new_playground.s
+
+# target to generate assembly for a file
+new_playground.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/new_playground.c.s
+.PHONY : new_playground.c.s
+
 read_write_pgm.o: read_write_pgm.c.o
 .PHONY : read_write_pgm.o
 
@@ -309,9 +309,6 @@ help:
 	@echo "... gameoflife.o"
 	@echo "... gameoflife.i"
 	@echo "... gameoflife.s"
-	@echo "... initialize.o"
-	@echo "... initialize.i"
-	@echo "... initialize.s"
 	@echo "... iterate_ordered.o"
 	@echo "... iterate_ordered.i"
 	@echo "... iterate_ordered.s"
@@ -324,6 +321,9 @@ help:
 	@echo "... iterate_whiteblack.o"
 	@echo "... iterate_whiteblack.i"
 	@echo "... iterate_whiteblack.s"
+	@echo "... new_playground.o"
+	@echo "... new_playground.i"
+	@echo "... new_playground.s"
 	@echo "... read_write_pgm.o"
 	@echo "... read_write_pgm.i"
 	@echo "... read_write_pgm.s"

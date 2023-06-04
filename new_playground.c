@@ -4,7 +4,7 @@
 #include <mpi.h>
 #include <string.h>
 #include <omp.h>
-#include "read_write_pgm.h"
+#include "files.io.h"
 #include "gameoflife.h"
 
 #define IMAGE_FILENAME_PREFIX_INIT "init"

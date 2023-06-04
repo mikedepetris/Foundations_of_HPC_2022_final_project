@@ -97,19 +97,19 @@ CMakeFiles/gameoflife.x.dir/iterate_static.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gameoflife.x.dir/iterate_static.c.s"
 	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/dev/HPC/gameoflife/iterate_static.c -o CMakeFiles/gameoflife.x.dir/iterate_static.c.s
 
-CMakeFiles/gameoflife.x.dir/initialize.c.o: CMakeFiles/gameoflife.x.dir/flags.make
-CMakeFiles/gameoflife.x.dir/initialize.c.o: ../initialize.c
-CMakeFiles/gameoflife.x.dir/initialize.c.o: CMakeFiles/gameoflife.x.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/dev/HPC/gameoflife/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/gameoflife.x.dir/initialize.c.o"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/gameoflife.x.dir/initialize.c.o -MF CMakeFiles/gameoflife.x.dir/initialize.c.o.d -o CMakeFiles/gameoflife.x.dir/initialize.c.o -c /mnt/c/dev/HPC/gameoflife/initialize.c
+CMakeFiles/gameoflife.x.dir/new_playground.c.o: CMakeFiles/gameoflife.x.dir/flags.make
+CMakeFiles/gameoflife.x.dir/new_playground.c.o: ../new_playground.c
+CMakeFiles/gameoflife.x.dir/new_playground.c.o: CMakeFiles/gameoflife.x.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/dev/HPC/gameoflife/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/gameoflife.x.dir/new_playground.c.o"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/gameoflife.x.dir/new_playground.c.o -MF CMakeFiles/gameoflife.x.dir/new_playground.c.o.d -o CMakeFiles/gameoflife.x.dir/new_playground.c.o -c /mnt/c/dev/HPC/gameoflife/new_playground.c
 
-CMakeFiles/gameoflife.x.dir/initialize.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gameoflife.x.dir/initialize.c.i"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/dev/HPC/gameoflife/initialize.c > CMakeFiles/gameoflife.x.dir/initialize.c.i
+CMakeFiles/gameoflife.x.dir/new_playground.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gameoflife.x.dir/new_playground.c.i"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/dev/HPC/gameoflife/new_playground.c > CMakeFiles/gameoflife.x.dir/new_playground.c.i
 
-CMakeFiles/gameoflife.x.dir/initialize.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gameoflife.x.dir/initialize.c.s"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/dev/HPC/gameoflife/initialize.c -o CMakeFiles/gameoflife.x.dir/initialize.c.s
+CMakeFiles/gameoflife.x.dir/new_playground.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gameoflife.x.dir/new_playground.c.s"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/dev/HPC/gameoflife/new_playground.c -o CMakeFiles/gameoflife.x.dir/new_playground.c.s
 
 CMakeFiles/gameoflife.x.dir/iterate_ordered.c.o: CMakeFiles/gameoflife.x.dir/flags.make
 CMakeFiles/gameoflife.x.dir/iterate_ordered.c.o: ../iterate_ordered.c
@@ -171,7 +171,7 @@ CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.s: cmake_force
 gameoflife_x_OBJECTS = \
 "CMakeFiles/gameoflife.x.dir/gameoflife.c.o" \
 "CMakeFiles/gameoflife.x.dir/iterate_static.c.o" \
-"CMakeFiles/gameoflife.x.dir/initialize.c.o" \
+"CMakeFiles/gameoflife.x.dir/new_playground.c.o" \
 "CMakeFiles/gameoflife.x.dir/iterate_ordered.c.o" \
 "CMakeFiles/gameoflife.x.dir/iterate_wave.c.o" \
 "CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o" \
@@ -182,7 +182,7 @@ gameoflife_x_EXTERNAL_OBJECTS =
 
 gameoflife.x: CMakeFiles/gameoflife.x.dir/gameoflife.c.o
 gameoflife.x: CMakeFiles/gameoflife.x.dir/iterate_static.c.o
-gameoflife.x: CMakeFiles/gameoflife.x.dir/initialize.c.o
+gameoflife.x: CMakeFiles/gameoflife.x.dir/new_playground.c.o
 gameoflife.x: CMakeFiles/gameoflife.x.dir/iterate_ordered.c.o
 gameoflife.x: CMakeFiles/gameoflife.x.dir/iterate_wave.c.o
 gameoflife.x: CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o

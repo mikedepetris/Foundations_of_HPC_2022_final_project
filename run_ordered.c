@@ -4,7 +4,7 @@
 #include <mpi.h>
 #include <omp.h>
 #include <string.h>
-#include "read_write_pgm.h"
+#include "files.io.h"
 #include "gameoflife.h"
 
 #define EVOLUTION_TYPE "ordered"

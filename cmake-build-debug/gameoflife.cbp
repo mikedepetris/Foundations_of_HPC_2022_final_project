@@ -86,9 +86,6 @@
 		<Unit filename="/mnt/c/dev/HPC/gameoflife/gameoflife.h">
 			<Option target="gameoflife.x"/>
 		</Unit>
-		<Unit filename="/mnt/c/dev/HPC/gameoflife/initialize.c">
-			<Option target="gameoflife.x"/>
-		</Unit>
 		<Unit filename="/mnt/c/dev/HPC/gameoflife/iterate_ordered.c">
 			<Option target="gameoflife.x"/>
 		</Unit>
@@ -99,6 +96,9 @@
 			<Option target="gameoflife.x"/>
 		</Unit>
 		<Unit filename="/mnt/c/dev/HPC/gameoflife/iterate_whiteblack.c">
+			<Option target="gameoflife.x"/>
+		</Unit>
+		<Unit filename="/mnt/c/dev/HPC/gameoflife/new_playground.c">
 			<Option target="gameoflife.x"/>
 		</Unit>
 		<Unit filename="/mnt/c/dev/HPC/gameoflife/read_write_pgm.c">

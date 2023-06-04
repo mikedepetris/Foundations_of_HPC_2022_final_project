@@ -1,6 +1,6 @@
 #include <sys/stat.h>
 #include <string.h>
-#include "read_write_pgm.h"
+#include "files.io.h"
 
 /*
 * Create directory if it doesn't exist
