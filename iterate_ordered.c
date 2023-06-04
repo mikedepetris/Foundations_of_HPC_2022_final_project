@@ -103,6 +103,7 @@ double iterate_ordered_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_stat
         // last chunk process (mpi_size - 1): send last row to first chunk process (0)
         MPI_Isend(&world_local[(local_size) * world_size], (int) world_size, MPI_UNSIGNED_CHAR, 0, TAG_X, MPI_COMM_WORLD, mpi_request);
     }
+
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
         if (mpi_rank != 0) {
             if (debug_info > 1)
@@ -213,6 +214,7 @@ double iterate_ordered_serial(unsigned char *world, long world_size, int number_
     char *image_filename_prefix = (char *) malloc(60);
     sprintf(image_filename_prefix, IMAGE_FILENAME_PREFIX_SNAP_ORDERED);
     char *image_filename_suffix = (char *) malloc(60);
+
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
         update_ordered_serial(world, world_size);
         if (iteration_step % number_of_steps_between_file_dumps == 0) {
@@ -315,6 +317,10 @@ void run_ordered(const char *filename, int number_of_steps, int number_of_steps_
     t_io += file_pgm_read(&world_local, &maxval, &local_size, &world_size, filename, mpi_rank, mpi_size, debug_info);
     if (debug_info > 0)
         printf("DEBUG1 - run_ordered 3 - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, filename=%s\n", mpi_rank, mpi_size, maxval, local_size, world_size, filename);
+    if (mpi_size > world_size || local_size == 0) {
+        perror("ERROR: wrong situation with more processes than domain decomposition slices\n");
+        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+    }
 
     if (mpi_size > 1)
         t_io += iterate_ordered_parallel(mpi_rank, mpi_size, &mpi_status, &mpi_request, world_local, world_size, local_size, number_of_steps, number_of_steps_between_file_dumps, directoryname, debug_info);

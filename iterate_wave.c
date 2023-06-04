@@ -229,7 +229,7 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
             printf("DEBUG2 - iterate_wave_parallel - MPI_Isend mpi_rank=%d, local_size=%ld, world_size=%ld\n", mpi_rank, local_size, world_size);
         for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
             if (debug_info > 1)
-                printf("DEBUG2 - iterate_wave_parallel BEFORE UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
+                printf("DEBUG2 - iterate_wave_parallel BEFORE MPI_Recv iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
             MPI_Recv(world_local, (int) (local_size * world_size), MPI_UNSIGNED_CHAR, 0, iteration_step, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
             if (iteration_step % number_of_steps_between_file_dumps == 0) {
                 sprintf(image_filename_suffix, "_%05d", iteration_step);
@@ -257,24 +257,26 @@ double iterate_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status,
             for (long long i = 0; i < world_size * world_size; i++)
                 printf("DEBUG2 - iterate_wave_parallel 00 world[%lld]=%d\n", i, world[i]);
         }
-        // save initial matrix copy as snapshot zero, we force mpi_size=1 to obtain a clean filename snapshot_00000
-        t_io += file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, "snapshot_00000", "", FILE_EXTENSION_PGM, 0, 1, debug_info);
 
-        // TODO: start from random point, at each iteration or all of them (pass coordinates to the function)
-        // for testing purposes we want to be able to start from a given point to compare results
+        //// save initial matrix copy as snapshot zero, we force mpi_size=1 to obtain a clean filename snapshot_00000
+        //t_io += file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, SNAPSHOT_00000, "", FILE_EXTENSION_PGM, 0, 1, debug_info);
+
         time_t t;
         srand((unsigned) time(&t));
-        long x = rand() % world_size, y = rand() % world_size;
-        if (debug_info > 1) {
-            x = 0;
-            y = 0;
-        }
+        long x = 0, y = 0;
         if (debug_info > 0)
             printf("DEBUG2 - iterate_wave_parallel start point x=%ld, y=%ld END\n", x, y);
         // all processes do the iterations, process 0 does the update and sends results
         for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
             if (debug_info > 1)
                 printf("DEBUG2 - iterate_wave_parallel BEFORE UPDATE iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
+            // 8. [ OPTIONAL ] implement the evolution with a square-wave signal from a grid
+            //                 point randomly chosen at every time-step.
+            // for testing purposes we want to be able to fix a point to compare results
+            if (debug_info == 0) { // activate debug to set x,y to 0,0
+                x = rand() % world_size;
+                y = rand() % world_size;
+            }
             // square wave update, only serial
             update_wave_serial(world, world_size, iteration_step, x, y, debug_info);
             if (debug_info > 1)
@@ -320,8 +322,8 @@ double iterate_wave_serial(unsigned char *world, long world_size, int number_of_
     if (debug_info > 1)
         printf("DEBUG2 - iterate_wave_serial - char *image_filename_suffix = (char *) malloc(60); free(); BEFORE\n");
 #endif
-    // save initial matrix copy as snapshot zero
-    t_io += file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, "snapshot_00000", "", FILE_EXTENSION_PGM, 0, 1, debug_info);
+    //// save initial matrix copy as snapshot zero
+    //t_io += file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, SNAPSHOT_00000, "", FILE_EXTENSION_PGM, 0, 1, debug_info);
 
     char *image_filename_suffix = (char *) malloc(60);
     // TODO: start from random point, at each iteration or all of them (pass coordinates to the function)
@@ -482,6 +484,10 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
     t_io += file_pgm_read_noghost(&world_local, &maxval, &local_size, &world_size, filename, mpi_rank, mpi_size, debug_info);
     if (debug_info > 0)
         printf("DEBUG1 - run_wave 3 - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, filename=%s\n", mpi_rank, mpi_size, maxval, local_size, world_size, filename);
+    if (mpi_size > world_size || local_size == 0) {
+        perror("ERROR: wrong situation with more processes than domain decomposition slices\n");
+        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+    }
 
     if (mpi_size > 1)
         t_io += iterate_wave_parallel(mpi_rank, mpi_size, &mpi_status, &mpi_request, world_local, world_size, local_size, number_of_steps, number_of_steps_between_file_dumps, directoryname, debug_info);

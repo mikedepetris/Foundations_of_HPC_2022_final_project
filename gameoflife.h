@@ -25,6 +25,8 @@
 #define TAG_X 65365
 #define TAG_T 65364
 
+//#define SNAPSHOT_00000 "snapshot_00000"
+
 void strreplace(char *string, const char *find, const char *replaceWith);
 
 char *replace_char(char *str, char find, char replace);
