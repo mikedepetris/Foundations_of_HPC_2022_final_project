@@ -49,15 +49,9 @@ CMakeFiles/gameoflife.x.dir/gameoflife.c.o: \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h /usr/include/getopt.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
- /usr/include/x86_64-linux-gnu/bits/getopt_ext.h \
- /mnt/c/dev/HPC/gameoflife/initialize.h /usr/include/time.h \
- /usr/include/x86_64-linux-gnu/bits/time.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
+ /usr/include/x86_64-linux-gnu/bits/getopt_ext.h /usr/include/string.h \
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
- /usr/lib/x86_64-linux-gnu/openmpi/include/mpi.h \
+ /usr/include/strings.h /usr/lib/x86_64-linux-gnu/openmpi/include/mpi.h \
  /usr/lib/x86_64-linux-gnu/openmpi/include/mpi_portable_platform.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h /usr/include/string.h \
- /usr/include/strings.h /mnt/c/dev/HPC/gameoflife/read_write_pgm.h \
  /mnt/c/dev/HPC/gameoflife/gameoflife.h

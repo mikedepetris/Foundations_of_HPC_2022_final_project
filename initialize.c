@@ -1,5 +1,13 @@
-#include "initialize.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <mpi.h>
+#include <string.h>
+#include <omp.h>
+#include "read_write_pgm.h"
 #include "gameoflife.h"
+
+#define IMAGE_FILENAME_PREFIX_INIT "init"
 
 int get_unique_seed(int omp_rank, int mpi_rank) {
     return (int) (123 + omp_rank * mpi_rank * 7 + 8 * omp_rank * omp_rank + 9 * mpi_rank * mpi_rank * time(NULL));

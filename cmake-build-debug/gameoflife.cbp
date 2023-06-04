@@ -89,9 +89,6 @@
 		<Unit filename="/mnt/c/dev/HPC/gameoflife/initialize.c">
 			<Option target="gameoflife.x"/>
 		</Unit>
-		<Unit filename="/mnt/c/dev/HPC/gameoflife/initialize.h">
-			<Option target="gameoflife.x"/>
-		</Unit>
 		<Unit filename="/mnt/c/dev/HPC/gameoflife/iterate_ordered.c">
 			<Option target="gameoflife.x"/>
 		</Unit>

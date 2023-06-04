@@ -58,24 +58,16 @@ CMakeFiles/gameoflife.x.dir/gameoflife.c.o: ../gameoflife.c \
   /usr/include/getopt.h \
   /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
   /usr/include/x86_64-linux-gnu/bits/getopt_ext.h \
-  ../initialize.h \
-  /usr/include/time.h \
-  /usr/include/x86_64-linux-gnu/bits/time.h \
-  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
-  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
+  /usr/include/string.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/strings.h \
   /usr/lib/x86_64-linux-gnu/openmpi/include/mpi.h \
   /usr/lib/x86_64-linux-gnu/openmpi/include/mpi_portable_platform.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
-  /usr/include/string.h \
-  /usr/include/strings.h \
-  ../read_write_pgm.h \
   ../gameoflife.h
 
 CMakeFiles/gameoflife.x.dir/initialize.c.o: ../initialize.c \
   /usr/include/stdc-predef.h \
-  ../initialize.h \
   /usr/include/stdio.h \
   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
   /usr/include/features.h \
@@ -136,9 +128,9 @@ CMakeFiles/gameoflife.x.dir/initialize.c.o: ../initialize.c \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
   /usr/lib/x86_64-linux-gnu/openmpi/include/mpi.h \
   /usr/lib/x86_64-linux-gnu/openmpi/include/mpi_portable_platform.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
   /usr/include/string.h \
   /usr/include/strings.h \
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
   ../read_write_pgm.h \
   ../gameoflife.h
 
@@ -489,23 +481,23 @@ CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o: ../read_write_pgm.c \
 
 ../iterate_ordered.c:
 
-../gameoflife.h:
-
 ../read_write_pgm.c:
 
 ../read_write_pgm.h:
 
-/usr/include/strings.h:
-
 /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h:
+
+/usr/include/x86_64-linux-gnu/bits/time.h:
+
+/usr/include/time.h:
+
+../gameoflife.h:
 
 /usr/lib/x86_64-linux-gnu/openmpi/include/mpi_portable_platform.h:
 
 /usr/lib/x86_64-linux-gnu/openmpi/include/mpi.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/time.h:
+/usr/include/strings.h:
 
 /usr/include/x86_64-linux-gnu/bits/waitstatus.h:
 
@@ -513,13 +505,13 @@ CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o: ../read_write_pgm.c \
 
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
+/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
+
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
-
-/usr/include/time.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
 
@@ -574,8 +566,6 @@ CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o: ../read_write_pgm.c \
 /usr/include/x86_64-linux-gnu/bits/time64.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
-
-../initialize.h:
 
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 

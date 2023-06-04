@@ -31,6 +31,8 @@ void strreplace(char *string, const char *find, const char *replaceWith);
 
 char *replace_char(char *str, char find, char replace);
 
+void initialization(long world_size, const char *filename, int *argc, char ***argv, int mpi_rank, int mpi_size, int csv_output, int debug_info);
+
 void run_static(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int csv_output, int debug_info);
 
 void run_ordered(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int csv_output, int debug_info);
