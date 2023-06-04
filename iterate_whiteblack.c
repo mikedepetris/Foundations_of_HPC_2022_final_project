@@ -496,6 +496,10 @@ void run_whiteblack(const char *filename, int number_of_steps, int number_of_ste
     t_io += file_pgm_read(&world_local, &maxval, &local_size, &world_size, filename, mpi_rank, mpi_size, debug_info);
     if (debug_info > 0)
         printf("DEBUG1 - run_whiteblack 3 - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, filename=%s\n", mpi_rank, mpi_size, maxval, local_size, world_size, filename);
+    if (mpi_size > world_size || local_size == 0) {
+        perror("ERROR: wrong situation with more processes than domain decomposition slices\n");
+        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+    }
 
     if (mpi_size > 1)
         t_io += iterate_whiteblack_parallel(mpi_rank, mpi_size, &mpi_status, &mpi_request, &world_local, world_size, local_size, number_of_steps, number_of_steps_between_file_dumps, directoryname, debug_info);
