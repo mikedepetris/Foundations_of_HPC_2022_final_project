@@ -43,6 +43,7 @@
  * s: save the image every "s" evolutions
  */
 int debug_info = 0;
+int csv_output = CSV_OUTPUT_FALSE;
 int arg_action_to_take = HELP;
 long world_size = DEFAULT_WORLD_SIZE;
 int number_of_steps = DEFAULT_NUMBER_OF_STEPS;
@@ -59,7 +60,7 @@ char is_defined_filename = 0;
  * @param argv array of arguments
  */
 void get_arguments_util(int argc, char *argv[]) {
-    char *optstring = "D::hirk:f:n:e:s:";
+    char *optstring = "qD::hirk:f:n:e:s:";
     int c;
     //printf(" ");
     while ((c = getopt(argc, argv, optstring)) != -1) {
@@ -67,6 +68,9 @@ void get_arguments_util(int argc, char *argv[]) {
 //        if (optarg)
 //            printf("DEBUG - optarg=%s\n", optarg);
         switch (c) {
+            case 'q':
+                csv_output = CSV_OUTPUT_TRUE;
+                break;
             case 'D':
                 debug_info = 1;
                 if (optarg)
@@ -154,6 +158,7 @@ int main(int argc, char *argv[]) {
             printf("                                                                                     \n");
             printf("      -s  <num> number of steps between two dumps (default 0: print only last state) \n");
             printf("      -h  print help about program usage                                             \n");
+            printf("      -q  print csv output                                                           \n");
             printf("      -D  print debug informations                                                   \n");
             printf("      -D2 print advanced debug informations                                          \n");
             printf("                                                                                     \n");
@@ -176,31 +181,31 @@ int main(int argc, char *argv[]) {
     } else if (arg_action_to_take == INIT) {
         int mpi_rank, mpi_size;
         mpi_init(&argc, &argv, &mpi_rank, &mpi_size);
-        if (mpi_rank == 0)
+        if (mpi_rank == 0 && csv_output == CSV_OUTPUT_FALSE)
             printf("Initialization request with world size=%ld and filename=%s\n", world_size, filename);
-        initialization(world_size, filename, &argc, &argv, mpi_rank, mpi_size, debug_info);
+        initialization(world_size, filename, &argc, &argv, mpi_rank, mpi_size, csv_output, debug_info);
         if (debug_info > 0 && mpi_rank == 0)
             printf("DEBUG1 - initialization request - END\n");
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_STATIC) {
         if (debug_info > 1)
             printf("DEBUG2 - run_static request\n");
-        run_static(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, debug_info);
+        run_static(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, csv_output, debug_info);
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_ORDERED) {
         if (debug_info > 1)
-            printf("Run request with EVOLUTION_ORDERED of %d steps of filename=%s\n", number_of_steps, filename);
-        run_ordered(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, debug_info);
+            printf("DEBUG2 - Run request with EVOLUTION_ORDERED of %d steps of filename=%s\n", number_of_steps, filename);
+        run_ordered(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, csv_output, debug_info);
         if (debug_info > 0)
             printf("DEBUG1 - run EVOLUTION_ORDERED request - END\n");
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_WAVE) {
         if (debug_info > 1)
-            printf("Run request with EVOLUTION_WAVE of %d steps of filename=%s\n", number_of_steps, filename);
-        run_wave(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, debug_info);
+            printf("DEBUG2 - Run request with EVOLUTION_WAVE of %d steps of filename=%s\n", number_of_steps, filename);
+        run_wave(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, csv_output, debug_info);
         if (debug_info > 0)
             printf("DEBUG1 - run EVOLUTION_WAVE request - END\n");
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_WHITEBLACK) {
         if (debug_info > 1)
-            printf("Run request with EVOLUTION_WHITEBLACK evolution of %d steps of filename=%s\n", number_of_steps, filename);
-        run_whiteblack(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, debug_info);
+            printf("DEBUG2 - Run request with EVOLUTION_WHITEBLACK evolution of %d steps of filename=%s\n", number_of_steps, filename);
+        run_whiteblack(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, csv_output, debug_info);
         if (debug_info > 0)
             printf("DEBUG1 - run EVOLUTION_WHITEBLACK request - END\n");
     }

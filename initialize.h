@@ -15,6 +15,6 @@
 
 #define IMAGE_FILENAME_PREFIX_INIT "init"
 
-void initialization(long world_size, const char *filename, int *argc, char ***argv, int mpi_rank, int mpi_size, int debug_info);
+void initialization(long world_size, const char *filename, int *argc, char ***argv, int mpi_rank, int mpi_size, int csv_output, int debug_info);
 
 #endif //GAMEOFLIFE_INITIALIZE_H

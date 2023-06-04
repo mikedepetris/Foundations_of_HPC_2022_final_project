@@ -362,7 +362,7 @@ double iterate_wave_serial(unsigned char *world, long world_size, int number_of_
     return t_io;
 }
 
-void run_wave(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int debug_info) {
+void run_wave(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int csv_output, int debug_info) {
     double t_io = 0; // total I/O time spent
     double t_io_accumulator = 0; // total I/O time spent by processes > 0
     double t_start = MPI_Wtime(); // start time
@@ -395,7 +395,7 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
     int mpi_rank, mpi_size;
     MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
-    if (mpi_rank == 0)
+    if (mpi_rank == 0 && csv_output == CSV_OUTPUT_FALSE)
         printf("Run request with EVOLUTION_WAVE of %d steps of filename=%s saving snaps each %d steps\n", number_of_steps, filename, number_of_steps_between_file_dumps);
     if (debug_info > 0)
         printf("DEBUG1 - run_wave BEGIN - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
@@ -693,7 +693,11 @@ void run_wave(const char *filename, int number_of_steps, int number_of_steps_bet
     if (debug_info > 1)
         printf("DEBUG2 - run_wave 8 - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
     if (mpi_rank == 0)
-        printf("mpi=%d, omp=%d, total time=%f, I/O time=%f, I/O time t_io_accumulator=%f, t_io_accumulator mean=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
+        if (csv_output == CSV_OUTPUT_FALSE)
+            printf("mpi=%d, omp=%d, total time=%f, I/O time=%f, I/O time t_io_accumulator=%f, t_io_accumulator mean=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator,
+                    mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
+        else
+            printf("%d,%d,%f,%f,%f,%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
     if (debug_info > 0)
         printf("DEBUG1 - run_wave END - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
 }

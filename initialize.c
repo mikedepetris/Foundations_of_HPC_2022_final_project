@@ -75,7 +75,7 @@ double initialize_serial(const char *filename, long total_size, int debug_info) 
     return t_io;
 }
 
-void initialization(long world_size, const char *filename, int *argc, char ***argv, int mpi_rank, int mpi_size, int debug_info) {
+void initialization(long world_size, const char *filename, int *argc, char ***argv, int mpi_rank, int mpi_size, int csv_output, int debug_info) {
     double t_io = 0; // total I/O time spent
     double t_io_accumulator = 0; // total I/O time spent by processes > 0
     double t_start = MPI_Wtime(); // start time
@@ -151,7 +151,11 @@ void initialization(long world_size, const char *filename, int *argc, char ***ar
     MPI_Finalize();
     if (mpi_rank == 0) {
         //printf("Initialization completed, data written to file %s\n", pathname);
-        printf("mpi=%d, omp=%d, total time=%f, I/O time=%f, I/O time t_io_accumulator=%f, t_io_accumulator mean=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
+        if (csv_output == CSV_OUTPUT_FALSE)
+            printf("mpi=%d, omp=%d, total time=%f, I/O time=%f, I/O time t_io_accumulator=%f, t_io_accumulator mean=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator,
+                    mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
+        else
+            printf("%d,%d,%f,%f,%f,%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
     }
     if (debug_info > 0)
         printf("DEBUG1 - initialization - END - rank %d/%d\n", mpi_rank, mpi_size);

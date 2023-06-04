@@ -12,6 +12,9 @@
 #define DEAD 255
 #define ALIVE 0
 
+#define CSV_OUTPUT_FALSE 0
+#define CSV_OUTPUT_TRUE 1
+
 #define FILE_EXTENSION_PGM "pgm"
 #define FILE_EXTENSION_PGMPART "pgmpart"
 
@@ -26,12 +29,12 @@ void strreplace(char *string, const char *find, const char *replaceWith);
 
 char *replace_char(char *str, char find, char replace);
 
-void run_static(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int debug_info);
+void run_static(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int csv_output, int debug_info);
 
-void run_ordered(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int debug_info);
+void run_ordered(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int csv_output, int debug_info);
 
-void run_wave(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int debug_info);
+void run_wave(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int csv_output, int debug_info);
 
-void run_whiteblack(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int debug_info);
+void run_whiteblack(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int csv_output, int debug_info);
 
 #endif //GAMEOFLIFE_GAMEOFLIFE_H
