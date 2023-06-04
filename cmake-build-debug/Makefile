@@ -129,6 +129,126 @@ gameoflife.x/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/build
 .PHONY : gameoflife.x/fast
 
+evolution_ordered.o: evolution_ordered.c.o
+.PHONY : evolution_ordered.o
+
+# target to build an object file
+evolution_ordered.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/evolution_ordered.c.o
+.PHONY : evolution_ordered.c.o
+
+evolution_ordered.i: evolution_ordered.c.i
+.PHONY : evolution_ordered.i
+
+# target to preprocess a source file
+evolution_ordered.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/evolution_ordered.c.i
+.PHONY : evolution_ordered.c.i
+
+evolution_ordered.s: evolution_ordered.c.s
+.PHONY : evolution_ordered.s
+
+# target to generate assembly for a file
+evolution_ordered.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/evolution_ordered.c.s
+.PHONY : evolution_ordered.c.s
+
+evolution_static.o: evolution_static.c.o
+.PHONY : evolution_static.o
+
+# target to build an object file
+evolution_static.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/evolution_static.c.o
+.PHONY : evolution_static.c.o
+
+evolution_static.i: evolution_static.c.i
+.PHONY : evolution_static.i
+
+# target to preprocess a source file
+evolution_static.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/evolution_static.c.i
+.PHONY : evolution_static.c.i
+
+evolution_static.s: evolution_static.c.s
+.PHONY : evolution_static.s
+
+# target to generate assembly for a file
+evolution_static.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/evolution_static.c.s
+.PHONY : evolution_static.c.s
+
+evolution_wave.o: evolution_wave.c.o
+.PHONY : evolution_wave.o
+
+# target to build an object file
+evolution_wave.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/evolution_wave.c.o
+.PHONY : evolution_wave.c.o
+
+evolution_wave.i: evolution_wave.c.i
+.PHONY : evolution_wave.i
+
+# target to preprocess a source file
+evolution_wave.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/evolution_wave.c.i
+.PHONY : evolution_wave.c.i
+
+evolution_wave.s: evolution_wave.c.s
+.PHONY : evolution_wave.s
+
+# target to generate assembly for a file
+evolution_wave.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/evolution_wave.c.s
+.PHONY : evolution_wave.c.s
+
+evolution_whiteblack.o: evolution_whiteblack.c.o
+.PHONY : evolution_whiteblack.o
+
+# target to build an object file
+evolution_whiteblack.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.o
+.PHONY : evolution_whiteblack.c.o
+
+evolution_whiteblack.i: evolution_whiteblack.c.i
+.PHONY : evolution_whiteblack.i
+
+# target to preprocess a source file
+evolution_whiteblack.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.i
+.PHONY : evolution_whiteblack.c.i
+
+evolution_whiteblack.s: evolution_whiteblack.c.s
+.PHONY : evolution_whiteblack.s
+
+# target to generate assembly for a file
+evolution_whiteblack.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.s
+.PHONY : evolution_whiteblack.c.s
+
+files_io.o: files_io.c.o
+.PHONY : files_io.o
+
+# target to build an object file
+files_io.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/files_io.c.o
+.PHONY : files_io.c.o
+
+files_io.i: files_io.c.i
+.PHONY : files_io.i
+
+# target to preprocess a source file
+files_io.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/files_io.c.i
+.PHONY : files_io.c.i
+
+files_io.s: files_io.c.s
+.PHONY : files_io.s
+
+# target to generate assembly for a file
+files_io.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/files_io.c.s
+.PHONY : files_io.c.s
+
 gameoflife.o: gameoflife.c.o
 .PHONY : gameoflife.o
 
@@ -152,102 +272,6 @@ gameoflife.s: gameoflife.c.s
 gameoflife.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/gameoflife.c.s
 .PHONY : gameoflife.c.s
-
-iterate_ordered.o: iterate_ordered.c.o
-.PHONY : iterate_ordered.o
-
-# target to build an object file
-iterate_ordered.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_ordered.c.o
-.PHONY : iterate_ordered.c.o
-
-iterate_ordered.i: iterate_ordered.c.i
-.PHONY : iterate_ordered.i
-
-# target to preprocess a source file
-iterate_ordered.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_ordered.c.i
-.PHONY : iterate_ordered.c.i
-
-iterate_ordered.s: iterate_ordered.c.s
-.PHONY : iterate_ordered.s
-
-# target to generate assembly for a file
-iterate_ordered.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_ordered.c.s
-.PHONY : iterate_ordered.c.s
-
-iterate_static.o: iterate_static.c.o
-.PHONY : iterate_static.o
-
-# target to build an object file
-iterate_static.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_static.c.o
-.PHONY : iterate_static.c.o
-
-iterate_static.i: iterate_static.c.i
-.PHONY : iterate_static.i
-
-# target to preprocess a source file
-iterate_static.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_static.c.i
-.PHONY : iterate_static.c.i
-
-iterate_static.s: iterate_static.c.s
-.PHONY : iterate_static.s
-
-# target to generate assembly for a file
-iterate_static.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_static.c.s
-.PHONY : iterate_static.c.s
-
-iterate_wave.o: iterate_wave.c.o
-.PHONY : iterate_wave.o
-
-# target to build an object file
-iterate_wave.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_wave.c.o
-.PHONY : iterate_wave.c.o
-
-iterate_wave.i: iterate_wave.c.i
-.PHONY : iterate_wave.i
-
-# target to preprocess a source file
-iterate_wave.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_wave.c.i
-.PHONY : iterate_wave.c.i
-
-iterate_wave.s: iterate_wave.c.s
-.PHONY : iterate_wave.s
-
-# target to generate assembly for a file
-iterate_wave.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_wave.c.s
-.PHONY : iterate_wave.c.s
-
-iterate_whiteblack.o: iterate_whiteblack.c.o
-.PHONY : iterate_whiteblack.o
-
-# target to build an object file
-iterate_whiteblack.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.o
-.PHONY : iterate_whiteblack.c.o
-
-iterate_whiteblack.i: iterate_whiteblack.c.i
-.PHONY : iterate_whiteblack.i
-
-# target to preprocess a source file
-iterate_whiteblack.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.i
-.PHONY : iterate_whiteblack.c.i
-
-iterate_whiteblack.s: iterate_whiteblack.c.s
-.PHONY : iterate_whiteblack.s
-
-# target to generate assembly for a file
-iterate_whiteblack.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.s
-.PHONY : iterate_whiteblack.c.s
 
 new_playground.o: new_playground.c.o
 .PHONY : new_playground.o
@@ -273,30 +297,6 @@ new_playground.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/new_playground.c.s
 .PHONY : new_playground.c.s
 
-read_write_pgm.o: read_write_pgm.c.o
-.PHONY : read_write_pgm.o
-
-# target to build an object file
-read_write_pgm.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o
-.PHONY : read_write_pgm.c.o
-
-read_write_pgm.i: read_write_pgm.c.i
-.PHONY : read_write_pgm.i
-
-# target to preprocess a source file
-read_write_pgm.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/read_write_pgm.c.i
-.PHONY : read_write_pgm.c.i
-
-read_write_pgm.s: read_write_pgm.c.s
-.PHONY : read_write_pgm.s
-
-# target to generate assembly for a file
-read_write_pgm.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameoflife.x.dir/build.make CMakeFiles/gameoflife.x.dir/read_write_pgm.c.s
-.PHONY : read_write_pgm.c.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -306,27 +306,27 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... gameoflife.x"
+	@echo "... evolution_ordered.o"
+	@echo "... evolution_ordered.i"
+	@echo "... evolution_ordered.s"
+	@echo "... evolution_static.o"
+	@echo "... evolution_static.i"
+	@echo "... evolution_static.s"
+	@echo "... evolution_wave.o"
+	@echo "... evolution_wave.i"
+	@echo "... evolution_wave.s"
+	@echo "... evolution_whiteblack.o"
+	@echo "... evolution_whiteblack.i"
+	@echo "... evolution_whiteblack.s"
+	@echo "... files_io.o"
+	@echo "... files_io.i"
+	@echo "... files_io.s"
 	@echo "... gameoflife.o"
 	@echo "... gameoflife.i"
 	@echo "... gameoflife.s"
-	@echo "... iterate_ordered.o"
-	@echo "... iterate_ordered.i"
-	@echo "... iterate_ordered.s"
-	@echo "... iterate_static.o"
-	@echo "... iterate_static.i"
-	@echo "... iterate_static.s"
-	@echo "... iterate_wave.o"
-	@echo "... iterate_wave.i"
-	@echo "... iterate_wave.s"
-	@echo "... iterate_whiteblack.o"
-	@echo "... iterate_whiteblack.i"
-	@echo "... iterate_whiteblack.s"
 	@echo "... new_playground.o"
 	@echo "... new_playground.i"
 	@echo "... new_playground.s"
-	@echo "... read_write_pgm.o"
-	@echo "... read_write_pgm.i"
-	@echo "... read_write_pgm.s"
 .PHONY : help
 
 

@@ -19,9 +19,11 @@ double make_directory(char *directory_name, int debug_info);
 
 //double file_pgm_write_all(void *image, int maxval, int xsize, int ysize, const char *image_name);
 
-double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_size, long local_size, const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension, int mpi_rank, int mpi_size, int debug_info);
+double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_size, long local_size, const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension
+                            , int mpi_rank, int mpi_size, int debug_info);
 
-double file_pgm_write_chunk_noghost(unsigned char *world_local, int maxval, long world_size, long local_size, const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension, int mpi_rank, int mpi_size, int debug_info);
+double file_pgm_write_chunk_noghost(unsigned char *world_local, int maxval, long world_size, long local_size, const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension
+                                    , int mpi_rank, int mpi_size, int debug_info);
 
 double file_pgm_read(unsigned char **world, int *maxval, long *local_size, long *world_size, const char *image_filename, int mpi_rank, int mpi_size, int debug_info);
 

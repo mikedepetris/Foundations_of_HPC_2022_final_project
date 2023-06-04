@@ -154,7 +154,7 @@ int main(int argc, char *argv[]) {
             printf("      -r  run a playground (needs -f)                                                \n");
             printf("      -k  <num> playground size (default value %d)                                   \n", DEFAULT_WORLD_SIZE);
             printf("      -e  [0|1|2|3] evolution type (0: ordered, 1: static, 2: wave, 3: black-white   \n");
-            printf("      -f  <string> filename to be written (initialization) or read (run)             \n");
+            printf("      -f  <string> filename to be written (new_playground) or read (run)             \n");
             printf("      -n  <num> number of steps to be iterated (default value %d, max %d)            \n", DEFAULT_NUMBER_OF_STEPS, MAX_NUMBER_OF_STEPS);
             printf("                                                                                     \n");
             printf("      -s  <num> number of steps between two dumps (default 0: print only last state) \n");
@@ -184,29 +184,29 @@ int main(int argc, char *argv[]) {
         mpi_init(&argc, &argv, &mpi_rank, &mpi_size);
         if (mpi_rank == 0 && csv_output == CSV_OUTPUT_FALSE)
             printf("Initialization request with world size=%ld and filename=%s\n", world_size, filename);
-        initialization(world_size, filename, &argc, &argv, mpi_rank, mpi_size, csv_output, debug_info);
+        new_playground(world_size, filename, &argc, &argv, mpi_rank, mpi_size, csv_output, debug_info);
         if (debug_info > 0 && mpi_rank == 0)
-            printf("DEBUG1 - initialization request - END\n");
+            printf("DEBUG1 - new_playground request - END\n");
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_STATIC) {
         if (debug_info > 1)
-            printf("DEBUG2 - run_static request\n");
-        run_static(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, csv_output, debug_info);
+            printf("DEBUG2 - evolution_static request\n");
+        evolution_static(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, csv_output, debug_info);
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_ORDERED) {
         if (debug_info > 1)
             printf("DEBUG2 - Run request with EVOLUTION_ORDERED of %d steps of filename=%s\n", number_of_steps, filename);
-        run_ordered(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, csv_output, debug_info);
+        evolution_ordered(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, csv_output, debug_info);
         if (debug_info > 0)
             printf("DEBUG1 - run EVOLUTION_ORDERED request - END\n");
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_WAVE) {
         if (debug_info > 1)
             printf("DEBUG2 - Run request with EVOLUTION_WAVE of %d steps of filename=%s\n", number_of_steps, filename);
-        run_wave(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, csv_output, debug_info);
+        evolution_wave(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, csv_output, debug_info);
         if (debug_info > 0)
             printf("DEBUG1 - run EVOLUTION_WAVE request - END\n");
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_WHITEBLACK) {
         if (debug_info > 1)
             printf("DEBUG2 - Run request with EVOLUTION_WHITEBLACK evolution of %d steps of filename=%s\n", number_of_steps, filename);
-        run_whiteblack(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, csv_output, debug_info);
+        evolution_whiteblack(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, csv_output, debug_info);
         if (debug_info > 0)
             printf("DEBUG1 - run EVOLUTION_WHITEBLACK request - END\n");
     }
@@ -219,7 +219,7 @@ int main(int argc, char *argv[]) {
         printf("DEBUG2 - END\n");
 }
 
-//void strreplace(char *string, const char *find, const char *replaceWith) {
+//void replace_str(char *string, const char *find, const char *replaceWith) {
 //    if (strstr(string, find) != NULL) {
 //        char *temporaryString = malloc(strlen(strstr(string, find) + strlen(find)) + 1);
 //        strcpy(temporaryString, strstr(string, find) + strlen(find));    //Create a string with what's after the replaced part

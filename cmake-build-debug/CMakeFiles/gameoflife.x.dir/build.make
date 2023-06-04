@@ -83,19 +83,19 @@ CMakeFiles/gameoflife.x.dir/gameoflife.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gameoflife.x.dir/gameoflife.c.s"
 	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/dev/HPC/gameoflife/gameoflife.c -o CMakeFiles/gameoflife.x.dir/gameoflife.c.s
 
-CMakeFiles/gameoflife.x.dir/iterate_static.c.o: CMakeFiles/gameoflife.x.dir/flags.make
-CMakeFiles/gameoflife.x.dir/iterate_static.c.o: ../iterate_static.c
-CMakeFiles/gameoflife.x.dir/iterate_static.c.o: CMakeFiles/gameoflife.x.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/dev/HPC/gameoflife/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/gameoflife.x.dir/iterate_static.c.o"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/gameoflife.x.dir/iterate_static.c.o -MF CMakeFiles/gameoflife.x.dir/iterate_static.c.o.d -o CMakeFiles/gameoflife.x.dir/iterate_static.c.o -c /mnt/c/dev/HPC/gameoflife/iterate_static.c
+CMakeFiles/gameoflife.x.dir/evolution_static.c.o: CMakeFiles/gameoflife.x.dir/flags.make
+CMakeFiles/gameoflife.x.dir/evolution_static.c.o: ../evolution_static.c
+CMakeFiles/gameoflife.x.dir/evolution_static.c.o: CMakeFiles/gameoflife.x.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/dev/HPC/gameoflife/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/gameoflife.x.dir/evolution_static.c.o"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/gameoflife.x.dir/evolution_static.c.o -MF CMakeFiles/gameoflife.x.dir/evolution_static.c.o.d -o CMakeFiles/gameoflife.x.dir/evolution_static.c.o -c /mnt/c/dev/HPC/gameoflife/evolution_static.c
 
-CMakeFiles/gameoflife.x.dir/iterate_static.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gameoflife.x.dir/iterate_static.c.i"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/dev/HPC/gameoflife/iterate_static.c > CMakeFiles/gameoflife.x.dir/iterate_static.c.i
+CMakeFiles/gameoflife.x.dir/evolution_static.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gameoflife.x.dir/evolution_static.c.i"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/dev/HPC/gameoflife/evolution_static.c > CMakeFiles/gameoflife.x.dir/evolution_static.c.i
 
-CMakeFiles/gameoflife.x.dir/iterate_static.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gameoflife.x.dir/iterate_static.c.s"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/dev/HPC/gameoflife/iterate_static.c -o CMakeFiles/gameoflife.x.dir/iterate_static.c.s
+CMakeFiles/gameoflife.x.dir/evolution_static.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gameoflife.x.dir/evolution_static.c.s"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/dev/HPC/gameoflife/evolution_static.c -o CMakeFiles/gameoflife.x.dir/evolution_static.c.s
 
 CMakeFiles/gameoflife.x.dir/new_playground.c.o: CMakeFiles/gameoflife.x.dir/flags.make
 CMakeFiles/gameoflife.x.dir/new_playground.c.o: ../new_playground.c
@@ -111,82 +111,82 @@ CMakeFiles/gameoflife.x.dir/new_playground.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gameoflife.x.dir/new_playground.c.s"
 	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/dev/HPC/gameoflife/new_playground.c -o CMakeFiles/gameoflife.x.dir/new_playground.c.s
 
-CMakeFiles/gameoflife.x.dir/iterate_ordered.c.o: CMakeFiles/gameoflife.x.dir/flags.make
-CMakeFiles/gameoflife.x.dir/iterate_ordered.c.o: ../iterate_ordered.c
-CMakeFiles/gameoflife.x.dir/iterate_ordered.c.o: CMakeFiles/gameoflife.x.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/dev/HPC/gameoflife/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/gameoflife.x.dir/iterate_ordered.c.o"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/gameoflife.x.dir/iterate_ordered.c.o -MF CMakeFiles/gameoflife.x.dir/iterate_ordered.c.o.d -o CMakeFiles/gameoflife.x.dir/iterate_ordered.c.o -c /mnt/c/dev/HPC/gameoflife/iterate_ordered.c
+CMakeFiles/gameoflife.x.dir/evolution_ordered.c.o: CMakeFiles/gameoflife.x.dir/flags.make
+CMakeFiles/gameoflife.x.dir/evolution_ordered.c.o: ../evolution_ordered.c
+CMakeFiles/gameoflife.x.dir/evolution_ordered.c.o: CMakeFiles/gameoflife.x.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/dev/HPC/gameoflife/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/gameoflife.x.dir/evolution_ordered.c.o"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/gameoflife.x.dir/evolution_ordered.c.o -MF CMakeFiles/gameoflife.x.dir/evolution_ordered.c.o.d -o CMakeFiles/gameoflife.x.dir/evolution_ordered.c.o -c /mnt/c/dev/HPC/gameoflife/evolution_ordered.c
 
-CMakeFiles/gameoflife.x.dir/iterate_ordered.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gameoflife.x.dir/iterate_ordered.c.i"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/dev/HPC/gameoflife/iterate_ordered.c > CMakeFiles/gameoflife.x.dir/iterate_ordered.c.i
+CMakeFiles/gameoflife.x.dir/evolution_ordered.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gameoflife.x.dir/evolution_ordered.c.i"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/dev/HPC/gameoflife/evolution_ordered.c > CMakeFiles/gameoflife.x.dir/evolution_ordered.c.i
 
-CMakeFiles/gameoflife.x.dir/iterate_ordered.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gameoflife.x.dir/iterate_ordered.c.s"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/dev/HPC/gameoflife/iterate_ordered.c -o CMakeFiles/gameoflife.x.dir/iterate_ordered.c.s
+CMakeFiles/gameoflife.x.dir/evolution_ordered.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gameoflife.x.dir/evolution_ordered.c.s"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/dev/HPC/gameoflife/evolution_ordered.c -o CMakeFiles/gameoflife.x.dir/evolution_ordered.c.s
 
-CMakeFiles/gameoflife.x.dir/iterate_wave.c.o: CMakeFiles/gameoflife.x.dir/flags.make
-CMakeFiles/gameoflife.x.dir/iterate_wave.c.o: ../iterate_wave.c
-CMakeFiles/gameoflife.x.dir/iterate_wave.c.o: CMakeFiles/gameoflife.x.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/dev/HPC/gameoflife/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/gameoflife.x.dir/iterate_wave.c.o"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/gameoflife.x.dir/iterate_wave.c.o -MF CMakeFiles/gameoflife.x.dir/iterate_wave.c.o.d -o CMakeFiles/gameoflife.x.dir/iterate_wave.c.o -c /mnt/c/dev/HPC/gameoflife/iterate_wave.c
+CMakeFiles/gameoflife.x.dir/evolution_wave.c.o: CMakeFiles/gameoflife.x.dir/flags.make
+CMakeFiles/gameoflife.x.dir/evolution_wave.c.o: ../evolution_wave.c
+CMakeFiles/gameoflife.x.dir/evolution_wave.c.o: CMakeFiles/gameoflife.x.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/dev/HPC/gameoflife/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/gameoflife.x.dir/evolution_wave.c.o"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/gameoflife.x.dir/evolution_wave.c.o -MF CMakeFiles/gameoflife.x.dir/evolution_wave.c.o.d -o CMakeFiles/gameoflife.x.dir/evolution_wave.c.o -c /mnt/c/dev/HPC/gameoflife/evolution_wave.c
 
-CMakeFiles/gameoflife.x.dir/iterate_wave.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gameoflife.x.dir/iterate_wave.c.i"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/dev/HPC/gameoflife/iterate_wave.c > CMakeFiles/gameoflife.x.dir/iterate_wave.c.i
+CMakeFiles/gameoflife.x.dir/evolution_wave.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gameoflife.x.dir/evolution_wave.c.i"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/dev/HPC/gameoflife/evolution_wave.c > CMakeFiles/gameoflife.x.dir/evolution_wave.c.i
 
-CMakeFiles/gameoflife.x.dir/iterate_wave.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gameoflife.x.dir/iterate_wave.c.s"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/dev/HPC/gameoflife/iterate_wave.c -o CMakeFiles/gameoflife.x.dir/iterate_wave.c.s
+CMakeFiles/gameoflife.x.dir/evolution_wave.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gameoflife.x.dir/evolution_wave.c.s"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/dev/HPC/gameoflife/evolution_wave.c -o CMakeFiles/gameoflife.x.dir/evolution_wave.c.s
 
-CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o: CMakeFiles/gameoflife.x.dir/flags.make
-CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o: ../read_write_pgm.c
-CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o: CMakeFiles/gameoflife.x.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/dev/HPC/gameoflife/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o -MF CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o.d -o CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o -c /mnt/c/dev/HPC/gameoflife/read_write_pgm.c
+CMakeFiles/gameoflife.x.dir/files_io.c.o: CMakeFiles/gameoflife.x.dir/flags.make
+CMakeFiles/gameoflife.x.dir/files_io.c.o: ../files_io.c
+CMakeFiles/gameoflife.x.dir/files_io.c.o: CMakeFiles/gameoflife.x.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/dev/HPC/gameoflife/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/gameoflife.x.dir/files_io.c.o"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/gameoflife.x.dir/files_io.c.o -MF CMakeFiles/gameoflife.x.dir/files_io.c.o.d -o CMakeFiles/gameoflife.x.dir/files_io.c.o -c /mnt/c/dev/HPC/gameoflife/files_io.c
 
-CMakeFiles/gameoflife.x.dir/read_write_pgm.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gameoflife.x.dir/read_write_pgm.c.i"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/dev/HPC/gameoflife/read_write_pgm.c > CMakeFiles/gameoflife.x.dir/read_write_pgm.c.i
+CMakeFiles/gameoflife.x.dir/files_io.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gameoflife.x.dir/files_io.c.i"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/dev/HPC/gameoflife/files_io.c > CMakeFiles/gameoflife.x.dir/files_io.c.i
 
-CMakeFiles/gameoflife.x.dir/read_write_pgm.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gameoflife.x.dir/read_write_pgm.c.s"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/dev/HPC/gameoflife/read_write_pgm.c -o CMakeFiles/gameoflife.x.dir/read_write_pgm.c.s
+CMakeFiles/gameoflife.x.dir/files_io.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gameoflife.x.dir/files_io.c.s"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/dev/HPC/gameoflife/files_io.c -o CMakeFiles/gameoflife.x.dir/files_io.c.s
 
-CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.o: CMakeFiles/gameoflife.x.dir/flags.make
-CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.o: ../iterate_whiteblack.c
-CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.o: CMakeFiles/gameoflife.x.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/dev/HPC/gameoflife/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.o"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.o -MF CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.o.d -o CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.o -c /mnt/c/dev/HPC/gameoflife/iterate_whiteblack.c
+CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.o: CMakeFiles/gameoflife.x.dir/flags.make
+CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.o: ../evolution_whiteblack.c
+CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.o: CMakeFiles/gameoflife.x.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/dev/HPC/gameoflife/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.o"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.o -MF CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.o.d -o CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.o -c /mnt/c/dev/HPC/gameoflife/evolution_whiteblack.c
 
-CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.i"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/dev/HPC/gameoflife/iterate_whiteblack.c > CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.i
+CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.i"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/dev/HPC/gameoflife/evolution_whiteblack.c > CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.i
 
-CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.s"
-	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/dev/HPC/gameoflife/iterate_whiteblack.c -o CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.s
+CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.s"
+	/usr/bin/mpicc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/dev/HPC/gameoflife/evolution_whiteblack.c -o CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.s
 
 # Object files for target gameoflife.x
 gameoflife_x_OBJECTS = \
 "CMakeFiles/gameoflife.x.dir/gameoflife.c.o" \
-"CMakeFiles/gameoflife.x.dir/iterate_static.c.o" \
+"CMakeFiles/gameoflife.x.dir/evolution_static.c.o" \
 "CMakeFiles/gameoflife.x.dir/new_playground.c.o" \
-"CMakeFiles/gameoflife.x.dir/iterate_ordered.c.o" \
-"CMakeFiles/gameoflife.x.dir/iterate_wave.c.o" \
-"CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o" \
-"CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.o"
+"CMakeFiles/gameoflife.x.dir/evolution_ordered.c.o" \
+"CMakeFiles/gameoflife.x.dir/evolution_wave.c.o" \
+"CMakeFiles/gameoflife.x.dir/files_io.c.o" \
+"CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.o"
 
 # External object files for target gameoflife.x
 gameoflife_x_EXTERNAL_OBJECTS =
 
 gameoflife.x: CMakeFiles/gameoflife.x.dir/gameoflife.c.o
-gameoflife.x: CMakeFiles/gameoflife.x.dir/iterate_static.c.o
+gameoflife.x: CMakeFiles/gameoflife.x.dir/evolution_static.c.o
 gameoflife.x: CMakeFiles/gameoflife.x.dir/new_playground.c.o
-gameoflife.x: CMakeFiles/gameoflife.x.dir/iterate_ordered.c.o
-gameoflife.x: CMakeFiles/gameoflife.x.dir/iterate_wave.c.o
-gameoflife.x: CMakeFiles/gameoflife.x.dir/read_write_pgm.c.o
-gameoflife.x: CMakeFiles/gameoflife.x.dir/iterate_whiteblack.c.o
+gameoflife.x: CMakeFiles/gameoflife.x.dir/evolution_ordered.c.o
+gameoflife.x: CMakeFiles/gameoflife.x.dir/evolution_wave.c.o
+gameoflife.x: CMakeFiles/gameoflife.x.dir/files_io.c.o
+gameoflife.x: CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.o
 gameoflife.x: CMakeFiles/gameoflife.x.dir/build.make
 gameoflife.x: CMakeFiles/gameoflife.x.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/dev/HPC/gameoflife/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking C executable gameoflife.x"

@@ -51,7 +51,7 @@ double initialize_parallel(long total_size, int mpi_size, int mpi_rank, int debu
     return t_io;
 }
 
-double initialize_serial(const char *filename, long total_size, int debug_info) {
+double initialize_single(const char *filename, long total_size, int debug_info) {
     double t_io = 0; // returned value: total I/O time spent
     if (debug_info > 0)
         printf("DEBUG1 - initialize_serial - BEGIN\n");
@@ -83,7 +83,7 @@ double initialize_serial(const char *filename, long total_size, int debug_info) 
     return t_io;
 }
 
-void initialization(long world_size, const char *filename, int *argc, char ***argv, int mpi_rank, int mpi_size, int csv_output, int debug_info) {
+void new_playground(long world_size, const char *filename, int *argc, char ***argv, int mpi_rank, int mpi_size, int csv_output, int debug_info) {
     double t_io = 0; // total I/O time spent
     double t_io_accumulator = 0; // total I/O time spent by processes > 0
     double t_start = MPI_Wtime(); // start time
@@ -100,7 +100,7 @@ void initialization(long world_size, const char *filename, int *argc, char ***ar
         //printf("DEBUG1 - initialization - pathname=%s\n", pathname);
         printf("DEBUG1 - initialization - rank %d/%d, pathname=%s\n", mpi_rank, mpi_size, pathname);
     if (mpi_size == 1)
-        t_io += initialize_serial(filename, world_size, debug_info);
+        t_io += initialize_single(filename, world_size, debug_info);
     else
         t_io += initialize_parallel(world_size, mpi_size, mpi_rank, debug_info);
     // all processes send io-time to process zero
@@ -151,10 +151,10 @@ void initialization(long world_size, const char *filename, int *argc, char ***ar
             MPI_Recv(&t_io_other, 1, MPI_DOUBLE, i, TAG_T, MPI_COMM_WORLD, &mpi_status);
             t_io_accumulator += t_io_other;
             if (debug_info > 1)
-                printf("DEBUG2 - run_wave ACCU1 - i=%d, t_io_other=%f, t_io_accumulator=%f\n", i, t_io_other, t_io_accumulator);
+                printf("DEBUG2 - evolution_wave ACCU1 - i=%d, t_io_other=%f, t_io_accumulator=%f\n", i, t_io_other, t_io_accumulator);
         }
         if (debug_info > 0)
-            printf("DEBUG1 - run_wave ACCU2 - t_io=%f, t_io_other=%f, t_io_accumulator=%f, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1)=%f\n", t_io, t_io_other, t_io_accumulator, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
+            printf("DEBUG1 - evolution_wave ACCU2 - t_io=%f, t_io_other=%f, t_io_accumulator=%f, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1)=%f\n", t_io, t_io_other, t_io_accumulator, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
     }
     MPI_Finalize();
     if (mpi_rank == 0) {
