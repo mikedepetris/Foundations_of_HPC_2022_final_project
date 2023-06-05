@@ -5,6 +5,12 @@
 #ifndef GAMEOFLIFE_GAMEOFLIFE_H
 #define GAMEOFLIFE_GAMEOFLIFE_H
 
+// activate debug code
+//#define DEBUG1
+//#define DEBUG2
+//#define DEBUG_ADVANCED_MALLOC_FREE
+//#define DEBUG_ADVANCED_B
+
 // max iterations, must print as nnnnn
 #define MAX_NUMBER_OF_STEPS 99999
 

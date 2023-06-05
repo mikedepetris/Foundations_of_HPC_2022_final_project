@@ -76,8 +76,10 @@ void get_arguments_util(int argc, char *argv[]) {
                 debug_info = 1;
                 if (optarg)
                     debug_info = atoi(optarg);
+#ifdef DEBUG2
                 if (debug_info > 1)
                     printf("DEBUG1 - debug level=%d\n", debug_info);
+#endif
                 break;
             case 'h':
                 arg_action_to_take = HELP;
@@ -135,11 +137,11 @@ int main(int argc, char *argv[]) {
     if (argc <= 1 || (argc == 2 && debug_info > 0) || arg_action_to_take == HELP) {
         int mpi_rank, mpi_size;
         mpi_init(&argc, &argv, &mpi_rank, &mpi_size);
-        if (mpi_rank != 0) {
-            if (debug_info > 0)
+#ifdef DEBUG1
+        if (debug_info > 0) {
+            if (mpi_rank != 0)
                 printf("DEBUG1 - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
-        } else {
-            if (debug_info == 1) {
+            else {
                 printf("DEBUG1 - mpi_rank=%d/%d\n", mpi_rank, mpi_size);
                 printf("DEBUG1 - Number of arguments: %d\n", argc);
                 printf("DEBUG1 - Argument 0: %s\n", argv[0]);
@@ -148,6 +150,7 @@ int main(int argc, char *argv[]) {
                 printf("\n");
             }
         }
+#endif
         if (mpi_rank == 0) {
             printf("Usage: %s [options]\n", argv[0]);
             printf("      -i  initialize a playground                                                    \n");
@@ -185,38 +188,62 @@ int main(int argc, char *argv[]) {
         if (mpi_rank == 0 && csv_output == CSV_OUTPUT_FALSE)
             printf("Initialization request with world size=%ld and filename=%s\n", world_size, filename);
         new_playground(world_size, filename, &argc, &argv, mpi_rank, mpi_size, csv_output, debug_info);
-        if (debug_info > 0 && mpi_rank == 0)
+#ifdef DEBUG1
+        if (debug_info > 0)
             printf("DEBUG1 - new_playground request - END\n");
+#endif
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_STATIC) {
+#ifdef DEBUG2
         if (debug_info > 1)
             printf("DEBUG2 - evolution_static request\n");
+#endif
+
         evolution_static(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, csv_output, debug_info);
+
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_ORDERED) {
+#ifdef DEBUG2
         if (debug_info > 1)
             printf("DEBUG2 - Run request with EVOLUTION_ORDERED of %d steps of filename=%s\n", number_of_steps, filename);
+#endif
         evolution_ordered(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, csv_output, debug_info);
+#ifdef DEBUG1
         if (debug_info > 0)
             printf("DEBUG1 - run EVOLUTION_ORDERED request - END\n");
+#endif
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_WAVE) {
+#ifdef DEBUG2
         if (debug_info > 1)
             printf("DEBUG2 - Run request with EVOLUTION_WAVE of %d steps of filename=%s\n", number_of_steps, filename);
+#endif
+
         evolution_wave(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, csv_output, debug_info);
+
+#ifdef DEBUG1
         if (debug_info > 0)
             printf("DEBUG1 - run EVOLUTION_WAVE request - END\n");
+#endif
     } else if (arg_action_to_take == RUN && evolution_type == EVOLUTION_WHITEBLACK) {
+#ifdef DEBUG1
         if (debug_info > 1)
             printf("DEBUG2 - Run request with EVOLUTION_WHITEBLACK evolution of %d steps of filename=%s\n", number_of_steps, filename);
+#endif
         evolution_whiteblack(filename, number_of_steps, number_of_steps_between_file_dumps, &argc, &argv, csv_output, debug_info);
+#ifdef DEBUG1
         if (debug_info > 0)
             printf("DEBUG1 - run EVOLUTION_WHITEBLACK request - END\n");
+#endif
     }
 
+#ifdef DEBUG1
     if (debug_info > 1)
         printf("DEBUG2 - before END\n");
+#endif
     if (is_defined_filename)
         free(filename);
+#ifdef DEBUG1
     if (debug_info > 1)
         printf("DEBUG2 - END\n");
+#endif
 }
 
 //void replace_str(char *string, const char *find, const char *replaceWith) {
