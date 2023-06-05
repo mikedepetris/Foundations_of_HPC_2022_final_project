@@ -603,8 +603,10 @@ void evolution_static(const char *filename, int number_of_steps, int number_of_s
         for (int i = 1; i < mpi_size; i++) {
             MPI_Recv(&t_io_other, 1, MPI_DOUBLE, i, TAG_T, MPI_COMM_WORLD, &mpi_status);
             t_io_accumulator += t_io_other;
+#ifdef DEBUG2
             if (debug_info > 1)
                 printf("DEBUG2 - evolution_static ACCU1 - i=%d, t_io_other=%f, t_io_accumulator=%f\n", i, t_io_other, t_io_accumulator);
+#endif
         }
 #ifdef DEBUG1
         if (debug_info > 0)

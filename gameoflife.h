@@ -10,6 +10,7 @@
 //#define DEBUG2
 //#define DEBUG_ADVANCED_MALLOC_FREE
 //#define DEBUG_ADVANCED_B
+//#define DEBUG_ADVANCED_COORDINATES
 
 // max iterations, must print as nnnnn
 #define MAX_NUMBER_OF_STEPS 99999

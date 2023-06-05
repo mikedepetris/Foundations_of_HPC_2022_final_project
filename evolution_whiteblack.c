@@ -655,12 +655,16 @@ void evolution_whiteblack(const char *filename, int number_of_steps, int number_
         // array of filenames of chunks to be joined
         char *final_chunks_fn[mpi_size];
         unsigned long final_chunks_fn_len = strlen("/_000_000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK) + strlen(FILE_EXTENSION_PGMPART) + 1;
+#ifdef DEBUG2
         if (debug_info > 1) // test chunks fn length
-            printf("DEBUG2 - evolution_whiteblack 5 - MERGE CHUNKS FINAL rank %d/%d, LEN=%lu, final_chunks_fn=%s/%s%03d_%03d%s.%s\n", mpi_rank, mpi_size, final_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK, mpi_size, mpi_rank, ""
-                   , FILE_EXTENSION_PGMPART);
+            printf("DEBUG2 - evolution_whiteblack 5 - MERGE CHUNKS FINAL rank %d/%d, LEN=%lu, final_chunks_fn=%s/%s%03d_%03d%s.%s\n"
+                   , mpi_rank, mpi_size, final_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK, mpi_size, mpi_rank, "", FILE_EXTENSION_PGMPART);
+#endif
         for (int i = 0; i < mpi_size; i++) {
+#ifdef DEBUG2
             if (debug_info > 1)
                 printf("DEBUG2 - evolution_whiteblack - JOIN1a: LEN=%lu %s/%s%03d_%03d%s.%s\n", final_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK, mpi_size, i, "", FILE_EXTENSION_PGMPART);
+#endif
             final_chunks_fn[i] = (char *) malloc(final_chunks_fn_len);
             sprintf(final_chunks_fn[i], "%s/%s_%03d_%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK, mpi_size, i, "", FILE_EXTENSION_PGMPART);
 //          sprintf(final_chunks_fn[i], "%s/%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WHITEBLACK, FILE_EXTENSION_PGMPART);
@@ -695,8 +699,10 @@ void evolution_whiteblack(const char *filename, int number_of_steps, int number_
         for (int i = 1; i < mpi_size; i++) {
             MPI_Recv(&t_io_other, 1, MPI_DOUBLE, i, TAG_T, MPI_COMM_WORLD, &mpi_status);
             t_io_accumulator += t_io_other;
+#ifdef DEBUG2
             if (debug_info > 1)
                 printf("DEBUG2 - evolution_whiteblack ACCU1 - i=%d, t_io_other=%f, t_io_accumulator=%f\n", i, t_io_other, t_io_accumulator);
+#endif
         }
 #ifdef DEBUG1
         if (debug_info > 0)

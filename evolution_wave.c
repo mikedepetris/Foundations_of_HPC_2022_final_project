@@ -11,9 +11,6 @@
 #define IMAGE_FILENAME_PREFIX_SNAP_WAVE "snapshot"
 #define IMAGE_FILENAME_PREFIX_FINAL_WAVE "final"
 
-//#define DEBUG_ADVANCED_MALLOC_FREE
-#define DEBUG_ADVANCED_COORDINATES
-
 void set_dead_or_alive_wave_single(unsigned char *world, long world_size, int iteration_step, long startX, long startY, int debug_info) {
     // iterate the square wave from 1 cell to squares of size 3, 5, 7... up to world size
     // TODO: manage joined borders of the world when the world size is even
@@ -37,8 +34,8 @@ void set_dead_or_alive_wave_single(unsigned char *world, long world_size, int it
             // actual cell x coordinate, crossing boundary if exceeding
             x = (i + world_size) % world_size;
 #ifdef DEBUG2
-//          if (debug_info > 1)
-//              printf("DEBUG2 - set_dead_or_alive_wave_serial 00 - iteration_step=%d, startX=%ld, startY=%ld, square_size=%ld, i=%ld, x=%ld\n", iteration_step, startX, startY, square_size, i, x);
+            //          if (debug_info > 1)
+            //              printf("DEBUG2 - set_dead_or_alive_wave_serial 00 - iteration_step=%d, startX=%ld, startY=%ld, square_size=%ld, i=%ld, x=%ld\n", iteration_step, startX, startY, square_size, i, x);
 #endif
             // neighbours of actual cell
             x_prev = x - 1 >= 0 ? x - 1 : world_size - 1;
@@ -283,8 +280,8 @@ double evolution_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_statu
             // for testing purposes we want to be able to fix a point to compare results
             if (debug_info == 0) { // activate debug to set x,y to 0,0
 #endif
-                x = rand() % world_size;
-                y = rand() % world_size;
+            x = rand() % world_size;
+            y = rand() % world_size;
 #ifdef DEBUG1
             }
             if (debug_info > 0)
@@ -359,8 +356,8 @@ double evolution_wave_single(unsigned char *world, long world_size, int number_o
         // for testing purposes we want to be able to fix a point to compare results
         if (debug_info == 0) { // activate debug to set x,y to 0,0
 #endif
-            x = rand() % world_size;
-            y = rand() % world_size;
+        x = rand() % world_size;
+        y = rand() % world_size;
 #ifdef DEBUG1
         }
         if (debug_info > 0)
@@ -514,8 +511,10 @@ void evolution_wave(const char *filename, int number_of_steps, int number_of_ste
 #endif
         directoryname = malloc(strlen(message) + 1);
         strcpy(directoryname, message);
+#ifdef DEBUG2
         if (debug_info > 1)
             printf("DEBUG2 - evolution_wave 1c - rank %d/%d, LEN=%lu directoryname=%s, LEN=%lu message=%s\n", mpi_rank, mpi_size, strlen(directoryname), directoryname, strlen(message), message);
+#endif
     }
     MPI_Barrier(MPI_COMM_WORLD);
 #ifdef DEBUG1
@@ -537,8 +536,10 @@ void evolution_wave(const char *filename, int number_of_steps, int number_of_ste
         t_io += evolution_wave_parallel(mpi_rank, mpi_size, &mpi_status, &mpi_request, world_local, world_size, local_size, number_of_steps, number_of_steps_between_file_dumps, directoryname, debug_info);
     else
         t_io += evolution_wave_single(world_local, world_size, number_of_steps, number_of_steps_between_file_dumps, directoryname, debug_info);
+#ifdef DEBUG2
     if (debug_info > 1)
         printf("DEBUG2 - evolution_wave 4 - ITERATED - rank %d/%d - maxval=%d, local_size=%ld, world_size=%ld, directoryname=%s, filename=%s\n", mpi_rank, mpi_size, maxval, local_size, world_size, directoryname, filename);
+#endif
     // wait for all iterations to complete
     MPI_Barrier(MPI_COMM_WORLD);
     // write final iteration output
@@ -563,15 +564,19 @@ void evolution_wave(const char *filename, int number_of_steps, int number_of_ste
         // join chunks of all iteration steps
         for (int iteration_step = number_of_steps_between_file_dumps;
              iteration_step <= number_of_steps; iteration_step += number_of_steps_between_file_dumps) {
-            if (debug_info > 1)
+#ifdef DEBUG2
+            if (debug_info > 1) {
                 printf("DEBUG2 - evolution_wave 5a0 - rank %d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, iteration_step, number_of_steps);
-            if (debug_info > 1)
                 printf("DEBUG2 - evolution_wave 5a1 - rank %d/%d, snap_chunks_fn=%s/%s%03d_%05d%s.%s\n", mpi_rank, mpi_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, iteration_step, "", FILE_EXTENSION_PGM);
+            }
+#endif
             // filename of joined iteration snap
             char *snap_fn;
             unsigned long snap_fn_len = strlen("/_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_WAVE) + strlen(FILE_EXTENSION_PGM) + 1;
+#ifdef DEBUG2
             if (debug_info > 1)
                 printf("DEBUG2 - evolution_wave 5a2 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%05d%s.%s\n", mpi_rank, mpi_size, snap_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, iteration_step, "", FILE_EXTENSION_PGM);
+#endif
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (debug_info > 1)
                 printf("DEBUG2 - evolution_wave - snap_fn = (char *) malloc(snap_fn_len); free(); BEFORE\n");
@@ -579,18 +584,25 @@ void evolution_wave(const char *filename, int number_of_steps, int number_of_ste
             snap_fn = (char *) malloc(snap_fn_len);
 //          sprintf(snap_fn, "%s/%s%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, iteration_step, "", FILE_EXTENSION_PGM);
             sprintf(snap_fn, "%s/%s_%05d.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, iteration_step, FILE_EXTENSION_PGM);
+#ifdef DEBUG2
             if (debug_info > 1)
                 printf("DEBUG2 - evolution_wave 5a3 - snap_fn_len=%ld, strlen(%s)=%ld\n", snap_fn_len, snap_fn, strlen(snap_fn));
+#endif
 
             // array of filenames of snap chunks to be joined
             char *snap_chunks_fn[mpi_size];
             unsigned long snap_chunks_fn_len = strlen("/_000_000_00000.") + strlen(directoryname) + strlen(IMAGE_FILENAME_PREFIX_SNAP_WAVE) + strlen(FILE_EXTENSION_PGMPART) + 1;
+#ifdef DEBUG2
             if (debug_info > 1) // test chunks fn length
-                printf("DEBUG2 - evolution_wave 5a4 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%03d_%05d%s.%s\n", mpi_rank, mpi_size, snap_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, mpi_rank, iteration_step, ""
-                       , FILE_EXTENSION_PGMPART);
+                printf("DEBUG2 - evolution_wave 5a4 - rank %d/%d, LEN=%lu, snap_chunks_fn=%s/%s%03d_%03d_%05d%s.%s\n"
+                       , mpi_rank, mpi_size, snap_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, mpi_rank, iteration_step, "", FILE_EXTENSION_PGMPART);
+#endif
             for (int i = 0; i < mpi_size; i++) {
+#ifdef DEBUG2
                 if (debug_info > 1)
-                    printf("DEBUG2 - evolution_wave 5a5: LEN=%lu %s/%s%03d_%03d_%05d%s.%s\n", snap_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
+                    printf("DEBUG2 - evolution_wave 5a5: LEN=%lu %s/%s%03d_%03d_%05d%s.%s\n"
+                           , snap_chunks_fn_len, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
+#endif
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
                 if (debug_info > 1)
                     printf("DEBUG2 - evolution_wave - snap_chunks_fn[i] = (char *) malloc(snap_chunks_fn_len); free(); BEFORE\n");
@@ -598,8 +610,10 @@ void evolution_wave(const char *filename, int number_of_steps, int number_of_ste
                 snap_chunks_fn[i] = (char *) malloc(snap_chunks_fn_len);
                 sprintf(snap_chunks_fn[i], "%s/%s_%03d_%03d_%05d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, mpi_size, i, iteration_step, "", FILE_EXTENSION_PGMPART);
 //              sprintf(snap_chunks_fn[i], "%s/%s%05d.%s", directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, iteration_step, FILE_EXTENSION_PGMPART);
+#ifdef DEBUG2
                 if (debug_info > 1)
                     printf("DEBUG2 - evolution_wave 5a6: LEN=%lu %s\n", strlen(snap_chunks_fn[i]), snap_chunks_fn[i]);
+#endif
             }
 #ifdef DEBUG1
             if (debug_info > 0)
@@ -612,9 +626,9 @@ void evolution_wave(const char *filename, int number_of_steps, int number_of_ste
 #ifdef DEBUG1
             if (debug_info == 0)
 #endif
-                // delete chunks but keep them in debug mode
-                for (int i = 0; i < mpi_size; i++)
-                    remove(snap_chunks_fn[i]);
+            // delete chunks but keep them in debug mode
+            for (int i = 0; i < mpi_size; i++)
+                remove(snap_chunks_fn[i]);
             t_io += MPI_Wtime() - t_point;
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (debug_info > 1)
@@ -679,8 +693,10 @@ void evolution_wave(const char *filename, int number_of_steps, int number_of_ste
             final_chunks_fn[i] = (char *) malloc(final_chunks_fn_len);
             sprintf(final_chunks_fn[i], "%s/%s_%03d_%03d%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, mpi_size, i, "", FILE_EXTENSION_PGMPART);
 //          sprintf(final_chunks_fn[i], "%s/%s.%s", directoryname, IMAGE_FILENAME_PREFIX_FINAL_WAVE, FILE_EXTENSION_PGMPART);
+#ifdef DEBUG2
             if (debug_info > 1)
                 printf("DEBUG2 - evolution_wave - JOIN1b: LEN=%lu %s\n", strlen(final_chunks_fn[i]), final_chunks_fn[i]);
+#endif
         }
 #ifdef DEBUG1
         if (debug_info > 0)
@@ -697,9 +713,9 @@ void evolution_wave(const char *filename, int number_of_steps, int number_of_ste
 #ifdef DEBUG1
         if (debug_info == 0)
 #endif
-            // delete chunks but keep them in debug mode
-            for (int i = 0; i < mpi_size; i++)
-                remove(final_chunks_fn[i]);
+        // delete chunks but keep them in debug mode
+        for (int i = 0; i < mpi_size; i++)
+            remove(final_chunks_fn[i]);
         t_io += MPI_Wtime() - t_point;
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)
