@@ -66,7 +66,7 @@ CMakeFiles/gameoflife.x.dir/evolution_ordered.c.o: ../evolution_ordered.c \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
   /usr/include/string.h \
   /usr/include/strings.h \
-  ../files.io.h \
+  ../files_io.h \
   ../gameoflife.h
 
 CMakeFiles/gameoflife.x.dir/evolution_static.c.o: ../evolution_static.c \
@@ -134,7 +134,7 @@ CMakeFiles/gameoflife.x.dir/evolution_static.c.o: ../evolution_static.c \
   /usr/include/string.h \
   /usr/include/strings.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
-  ../files.io.h \
+  ../files_io.h \
   ../gameoflife.h
 
 CMakeFiles/gameoflife.x.dir/evolution_wave.c.o: ../evolution_wave.c \
@@ -202,7 +202,7 @@ CMakeFiles/gameoflife.x.dir/evolution_wave.c.o: ../evolution_wave.c \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
   /usr/include/string.h \
   /usr/include/strings.h \
-  ../files.io.h \
+  ../files_io.h \
   ../gameoflife.h
 
 CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.o: ../evolution_whiteblack.c \
@@ -270,7 +270,7 @@ CMakeFiles/gameoflife.x.dir/evolution_whiteblack.c.o: ../evolution_whiteblack.c 
   /usr/include/string.h \
   /usr/include/strings.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
-  ../files.io.h \
+  ../files_io.h \
   ../gameoflife.h
 
 CMakeFiles/gameoflife.x.dir/files_io.c.o: ../files_io.c \
@@ -299,7 +299,7 @@ CMakeFiles/gameoflife.x.dir/files_io.c.o: ../files_io.c \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
   /usr/include/strings.h \
-  ../files.io.h \
+  ../files_io.h \
   /usr/include/stdlib.h \
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
@@ -469,7 +469,7 @@ CMakeFiles/gameoflife.x.dir/new_playground.c.o: ../new_playground.c \
   /usr/include/string.h \
   /usr/include/strings.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
-  ../files.io.h \
+  ../files_io.h \
   ../gameoflife.h
 
 
@@ -482,6 +482,8 @@ CMakeFiles/gameoflife.x.dir/new_playground.c.o: ../new_playground.c \
 /usr/include/x86_64-linux-gnu/sys/stat.h:
 
 ../gameoflife.h:
+
+../files_io.h:
 
 /usr/include/strings.h:
 
@@ -536,8 +538,6 @@ CMakeFiles/gameoflife.x.dir/new_playground.c.o: ../new_playground.c \
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
 
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h:
-
-../files.io.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
 

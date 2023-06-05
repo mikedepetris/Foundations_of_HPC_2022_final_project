@@ -4,7 +4,7 @@
 #include <mpi.h>
 #include <omp.h>
 #include <string.h>
-#include "files.io.h"
+#include "files_io.h"
 #include "gameoflife.h"
 
 #define EVOLUTION_TYPE "wave"
@@ -25,23 +25,36 @@ void set_dead_or_alive_wave_single(unsigned char *world, long world_size, int it
         long x, y; // absolute coordinates of cell to be updated
         long x_prev, x_next, y_prev, y_next; // coords of neighbours
         long array_index;
+#ifdef DEBUG2
+        if (debug_info > 1)
+            printf("DEBUG2 - set_dead_or_alive_wave_serial 0a - iteration_step=%d, startX=%ld, startY=%ld, square_size=%ld, half_size=%ld\n", iteration_step, startX, startY, square_size, half_size);
+#endif
         // horizontal and vertical iterations from -half_size to half_size
         // 1:1, 3:-1 0 1, 5: -2 -1 0 1 2,...
         // 1: start from upper left to upper right (constant y)
         y = (startY + half_size) % world_size; // cross boundary if exceeding
+#ifdef DEBUG2
+        if (debug_info > 1)
+            printf("DEBUG2 - set_dead_or_alive_wave_serial 0b - iteration_step=%d, startX=%ld, startY=%ld, square_size=%ld, half_size=%ld, y=%ld\n", iteration_step, startX, startY, square_size, half_size, y);
+#endif
         // upper horizontal line from left to right
         for (long i = startX - half_size; i <= startX + half_size; i++) {
             // actual cell x coordinate, crossing boundary if exceeding
             x = (i + world_size) % world_size;
 #ifdef DEBUG2
-            //          if (debug_info > 1)
-            //              printf("DEBUG2 - set_dead_or_alive_wave_serial 00 - iteration_step=%d, startX=%ld, startY=%ld, square_size=%ld, i=%ld, x=%ld\n", iteration_step, startX, startY, square_size, i, x);
+            if (debug_info > 1)
+                printf("DEBUG2 - set_dead_or_alive_wave_serial 0c - iteration_step=%d, startX=%ld, startY=%ld, square_size=%ld, i=%ld, x=%ld\n", iteration_step, startX, startY, square_size, i, x);
 #endif
             // neighbours of actual cell
             x_prev = x - 1 >= 0 ? x - 1 : world_size - 1;
             x_next = x + 1 < world_size ? x + 1 : 0;
-            y_prev = y - 1;
-            y_next = y + 1;
+            y_prev = y - 1 >= 0 ? y - 1 : world_size - 1;
+            y_next = y + 1 < world_size ? y + 1 : 0;
+#ifdef DEBUG2
+            if (debug_info > 1)
+                printf("DEBUG2 - set_dead_or_alive_wave_serial 0d - iteration_step=%d, startX=%ld, startY=%ld, square_size=%ld, i=%ld, x=%ld, x_prev=%ld, x_next=%ld, y=%ld, y_prev=%ld, y_next=%ld\n"
+                       , iteration_step, startX, startY, square_size, i, x, x_prev, x_next, y, y_prev, y_next);
+#endif
             // determine the number of dead neighbours
             int sum = world[y_prev * world_size + x_prev] + // top left
                       world[y_prev * world_size + x] +      // top
@@ -51,6 +64,10 @@ void set_dead_or_alive_wave_single(unsigned char *world, long world_size, int it
                       world[y_next * world_size + x_prev] + // low left
                       world[y_next * world_size + x] +      // low
                       world[y_next * world_size + x_next];  // low right
+#ifdef DEBUG2
+            if (debug_info > 1)
+                printf("DEBUG2 - set_dead_or_alive_wave_serial 0e - iteration_step=%d, startX=%ld, startY=%ld, square_size=%ld, i=%ld, x=%ld, sum=%d\n", iteration_step, startX, startY, square_size, i, x, sum);
+#endif
             int number_of_dead_neighbours = sum / DEAD;
             array_index = y * world_size + x;
 #ifdef DEBUG_ADVANCED_COORDINATES
@@ -67,6 +84,10 @@ void set_dead_or_alive_wave_single(unsigned char *world, long world_size, int it
             else // default is: cell will die
                 world[array_index] = DEAD;
         }
+#ifdef DEBUG_ADVANCED_COORDINATES
+        if (debug_info > 1)
+            printf("DEBUG2 - set_dead_or_alive_wave_serial 2 - iteration_step=%d, startX=%ld, startY=%ld, square_size=%ld, x=%ld, y=%ld, array_index=%ld\n", iteration_step, startX, startY, square_size, x, y, array_index);
+#endif
 
         if (square_size > 1) {
             // 2: from upper right down to lower right (constant x)
@@ -80,8 +101,8 @@ void set_dead_or_alive_wave_single(unsigned char *world, long world_size, int it
                 // neighbours of actual cell
                 x_prev = x - 1 >= 0 ? x - 1 : world_size - 1;
                 x_next = x + 1 < world_size ? x + 1 : 0;
-                y_prev = y - 1;
-                y_next = y + 1;
+                y_prev = y - 1 >= 0 ? y - 1 : world_size - 1;
+                y_next = y + 1 < world_size ? y + 1 : 0;
                 // determine the number of dead neighbours
                 int sum = world[y_prev * world_size + x_prev] + // top left
                           world[y_prev * world_size + x] +      // top
@@ -118,8 +139,8 @@ void set_dead_or_alive_wave_single(unsigned char *world, long world_size, int it
                 // neighbours of actual cell
                 x_prev = x - 1 >= 0 ? x - 1 : world_size - 1;
                 x_next = x + 1 < world_size ? x + 1 : 0;
-                y_prev = y - 1;
-                y_next = y + 1;
+                y_prev = y - 1 >= 0 ? y - 1 : world_size - 1;
+                y_next = y + 1 < world_size ? y + 1 : 0;
                 // determine the number of dead neighbours
                 int sum = world[y_prev * world_size + x_prev] + // top left
                           world[y_prev * world_size + x] +      // top
@@ -156,8 +177,8 @@ void set_dead_or_alive_wave_single(unsigned char *world, long world_size, int it
                 // neighbours of actual cell
                 x_prev = x - 1 >= 0 ? x - 1 : world_size - 1;
                 x_next = x + 1 < world_size ? x + 1 : 0;
-                y_prev = y - 1;
-                y_next = y + 1;
+                y_prev = y - 1 >= 0 ? y - 1 : world_size - 1;
+                y_next = y + 1 < world_size ? y + 1 : 0;
                 // determine the number of dead neighbours
                 int sum = world[y_prev * world_size + x_prev] + // top left
                           world[y_prev * world_size + x] +      // top
@@ -280,8 +301,8 @@ double evolution_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_statu
             // for testing purposes we want to be able to fix a point to compare results
             if (debug_info == 0) { // activate debug to set x,y to 0,0
 #endif
-            x = rand() % world_size;
-            y = rand() % world_size;
+                x = rand() % world_size;
+                y = rand() % world_size;
 #ifdef DEBUG1
             }
             if (debug_info > 0)
@@ -356,8 +377,8 @@ double evolution_wave_single(unsigned char *world, long world_size, int number_o
         // for testing purposes we want to be able to fix a point to compare results
         if (debug_info == 0) { // activate debug to set x,y to 0,0
 #endif
-        x = rand() % world_size;
-        y = rand() % world_size;
+            x = rand() % world_size;
+            y = rand() % world_size;
 #ifdef DEBUG1
         }
         if (debug_info > 0)
@@ -626,9 +647,9 @@ void evolution_wave(const char *filename, int number_of_steps, int number_of_ste
 #ifdef DEBUG1
             if (debug_info == 0)
 #endif
-            // delete chunks but keep them in debug mode
-            for (int i = 0; i < mpi_size; i++)
-                remove(snap_chunks_fn[i]);
+                // delete chunks but keep them in debug mode
+                for (int i = 0; i < mpi_size; i++)
+                    remove(snap_chunks_fn[i]);
             t_io += MPI_Wtime() - t_point;
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (debug_info > 1)
@@ -713,9 +734,9 @@ void evolution_wave(const char *filename, int number_of_steps, int number_of_ste
 #ifdef DEBUG1
         if (debug_info == 0)
 #endif
-        // delete chunks but keep them in debug mode
-        for (int i = 0; i < mpi_size; i++)
-            remove(final_chunks_fn[i]);
+            // delete chunks but keep them in debug mode
+            for (int i = 0; i < mpi_size; i++)
+                remove(final_chunks_fn[i]);
         t_io += MPI_Wtime() - t_point;
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)

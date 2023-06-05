@@ -1,6 +1,6 @@
 #include <sys/stat.h>
 #include <string.h>
-#include "files.io.h"
+#include "files_io.h"
 
 /*
 * Create directory if it doesn't exist
@@ -466,7 +466,14 @@ double file_pgm_read_noghost(unsigned char **world, int *maxval, long *local_siz
         printf("DEBUG2 - file_pgm_read_noghost 5c - mpi_rank=%d/%d *world_size=%ld, first_row=%ld, last_row=%ld, local_size=%ld, color_depth=%d, to_read_size=%d, seek_result=%d, malloc((*local_size) * (*world_size) * sizeof(unsigned char))=malloc(%lu)\n"
                , mpi_rank, mpi_size, *world_size, first_row, last_row, *local_size, color_depth, (int) to_read_size, seek_result, (*local_size) * (*world_size) * sizeof(unsigned char));
 #endif
+
     MPI_File_read(fh, *world, (int) to_read_size, MPI_UNSIGNED_CHAR, &mpi_status);
+
+#ifdef DEBUG2
+    if (debug_info > 1)
+        printf("DEBUG2 - file_pgm_read_noghost 5d - mpi_rank=%d/%d *world_size=%ld, first_row=%ld, last_row=%ld, local_size=%ld, color_depth=%d, to_read_size=%d, seek_result=%d, malloc((*local_size) * (*world_size) * sizeof(unsigned char))=malloc(%lu)\n"
+               , mpi_rank, mpi_size, *world_size, first_row, last_row, *local_size, color_depth, (int) to_read_size, seek_result, (*local_size) * (*world_size) * sizeof(unsigned char));
+#endif
     //MPI_Barrier(MPI_COMM_WORLD);
     MPI_File_close(&fh);
     t_io += MPI_Wtime() - t_time_point;

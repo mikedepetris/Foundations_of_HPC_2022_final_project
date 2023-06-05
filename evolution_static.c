@@ -4,15 +4,12 @@
 #include <mpi.h>
 #include <string.h>
 #include <omp.h>
-#include "files.io.h"
+#include "files_io.h"
 #include "gameoflife.h"
 
 #define EVOLUTION_TYPE "static"
 #define IMAGE_FILENAME_PREFIX_SNAP_STATIC "snapshot"
 #define IMAGE_FILENAME_PREFIX_FINAL_STATIC "final"
-
-//#define DEBUG_ADVANCED_MALLOC_FREE
-//#define DEBUG_ADVANCED_B
 
 void set_dead_or_alive_static_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, unsigned char *world_next, long long world_size, long local_size, int iteration_step) {
 #pragma omp master

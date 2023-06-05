@@ -92,10 +92,10 @@
 		<Unit filename="/mnt/c/dev/HPC/gameoflife/evolution_whiteblack.c">
 			<Option target="gameoflife.x"/>
 		</Unit>
-		<Unit filename="/mnt/c/dev/HPC/gameoflife/files.io.h">
+		<Unit filename="/mnt/c/dev/HPC/gameoflife/files_io.c">
 			<Option target="gameoflife.x"/>
 		</Unit>
-		<Unit filename="/mnt/c/dev/HPC/gameoflife/files_io.c">
+		<Unit filename="/mnt/c/dev/HPC/gameoflife/files_io.h">
 			<Option target="gameoflife.x"/>
 		</Unit>
 		<Unit filename="/mnt/c/dev/HPC/gameoflife/gameoflife.c">

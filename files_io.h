@@ -1,3 +1,4 @@
+
 //
 // Created by mikedepetris on 12/05/2023.
 //
@@ -9,6 +10,13 @@
 #include <stdio.h>
 #include <mpi.h>
 #include <omp.h>
+
+// activate debug code
+//#define DEBUG1
+//#define DEBUG2
+//#define DEBUG_ADVANCED_MALLOC_FREE
+//#define DEBUG_ADVANCED_B
+//#define DEBUG_ADVANCED_COORDINATES
 
 #define PGM_COMMENT " Created by GOL gameoflife"
 
