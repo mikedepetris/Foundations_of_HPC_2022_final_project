@@ -60,11 +60,11 @@ double initialize_single(const char *filename, long total_size, int debug_info) 
     double t_io = 0; // returned value: total I/O time spent
 #ifdef DEBUG1
     if (debug_info > 0)
-        printf("DEBUG1 - initialize_serial - BEGIN\n");
+        printf("DEBUG1 - initialize_single - BEGIN\n");
 #endif
 #ifdef DEBUG2
     if (debug_info > 1)
-        printf("DEBUG2 - initialize_serial - values: ");
+        printf("DEBUG2 - initialize_single - values: ");
 #endif
     unsigned char *world;
     world = (unsigned char *) malloc(total_size * (total_size + 1) * sizeof(unsigned char));
@@ -93,7 +93,7 @@ double initialize_single(const char *filename, long total_size, int debug_info) 
     free(world);
 #ifdef DEBUG1
     if (debug_info > 0)
-        printf("DEBUG1 - initialize_serial - END\n");
+        printf("DEBUG1 - initialize_single - END\n");
 #endif
 
     return t_io;

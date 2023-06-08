@@ -260,20 +260,6 @@ double evolution_ordered_single(unsigned char *world, long world_size, int numbe
 }
 
 void evolution_ordered(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int csv_output, int debug_info) {
-    double t_io = 0; // total I/O time spent
-    double t_io_accumulator = 0; // total I/O time spent by processes > 0
-    double t_start = MPI_Wtime(); // start time
-// TODO: compute the correct size for MPI message allocation
-#define MAX_STRING_LENGTH 256
-    char message[MAX_STRING_LENGTH];
-    char *directoryname;
-    const char *file_extension_pgm = FILE_EXTENSION_PGM;
-    const char *file_extension_pgmpart = FILE_EXTENSION_PGMPART;
-    const char *partial_file_extension = file_extension_pgmpart; // default is partial chunk
-    unsigned char *world_local; // chunk of the world_local for each MPI process
-    long world_size = 0;
-    long local_size = 0;
-    int maxval = 0;
     MPI_Status mpi_status;
     MPI_Request mpi_request;
     int mpi_provided_thread_level;
@@ -285,6 +271,21 @@ void evolution_ordered(const char *filename, int number_of_steps, int number_of_
     int mpi_rank, mpi_size;
     MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
+
+    double t_io = 0; // total I/O time spent
+    double t_io_accumulator = 0; // total I/O time spent by processes > 0
+    double t_start = MPI_Wtime(); // start time
+    char *directoryname;
+    int directoryname_len = 0;
+    const char *file_extension_pgm = FILE_EXTENSION_PGM;
+    const char *file_extension_pgmpart = FILE_EXTENSION_PGMPART;
+    const char *partial_file_extension = file_extension_pgmpart; // default is partial chunk
+    // chunk of the world_local for each MPI process
+    unsigned char *world_local;
+    long world_size = 0;
+    long local_size = 0;
+    int maxval = 0;
+
     if (mpi_rank == 0 && csv_output == CSV_OUTPUT_FALSE)
         printf("Run request with EVOLUTION_ORDERED of %d steps of filename=%s saving snaps each %d steps\n", number_of_steps, filename, number_of_steps_between_file_dumps);
 #ifdef DEBUG1
@@ -301,10 +302,17 @@ void evolution_ordered(const char *filename, int number_of_steps, int number_of_
         // concatenate: directory name + steps + mpi_size + timestamp
         size_t string_with_num_size = strlen("_" EVOLUTION_TYPE "_00000_000_%Y-%m-%d_%H_%M_%S");
         char *string_with_num = malloc(string_with_num_size + 1);
+        if (string_with_num == NULL) {
+            perror("Unable to allocate buffer for string_with_num\n");
+            MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+        }
         sprintf(string_with_num, "_" EVOLUTION_TYPE "_%05d_%03d_%%Y-%%m-%%d_%%H_%%M_%%S", number_of_steps, mpi_size);
-
         size_t string_with_timestamp_size = strlen("_" EVOLUTION_TYPE "_00000_000_2023-02-13_23:37:01");
         char *string_with_timestamp = malloc(string_with_timestamp_size + 1);
+        if (string_with_timestamp == NULL) {
+            perror("Unable to allocate buffer for string_with_timestamp\n");
+            MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+        }
         struct tm *timenow;
         time_t now = time(NULL);
         timenow = gmtime(&now);
@@ -316,7 +324,12 @@ void evolution_ordered(const char *filename, int number_of_steps, int number_of_
             printf("DEBUG1 - evolution_ordered 1a - rank %d/%d, strlen(filename) + strlen(string_with_timestamp) + 1=%lu\n", mpi_rank, mpi_size, strlen(filename) + strlen(string_with_timestamp) + 1);
         }
 #endif
-        directoryname = malloc(strlen(filename) + strlen(string_with_timestamp) + 1);
+        directoryname_len = strlen(filename) + strlen(string_with_timestamp) + 1;
+        directoryname = malloc(directoryname_len);
+        if (directoryname == NULL) {
+            perror("Unable to allocate buffer for directoryname in evolution_ordered\n");
+            MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+        }
         strcpy(directoryname, filename);
         strcat(directoryname, string_with_timestamp);
         replace_char(directoryname, '/', '_');
@@ -325,23 +338,16 @@ void evolution_ordered(const char *filename, int number_of_steps, int number_of_
         if (debug_info > 0)
             printf("DEBUG1 - evolution_ordered 1b - rank %d/%d, strlen(directoryname)=%lu, directoryname=%s\n", mpi_rank, mpi_size, strlen(directoryname), directoryname);
 #endif
-        // Broadcast the string to all other processes
-        if (mpi_size > 1)
-            MPI_Bcast(directoryname, (int) strlen(directoryname) + 1, MPI_CHAR, 0, MPI_COMM_WORLD);
-        else
+        // if serial then avoid chunk files
+        if (mpi_size == 0)
             partial_file_extension = file_extension_pgm;
         t_io += make_directory(directoryname, debug_info);
-    } else {
-        // Other processes
-        MPI_Bcast(message, MAX_STRING_LENGTH, MPI_CHAR, 0, MPI_COMM_WORLD);
-        directoryname = malloc(strlen(message) + 1);
-        strcpy(directoryname, message);
-#ifdef DEBUG2
-        if (debug_info > 1)
-            printf("DEBUG2 - evolution_ordered 1c - rank %d/%d, LEN=%lu directoryname=%s, LEN=%lu message=%s\n", mpi_rank, mpi_size, strlen(directoryname), directoryname, strlen(message), message);
-#endif
     }
-    MPI_Barrier(MPI_COMM_WORLD);
+    // Broadcast the string to all other processes
+    MPI_Bcast(&directoryname_len, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    if (mpi_rank > 0)
+        directoryname = malloc(directoryname_len);
+    MPI_Bcast(directoryname, directoryname_len, MPI_CHAR, 0, MPI_COMM_WORLD);
 #ifdef DEBUG1
     if (debug_info > 0)
         printf("DEBUG1 - evolution_ordered 2 - rank %d/%d directoryname=%s\n", mpi_rank, mpi_size, directoryname);

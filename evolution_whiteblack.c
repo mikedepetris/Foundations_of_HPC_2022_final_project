@@ -250,7 +250,7 @@ void set_dead_or_alive_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mp
 
 void set_dead_or_alive_white_single(unsigned char *world, unsigned char *world_next, long world_size) {
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
-    printf("DEBUGA - set_dead_or_alive_white_serial 0 - world_size=%ld, world_size * (world_size + 1)=%ld\n", world_size, world_size * (world_size + 1));
+    printf("DEBUGA - set_dead_or_alive_white_single 0 - world_size=%ld, world_size * (world_size + 1)=%ld\n", world_size, world_size * (world_size + 1));
 #endif
 // copy last row [world_size] before first [0]
 // and first [1] after last [world_size + 1] (ghost rows)
@@ -263,7 +263,7 @@ void set_dead_or_alive_white_single(unsigned char *world, unsigned char *world_n
     //#pragma omp barrier
     for (long long i = 0; i < world_size * (world_size + 2); i++) {
         if (i % 16 == 0)
-            printf("DEBUGB - set_dead_or_alive_white_serial 1 - %08X: ", (unsigned int) i);
+            printf("DEBUGB - set_dead_or_alive_white_single 1 - %08X: ", (unsigned int) i);
         printf("%02X ", world[i]);
         if (i % 16 == 15)
             printf("\n");
@@ -280,7 +280,7 @@ void set_dead_or_alive_white_single(unsigned char *world, unsigned char *world_n
 
 void set_dead_or_alive_black_single(unsigned char *world, unsigned char *world_next, long world_size) {
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
-    printf("DEBUGA - set_dead_or_alive_black_serial 0 - world_size=%ld, world_size * (world_size + 1)=%ld\n", world_size, world_size * (world_size + 1));
+    printf("DEBUGA - set_dead_or_alive_black_single 0 - world_size=%ld, world_size * (world_size + 1)=%ld\n", world_size, world_size * (world_size + 1));
 #endif
 // copy last row [world_size] before first [0]
 // and first [1] after last [world_size + 1] (ghost rows)
@@ -293,7 +293,7 @@ void set_dead_or_alive_black_single(unsigned char *world, unsigned char *world_n
     //#pragma omp barrier
     for (long long i = 0; i < world_size * (world_size + 2); i++) {
         if (i % 16 == 0)
-            printf("DEBUGB - set_dead_or_alive_white_serial 1 - %08X: ", (unsigned int) i);
+            printf("DEBUGB - set_dead_or_alive_white_single 1 - %08X: ", (unsigned int) i);
         printf("%02X ", world[i]);
         if (i % 16 == 15)
             printf("\n");
@@ -374,7 +374,7 @@ double evolution_whiteblack_single(const int mpi_rank, const int mpi_size, MPI_S
     double t_io = 0; // returned value: total I/O time spent
 #ifdef DEBUG1
     if (debug_info > 0)
-        printf("DEBUG1 - evolution_whiteblack_serial - BEGIN - mpi_rank=%d/%d, world_size=%ld\n", mpi_rank, mpi_size, world_size);
+        printf("DEBUG1 - evolution_whiteblack_single - BEGIN - mpi_rank=%d/%d, world_size=%ld\n", mpi_rank, mpi_size, world_size);
 #endif
     unsigned char *world_local_actual = *world_local;
     // allocate memory for the next state
@@ -386,7 +386,7 @@ double evolution_whiteblack_single(const int mpi_rank, const int mpi_size, MPI_S
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
 #ifdef DEBUG2
         if (debug_info > 1)
-            printf("DEBUG2 - evolution_whiteblack_serial 0 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
+            printf("DEBUG2 - evolution_whiteblack_single 0 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
 #endif
 
         set_dead_or_alive_white_single(world_local_actual, world_local_next, world_size);
@@ -401,7 +401,7 @@ double evolution_whiteblack_single(const int mpi_rank, const int mpi_size, MPI_S
             t_io += file_pgm_write_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WHITEBLACK, image_filename_suffix, FILE_EXTENSION_PGM, mpi_rank, mpi_size, debug_info);
 #ifdef DEBUG2
             if (debug_info > 1)
-                printf("DEBUG2 - evolution_whiteblack_serial 1 - snap written mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
+                printf("DEBUG2 - evolution_whiteblack_single 1 - snap written mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
 #endif
         }
         // pointers swap to reuse allocated world_local and world_local_next for next iteration
@@ -410,39 +410,24 @@ double evolution_whiteblack_single(const int mpi_rank, const int mpi_size, MPI_S
         world_local_next = temp;
 #ifdef DEBUG2
         if (debug_info > 1)
-            printf("DEBUG2 - evolution_whiteblack_serial 2 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
+            printf("DEBUG2 - evolution_whiteblack_single 2 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
 #endif
     }
 #ifdef DEBUG2
     if (debug_info > 1)
-        printf("DEBUG2 - evolution_whiteblack_serial 3 - mpi_rank=%d/%d, omp_rank=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads());
+        printf("DEBUG2 - evolution_whiteblack_single 3 - mpi_rank=%d/%d, omp_rank=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads());
 #endif
     free(world_local_next_original);
     free(image_filename_suffix);
 #ifdef DEBUG2
     if (debug_info > 1)
-        printf("DEBUG2 - evolution_whiteblack_serial END - mpi_rank=%d/%d, omp_rank=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads());
+        printf("DEBUG2 - evolution_whiteblack_single END - mpi_rank=%d/%d, omp_rank=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads());
 #endif
 
     return t_io;
 }
 
 void evolution_whiteblack(const char *filename, int number_of_steps, int number_of_steps_between_file_dumps, int *argc, char **argv[], int csv_output, int debug_info) {
-    double t_io = 0; // total I/O time spent
-    double t_io_accumulator = 0; // total I/O time spent by processes > 0
-    double t_start = MPI_Wtime(); // start time
-// TODO: compute the correct size for MPI message allocation
-#define MAX_STRING_LENGTH 256
-    char message[MAX_STRING_LENGTH];
-    char *directoryname;
-    const char *file_extension_pgm = FILE_EXTENSION_PGM;
-    const char *file_extension_pgmpart = FILE_EXTENSION_PGMPART;
-    const char *partial_file_extension = file_extension_pgmpart; // default is partial chunk
-    // chunk of the world_local for each MPI process
-    unsigned char *world_local;
-    long world_size = 0;
-    long local_size = 0;
-    int maxval = 0;
     MPI_Status mpi_status;
     MPI_Request mpi_request;
     int mpi_provided_thread_level;
@@ -454,6 +439,21 @@ void evolution_whiteblack(const char *filename, int number_of_steps, int number_
     int mpi_rank, mpi_size;
     MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
+
+    double t_io = 0; // total I/O time spent
+    double t_io_accumulator = 0; // total I/O time spent by processes > 0
+    double t_start = MPI_Wtime(); // start time
+    char *directoryname;
+    int directoryname_len = 0;
+    const char *file_extension_pgm = FILE_EXTENSION_PGM;
+    const char *file_extension_pgmpart = FILE_EXTENSION_PGMPART;
+    const char *partial_file_extension = file_extension_pgmpart; // default is partial chunk
+    // chunk of the world_local for each MPI process
+    unsigned char *world_local;
+    long world_size = 0;
+    long local_size = 0;
+    int maxval = 0;
+
     if (mpi_rank == 0 && csv_output == CSV_OUTPUT_FALSE)
         printf("Run request with EVOLUTION_WHITEBLACK of %d steps of filename=%s saving snaps each %d steps\n", number_of_steps, filename, number_of_steps_between_file_dumps);
 #ifdef DEBUG1
@@ -470,10 +470,17 @@ void evolution_whiteblack(const char *filename, int number_of_steps, int number_
         // concatenate: directory name + steps + mpi_size + timestamp
         size_t string_with_num_size = strlen("_" EVOLUTION_TYPE "_00000_000_%Y-%m-%d_%H_%M_%S");
         char *string_with_num = malloc(string_with_num_size + 1);
+        if (string_with_num == NULL) {
+            perror("Unable to allocate buffer for string_with_num\n");
+            MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+        }
         sprintf(string_with_num, "_" EVOLUTION_TYPE "_%05d_%03d_%%Y-%%m-%%d_%%H_%%M_%%S", number_of_steps, mpi_size);
-
         size_t string_with_timestamp_size = strlen("_" EVOLUTION_TYPE "_00000_000_2023-02-13_23:37:01");
         char *string_with_timestamp = malloc(string_with_timestamp_size + 1);
+        if (string_with_timestamp == NULL) {
+            perror("Unable to allocate buffer for string_with_timestamp\n");
+            MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+        }
         struct tm *timenow;
         time_t now = time(NULL);
         timenow = gmtime(&now);
@@ -485,7 +492,12 @@ void evolution_whiteblack(const char *filename, int number_of_steps, int number_
             printf("DEBUG1 - evolution_whiteblack 1a - rank %d/%d, strlen(filename) + strlen(string_with_timestamp) + 1=%lu\n", mpi_rank, mpi_size, strlen(filename) + strlen(string_with_timestamp) + 1);
         }
 #endif
-        directoryname = malloc(strlen(filename) + strlen(string_with_timestamp) + 1);
+        directoryname_len = strlen(filename) + strlen(string_with_timestamp) + 1;
+        directoryname = malloc(directoryname_len);
+        if (directoryname == NULL) {
+            perror("Unable to allocate buffer for directoryname in evolution_whiteblack\n");
+            MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+        }
         strcpy(directoryname, filename);
         strcat(directoryname, string_with_timestamp);
         replace_char(directoryname, '/', '_');
@@ -494,23 +506,16 @@ void evolution_whiteblack(const char *filename, int number_of_steps, int number_
         if (debug_info > 0)
             printf("DEBUG1 - evolution_whiteblack 1b - rank %d/%d, strlen(directoryname)=%lu, directoryname=%s\n", mpi_rank, mpi_size, strlen(directoryname), directoryname);
 #endif
-        // Broadcast the string to all other processes
-        if (mpi_size > 1)
-            MPI_Bcast(directoryname, (int) strlen(directoryname) + 1, MPI_CHAR, 0, MPI_COMM_WORLD);
-        else
+        // if serial then avoid chunk files
+        if (mpi_size == 0)
             partial_file_extension = file_extension_pgm;
         t_io += make_directory(directoryname, debug_info);
-    } else {
-        // Other processes
-        MPI_Bcast(message, MAX_STRING_LENGTH, MPI_CHAR, 0, MPI_COMM_WORLD);
-        directoryname = malloc(strlen(message) + 1);
-        strcpy(directoryname, message);
-#ifdef DEBUG2
-        if (debug_info > 1)
-            printf("DEBUG2 - evolution_whiteblack 1c - rank %d/%d, LEN=%lu directoryname=%s, LEN=%lu message=%s\n", mpi_rank, mpi_size, strlen(directoryname), directoryname, strlen(message), message);
-#endif
     }
-    MPI_Barrier(MPI_COMM_WORLD);
+    // Broadcast the string to all other processes
+    MPI_Bcast(&directoryname_len, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    if (mpi_rank > 0)
+        directoryname = malloc(directoryname_len);
+    MPI_Bcast(directoryname, directoryname_len, MPI_CHAR, 0, MPI_COMM_WORLD);
 #ifdef DEBUG1
     if (debug_info > 0)
         printf("DEBUG1 - evolution_whiteblack 2 - rank %d/%d directoryname=%s\n", mpi_rank, mpi_size, directoryname);
