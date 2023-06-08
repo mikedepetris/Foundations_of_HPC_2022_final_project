@@ -337,7 +337,9 @@ double evolution_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_statu
 #endif
             // send back to all processes for parallel writing
             for (int i = 1; i < mpi_size; i++) {
-                MPI_Isend(&world[i * local_size * world_size], (int) (size * world_size), MPI_UNSIGNED_CHAR, i, iteration_step, MPI_COMM_WORLD, mpi_request);
+                size = world_size % mpi_size - i <= 0 ? (long) (world_size / mpi_size) : (long) (world_size / mpi_size) + 1;
+                long start = local_size * world_size + (i - 1) * size * world_size;
+                MPI_Isend(&world[start], (int) (size * world_size), MPI_UNSIGNED_CHAR, i, iteration_step, MPI_COMM_WORLD, mpi_request);
 #ifdef DEBUG2
                 if (debug_info > 1)
                     printf("DEBUG2 - evolution_wave_parallel 10 - *MPI* MPI_Isend mpi_rank=%d, size=%ld, local_size=%ld, world_size=%ld, destination=i=%d, tag=iteration_step=%d\n", mpi_rank, size, local_size, world_size, i, iteration_step);
@@ -565,7 +567,7 @@ void evolution_wave(const char *filename, int number_of_steps, int number_of_ste
             printf("DEBUG1 - evolution_wave 4a - rank %d/%d MPI_Bcast BEFORE strlen(directoryname)=%lu, directoryname=%s\n", mpi_rank, mpi_size, strlen(directoryname), directoryname);
 #endif
         // if serial then avoid chunk files
-        if (mpi_size == 0)
+        if (mpi_size == 1)
             partial_file_extension = file_extension_pgm;
         t_io += make_directory(directoryname, debug_info);
     }

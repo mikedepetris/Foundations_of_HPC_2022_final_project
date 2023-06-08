@@ -504,7 +504,7 @@ void evolution_whiteblack(const char *filename, int number_of_steps, int number_
             printf("DEBUG1 - evolution_whiteblack 1b - rank %d/%d, strlen(directoryname)=%lu, directoryname=%s\n", mpi_rank, mpi_size, strlen(directoryname), directoryname);
 #endif
         // if serial then avoid chunk files
-        if (mpi_size == 0)
+        if (mpi_size == 1)
             partial_file_extension = file_extension_pgm;
         t_io += make_directory(directoryname, debug_info);
     }
