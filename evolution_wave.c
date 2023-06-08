@@ -320,8 +320,8 @@ double evolution_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_statu
             // for testing purposes we want to be able to fix a point to compare results
             if (debug_info == 0) { // activate debug to set x,y to 0,0
 #endif
-                x = rand() % world_size;
-                y = rand() % world_size;
+            x = rand() % world_size;
+            y = rand() % world_size;
 #ifdef DEBUG1
             }
             if (debug_info > 0)
@@ -408,8 +408,8 @@ double evolution_wave_single(unsigned char *world, long world_size, int number_o
         // for testing purposes we want to be able to fix a point to compare results
         if (debug_info == 0) { // activate debug to set x,y to 0,0
 #endif
-            x = rand() % world_size;
-            y = rand() % world_size;
+        x = rand() % world_size;
+        y = rand() % world_size;
 #ifdef DEBUG1
         }
         if (debug_info > 0)
@@ -704,9 +704,9 @@ void evolution_wave(const char *filename, int number_of_steps, int number_of_ste
 #ifdef DEBUG1
             if (debug_info == 0)
 #endif
-                // delete chunks but keep them in debug mode
-                for (int i = 0; i < mpi_size; i++)
-                    remove(snap_chunks_fn[i]);
+            // delete chunks but keep them in debug mode
+            for (int i = 0; i < mpi_size; i++)
+                remove(snap_chunks_fn[i]);
             t_io += MPI_Wtime() - t_point;
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (debug_info > 1)
@@ -800,9 +800,9 @@ void evolution_wave(const char *filename, int number_of_steps, int number_of_ste
 #ifdef DEBUG1
         if (debug_info == 0)
 #endif
-            // delete chunks but keep them in debug mode
-            for (int i = 0; i < mpi_size; i++)
-                remove(final_chunks_fn[i]);
+        // delete chunks but keep them in debug mode
+        for (int i = 0; i < mpi_size; i++)
+            remove(final_chunks_fn[i]);
         t_io += MPI_Wtime() - t_point;
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)

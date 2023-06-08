@@ -330,7 +330,6 @@ double evolution_whiteblack_parallel(const int mpi_rank, const int mpi_size, MPI
         if (debug_info > 1)
             printf("DEBUG2 - evolution_whiteblack_parallel 0 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
 #endif
-
         set_dead_or_alive_white_parallel(mpi_rank, mpi_size, mpi_status, mpi_request, world_local_actual, world_local_next, world_size, local_size, iteration_step);
         // pointers swap to reuse allocated world_local and world_local_next for next iteration
         temp = world_local_actual;
@@ -388,7 +387,6 @@ double evolution_whiteblack_single(const int mpi_rank, const int mpi_size, MPI_S
         if (debug_info > 1)
             printf("DEBUG2 - evolution_whiteblack_single 0 - mpi_rank=%d/%d, omp_rank=%d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, omp_get_thread_num(), omp_get_max_threads(), iteration_step, number_of_steps);
 #endif
-
         set_dead_or_alive_white_single(world_local_actual, world_local_next, world_size);
         // pointers swap to reuse allocated world_local and world_local_next for next iteration
         temp = world_local_actual;
@@ -460,7 +458,6 @@ void evolution_whiteblack(const char *filename, int number_of_steps, int number_
     if (debug_info > 0)
         printf("DEBUG1 - evolution_whiteblack BEGIN - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);
 #endif
-
     if (mpi_rank == 0) {
         if (number_of_steps > MAX_NUMBER_OF_STEPS) {
             printf("Value %d is too big to be passed as -n <num> number of steps to be iterated, max admitted value is %d\n", number_of_steps, MAX_NUMBER_OF_STEPS);

@@ -91,8 +91,8 @@ void set_dead_or_alive_ordered_single(unsigned char *world, long world_size) {
 
 }
 
-double evolution_ordered_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, long world_size, long local_size, int number_of_steps, int number_of_steps_between_file_dumps
-                                  , const char *directoryname, int debug_info) {
+double evolution_ordered_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, long world_size, long local_size
+                                  , int number_of_steps, int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
     double t_io = 0; // returned value: total I/O time spent
     // TODO: better filenames
     char *image_filename_suffix = (char *) malloc(60);
@@ -136,22 +136,22 @@ double evolution_ordered_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_st
         }
         if (mpi_rank == 0) {
 #ifdef DEBUG2
-//            if (debug_info > 1) {
-//                long pos = local_size * world_size;
-//                printf("DEBUG2 - evolution_ordered_parallel 1SND - rank %d/%d, iteration_step=%d, world_local[0-31]=%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n"
-//                       , mpi_rank, mpi_size, iteration_step
-//                       , world_local[pos], world_local[pos + 1], world_local[pos + 2], world_local[pos + 3]
-//                       , world_local[pos + 4], world_local[pos + 5], world_local[pos + 6], world_local[pos + 7]
-//                       , world_local[pos + 8], world_local[pos + 9], world_local[pos + 10], world_local[pos + 11]
-//                       , world_local[pos + 12], world_local[pos + 13], world_local[pos + 14], world_local[pos + 15]
-//                       , world_local[pos + 16], world_local[pos + 17], world_local[pos + 18], world_local[pos + 19]
-//                       , world_local[pos + 20], world_local[pos + 21], world_local[pos + 22], world_local[pos + 23]
-//                       , world_local[pos + 24], world_local[pos + 25], world_local[pos + 26], world_local[pos + 27]
-//                       , world_local[pos + 28], world_local[pos + 29], world_local[pos + 30], world_local[pos + 31]
-//                );
-//            }
-            if (debug_info > 1)
-                printf("DEBUG2 - evolution_ordered_parallel 2 WAIT iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
+            //            if (debug_info > 1) {
+            //                long pos = local_size * world_size;
+            //                printf("DEBUG2 - evolution_ordered_parallel 1SND - rank %d/%d, iteration_step=%d, world_local[0-31]=%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n"
+            //                       , mpi_rank, mpi_size, iteration_step
+            //                       , world_local[pos], world_local[pos + 1], world_local[pos + 2], world_local[pos + 3]
+            //                       , world_local[pos + 4], world_local[pos + 5], world_local[pos + 6], world_local[pos + 7]
+            //                       , world_local[pos + 8], world_local[pos + 9], world_local[pos + 10], world_local[pos + 11]
+            //                       , world_local[pos + 12], world_local[pos + 13], world_local[pos + 14], world_local[pos + 15]
+            //                       , world_local[pos + 16], world_local[pos + 17], world_local[pos + 18], world_local[pos + 19]
+            //                       , world_local[pos + 20], world_local[pos + 21], world_local[pos + 22], world_local[pos + 23]
+            //                       , world_local[pos + 24], world_local[pos + 25], world_local[pos + 26], world_local[pos + 27]
+            //                       , world_local[pos + 28], world_local[pos + 29], world_local[pos + 30], world_local[pos + 31]
+            //                );
+            //            }
+                        if (debug_info > 1)
+                            printf("DEBUG2 - evolution_ordered_parallel 2 WAIT iteration=%d rank=%d, TAG_0=%d, TAG_1=%d\n", iteration_step, mpi_rank, TAG_0, TAG_1);
 #endif
             // first chunk: wait to receive first ghost row from last chunk and last ghost row from chunk 1
             MPI_Recv(world_local, (int) world_size, MPI_UNSIGNED_CHAR, mpi_size - 1, TAG_X, MPI_COMM_WORLD, mpi_status);
@@ -459,9 +459,9 @@ void evolution_ordered(const char *filename, int number_of_steps, int number_of_
 #ifdef DEBUG1
             if (debug_info == 0)
 #endif
-                // delete chunks but keep them in debug mode
-                for (int i = 0; i < mpi_size; i++)
-                    remove(snap_chunks_fn[i]);
+            // delete chunks but keep them in debug mode
+            for (int i = 0; i < mpi_size; i++)
+                remove(snap_chunks_fn[i]);
             t_io += MPI_Wtime() - t_point;
             free(snap_fn);
             for (int i = 0; i < mpi_size; i++)
@@ -523,9 +523,9 @@ void evolution_ordered(const char *filename, int number_of_steps, int number_of_
 #ifdef DEBUG1
         if (debug_info == 0)
 #endif
-            // delete chunks but keep them in debug mode
-            for (int i = 0; i < mpi_size; i++)
-                remove(final_chunks_fn[i]);
+        // delete chunks but keep them in debug mode
+        for (int i = 0; i < mpi_size; i++)
+            remove(final_chunks_fn[i]);
         t_io += MPI_Wtime() - t_point;
         free(final_fn);
         for (int i = 0; i < mpi_size; i++)

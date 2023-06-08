@@ -34,13 +34,14 @@ void calculate_sizes_indexes(int mpi_rank, int mpi_size, long world_size, long *
 //    fclose(image_file);
 //}
 
-double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_size, long local_size, const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension, int mpi_rank
-                            , int mpi_size, int debug_info) {
+double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_size, long local_size
+                            , const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension
+                            , int mpi_rank, int mpi_size, int debug_info) {
     double t_io = 0; // returned value: total I/O time spent
 #ifdef DEBUG1
     if (debug_info > 0)
-        printf("DEBUG1 - file_pgm_write_chunk - BEGIN - mpi_rank=%d/%d, directoryname=%s, image_filename_prefix=%s, image_filename_suffix=%s, image_filename_extension=%s\n", mpi_rank, mpi_size, directoryname, image_filename_prefix, image_filename_suffix
-               , image_filename_extension);
+        printf("DEBUG1 - file_pgm_write_chunk - BEGIN - mpi_rank=%d/%d, directoryname=%s, image_filename_prefix=%s, image_filename_suffix=%s, image_filename_extension=%s\n"
+               , mpi_rank, mpi_size, directoryname, image_filename_prefix, image_filename_suffix, image_filename_extension);
 #endif
 #ifdef DEBUG2
     if (debug_info > 1) {
@@ -140,13 +141,14 @@ double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_s
     return t_io;
 }
 
-double file_pgm_write_chunk_noghost(unsigned char *world_local, int maxval, long world_size, long local_size, const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension
+double file_pgm_write_chunk_noghost(unsigned char *world_local, int maxval, long world_size, long local_size
+                                    , const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension
                                     , int mpi_rank, int mpi_size, int debug_info) {
     double t_io = 0; // returned value: total I/O time spent
 #ifdef DEBUG1
     if (debug_info > 0)
-        printf("DEBUG1 - file_pgm_write_chunk_noghost - BEGIN - mpi_rank=%d/%d, directoryname=%s, image_filename_prefix=%s, image_filename_suffix=%s, image_filename_extension=%s\n", mpi_rank, mpi_size, directoryname, image_filename_prefix
-               , image_filename_suffix, image_filename_extension);
+        printf("DEBUG1 - file_pgm_write_chunk_noghost - BEGIN - mpi_rank=%d/%d, directoryname=%s, image_filename_prefix=%s, image_filename_suffix=%s, image_filename_extension=%s\n"
+               , mpi_rank, mpi_size, directoryname, image_filename_prefix, image_filename_suffix, image_filename_extension);
 #endif
     int color_depth = 1 + (maxval > 255);
 #ifdef DEBUG2
