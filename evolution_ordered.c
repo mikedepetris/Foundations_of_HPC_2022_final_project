@@ -570,7 +570,7 @@ void evolution_ordered(const char *filename, int number_of_steps, int number_of_
             printf("mpi=%d, omp=%d, total time=%f, I/O time=%f, I/O time t_io_accumulator=%f, t_io_accumulator mean=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator,
                     mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
         else
-            printf("%d,%d,%f,%f,%f,%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
+            printf("e0,%ld,%d,%d,%d,%d,%f,%f,%f,%f\n", world_size, number_of_steps, number_of_steps_between_file_dumps, mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
 #ifdef DEBUG1
     if (debug_info > 0)
         printf("DEBUG1 - evolution_ordered END - rank %d/%d, filename=%s\n", mpi_rank, mpi_size, filename);

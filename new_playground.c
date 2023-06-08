@@ -197,7 +197,7 @@ void new_playground(long world_size, const char *filename, int *argc, char ***ar
             printf("mpi=%d, omp=%d, total time=%f, I/O time=%f, I/O time t_io_accumulator=%f, t_io_accumulator mean=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator,
                     mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
         else
-            printf("%d,%d,%f,%f,%f,%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
+            printf("i,%ld,0,0,%d,%d,%f,%f,%f,%f\n", world_size, mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
     }
 #ifdef DEBUG1
     if (debug_info > 0)
