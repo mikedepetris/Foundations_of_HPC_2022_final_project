@@ -6,10 +6,10 @@
 #define GAMEOFLIFE_GAMEOFLIFE_H
 
 // activate debug code
-//#define DEBUG1
-//#define DEBUG2
-//#define DEBUG_ADVANCED_MALLOC_FREE
-//#define DEBUG_ADVANCED_B
+#define DEBUG1
+#define DEBUG2
+#define DEBUG_ADVANCED_MALLOC_FREE
+#define DEBUG_ADVANCED_B
 //#define DEBUG_ADVANCED_COORDINATES
 
 // max iterations, must print as nnnnn

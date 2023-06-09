@@ -10,6 +10,7 @@
 #include <string.h>
 #include <mpi.h>
 #include <time.h>
+#include <omp.h>
 #include "gameoflife.h"
 
 #define DEFAULT_WORLD_SIZE 10000
@@ -151,6 +152,9 @@ int get_unique_seed(int omp_rank, int mpi_rank) {
 }
 
 int main(int argc, char *argv[]) {
+    int seed = get_unique_seed(omp_get_thread_num(), strlen(argv[0]));
+    srand(seed);
+
     // Parse run-time arguments
     get_arguments_util(argc, argv);
 

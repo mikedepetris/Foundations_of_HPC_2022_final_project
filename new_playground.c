@@ -23,8 +23,6 @@ double initialize_parallel(long total_size, int mpi_size, int mpi_rank, int debu
     MPI_Barrier(MPI_COMM_WORLD);
 #pragma omp parallel default(none) shared(mpi_rank, total_size, chunk_size, world_chunk)
     {
-        int seed = get_unique_seed(omp_get_thread_num(), mpi_rank);
-        srand(seed);
 #pragma omp for schedule(static, 1)
         for (long long i = total_size; i < total_size * (chunk_size + 1); i++) {
             int val = rand() % 100;
@@ -66,8 +64,6 @@ double initialize_single(const char *filename, long total_size, int debug_info) 
     world = (unsigned char *) malloc(total_size * (total_size + 1) * sizeof(unsigned char));
 #pragma omp parallel default(none) shared(total_size, debug_info, world)
     {
-        int seed = get_unique_seed(omp_get_thread_num(), 0);
-        srand(seed);
 #pragma omp for schedule(static, 1)
         for (long long i = total_size; i < total_size * (total_size + 1); i++) {
             int val = rand() % 100;

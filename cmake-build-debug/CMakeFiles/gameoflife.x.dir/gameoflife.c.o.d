@@ -54,4 +54,8 @@ CMakeFiles/gameoflife.x.dir/gameoflife.c.o: \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
  /usr/include/strings.h /usr/lib/x86_64-linux-gnu/openmpi/include/mpi.h \
  /usr/lib/x86_64-linux-gnu/openmpi/include/mpi_portable_platform.h \
+ /usr/include/time.h /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
  /mnt/c/dev/HPC/gameoflife/gameoflife.h

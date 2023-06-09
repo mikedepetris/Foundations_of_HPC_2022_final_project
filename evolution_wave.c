@@ -245,6 +245,8 @@ double evolution_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_statu
         perror("Unable to allocate buffer for image_filename_suffix\n");
         MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
     }
+    unsigned char *world;
+    long size;
 
     // iterations has to be done by one single process
     // so make process 0 gather all data from the others
@@ -255,27 +257,13 @@ double evolution_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_statu
         if (debug_info > 1)
             printf("DEBUG2 - evolution_wave_parallel 2 - *MPI* MPI_Isend mpi_rank=%d, local_size=%ld, world_size=%ld, destination=0, tag=0\n", mpi_rank, local_size, world_size);
 #endif
-
-        // at the end of each iteration, receive back the local chunk to save it to file
-        for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
-#ifdef DEBUG2
-            if (debug_info > 1)
-                printf("DEBUG2 - evolution_wave_parallel 3 *MPI* BEFORE MPI_Recv destination=0 tag=iteration=%d mpi_rank=%d, local_size=%ld, world_size=%ld\n", iteration_step, mpi_rank, local_size, world_size);
-#endif
-            MPI_Recv(world_local, (int) (local_size * world_size), MPI_UNSIGNED_CHAR, 0, iteration_step, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-            // when needed save snapshot
-            if (iteration_step % number_of_steps_between_file_dumps == 0 && iteration_step < number_of_steps) {
-                sprintf(image_filename_suffix, "_%05d", iteration_step);
-                t_io += file_pgm_write_chunk_noghost(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
-            }
-        }
     } else {
         // process 0 allocates the full matrix and receives data from all other processes
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)
             printf("DEBUG2 - evolution_wave_parallel 4 - *alloc* *free* mpi_rank=%d/%d, unsigned char *world = (unsigned char *) malloc(world_size * world_size * sizeof(unsigned char)); BEFORE\n", mpi_rank, mpi_size);
 #endif
-        unsigned char *world = (unsigned char *) malloc(world_size * world_size * sizeof(unsigned char));
+        world = (unsigned char *) malloc(world_size * world_size * sizeof(unsigned char));
         if (world == NULL) {
             perror("Unable to allocate buffer for world\n");
             MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
@@ -286,7 +274,6 @@ double evolution_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_statu
             world[i] = world_local[i];
         // receive all other matrix data
         //long size = world_size / mpi_size;
-        long size;
         for (int i = 1; i < mpi_size; i++) {
             size = world_size % mpi_size - i <= 0 ? (long) (world_size / mpi_size) : (long) (world_size / mpi_size) + 1;
             long start = local_size * world_size + (i - 1) * size * world_size;
@@ -309,20 +296,25 @@ double evolution_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_statu
 
         //// save initial matrix copy as snapshot zero, we force mpi_size=1 to obtain a clean filename snapshot_00000
         //t_io += file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, SNAPSHOT_00000, "", FILE_EXTENSION_PGM, 0, 1, debug_info);
+    } // process 0
+#ifdef DEBUG2
+    if (debug_info > 1) printf("DEBUG2 - evolution_wave_parallel 12 iteration END\n");
+#endif
 
-        int seed = get_unique_seed(omp_get_thread_num(), mpi_rank);
-        srand(seed);
-        long x = 0, y = 0;
-        // all processes do the iterations, process 0 does the update and sends results
-        for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
+    // all processes iterate, but only process 0 does the update and sends results
+    // processes > 0 receive back the local chunk to save it to file
+    for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
+        if (mpi_rank == 0) {
             // 8. [ OPTIONAL ] implement the evolution with a square-wave signal from a grid
             //                 point randomly chosen at every time-step.
+            long x = 0, y = 0;
 #ifdef DEBUG1
             // for testing purposes we want to be able to fix a point to compare results
             if (debug_info == 0) { // activate debug to set x,y to 0,0
 #endif
-            x = rand() % world_size;
-            y = rand() % world_size;
+                x = rand() % world_size;
+                y = rand() % world_size;
+                //printf("DEBUG2 - evolution_wave_parallel 8a start point x=%ld, y=%ld END\n", x, y);
 #ifdef DEBUG1
             }
             if (debug_info > 0)
@@ -331,11 +323,11 @@ double evolution_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_statu
 
             // square wave update, only serial
             set_dead_or_alive_wave_single(world, world_size, iteration_step, x, y, debug_info);
-
 #ifdef DEBUG2
             if (debug_info > 1)
                 printf("DEBUG2 - evolution_wave_parallel 9 AFTER UPDATE iteration=%d rank=%d\n", iteration_step, mpi_rank);
 #endif
+
             // send back to all processes for parallel writing
             for (int i = 1; i < mpi_size; i++) {
                 size = world_size % mpi_size - i <= 0 ? (long) (world_size / mpi_size) : (long) (world_size / mpi_size) + 1;
@@ -346,22 +338,33 @@ double evolution_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_statu
                     printf("DEBUG2 - evolution_wave_parallel 10 - *MPI* MPI_Isend mpi_rank=%d, size=%ld, local_size=%ld, world_size=%ld, destination=i=%d, tag=iteration_step=%d\n", mpi_rank, size, local_size, world_size, i, iteration_step);
 #endif
             }
-            // when needed save snapshot
-            if (iteration_step % number_of_steps_between_file_dumps == 0 && iteration_step < number_of_steps) {
-                sprintf(image_filename_suffix, "_%05d", iteration_step);
-                t_io += file_pgm_write_chunk_noghost(world, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
-            }
+        } // RANK = 0
 #ifdef DEBUG2
-            if (debug_info > 1) printf("DEBUG2 - evolution_wave_parallel 11 end iteration cycle\n");
+        if (debug_info > 1) printf("DEBUG2 - evolution_wave_parallel 11 end iteration cycle\n");
 #endif
+        MPI_Barrier(MPI_COMM_WORLD);
+        if (mpi_rank > 0) {
+#ifdef DEBUG2
+            if (debug_info > 1)
+                printf("DEBUG2 - evolution_wave_parallel 3 *MPI* BEFORE MPI_Recv destination=0 tag=iteration=%d mpi_rank=%d, local_size=%ld, world_size=%ld\n", iteration_step, mpi_rank, local_size, world_size);
+#endif
+            MPI_Recv(world_local, (int) (local_size * world_size), MPI_UNSIGNED_CHAR, 0, iteration_step, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         }
-        // copy values back to set final result
+        MPI_Barrier(MPI_COMM_WORLD);
+        // when needed save snapshot
+        if (iteration_step % number_of_steps_between_file_dumps == 0 && iteration_step < number_of_steps) {
+            sprintf(image_filename_suffix, "_%05d", iteration_step);
+            if (mpi_rank == 0)
+                t_io += file_pgm_write_chunk_noghost(world, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
+            else
+                t_io += file_pgm_write_chunk_noghost(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
+        }
+    }
+    // copy values back to set final result RANK 0
+    if (mpi_rank == 0)
         for (long long i = 0; i < local_size * world_size; i++)
             world_local[i] = world[i];
-    } // process 0
-#ifdef DEBUG2
-    if (debug_info > 1) printf("DEBUG2 - evolution_wave_parallel 12 iteration END\n");
-#endif
+
     //free(image_filename_prefix);
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
     if (debug_info > 1)
@@ -401,8 +404,6 @@ double evolution_wave_single(unsigned char *world, long world_size, int number_o
         MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
     }
 
-    int seed = get_unique_seed(omp_get_thread_num(), 0);
-    srand(seed);
     long x = 0, y = 0;
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
         // 8. [ OPTIONAL ] implement the evolution with a square-wave signal from a grid
@@ -411,8 +412,9 @@ double evolution_wave_single(unsigned char *world, long world_size, int number_o
         // for testing purposes we want to be able to fix a point to compare results
         if (debug_info == 0) { // activate debug to set x,y to 0,0
 #endif
-        x = rand() % world_size;
-        y = rand() % world_size;
+            x = rand() % world_size;
+            y = rand() % world_size;
+            //printf("DEBUG1 - evolution_wave_single 1a start point x=%ld, y=%ld END\n", x, y);
 #ifdef DEBUG1
         }
         if (debug_info > 0)
@@ -708,9 +710,9 @@ void evolution_wave(const char *filename, int number_of_steps, int number_of_ste
 #ifdef DEBUG1
             if (debug_info == 0)
 #endif
-            // delete chunks but keep them in debug mode
-            for (int i = 0; i < mpi_size; i++)
-                remove(snap_chunks_fn[i]);
+                // delete chunks but keep them in debug mode
+                for (int i = 0; i < mpi_size; i++)
+                    remove(snap_chunks_fn[i]);
             t_io += MPI_Wtime() - t_point;
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
             if (debug_info > 1)
@@ -804,9 +806,9 @@ void evolution_wave(const char *filename, int number_of_steps, int number_of_ste
 #ifdef DEBUG1
         if (debug_info == 0)
 #endif
-        // delete chunks but keep them in debug mode
-        for (int i = 0; i < mpi_size; i++)
-            remove(final_chunks_fn[i]);
+            // delete chunks but keep them in debug mode
+            for (int i = 0; i < mpi_size; i++)
+                remove(final_chunks_fn[i]);
         t_io += MPI_Wtime() - t_point;
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
         if (debug_info > 1)
