@@ -211,8 +211,8 @@ void set_dead_or_alive_static_single(unsigned char *world, unsigned char *world_
     }
 }
 
-double evolution_static_parallel(const int mpi_rank, const int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char **world_local, const long world_size, const long local_size, const int number_of_steps,
-                                 const int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
+double evolution_static_parallel(const int mpi_rank, const int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char **world_local, const long world_size, const long local_size, const int number_of_steps
+                                 , const int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
     double t_io = 0; // returned value: total I/O time spent
 #ifdef DEBUG1
     if (debug_info > 0)
@@ -270,8 +270,8 @@ double evolution_static_parallel(const int mpi_rank, const int mpi_size, MPI_Sta
     return t_io;
 }
 
-double evolution_static_single(const int mpi_rank, const int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char **world_local, const long world_size, const long local_size, const int number_of_steps,
-                               const int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
+double evolution_static_single(const int mpi_rank, const int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char **world_local, const long world_size, const long local_size, const int number_of_steps
+                               , const int number_of_steps_between_file_dumps, const char *directoryname, int debug_info) {
     double t_io = 0; // returned value: total I/O time spent
 #ifdef DEBUG1
     if (debug_info > 0)
@@ -635,7 +635,7 @@ void evolution_static(const char *filename, int number_of_steps, int number_of_s
     if (mpi_rank == 0)
         if (csv_output == CSV_OUTPUT_FALSE)
             printf("mpi=%d, omp=%d, total time=%f, I/O time=%f, I/O time t_io_accumulator=%f, t_io_accumulator mean=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator,
-                   mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
+                    mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
         else
             printf("e1,%ld,%d,%d,%d,%d,%f,%f,%f,%f\n", world_size, number_of_steps, number_of_steps_between_file_dumps, mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
 #ifdef DEBUG1

@@ -310,8 +310,8 @@ double evolution_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_statu
         //// save initial matrix copy as snapshot zero, we force mpi_size=1 to obtain a clean filename snapshot_00000
         //t_io += file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, SNAPSHOT_00000, "", FILE_EXTENSION_PGM, 0, 1, debug_info);
 
-        time_t t;
-        srand((unsigned) time(&t));
+        int seed = get_unique_seed(omp_get_thread_num(), mpi_rank);
+        srand(seed);
         long x = 0, y = 0;
         // all processes do the iterations, process 0 does the update and sends results
         for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
@@ -401,8 +401,8 @@ double evolution_wave_single(unsigned char *world, long world_size, int number_o
         MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
     }
 
-    time_t t;
-    srand((unsigned) time(&t));
+    int seed = get_unique_seed(omp_get_thread_num(), 0);
+    srand(seed);
     long x = 0, y = 0;
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
         // 8. [ OPTIONAL ] implement the evolution with a square-wave signal from a grid

@@ -9,10 +9,6 @@
 
 #define IMAGE_FILENAME_PREFIX_INIT "init"
 
-int get_unique_seed(int omp_rank, int mpi_rank) {
-    return (int) (123 + omp_rank * mpi_rank * 7 + 8 * omp_rank * omp_rank + 9 * mpi_rank * mpi_rank * time(NULL));
-}
-
 double initialize_parallel(long total_size, int mpi_size, int mpi_rank, int debug_info) {
     double t_io = 0; // returned value: total I/O time spent
     long chunk_size; // chunk of rows of each MPI task: world_chunk rows / number of threads (mpi_size)

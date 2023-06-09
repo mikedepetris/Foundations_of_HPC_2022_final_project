@@ -9,6 +9,7 @@
 #include <getopt.h>
 #include <string.h>
 #include <mpi.h>
+#include <time.h>
 #include "gameoflife.h"
 
 #define DEFAULT_WORLD_SIZE 10000
@@ -123,6 +124,30 @@ void mpi_init(int *argc, char ***argv, int *mpi_rank, int *mpi_size) {
     MPI_Init(argc, argv);
     MPI_Comm_rank(MPI_COMM_WORLD, mpi_rank);
     MPI_Comm_size(MPI_COMM_WORLD, mpi_size);
+}
+
+//void replace_str(char *string, const char *find, const char *replaceWith) {
+//    if (strstr(string, find) != NULL) {
+//        char *temporaryString = malloc(strlen(strstr(string, find) + strlen(find)) + 1);
+//        strcpy(temporaryString, strstr(string, find) + strlen(find));    //Create a string with what's after the replaced part
+//        *strstr(string, find) = '\0';    //Take away the part to replace and the part after it in the initial string
+//        strcat(string, replaceWith);    //Concat the first part of the string with the part to replace with
+//        strcat(string, temporaryString);    //Concat the first part of the string with the part after the replaced part
+//        free(temporaryString);    //Free the memory to avoid memory leaks
+//    }
+//}
+
+char *replace_char(char *str, char find, char replace) {
+    char *current_pos = strchr(str, find);
+    while (current_pos) {
+        *current_pos = replace;
+        current_pos = strchr(current_pos, find);
+    }
+    return str;
+}
+
+int get_unique_seed(int omp_rank, int mpi_rank) {
+    return (int) (123 + omp_rank * mpi_rank * 7 + 8 * omp_rank * omp_rank + 9 * mpi_rank * mpi_rank * time(NULL));
 }
 
 int main(int argc, char *argv[]) {
@@ -244,24 +269,4 @@ int main(int argc, char *argv[]) {
     if (debug_info > 1)
         printf("DEBUG2 - END\n");
 #endif
-}
-
-//void replace_str(char *string, const char *find, const char *replaceWith) {
-//    if (strstr(string, find) != NULL) {
-//        char *temporaryString = malloc(strlen(strstr(string, find) + strlen(find)) + 1);
-//        strcpy(temporaryString, strstr(string, find) + strlen(find));    //Create a string with what's after the replaced part
-//        *strstr(string, find) = '\0';    //Take away the part to replace and the part after it in the initial string
-//        strcat(string, replaceWith);    //Concat the first part of the string with the part to replace with
-//        strcat(string, temporaryString);    //Concat the first part of the string with the part after the replaced part
-//        free(temporaryString);    //Free the memory to avoid memory leaks
-//    }
-//}
-
-char *replace_char(char *str, char find, char replace) {
-    char *current_pos = strchr(str, find);
-    while (current_pos) {
-        *current_pos = replace;
-        current_pos = strchr(current_pos, find);
-    }
-    return str;
 }
