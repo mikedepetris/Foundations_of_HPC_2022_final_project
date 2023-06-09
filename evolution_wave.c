@@ -263,7 +263,8 @@ double evolution_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_statu
                 printf("DEBUG2 - evolution_wave_parallel 3 *MPI* BEFORE MPI_Recv destination=0 tag=iteration=%d mpi_rank=%d, local_size=%ld, world_size=%ld\n", iteration_step, mpi_rank, local_size, world_size);
 #endif
             MPI_Recv(world_local, (int) (local_size * world_size), MPI_UNSIGNED_CHAR, 0, iteration_step, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-            if (iteration_step % number_of_steps_between_file_dumps == 0) {
+            // when needed save snapshot
+            if (iteration_step % number_of_steps_between_file_dumps == 0 && iteration_step < number_of_steps) {
                 sprintf(image_filename_suffix, "_%05d", iteration_step);
                 t_io += file_pgm_write_chunk_noghost(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
             }
@@ -345,8 +346,8 @@ double evolution_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_statu
                     printf("DEBUG2 - evolution_wave_parallel 10 - *MPI* MPI_Isend mpi_rank=%d, size=%ld, local_size=%ld, world_size=%ld, destination=i=%d, tag=iteration_step=%d\n", mpi_rank, size, local_size, world_size, i, iteration_step);
 #endif
             }
-            //MPI_Barrier(MPI_COMM_WORLD);
-            if (iteration_step % number_of_steps_between_file_dumps == 0) {
+            // when needed save snapshot
+            if (iteration_step % number_of_steps_between_file_dumps == 0 && iteration_step < number_of_steps) {
                 sprintf(image_filename_suffix, "_%05d", iteration_step);
                 t_io += file_pgm_write_chunk_noghost(world, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_WAVE, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
             }
@@ -425,7 +426,8 @@ double evolution_wave_single(unsigned char *world, long world_size, int number_o
         if (debug_info > 1)
             printf("DEBUG2 - evolution_wave_single 3 AFTER UPDATE iteration=%d\n", iteration_step);
 #endif
-        if (iteration_step % number_of_steps_between_file_dumps == 0) {
+        // when needed save snapshot
+        if (iteration_step % number_of_steps_between_file_dumps == 0 && iteration_step < number_of_steps) {
             sprintf(image_filename_suffix, "_%05d", iteration_step);
             t_io += file_pgm_write_chunk_noghost(world, 255, world_size, world_size, directoryname, image_filename_prefix, image_filename_suffix, FILE_EXTENSION_PGM, 0, 1, debug_info);
         }
@@ -634,7 +636,7 @@ void evolution_wave(const char *filename, int number_of_steps, int number_of_ste
         //DEBUG2 - evolution_wave 5 - MERGE CHUNKS rank 0/2, pattern_random16.pgm_wave_2023-05-16_08_45_36/final_wave002_000.pgmpart
         // join chunks of all iteration steps
         for (int iteration_step = number_of_steps_between_file_dumps;
-             iteration_step <= number_of_steps; iteration_step += number_of_steps_between_file_dumps) {
+             iteration_step < number_of_steps; iteration_step += number_of_steps_between_file_dumps) {
 #ifdef DEBUG2
             if (debug_info > 1) {
                 printf("DEBUG2 - evolution_wave 13 - rank %d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, iteration_step, number_of_steps);

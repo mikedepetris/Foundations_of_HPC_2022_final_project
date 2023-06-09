@@ -225,7 +225,8 @@ double evolution_ordered_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_st
             MPI_Isend(&world_local[(local_size) * world_size], (int) world_size, MPI_UNSIGNED_CHAR, 0, TAG_X, MPI_COMM_WORLD, mpi_request);
         }
         MPI_Barrier(MPI_COMM_WORLD);
-        if (iteration_step % number_of_steps_between_file_dumps == 0) {
+        // when needed save snapshot
+        if (iteration_step % number_of_steps_between_file_dumps == 0 && iteration_step < number_of_steps) {
             sprintf(image_filename_suffix, "_%05d", iteration_step);
             t_io += file_pgm_write_chunk(world_local, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_ORDERED, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
         }
@@ -249,7 +250,8 @@ double evolution_ordered_single(unsigned char *world, long world_size, int numbe
 
     for (int iteration_step = 1; iteration_step <= number_of_steps; iteration_step++) {
         set_dead_or_alive_ordered_single(world, world_size);
-        if (iteration_step % number_of_steps_between_file_dumps == 0) {
+        // when needed save snapshot
+        if (iteration_step % number_of_steps_between_file_dumps == 0 && iteration_step < number_of_steps) {
             sprintf(image_filename_suffix, "_%05d", iteration_step);
             t_io += file_pgm_write_chunk(world, 255, world_size, world_size, directoryname, image_filename_prefix, image_filename_suffix, FILE_EXTENSION_PGM, 0, 1, debug_info);
         }
@@ -403,7 +405,7 @@ void evolution_ordered(const char *filename, int number_of_steps, int number_of_
         //DEBUG2 - evolution_ordered 5 - MERGE CHUNKS rank 0/2, pattern_random16.pgm_ordered_2023-05-16_08_45_36/final_ordered002_000.pgmpart
         // join chunks of all iteration steps
         for (int iteration_step = number_of_steps_between_file_dumps;
-             iteration_step <= number_of_steps; iteration_step += number_of_steps_between_file_dumps) {
+             iteration_step < number_of_steps; iteration_step += number_of_steps_between_file_dumps) {
 #ifdef DEBUG2
             if (debug_info > 1) {
                 printf("DEBUG2 - evolution_ordered 5a0 - rank %d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, iteration_step, number_of_steps);

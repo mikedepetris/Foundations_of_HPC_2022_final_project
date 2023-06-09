@@ -235,7 +235,7 @@ double evolution_static_parallel(const int mpi_rank, const int mpi_size, MPI_Sta
 #endif
         set_dead_or_alive_static_parallel(mpi_rank, mpi_size, mpi_status, mpi_request, world_local_actual, world_local_next, world_size, local_size, iteration_step);
         // when needed save snapshot
-        if (iteration_step % number_of_steps_between_file_dumps == 0) {
+        if (iteration_step % number_of_steps_between_file_dumps == 0 && iteration_step < number_of_steps) {
             sprintf(image_filename_suffix, "_%05d", iteration_step);
             t_io += file_pgm_write_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, image_filename_suffix, FILE_EXTENSION_PGMPART, mpi_rank, mpi_size, debug_info);
 #ifdef DEBUG2
@@ -295,7 +295,7 @@ double evolution_static_single(const int mpi_rank, const int mpi_size, MPI_Statu
 #pragma omp master
             {
                 // when needed save snapshot
-                if (iteration_step % number_of_steps_between_file_dumps == 0) {
+                if (iteration_step % number_of_steps_between_file_dumps == 0 && iteration_step < number_of_steps) {
                     sprintf(image_filename_suffix, "_%05d", iteration_step);
                     t_io += file_pgm_write_chunk(world_local_next, 255, world_size, local_size, directoryname, IMAGE_FILENAME_PREFIX_SNAP_STATIC, image_filename_suffix, FILE_EXTENSION_PGM, mpi_rank, mpi_size, debug_info);
 #ifdef DEBUG2
@@ -476,7 +476,7 @@ void evolution_static(const char *filename, int number_of_steps, int number_of_s
         //DEBUG2 - evolution_static 5 - MERGE CHUNKS rank 0/2, pattern_random16.pgm_static_2023-05-16_08_45_36/final_static002_000.pgmpart
         // join chunks of all iteration steps
         for (int iteration_step = number_of_steps_between_file_dumps;
-             iteration_step <= number_of_steps; iteration_step += number_of_steps_between_file_dumps) {
+             iteration_step < number_of_steps; iteration_step += number_of_steps_between_file_dumps) {
 #ifdef DEBUG2
             if (debug_info > 1) {
                 printf("DEBUG2 - evolution_static 5a0 - rank %d/%d, iteration_step=%d/%d\n", mpi_rank, mpi_size, iteration_step, number_of_steps);
