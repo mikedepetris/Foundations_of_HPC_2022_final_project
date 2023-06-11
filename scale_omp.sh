@@ -1,6 +1,7 @@
 #!/bin/bash
 #SBATCH --no-requeue
-#SBATCH --job-name="omp_scale_$1_$2"
+# set the job name with "sbatch -J thejobname <script>.sh [arguments]
+#SBATCH --job-name="omp_scale"
 #SBATCH --get-user-env
 #SBATCH --chdir=/u/dssc/mdepet00/assignment/exercise1
 #SBATCH --partition=EPYC
