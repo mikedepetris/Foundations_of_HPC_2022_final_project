@@ -55,7 +55,7 @@ for REP in {1..5}; do
       done
     else
       for threads in {1..64}; do
-        echo scalability -e"$TYPE" "$SIZE" "$threads"
+        echo rep $REP scalability -e"$TYPE" "$SIZE" "$threads"
         export OMP_NUM_THREADS=$threads
         {
           mpirun -n 1 --map-by socket gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
