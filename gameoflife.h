@@ -6,6 +6,7 @@
 #define GAMEOFLIFE_GAMEOFLIFE_H
 
 // activate debug code
+//#define DEBUGOMP
 //#define DEBUG1
 //#define DEBUG2
 //#define DEBUG_ADVANCED_MALLOC_FREE

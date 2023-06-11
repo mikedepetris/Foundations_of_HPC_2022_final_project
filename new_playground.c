@@ -64,8 +64,16 @@ double initialize_single(const char *filename, long total_size, int debug_info) 
     world = (unsigned char *) malloc(total_size * (total_size + 1) * sizeof(unsigned char));
 #pragma omp parallel default(none) shared(total_size, debug_info, world)
     {
+#ifdef DEBUGOMP
+        int my_thread_id = omp_get_thread_num();
+        printf("DEBUGOMP - initialize_single - thread num %d\n", my_thread_id);
+#endif
 #pragma omp for schedule(static, 1)
         for (long long i = total_size; i < total_size * (total_size + 1); i++) {
+#ifdef DEBUGOMP
+            int my_thread_id = omp_get_thread_num();
+            printf("DEBUGOMP - initialize_single - i=%lld, thread num %d\n", i, my_thread_id);
+#endif
             int val = rand() % 100;
 #ifdef DEBUG2
             if (debug_info > 1)
