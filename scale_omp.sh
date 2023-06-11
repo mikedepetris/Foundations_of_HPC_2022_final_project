@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --no-requeue
-#SBATCH --job-name="omp_scale"
+#SBATCH --job-name="omp_scale_$1_$2"
 #SBATCH --get-user-env
 #SBATCH --chdir=/u/dssc/mdepet00/assignment/exercise1
 #SBATCH --partition=EPYC
@@ -12,7 +12,16 @@
 #SBATCH --output=scale_omp_epyc_job_%j.out
 
 #SIZE=100
-STEPS=1000
+STEPS=100
+TYPE="i"
+if [ $# == 1 ]; then
+  TYPE="$1"
+fi
+SNAPAT=0
+if [ $# == 2 ]; then
+  SNAPAT="$2"
+fi
+echo "Selected type of execution: $TYPE"
 
 module load architecture/AMD
 module load openMPI/4.1.4/gnu/12.2.1
@@ -35,21 +44,25 @@ echo scalability begin
 
 for SIZE in 10000 1000 100; do
 
-#  for threads in {1..64}; do
-#    echo scalability -i "$SIZE" "$threads"
-#    export OMP_NUM_THREADS=$threads
-#    mpirun -n 1 --map-by node gameoflife.x -i -k $SIZE -f pattern_random$SIZE -q >>"$csvname"
-#  done
+if [ "$TYPE" == i ]; then
   for threads in {1..64}; do
-    echo scalability -e "$SIZE" "$threads"
+    echo scalability -i "$SIZE" "$threads"
+    export OMP_NUM_THREADS=$threads
+    mpirun -n 1 --map-by node gameoflife.x -i -k $SIZE -f pattern_random$SIZE -q >>"$csvname"
+  done
+else
+  for threads in {1..64}; do
+    echo scalability -e"$TYPE" "$SIZE" "$threads"
     export OMP_NUM_THREADS=$threads
     {
-      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 0 -s 0 -q
+      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
+#      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 0 -s 0 -q
 #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 1 -s 0 -q
 #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 2 -s 0 -q
 #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 3 -s 0 -q
     } >>"$csvname"
   done
+fi
 
 done
 
