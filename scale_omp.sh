@@ -13,13 +13,14 @@
 #SBATCH --output=scale_omp_epyc_job_%j.out
 
 #SIZE=100
-STEPS=100
 TYPE="i"
+STEPS=100
+SNAPAT=0
 if [ $# == 1 ]; then
   TYPE="$1"
 fi
-SNAPAT=0
 if [ $# == 2 ]; then
+  TYPE="$1"
   SNAPAT="$2"
 fi
 echo "Selected type of execution: $TYPE"
