@@ -1,0 +1,39 @@
+Selected type of execution: 0
+make: Nothing to be done for 'all'.
+scale_omp_epyc_epyc001.orfeo.hpc_2023-06-12_23-23-42.csv epyc001.orfeo.hpc 2023-06-12_23-23-42
+scalability begin
+rep 1 scalability -e0 10000 1
+rep 1 scalability -e0 10000 2
+rep 1 scalability -e0 10000 3
+rep 1 scalability -e0 10000 4
+rep 1 scalability -e0 10000 5
+rep 1 scalability -e0 10000 6
+rep 1 scalability -e0 10000 7
+rep 1 scalability -e0 10000 8
+rep 1 scalability -e0 10000 9
+rep 1 scalability -e0 10000 10
+rep 1 scalability -e0 10000 11
+rep 1 scalability -e0 10000 12
+rep 1 scalability -e0 10000 13
+rep 1 scalability -e0 10000 14
+ERROR in file_pgm_write_chunk - the file could not be opened
+: No such file or directory
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 1.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+rep 1 scalability -e0 10000 15
+rep 1 scalability -e0 10000 16
+rep 1 scalability -e0 10000 17
+rep 1 scalability -e0 10000 18
+rep 1 scalability -e0 10000 19
+rep 1 scalability -e0 10000 20
+rep 1 scalability -e0 10000 21
+rep 1 scalability -e0 10000 22
+rep 1 scalability -e0 10000 23
+rep 1 scalability -e0 10000 24
+rep 1 scalability -e0 10000 25
