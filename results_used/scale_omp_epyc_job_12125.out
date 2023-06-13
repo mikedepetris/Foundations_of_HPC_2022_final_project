@@ -1,0 +1,86 @@
+Selected type of execution: 0
+make: Nothing to be done for 'all'.
+scale_omp_epyc_epyc002_2023-06-13_01-03-33.csv epyc002 2023-06-13_01-03-33
+scalability begin
+rep 1 scalability -e0 10000 26
+rep 1 scalability -e0 10000 27
+rep 1 scalability -e0 10000 28
+rep 1 scalability -e0 10000 29
+rep 1 scalability -e0 10000 30
+rep 1 scalability -e0 10000 31
+rep 1 scalability -e0 10000 32
+rep 1 scalability -e0 10000 33
+rep 1 scalability -e0 10000 34
+rep 1 scalability -e0 10000 35
+rep 2 scalability -e0 10000 26
+rep 2 scalability -e0 10000 27
+rep 2 scalability -e0 10000 28
+mca_fbtl_posix_preadv: error in (p)read(v):Level 3 reset
+rep 2 scalability -e0 10000 29
+rep 2 scalability -e0 10000 30
+rep 2 scalability -e0 10000 31
+rep 2 scalability -e0 10000 32
+rep 2 scalability -e0 10000 33
+rep 2 scalability -e0 10000 34
+rep 2 scalability -e0 10000 35
+rep 3 scalability -e0 10000 26
+rep 3 scalability -e0 10000 27
+rep 3 scalability -e0 10000 28
+rep 3 scalability -e0 10000 29
+rep 3 scalability -e0 10000 30
+rep 3 scalability -e0 10000 31
+ERROR: wrong situation with more processes than domain decomposition slices
+: No such file or directory
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 1.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+rep 3 scalability -e0 10000 32
+ERROR: wrong situation with more processes than domain decomposition slices
+: No such file or directory
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 1.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+rep 3 scalability -e0 10000 33
+ERROR: wrong situation with more processes than domain decomposition slices
+: No such file or directory
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 1.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+rep 3 scalability -e0 10000 34
+ERROR: wrong situation with more processes than domain decomposition slices
+: No such file or directory
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 1.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+rep 3 scalability -e0 10000 35
+ERROR: wrong situation with more processes than domain decomposition slices
+: No such file or directory
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 1.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+scalability end
