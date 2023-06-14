@@ -1,0 +1,30 @@
+Selected type of execution: 2
+make: Nothing to be done for 'all'.
+scale_mpi_epyc_epyc004_2023-06-13_22-39-51.csv epyc004 2023-06-13_22-39-51
+MPI scalability begin
+rep 1 scalability -e2 10000 28
+rep 1 scalability -e2 10000 29
+rep 1 scalability -e2 10000 30
+rep 1 scalability -e2 10000 31
+rep 1 scalability -e2 10000 32
+rep 1 scalability -e2 10000 33
+rep 1 scalability -e2 10000 34
+rep 1 scalability -e2 10000 35
+rep 1 scalability -e2 10000 36
+rep 1 scalability -e2 10000 37
+rep 1 scalability -e2 10000 38
+rep 1 scalability -e2 10000 39
+rep 1 scalability -e2 10000 40
+rep 1 scalability -e2 10000 41
+rep 1 scalability -e2 10000 42
+rep 1 scalability -e2 10000 43
+rep 1 scalability -e2 10000 44
+rep 1 scalability -e2 10000 45
+rep 1 scalability -e2 10000 46
+rep 1 scalability -e2 10000 47
+rep 1 scalability -e2 10000 48
+rep 1 scalability -e2 10000 49
+rep 1 scalability -e2 10000 50
+rep 1 scalability -e2 10000 51
+rep 1 scalability -e2 10000 52
+slurmstepd: error: *** JOB 12283 ON epyc004 CANCELLED AT 2023-06-14T00:40:10 DUE TO TIME LIMIT ***

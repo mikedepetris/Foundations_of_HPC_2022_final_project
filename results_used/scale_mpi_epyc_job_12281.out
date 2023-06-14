@@ -1,0 +1,32 @@
+Selected type of execution: 0
+make: Nothing to be done for 'all'.
+scale_mpi_epyc_epyc001.orfeo.hpc_2023-06-13_21-19-26.csv epyc001.orfeo.hpc 2023-06-13_21-19-26
+MPI scalability begin
+rep 1 scalability -e0 10000 29
+rep 1 scalability -e0 10000 30
+rep 1 scalability -e0 10000 31
+rep 1 scalability -e0 10000 32
+rep 1 scalability -e0 10000 33
+rep 1 scalability -e0 10000 34
+rep 1 scalability -e0 10000 35
+rep 1 scalability -e0 10000 36
+rep 1 scalability -e0 10000 37
+rep 2 scalability -e0 10000 29
+rep 2 scalability -e0 10000 30
+rep 2 scalability -e0 10000 31
+rep 2 scalability -e0 10000 32
+rep 2 scalability -e0 10000 33
+rep 2 scalability -e0 10000 34
+rep 2 scalability -e0 10000 35
+rep 2 scalability -e0 10000 36
+rep 2 scalability -e0 10000 37
+rep 3 scalability -e0 10000 29
+rep 3 scalability -e0 10000 30
+rep 3 scalability -e0 10000 31
+rep 3 scalability -e0 10000 32
+rep 3 scalability -e0 10000 33
+rep 3 scalability -e0 10000 34
+rep 3 scalability -e0 10000 35
+rep 3 scalability -e0 10000 36
+rep 3 scalability -e0 10000 37
+scalability end
