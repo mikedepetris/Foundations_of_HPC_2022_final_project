@@ -1,0 +1,12 @@
+Selected type of execution: 0
+make: Nothing to be done for 'all'.
+scale_mpi_epyc_epyc005_2023-06-14_09-04-43.csv epyc005 2023-06-14_09-04-43
+MPI scalability begin
+rep 1 scalability -e0 10000 32
+rep 1 scalability -e0 10000 33
+rep 1 scalability -e0 10000 34
+rep 1 scalability -e0 10000 35
+rep 1 scalability -e0 10000 36
+rep 1 scalability -e0 10000 37
+rep 1 scalability -e0 10000 38
+scalability end
