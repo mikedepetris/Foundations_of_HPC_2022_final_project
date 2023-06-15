@@ -42,7 +42,7 @@ csvname=scale_omp_epyc_$(hostname)_$now.csv
 echo "$csvname $(hostname) $now"
 echo "action,world_size,number_of_steps,number_of_steps_between_file_dumps,mpi_size,omp_get_max_threads,total_time,t_io,t_io_accumulator,t_io_accumulator_average" >"$csvname"
 
-echo scalability begin
+echo OMP scalability begin
 
 for REP in {1..5}; do
   for SIZE in 10000 1000 100; do

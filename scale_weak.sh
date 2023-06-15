@@ -44,6 +44,8 @@ echo "action,world_size,number_of_steps,number_of_steps_between_file_dumps,mpi_s
 
 echo WEAK scalability begin
 
+# export the OMP threads to istantiate
+export OMP_NUM_THREADS=64
 for REP in {1..5}; do
   threads=1
   for SIZE in 4000 5657 8000 11314 16000 22627 32000; do
