@@ -1,0 +1,36 @@
+Selected type of execution: 2
+make: Nothing to be done for 'all'.
+scale_omp_epyc_epyc004_2023-06-15_13-54-20.csv epyc004 2023-06-15_13-54-20
+scalability begin
+rep 1 scalability -e2 10000 1
+rep 1 scalability -e2 10000 2
+rep 1 scalability -e2 10000 3
+rep 1 scalability -e2 10000 4
+rep 1 scalability -e2 10000 5
+rep 1 scalability -e2 10000 6
+rep 1 scalability -e2 10000 7
+rep 1 scalability -e2 10000 8
+rep 1 scalability -e2 10000 9
+rep 1 scalability -e2 10000 10
+rep 1 scalability -e2 10000 11
+rep 1 scalability -e2 10000 12
+rep 1 scalability -e2 10000 13
+rep 1 scalability -e2 10000 14
+rep 1 scalability -e2 10000 15
+rep 1 scalability -e2 10000 16
+rep 1 scalability -e2 10000 17
+rep 1 scalability -e2 10000 18
+rep 1 scalability -e2 10000 19
+rep 1 scalability -e2 10000 20
+rep 1 scalability -e2 10000 21
+rep 1 scalability -e2 10000 22
+rep 1 scalability -e2 10000 23
+rep 1 scalability -e2 10000 24
+rep 1 scalability -e2 10000 25
+rep 1 scalability -e2 10000 26
+rep 1 scalability -e2 10000 27
+rep 1 scalability -e2 10000 28
+rep 1 scalability -e2 10000 29
+rep 1 scalability -e2 10000 30
+rep 1 scalability -e2 10000 31
+slurmstepd: error: *** JOB 12573 ON epyc004 CANCELLED AT 2023-06-15T15:54:43 DUE TO TIME LIMIT ***
