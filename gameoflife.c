@@ -33,7 +33,7 @@
  *    -i initialize a playground
  *    -r run a playground
  *    -k num. value playground size
- *    -e [0|1] evolution type; 0 "ordered", 1 "static", 2 "wave", 3 "black-white"
+ *    -e [0|1] evolution type; 0 "ordered", 1 "static", 2 "wave", 3 "white-black"
  *    -f string the name of the file to be either read or written
  *    -n num. value number of steps to be calculated
  *    -s num. value every how many steps a dump of the system is saved on a file
@@ -186,7 +186,7 @@ int main(int argc, char *argv[]) {
             printf("      -i  initialize a playground                                                    \n");
             printf("      -r  run a playground (needs -f)                                                \n");
             printf("      -k  <num> playground size (default value %d, minimum value %d)                 \n", DEFAULT_WORLD_SIZE, MIN_WORLD_SIZE);
-            printf("      -e  [0|1|2|3] evolution type (0: ordered, 1: static, 2: wave, 3: black-white   \n");
+            printf("      -e  [0|1|2|3] evolution type (0: ordered, 1: static, 2: wave, 3: white-black   \n");
             printf("      -f  <string> filename to be written (new_playground) or read (run)             \n");
             printf("      -n  <num> number of steps to be iterated (default value %d, max %d)            \n", DEFAULT_NUMBER_OF_STEPS, MAX_NUMBER_OF_STEPS);
             printf("                                                                                     \n");
