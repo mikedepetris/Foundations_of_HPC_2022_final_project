@@ -13,6 +13,7 @@
 #include <omp.h>
 #include "gameoflife.h"
 
+#define MIN_WORLD_SIZE 100
 #define DEFAULT_WORLD_SIZE 10000
 #define DEFAULT_NUMBER_OF_STEPS 100
 
@@ -184,7 +185,7 @@ int main(int argc, char *argv[]) {
             printf("Usage: %s [options]\n", argv[0]);
             printf("      -i  initialize a playground                                                    \n");
             printf("      -r  run a playground (needs -f)                                                \n");
-            printf("      -k  <num> playground size (default value %d)                                   \n", DEFAULT_WORLD_SIZE);
+            printf("      -k  <num> playground size (default value %d, minimum value %d)                 \n", DEFAULT_WORLD_SIZE, MIN_WORLD_SIZE);
             printf("      -e  [0|1|2|3] evolution type (0: ordered, 1: static, 2: wave, 3: black-white   \n");
             printf("      -f  <string> filename to be written (new_playground) or read (run)             \n");
             printf("      -n  <num> number of steps to be iterated (default value %d, max %d)            \n", DEFAULT_NUMBER_OF_STEPS, MAX_NUMBER_OF_STEPS);
@@ -216,6 +217,13 @@ int main(int argc, char *argv[]) {
         mpi_init(&argc, &argv, &mpi_rank, &mpi_size);
         if (mpi_rank == 0 && csv_output == CSV_OUTPUT_FALSE)
             printf("Initialization request with world size=%ld and filename=%s\n", world_size, filename);
+        if (mpi_rank == 0) {
+            if (world_size < MIN_WORLD_SIZE) {
+                printf("Value %ld is too low to be passed as -k <num> playground size, the minimum value is %d)\n", world_size, MIN_WORLD_SIZE);
+                perror("Value is too low to be passed as -k <num> playground size\n");
+                MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+            }
+        }
         new_playground(world_size, filename, &argc, &argv, mpi_rank, mpi_size, csv_output, debug_info);
 #ifdef DEBUG1
         if (debug_info > 0)
