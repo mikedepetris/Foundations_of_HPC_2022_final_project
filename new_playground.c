@@ -23,6 +23,7 @@ double initialize_parallel(long total_size, int mpi_size, int mpi_rank, int debu
     MPI_Barrier(MPI_COMM_WORLD);
 #pragma omp parallel default(none) shared(mpi_rank, total_size, chunk_size, world_chunk)
     {
+// keep in mind there are the two ghost rows
 #pragma omp for schedule(static, 1)
         for (long long i = total_size; i < total_size * (chunk_size + 1); i++) {
             int val = rand() % 100;
@@ -64,21 +65,20 @@ double initialize_single(const char *filename, long total_size, int debug_info) 
     world = (unsigned char *) malloc(total_size * (total_size + 1) * sizeof(unsigned char));
 #pragma omp parallel default(none) shared(total_size, debug_info, world)
     {
-#ifdef DEBUGOMP
-        int my_thread_id = omp_get_thread_num();
-        printf("DEBUGOMP - initialize_single - thread num %d\n", my_thread_id);
-#endif
         int seed = get_unique_seed(omp_get_thread_num(), 0);
         srand(seed);
+//#ifdef DEBUGOMP
+//        int my_thread_id = omp_get_thread_num();
+//        printf("DEBUGOMP - initialize_single - thread num %d, seed=%d\n", my_thread_id, seed);
+//#endif
 
-#pragma omp for schedule(static, 1)
+// keep in mind there are the two ghost rows
+#pragma omp for schedule(static, total_size)
         for (long long i = total_size; i < total_size * (total_size + 1); i++) {
 #ifdef DEBUGOMP
-            int my_thread_id = omp_get_thread_num();
-            printf("DEBUGOMP - initialize_single - i=%lld, thread num %d\n", i, my_thread_id);
-#endif
-#ifdef DEBUG2
+            int my_thread_id2 = omp_get_thread_num();
             int val = rand() % 100;
+            printf("DEBUGOMP - initialize_single -, i=%lld, thread_num=%d, seed=%d, val=%d\n", i, my_thread_id2, seed, val);
             if (debug_info > 1)
                 printf("%d, ", val);
             if (val < 75)

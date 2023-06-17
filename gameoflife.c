@@ -219,7 +219,7 @@ int main(int argc, char *argv[]) {
             printf("Initialization request with world size=%ld and filename=%s\n", world_size, filename);
         if (mpi_rank == 0) {
             if (world_size < MIN_WORLD_SIZE) {
-                printf("Value %ld is too low to be passed as -k <num> playground size, the minimum value is %d)\n", world_size, MIN_WORLD_SIZE);
+                printf("Value %ld is too low to be passed as -k <num> playground size, the minimum value is %d\n", world_size, MIN_WORLD_SIZE);
                 perror("Value is too low to be passed as -k <num> playground size\n");
                 MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
             }
