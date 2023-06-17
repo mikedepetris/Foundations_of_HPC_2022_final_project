@@ -1,0 +1,39 @@
+Selected type of execution: i
+make: Nothing to be done for 'all'.
+scale_omp_epyc_epyc006_2023-06-16_21-34-19.csv epyc006 2023-06-16_21-34-19
+OMP scalability begin
+rep 1 scalability -i 20000 64
+rep 1 scalability -i 20000 63
+rep 1 scalability -i 20000 62
+rep 1 scalability -i 20000 61
+rep 1 scalability -i 20000 60
+rep 1 scalability -i 20000 59
+rep 1 scalability -i 20000 58
+rep 1 scalability -i 20000 57
+rep 1 scalability -i 20000 56
+rep 1 scalability -i 20000 55
+rep 1 scalability -i 20000 54
+rep 1 scalability -i 20000 53
+rep 1 scalability -i 20000 52
+rep 1 scalability -i 20000 51
+rep 1 scalability -i 20000 50
+rep 1 scalability -i 20000 49
+rep 1 scalability -i 20000 48
+rep 1 scalability -i 20000 47
+rep 1 scalability -i 20000 46
+rep 1 scalability -i 20000 45
+rep 1 scalability -i 20000 44
+rep 1 scalability -i 20000 43
+rep 1 scalability -i 20000 42
+rep 1 scalability -i 20000 41
+rep 1 scalability -i 20000 40
+rep 1 scalability -i 20000 39
+rep 1 scalability -i 20000 38
+rep 1 scalability -i 20000 37
+rep 1 scalability -i 20000 36
+rep 1 scalability -i 20000 35
+[epyc006:447592:0:447599] Caught signal 7 (Bus error: nonexistent physical address)
+[epyc006:447592:1:447598] Caught signal 7 (Bus error: nonexistent physical address)
+[epyc006:447592:2:447597] Caught signal 7 (Bus error: nonexistent physical address)
+[epyc006:447592:3:447592] Caught signal 7 (Bus error: nonexistent physical address)
+slurmstepd: error: *** JOB 12995 ON epyc006 CANCELLED AT 2023-06-16T22:12:15 ***

@@ -57,7 +57,7 @@ void set_dead_or_alive_cell(const unsigned char *world, unsigned char *world_nex
 }
 
 void set_dead_or_alive_white_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, unsigned char *world_next, long long world_size, long local_size, int iteration_step) {
-//#pragma omp master
+#pragma omp master
     {
         // tags definition for the MPI message exchange
         int tag_0 = 2 * iteration_step;
@@ -143,17 +143,17 @@ void set_dead_or_alive_white_parallel(int mpi_rank, int mpi_size, MPI_Status *mp
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
     printf("DEBUGA - set_dead_or_alive_parallel_whiteblack 1 - mpi_rank=%d/%d, iteration_step=%d, local_size=%ld, world_size * (local_size + 1)=%lld\n", mpi_rank, mpi_size, iteration_step, local_size, world_size * (local_size + 1));
 #endif
-//#pragma omp for
     // update even cells, white on the chessboard (cell 0,0 is white)
+#pragma omp for
     for (long long i = world_size; i < world_size * (local_size + 1); i += 2) {
         set_dead_or_alive_cell(world_local, world_next, world_size, i);
         world_next[i + 1] = world_local[i + 1]; // copy next odd black cell
     }
-//#pragma omp barrier
+#pragma omp barrier
 }
 
 void set_dead_or_alive_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_status, MPI_Request *mpi_request, unsigned char *world_local, unsigned char *world_next, long long world_size, long local_size, int iteration_step) {
-//#pragma omp master
+#pragma omp master
     {
         // tags definition for the MPI message exchange
         int tag_0 = 2 * iteration_step;
@@ -239,13 +239,13 @@ void set_dead_or_alive_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mp
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
     printf("DEBUGA - set_dead_or_alive_parallel_whiteblack 1 - mpi_rank=%d/%d, iteration_step=%d, local_size=%ld, world_size * (local_size + 1)=%lld\n", mpi_rank, mpi_size, iteration_step, local_size, world_size * (local_size + 1));
 #endif
-//#pragma omp for
     // update even cells, white on the chessboard (cell 0,0 is white)
+#pragma omp for
     for (long long i = world_size + 1; i < world_size * (local_size + 1); i += 2) {
         world_next[i - 1] = world_local[i - 1]; // copy previous even white cell
         set_dead_or_alive_cell(world_local, world_next, world_size, i);
     }
-//#pragma omp barrier
+#pragma omp barrier
 }
 
 void set_dead_or_alive_white_single(unsigned char *world, unsigned char *world_next, long world_size) {
@@ -254,27 +254,31 @@ void set_dead_or_alive_white_single(unsigned char *world, unsigned char *world_n
 #endif
 // copy last row [world_size] before first [0]
 // and first [1] after last [world_size + 1] (ghost rows)
-#pragma omp for
-    for (long i = 0; i < world_size; i++) {
-        world[i] = world[world_size * world_size + i];
-        world[world_size * (world_size + 1) + i] = world[world_size + i];
-    }
+#pragma omp parallel
+    {
+#pragma omp for schedule(static, 1)
+        for (long i = 0; i < world_size; i++) {
+            world[i] = world[world_size * world_size + i];
+            world[world_size * (world_size + 1) + i] = world[world_size + i];
+        }
+#pragma omp barrier
 #ifdef DEBUG_ADVANCED_B
-    //#pragma omp barrier
-    for (long long i = 0; i < world_size * (world_size + 2); i++) {
-        if (i % 16 == 0)
-            printf("DEBUGB - set_dead_or_alive_white_single 1 - %08X: ", (unsigned int) i);
-        printf("%02X ", world[i]);
-        if (i % 16 == 15)
-            printf("\n");
-    }
-    printf("\n");
+        //#pragma omp for schedule(static, 1)
+        for (long long i = 0; i < world_size * (world_size + 2); i++) {
+            if (i % 16 == 0)
+                printf("DEBUGB - set_dead_or_alive_white_single 1 - %08X: ", (unsigned int) i);
+            printf("%02X ", world[i]);
+            if (i % 16 == 15)
+                printf("\n");
+        }
+        printf("\n");
 #endif
-//#pragma omp for
-    // update even cells, white on the chessboard (cell 0,0 is white)
-    for (long long i = world_size; i < world_size * (world_size + 1); i += 2) {
-        set_dead_or_alive_cell(world, world_next, world_size, i);
-        world_next[i + 1] = world[i + 1]; // copy next odd black cell
+        // update even cells, white on the chessboard (cell 0,0 is white)
+#pragma omp for schedule(static, 1)
+        for (long long i = world_size; i < world_size * (world_size + 1); i += 2) {
+            set_dead_or_alive_cell(world, world_next, world_size, i);
+            world_next[i + 1] = world[i + 1]; // copy next odd black cell
+        }
     }
 }
 
@@ -284,27 +288,30 @@ void set_dead_or_alive_black_single(unsigned char *world, unsigned char *world_n
 #endif
 // copy last row [world_size] before first [0]
 // and first [1] after last [world_size + 1] (ghost rows)
-#pragma omp for
-    for (long i = 0; i < world_size; i++) {
-        world[i] = world[world_size * world_size + i];
-        world[world_size * (world_size + 1) + i] = world[world_size + i];
-    }
+#pragma omp parallel
+    {
+#pragma omp for schedule(static, 1)
+        for (long i = 0; i < world_size; i++) {
+            world[i] = world[world_size * world_size + i];
+            world[world_size * (world_size + 1) + i] = world[world_size + i];
+        }
+#pragma omp barrier
 #ifdef DEBUG_ADVANCED_B
-    //#pragma omp barrier
-    for (long long i = 0; i < world_size * (world_size + 2); i++) {
-        if (i % 16 == 0)
-            printf("DEBUGB - set_dead_or_alive_white_single 1 - %08X: ", (unsigned int) i);
-        printf("%02X ", world[i]);
-        if (i % 16 == 15)
-            printf("\n");
-    }
-    printf("\n");
+        for (long long i = 0; i < world_size * (world_size + 2); i++) {
+            if (i % 16 == 0)
+                printf("DEBUGB - set_dead_or_alive_white_single 1 - %08X: ", (unsigned int) i);
+            printf("%02X ", world[i]);
+            if (i % 16 == 15)
+                printf("\n");
+        }
+        printf("\n");
 #endif
-//#pragma omp for
-    // update odd cells, black on the chessboard (cell 0,0 is white)
-    for (long long i = world_size + 1; i < world_size * (world_size + 1); i += 2) {
-        world_next[i - 1] = world[i - 1]; // copy previous even white cell
-        set_dead_or_alive_cell(world, world_next, world_size, i);
+        // update odd cells, black on the chessboard (cell 0,0 is white)
+#pragma omp for schedule(static, 1)
+        for (long long i = world_size + 1; i < world_size * (world_size + 1); i += 2) {
+            world_next[i - 1] = world[i - 1]; // copy previous even white cell
+            set_dead_or_alive_cell(world, world_next, world_size, i);
+        }
     }
 }
 

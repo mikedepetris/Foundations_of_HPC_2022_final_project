@@ -68,21 +68,29 @@ double initialize_single(const char *filename, long total_size, int debug_info) 
         int my_thread_id = omp_get_thread_num();
         printf("DEBUGOMP - initialize_single - thread num %d\n", my_thread_id);
 #endif
+        int seed = get_unique_seed(omp_get_thread_num(), 0);
+        srand(seed);
+
 #pragma omp for schedule(static, 1)
         for (long long i = total_size; i < total_size * (total_size + 1); i++) {
 #ifdef DEBUGOMP
             int my_thread_id = omp_get_thread_num();
             printf("DEBUGOMP - initialize_single - i=%lld, thread num %d\n", i, my_thread_id);
 #endif
-            int val = rand() % 100;
 #ifdef DEBUG2
+            int val = rand() % 100;
             if (debug_info > 1)
                 printf("%d, ", val);
-#endif
-            if (val < 70)
+            if (val < 75)
                 world[i] = 255;
             else
                 world[i] = 0;
+#else
+            if (rand() % 100 < 75)
+                world[i] = 255;
+            else
+                world[i] = 0;
+#endif
         }
     }
 #ifdef DEBUG2

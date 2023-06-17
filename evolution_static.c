@@ -98,8 +98,8 @@ void set_dead_or_alive_static_parallel(int mpi_rank, int mpi_size, MPI_Status *m
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
     printf("DEBUGA - set_dead_or_alive_parallel_static 1 - mpi_rank=%d/%d, iteration_step=%d, local_size=%ld, world_size * (local_size + 1)=%lld\n", mpi_rank, mpi_size, iteration_step, local_size, world_size * (local_size + 1));
 #endif
-#pragma omp for
     // TODO: declare vars before loops to optimize performance
+#pragma omp for
     for (long long i = world_size; i < world_size * (local_size + 1); i++) {
 #ifdef DEBUG_ADVANCED_B
         printf("DEBUGB - set_dead_or_alive_parallel_static 2 - mpi_rank=%d/%d, iteration_step=%d, i/local_size=%lld/%ld\n", mpi_rank, mpi_size, iteration_step, i, local_size);
@@ -169,8 +169,8 @@ void set_dead_or_alive_static_single(unsigned char *world, unsigned char *world_
     }
     printf("\n");
 #endif
-#pragma omp for
     // TODO: declare vars before loops to optimize performance
+#pragma omp for
     for (long long i = world_size; i < world_size * (world_size + 1); i++) {
         // actual cell coordinates
         long x = i % world_size;
