@@ -21,7 +21,7 @@ void set_dead_or_alive_static_parallel(int mpi_rank, int mpi_size, MPI_Status *m
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
         printf("DEBUGA - set_dead_or_alive_parallel_static - mpi_rank=%d/%d, world_size=%lld, local_size=%ld\n", mpi_rank, mpi_size, world_size, local_size);
 #endif
-        // each process send his first row to the process with mpi_rank-1
+        // each process sends his first row to the process with mpi_rank-1
         // and last row to mpi_rank + 1.
         // process 0      sends his first row to process mpi_size -1
         // process mpi_size-1 sends his last  row to process 0

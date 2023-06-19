@@ -66,7 +66,7 @@ void set_dead_or_alive_white_parallel(int mpi_rank, int mpi_size, MPI_Status *mp
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
         printf("DEBUGA - set_dead_or_alive_parallel_whiteblack - mpi_rank=%d/%d, world_size=%lld, local_size=%ld\n", mpi_rank, mpi_size, world_size, local_size);
 #endif
-        // each process send his first row to the process with mpi_rank-1
+        // each process sends his first row to the process with mpi_rank-1
         // and last row to mpi_rank + 1.
         // process 0      sends his first row to process mpi_size -1
         // process mpi_size-1 sends his last  row to process 0
@@ -162,7 +162,7 @@ void set_dead_or_alive_black_parallel(int mpi_rank, int mpi_size, MPI_Status *mp
 #ifdef DEBUG_ADVANCED_MALLOC_FREE
         printf("DEBUGA - set_dead_or_alive_parallel_whiteblack - mpi_rank=%d/%d, world_size=%lld, local_size=%ld\n", mpi_rank, mpi_size, world_size, local_size);
 #endif
-        // each process send his first row to the process with mpi_rank-1
+        // each process sends his first row to the process with mpi_rank-1
         // and last row to mpi_rank + 1.
         // process 0      sends his first row to process mpi_size -1
         // process mpi_size-1 sends his last  row to process 0
