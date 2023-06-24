@@ -4,13 +4,13 @@
 #SBATCH --job-name="omp_scale"
 #SBATCH --get-user-env
 #SBATCH --chdir=/u/dssc/mdepet00/assignment/exercise1
-#SBATCH --partition=EPYC
+#SBATCH --partition=THIN
 #SBATCH --nodes=1
 #SBATCH --exclusive
 #SBATCH --ntasks-per-node 64
 #SBATCH --mem=490G
 #SBATCH --time=02:00:00
-#SBATCH --output=scale_omp_epyc_job_%j.out
+#SBATCH --output=scale_omp_thin_job_%j.out
 
 #SIZE=100
 TYPE="i"
@@ -30,10 +30,7 @@ if [ $# == 3 ]; then
 fi
 echo "Selected type of execution: $TYPE"
 
-#module load architecture/AMD
-#module load openMPI/4.1.4/gnu/12.2.1
 module load openMPI/4.1.5/gnu/12.2.1
-
 mpirun -np 1 make all
 
 #export OMP_NUM_THREADS=64
@@ -44,7 +41,7 @@ export OMP_PROC_BIND=close
 #mpirun -np 1 gameoflife.x -i -k $SIZE -f pattern_random$SIZE
 
 now=$(date +"%Y-%m-%d_%H-%M-%S")
-csvname=scale_omp_epyc_$(hostname)_$now.csv
+csvname=scale_omp_thin_$(hostname)_$now.csv
 echo "$csvname $(hostname) $now"
 echo "action,world_size,number_of_steps,number_of_steps_between_file_dumps,mpi_size,omp_get_max_threads,total_time,t_io,t_io_accumulator,t_io_accumulator_average" >"$csvname"
 

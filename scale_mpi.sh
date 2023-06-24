@@ -25,8 +25,9 @@ if [ $# == 2 ]; then
 fi
 echo "Selected type of execution: $TYPE"
 
-module load architecture/AMD
-module load openMPI/4.1.4/gnu/12.2.1
+#module load architecture/AMD
+#module load openMPI/4.1.4/gnu/12.2.1
+module load openMPI/4.1.5/gnu/12.2.1
 
 mpirun -np 1 make all
 
@@ -56,7 +57,7 @@ for REP in {1..5}; do
       for threads in {1..64}; do
         echo rep "$REP" scalability -e"$TYPE" "$SIZE" "$threads"
         {
-          mpirun -np "$threads" --map-by core gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
+          mpirun -np "$threads" --map-by core --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
           #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 0 -s 0 -q
           #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 1 -s 0 -q
           #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 2 -s 0 -q

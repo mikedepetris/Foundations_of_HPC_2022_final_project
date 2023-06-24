@@ -5,7 +5,7 @@
 #SBATCH --get-user-env
 #SBATCH --chdir=/u/dssc/mdepet00/assignment/exercise1
 #SBATCH --partition=EPYC
-#SBATCH --nodes=1
+#SBATCH --nodes=6
 #SBATCH --exclusive
 #SBATCH --ntasks-per-node 64
 #SBATCH --mem=490G
@@ -65,7 +65,7 @@ for REP in {1..10}; do
         echo rep $REP scalability -e"$TYPE" "$SIZE" "$threads"
         export OMP_NUM_THREADS=$threads
         {
-          mpirun -n 1 --map-by socket --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
+          mpirun -n 6 --map-by node --bind-to socket --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
           #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 0 -s 0 -q
           #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 1 -s 0 -q
           #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 2 -s 0 -q
