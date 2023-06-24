@@ -7,7 +7,7 @@
 #SBATCH --partition=THIN
 #SBATCH --nodes=1
 #SBATCH --exclusive
-#SBATCH --ntasks-per-node 64
+#SBATCH --ntasks-per-node 24
 #SBATCH --mem=490G
 #SBATCH --time=02:00:00
 #SBATCH --output=scale_omp_thin_job_%j.out
@@ -52,13 +52,13 @@ for REP in {1..10}; do
 
     if [ "$TYPE" == i ]; then
 #SIZE=10000
-      for threads in {1..64}; do
+      for threads in {12..1}; do
         echo rep $REP scalability -i "$SIZE" "$threads"
         export OMP_NUM_THREADS=$threads
         mpirun -n 1 --map-by socket gameoflife.x -i -k $SIZE -f pattern_random$SIZE -q >>"$csvname"
       done
     else
-      for threads in {64..1}; do
+      for threads in {12..1}; do
         echo rep $REP scalability -e"$TYPE" "$SIZE" "$threads"
         export OMP_NUM_THREADS=$threads
         {

@@ -1,16 +1,16 @@
 #!/bin/bash
 #SBATCH --no-requeue
 # set the job name with "sbatch -J thejobname <script>.sh [arguments]
-#SBATCH --job-name="omp_scale"
+#SBATCH --job-name="omp_scale2"
 #SBATCH --get-user-env
 #SBATCH --chdir=/u/dssc/mdepet00/assignment/exercise1
 #SBATCH --partition=EPYC
-#SBATCH --nodes=2
+#SBATCH --nodes=1
 #SBATCH --exclusive
-#SBATCH --ntasks-per-node 64
+#SBATCH --ntasks-per-node 128
 #SBATCH --mem=490G
 #SBATCH --time=02:00:00
-#SBATCH --output=scale_omp_epyc_job_%j.out
+#SBATCH --output=scale_omp_epyc_2_job_%j.out
 
 #SIZE=100
 TYPE="i"
@@ -38,7 +38,7 @@ mpirun -np 1 make all
 
 #export OMP_NUM_THREADS=64
 export OMP_PLACES=cores
-export OMP_PROC_BIND=close
+export OMP_PROC_BIND=spread
 
 # generate new playground with random values of given SIZE
 #mpirun -np 1 gameoflife.x -i -k $SIZE -f pattern_random$SIZE
@@ -65,7 +65,9 @@ for REP in {1..10}; do
         echo rep $REP scalability -e"$TYPE" "$SIZE" "$threads"
         export OMP_NUM_THREADS=$threads
         {
-          mpirun -n 2 --map-by socket --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
+          #mpirun -n 2 --map-by socket --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
+          mpirun -n 2 --map-by socket:PE=$threads --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
+          #mpirun -n 1 --map-by socket --display-map --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
           #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 0 -s 0 -q
           #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 1 -s 0 -q
           #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 2 -s 0 -q
