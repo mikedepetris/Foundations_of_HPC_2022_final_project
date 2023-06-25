@@ -5,9 +5,9 @@
 #SBATCH --get-user-env
 #SBATCH --chdir=/u/dssc/mdepet00/assignment/exercise1
 #SBATCH --partition=THIN
-#SBATCH --nodes=1
+#SBATCH --nodes=3
 #SBATCH --exclusive
-#SBATCH --ntasks-per-node 12
+#SBATCH --ntasks-per-node 24
 #SBATCH --mem=490G
 #SBATCH --time=02:00:00
 #SBATCH --output=scale_mpi_thin_job_%j.out
@@ -59,7 +59,7 @@ for REP in {1..10}; do
         mpirun -np "$threads" --map-by core gameoflife.x -i -k $SIZE -f pattern_random$SIZE -q >>"$csvname"
       done
     else
-      for threads in {12..1}; do
+      for threads in {72..13..3}; do
         echo rep "$REP" scalability -e"$TYPE" "$SIZE" "$threads"
         {
           mpirun -np "$threads" --map-by core --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q

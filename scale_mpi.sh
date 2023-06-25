@@ -5,9 +5,9 @@
 #SBATCH --get-user-env
 #SBATCH --chdir=/u/dssc/mdepet00/assignment/exercise1
 #SBATCH --partition=EPYC
-#SBATCH --nodes=1
+#SBATCH --nodes=4
 #SBATCH --exclusive
-#SBATCH --ntasks-per-node 64
+#SBATCH --ntasks-per-node 128
 #SBATCH --mem=490G
 #SBATCH --time=02:00:00
 #SBATCH --output=scale_mpi_epyc_job_%j.out
@@ -60,10 +60,11 @@ for REP in {1..10}; do
         mpirun -np "$threads" --map-by core gameoflife.x -i -k $SIZE -f pattern_random$SIZE -q >>"$csvname"
       done
     else
-      for threads in {64..1}; do
+      for threads in {256..54..8}; do
         echo rep "$REP" scalability -e"$TYPE" "$SIZE" "$threads"
         {
-          mpirun -np "$threads" --map-by core --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
+          mpirun -np "$threads" --map-by core gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
+          #mpirun -np "$threads" --map-by core --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
           #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 0 -s 0 -q
           #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 1 -s 0 -q
           #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 2 -s 0 -q

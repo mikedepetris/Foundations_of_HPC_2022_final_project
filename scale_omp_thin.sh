@@ -58,7 +58,7 @@ for REP in {1..10}; do
         mpirun -n 1 --map-by socket gameoflife.x -i -k $SIZE -f pattern_random$SIZE -q >>"$csvname"
       done
     else
-      for threads in {12..1}; do
+      for threads in {1..1}; do
         echo rep $REP scalability -e"$TYPE" "$SIZE" "$threads"
         export OMP_NUM_THREADS=$threads
         {

@@ -6,11 +6,11 @@
 #SBATCH --chdir=/u/dssc/mdepet00/assignment/exercise1
 #SBATCH --partition=EPYC
 #SBATCH --nodes=6
-#SBATCH --exclusive
-#SBATCH --ntasks-per-node 64
+##SBATCH --exclusive
+##SBATCH --ntasks-per-node 64
 #SBATCH --mem=490G
 #SBATCH --time=02:00:00
-#SBATCH --output=scale_omp_epyc_job_%j.out
+#SBATCH --output=scale_omp_epyc_6_job_%j.out
 
 #SIZE=100
 TYPE="i"
