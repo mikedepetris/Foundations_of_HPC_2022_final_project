@@ -36,9 +36,10 @@ module load openMPI/4.1.5/gnu/12.2.1
 
 mpirun -np 1 make all
 
-#export OMP_NUM_THREADS=64
 export OMP_PLACES=cores
-export OMP_PROC_BIND=spread
+export OMP_PROC_BIND=close
+#export OMP_NUM_THREADS=1
+#export OMP_NUM_THREADS=64
 
 # generate new playground with random values of given SIZE
 #mpirun -np 1 gameoflife.x -i -k $SIZE -f pattern_random$SIZE
@@ -55,18 +56,18 @@ for REP in {1..10}; do
 
     if [ "$TYPE" == i ]; then
 #SIZE=10000
-      for threads in {1..64}; do
+      for threads in {1..32}; do
         echo rep $REP scalability -i "$SIZE" "$threads"
         export OMP_NUM_THREADS=$threads
         mpirun -n 1 --map-by socket gameoflife.x -i -k $SIZE -f pattern_random$SIZE -q >>"$csvname"
       done
     else
-      for threads in {64..1}; do
+      for threads in {32..1}; do
         echo rep $REP scalability -e"$TYPE" "$SIZE" "$threads"
         export OMP_NUM_THREADS=$threads
         {
-          #mpirun -n 2 --map-by socket --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
-          mpirun -n 2 --map-by socket:PE=$threads --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
+          mpirun -np 2 --map-by socket --bind-to socket --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
+          #mpirun -np 2 --map-by socket:PE=$threads --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
           #mpirun -n 1 --map-by socket --display-map --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
           #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 0 -s 0 -q
           #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 1 -s 0 -q

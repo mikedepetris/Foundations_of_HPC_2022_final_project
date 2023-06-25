@@ -23,6 +23,12 @@ if [ $# == 2 ]; then
   TYPE="$1"
   SNAPAT="$2"
 fi
+if [ $# == 3 ]; then
+  TYPE="$1"
+  SNAPAT="$2"
+  SIZE="$3"
+fi
+
 echo "Selected type of execution: $TYPE"
 
 #module load architecture/AMD
@@ -45,8 +51,8 @@ echo "action,world_size,number_of_steps,number_of_steps_between_file_dumps,mpi_s
 
 echo MPI scalability begin
 
-for REP in {1..5}; do
-  for SIZE in 10000 1000 100; do
+for REP in {1..10}; do
+#  for SIZE in 10000 1000 100; do
 
     if [ "$TYPE" == i ]; then
       for threads in {1..64}; do
@@ -54,7 +60,7 @@ for REP in {1..5}; do
         mpirun -np "$threads" --map-by core gameoflife.x -i -k $SIZE -f pattern_random$SIZE -q >>"$csvname"
       done
     else
-      for threads in {1..64}; do
+      for threads in {64..1}; do
         echo rep "$REP" scalability -e"$TYPE" "$SIZE" "$threads"
         {
           mpirun -np "$threads" --map-by core --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
@@ -66,7 +72,7 @@ for REP in {1..5}; do
       done
     fi
 
-  done
+#  done
 done
 
 echo scalability end
