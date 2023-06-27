@@ -22,56 +22,52 @@ module load openBLAS/0.3.21-omp
 export OMP_PLACES=cores
 export OMP_PROC_BIND=close
 
-now=`date +"%Y-%m-%d_%H-%M-%S"`
+now=$(date +"%Y-%m-%d_%H-%M-%S")
 csvname=scale_sgemm_mkl_epyc_optimized_$now.csv
-echo "$csvname `hostname` OMP_NUM_THREADS=1-->64"
-srun -n1 --cpus-per-task=64  ./sgemm_mkl_optimized.x 12000 12000 12000 >discarded_first_result_$csvname
-echo "$csvname `hostname` $now" >$csvname
-for j in {1..64}
-do
-    export OMP_NUM_THREADS=$j
-#   mpirun -n 1 --map-by node ./main.x -r -f init100.pbm -n $STEPS -s 0 >> omp_scalability.csv
-#	srun -n1 --cpus-per-task=$j ./sgemm_mkl_optimized.x 12000 12000 12000 >>$csvname
-	srun -n1 ./sgemm_mkl_optimized.x 12000 12000 12000 >>$csvname
+echo "$csvname $(hostname) OMP_NUM_THREADS=1-->64"
+srun -n1 --cpus-per-task=64 ./sgemm_mkl_optimized.x 12000 12000 12000 >discarded_first_result_"$csvname"
+echo "$csvname $(hostname) $now" >"$csvname"
+for j in {1..64}; do
+  export OMP_NUM_THREADS=$j
+  #   mpirun -n 1 --map-by node ./main.x -r -f init100.pbm -n $STEPS -s 0 >> omp_scalability.csv
+  #	srun -n1 --cpus-per-task=$j ./sgemm_mkl_optimized.x 12000 12000 12000 >>$csvname
+  srun -n1 ./sgemm_mkl_optimized.x 12000 12000 12000 >>"$csvname"
 done
 
-now=`date +"%Y-%m-%d_%H-%M-%S"`
+now=$(date +"%Y-%m-%d_%H-%M-%S")
 csvname=scale_sgemm_oblas_epyc_optimized_$now.csv
-echo "$csvname `hostname` OMP_NUM_THREADS=1-->64"
-srun -n1 --cpus-per-task=64  ./sgemm_oblas_optimized.x 12000 12000 12000 >discarded_first_result_$csvname
-echo "$csvname `hostname` $now" >$csvname
-for j in {1..64}
-do
-    export OMP_NUM_THREADS=$j
-#   mpirun -n 1 --map-by node ./main.x -r -f init100.pbm -n $STEPS -s 0 >> omp_scalability.csv
-#	srun -n1 --cpus-per-task=$j ./sgemm_oblas_optimized.x 12000 12000 12000 >>$csvname
-	srun -n1 ./sgemm_oblas_optimized.x 12000 12000 12000 >>$csvname
+echo "$csvname $(hostname) OMP_NUM_THREADS=1-->64"
+srun -n1 --cpus-per-task=64 ./sgemm_oblas_optimized.x 12000 12000 12000 >discarded_first_result_"$csvname"
+echo "$csvname $(hostname) $now" >"$csvname"
+for j in {1..64}; do
+  export OMP_NUM_THREADS=$j
+  #   mpirun -n 1 --map-by node ./main.x -r -f init100.pbm -n $STEPS -s 0 >> omp_scalability.csv
+  #	srun -n1 --cpus-per-task=$j ./sgemm_oblas_optimized.x 12000 12000 12000 >>$csvname
+  srun -n1 ./sgemm_oblas_optimized.x 12000 12000 12000 >>"$csvname"
 done
 
-now=`date +"%Y-%m-%d_%H-%M-%S"`
+now=$(date +"%Y-%m-%d_%H-%M-%S")
 csvname=scale_dgemm_mkl_epyc_optimized_$now.csv
-echo "$csvname `hostname` OMP_NUM_THREADS=1-->64"
-srun -n1 --cpus-per-task=64  ./dgemm_mkl_optimized.x 12000 12000 12000 >discarded_first_result_$csvname
-echo "$csvname `hostname` $now" >$csvname
-for j in {1..64}
-do
-    export OMP_NUM_THREADS=$j
-#   mpirun -n 1 --map-by node ./main.x -r -f init100.pbm -n $STEPS -s 0 >> omp_scalability.csv
-#	srun -n1 --cpus-per-task=$j ./dgemm_mkl_optimized.x 12000 12000 12000 >>$csvname
-	srun -n1 ./dgemm_mkl_optimized.x 12000 12000 12000 >>$csvname
+echo "$csvname $(hostname) OMP_NUM_THREADS=1-->64"
+srun -n1 --cpus-per-task=64 ./dgemm_mkl_optimized.x 12000 12000 12000 >discarded_first_result_"$csvname"
+echo "$csvname $(hostname) $now" >"$csvname"
+for j in {1..64}; do
+  export OMP_NUM_THREADS=$j
+  #   mpirun -n 1 --map-by node ./main.x -r -f init100.pbm -n $STEPS -s 0 >> omp_scalability.csv
+  #	srun -n1 --cpus-per-task=$j ./dgemm_mkl_optimized.x 12000 12000 12000 >>$csvname
+  srun -n1 ./dgemm_mkl_optimized.x 12000 12000 12000 >>"$csvname"
 done
 
-now=`date +"%Y-%m-%d_%H-%M-%S"`
+now=$(date +"%Y-%m-%d_%H-%M-%S")
 csvname=scale_dgemm_oblas_epyc_optimized_$now.csv
-echo "$csvname `hostname` OMP_NUM_THREADS=1-->64"
-srun -n1 --cpus-per-task=64  ./dgemm_oblas_optimized.x 12000 12000 12000 >discarded_first_result_$csvname
-echo "$csvname `hostname` $now" >$csvname
-for j in {1..64}
-do
-    export OMP_NUM_THREADS=$j
-#   mpirun -n 1 --map-by node ./main.x -r -f init100.pbm -n $STEPS -s 0 >> omp_scalability.csv
-#	srun -n1 --cpus-per-task=$j ./dgemm_oblas_optimized.x 12000 12000 12000 >>$csvname
-	srun -n1 ./dgemm_oblas_optimized.x 12000 12000 12000 >>$csvname
+echo "$csvname $(hostname) OMP_NUM_THREADS=1-->64"
+srun -n1 --cpus-per-task=64 ./dgemm_oblas_optimized.x 12000 12000 12000 >discarded_first_result_"$csvname"
+echo "$csvname $(hostname) $now" >"$csvname"
+for j in {1..64}; do
+  export OMP_NUM_THREADS=$j
+  #   mpirun -n 1 --map-by node ./main.x -r -f init100.pbm -n $STEPS -s 0 >> omp_scalability.csv
+  #	srun -n1 --cpus-per-task=$j ./dgemm_oblas_optimized.x 12000 12000 12000 >>$csvname
+  srun -n1 ./dgemm_oblas_optimized.x 12000 12000 12000 >>"$csvname"
 done
 
 #make image
