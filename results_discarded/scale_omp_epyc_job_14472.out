@@ -1,0 +1,7 @@
+Selected type of execution: 1
+make: Nothing to be done for 'all'.
+scale_omp_epyc_epyc001.orfeo.hpc_2023-06-27_09-47-01.csv epyc001.orfeo.hpc 2023-06-27_09-47-01
+OMP scalability begin
+rep 1 scalability -e1 10000 128
+[epyc001.orfeo.hpc:1446201] MCW rank 0 bound to socket 0[core 0[hwt 0]]: [B/././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././.][./././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././.]
+slurmstepd: error: *** JOB 14472 ON epyc001 CANCELLED AT 2023-06-27T09:47:56 ***

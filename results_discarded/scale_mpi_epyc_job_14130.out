@@ -1,0 +1,6 @@
+Selected type of execution: 1
+make: Nothing to be done for 'all'.
+scale_mpi_epyc_epyc004_2023-06-26_14-57-20.csv epyc004 2023-06-26_14-57-20
+MPI scalability begin
+rep 1 scalability -e1 10000 54
+slurmstepd: error: *** JOB 14130 ON epyc004 CANCELLED AT 2023-06-26T14:57:20 ***

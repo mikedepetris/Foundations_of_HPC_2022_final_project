@@ -60,7 +60,7 @@ for REP in {1..10}; do
         mpirun -np "$threads" --map-by core gameoflife.x -i -k $SIZE -f pattern_random$SIZE -q >>"$csvname"
       done
     else
-      for threads in {256..54..8}; do
+      for threads in {54..256}; do
         echo rep "$REP" scalability -e"$TYPE" "$SIZE" "$threads"
         {
           mpirun -np "$threads" --map-by core gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q

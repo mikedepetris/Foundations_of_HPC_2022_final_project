@@ -1,0 +1,965 @@
+Selected type of execution: 1
+make: Nothing to be done for 'all'.
+scale_omp_epyc_epyc001.orfeo.hpc_2023-06-27_07-42-40.csv epyc001.orfeo.hpc 2023-06-27_07-42-40
+OMP scalability begin
+rep 1 scalability -e1 10000 32
+mpirun: Error: unknown option "--ntasks-per-socket=32"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 31
+mpirun: Error: unknown option "--ntasks-per-socket=31"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 30
+mpirun: Error: unknown option "--ntasks-per-socket=30"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 29
+mpirun: Error: unknown option "--ntasks-per-socket=29"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 28
+mpirun: Error: unknown option "--ntasks-per-socket=28"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 27
+mpirun: Error: unknown option "--ntasks-per-socket=27"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 26
+mpirun: Error: unknown option "--ntasks-per-socket=26"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 25
+mpirun: Error: unknown option "--ntasks-per-socket=25"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 24
+mpirun: Error: unknown option "--ntasks-per-socket=24"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 23
+mpirun: Error: unknown option "--ntasks-per-socket=23"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 22
+mpirun: Error: unknown option "--ntasks-per-socket=22"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 21
+mpirun: Error: unknown option "--ntasks-per-socket=21"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 20
+mpirun: Error: unknown option "--ntasks-per-socket=20"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 19
+mpirun: Error: unknown option "--ntasks-per-socket=19"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 18
+mpirun: Error: unknown option "--ntasks-per-socket=18"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 17
+mpirun: Error: unknown option "--ntasks-per-socket=17"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 16
+mpirun: Error: unknown option "--ntasks-per-socket=16"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 15
+mpirun: Error: unknown option "--ntasks-per-socket=15"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 14
+mpirun: Error: unknown option "--ntasks-per-socket=14"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 13
+mpirun: Error: unknown option "--ntasks-per-socket=13"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 12
+mpirun: Error: unknown option "--ntasks-per-socket=12"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 11
+mpirun: Error: unknown option "--ntasks-per-socket=11"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 10
+mpirun: Error: unknown option "--ntasks-per-socket=10"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 9
+mpirun: Error: unknown option "--ntasks-per-socket=9"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 8
+mpirun: Error: unknown option "--ntasks-per-socket=8"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 7
+mpirun: Error: unknown option "--ntasks-per-socket=7"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 6
+mpirun: Error: unknown option "--ntasks-per-socket=6"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 5
+mpirun: Error: unknown option "--ntasks-per-socket=5"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 4
+mpirun: Error: unknown option "--ntasks-per-socket=4"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 3
+mpirun: Error: unknown option "--ntasks-per-socket=3"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 2
+mpirun: Error: unknown option "--ntasks-per-socket=2"
+Type 'mpirun --help' for usage.
+rep 1 scalability -e1 10000 1
+mpirun: Error: unknown option "--ntasks-per-socket=1"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 32
+mpirun: Error: unknown option "--ntasks-per-socket=32"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 31
+mpirun: Error: unknown option "--ntasks-per-socket=31"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 30
+mpirun: Error: unknown option "--ntasks-per-socket=30"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 29
+mpirun: Error: unknown option "--ntasks-per-socket=29"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 28
+mpirun: Error: unknown option "--ntasks-per-socket=28"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 27
+mpirun: Error: unknown option "--ntasks-per-socket=27"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 26
+mpirun: Error: unknown option "--ntasks-per-socket=26"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 25
+mpirun: Error: unknown option "--ntasks-per-socket=25"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 24
+mpirun: Error: unknown option "--ntasks-per-socket=24"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 23
+mpirun: Error: unknown option "--ntasks-per-socket=23"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 22
+mpirun: Error: unknown option "--ntasks-per-socket=22"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 21
+mpirun: Error: unknown option "--ntasks-per-socket=21"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 20
+mpirun: Error: unknown option "--ntasks-per-socket=20"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 19
+mpirun: Error: unknown option "--ntasks-per-socket=19"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 18
+mpirun: Error: unknown option "--ntasks-per-socket=18"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 17
+mpirun: Error: unknown option "--ntasks-per-socket=17"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 16
+mpirun: Error: unknown option "--ntasks-per-socket=16"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 15
+mpirun: Error: unknown option "--ntasks-per-socket=15"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 14
+mpirun: Error: unknown option "--ntasks-per-socket=14"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 13
+mpirun: Error: unknown option "--ntasks-per-socket=13"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 12
+mpirun: Error: unknown option "--ntasks-per-socket=12"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 11
+mpirun: Error: unknown option "--ntasks-per-socket=11"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 10
+mpirun: Error: unknown option "--ntasks-per-socket=10"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 9
+mpirun: Error: unknown option "--ntasks-per-socket=9"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 8
+mpirun: Error: unknown option "--ntasks-per-socket=8"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 7
+mpirun: Error: unknown option "--ntasks-per-socket=7"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 6
+mpirun: Error: unknown option "--ntasks-per-socket=6"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 5
+mpirun: Error: unknown option "--ntasks-per-socket=5"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 4
+mpirun: Error: unknown option "--ntasks-per-socket=4"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 3
+mpirun: Error: unknown option "--ntasks-per-socket=3"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 2
+mpirun: Error: unknown option "--ntasks-per-socket=2"
+Type 'mpirun --help' for usage.
+rep 2 scalability -e1 10000 1
+mpirun: Error: unknown option "--ntasks-per-socket=1"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 32
+mpirun: Error: unknown option "--ntasks-per-socket=32"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 31
+mpirun: Error: unknown option "--ntasks-per-socket=31"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 30
+mpirun: Error: unknown option "--ntasks-per-socket=30"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 29
+mpirun: Error: unknown option "--ntasks-per-socket=29"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 28
+mpirun: Error: unknown option "--ntasks-per-socket=28"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 27
+mpirun: Error: unknown option "--ntasks-per-socket=27"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 26
+mpirun: Error: unknown option "--ntasks-per-socket=26"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 25
+mpirun: Error: unknown option "--ntasks-per-socket=25"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 24
+mpirun: Error: unknown option "--ntasks-per-socket=24"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 23
+mpirun: Error: unknown option "--ntasks-per-socket=23"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 22
+mpirun: Error: unknown option "--ntasks-per-socket=22"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 21
+mpirun: Error: unknown option "--ntasks-per-socket=21"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 20
+mpirun: Error: unknown option "--ntasks-per-socket=20"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 19
+mpirun: Error: unknown option "--ntasks-per-socket=19"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 18
+mpirun: Error: unknown option "--ntasks-per-socket=18"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 17
+mpirun: Error: unknown option "--ntasks-per-socket=17"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 16
+mpirun: Error: unknown option "--ntasks-per-socket=16"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 15
+mpirun: Error: unknown option "--ntasks-per-socket=15"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 14
+mpirun: Error: unknown option "--ntasks-per-socket=14"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 13
+mpirun: Error: unknown option "--ntasks-per-socket=13"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 12
+mpirun: Error: unknown option "--ntasks-per-socket=12"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 11
+mpirun: Error: unknown option "--ntasks-per-socket=11"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 10
+mpirun: Error: unknown option "--ntasks-per-socket=10"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 9
+mpirun: Error: unknown option "--ntasks-per-socket=9"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 8
+mpirun: Error: unknown option "--ntasks-per-socket=8"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 7
+mpirun: Error: unknown option "--ntasks-per-socket=7"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 6
+mpirun: Error: unknown option "--ntasks-per-socket=6"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 5
+mpirun: Error: unknown option "--ntasks-per-socket=5"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 4
+mpirun: Error: unknown option "--ntasks-per-socket=4"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 3
+mpirun: Error: unknown option "--ntasks-per-socket=3"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 2
+mpirun: Error: unknown option "--ntasks-per-socket=2"
+Type 'mpirun --help' for usage.
+rep 3 scalability -e1 10000 1
+mpirun: Error: unknown option "--ntasks-per-socket=1"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 32
+mpirun: Error: unknown option "--ntasks-per-socket=32"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 31
+mpirun: Error: unknown option "--ntasks-per-socket=31"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 30
+mpirun: Error: unknown option "--ntasks-per-socket=30"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 29
+mpirun: Error: unknown option "--ntasks-per-socket=29"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 28
+mpirun: Error: unknown option "--ntasks-per-socket=28"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 27
+mpirun: Error: unknown option "--ntasks-per-socket=27"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 26
+mpirun: Error: unknown option "--ntasks-per-socket=26"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 25
+mpirun: Error: unknown option "--ntasks-per-socket=25"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 24
+mpirun: Error: unknown option "--ntasks-per-socket=24"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 23
+mpirun: Error: unknown option "--ntasks-per-socket=23"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 22
+mpirun: Error: unknown option "--ntasks-per-socket=22"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 21
+mpirun: Error: unknown option "--ntasks-per-socket=21"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 20
+mpirun: Error: unknown option "--ntasks-per-socket=20"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 19
+mpirun: Error: unknown option "--ntasks-per-socket=19"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 18
+mpirun: Error: unknown option "--ntasks-per-socket=18"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 17
+mpirun: Error: unknown option "--ntasks-per-socket=17"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 16
+mpirun: Error: unknown option "--ntasks-per-socket=16"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 15
+mpirun: Error: unknown option "--ntasks-per-socket=15"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 14
+mpirun: Error: unknown option "--ntasks-per-socket=14"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 13
+mpirun: Error: unknown option "--ntasks-per-socket=13"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 12
+mpirun: Error: unknown option "--ntasks-per-socket=12"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 11
+mpirun: Error: unknown option "--ntasks-per-socket=11"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 10
+mpirun: Error: unknown option "--ntasks-per-socket=10"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 9
+mpirun: Error: unknown option "--ntasks-per-socket=9"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 8
+mpirun: Error: unknown option "--ntasks-per-socket=8"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 7
+mpirun: Error: unknown option "--ntasks-per-socket=7"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 6
+mpirun: Error: unknown option "--ntasks-per-socket=6"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 5
+mpirun: Error: unknown option "--ntasks-per-socket=5"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 4
+mpirun: Error: unknown option "--ntasks-per-socket=4"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 3
+mpirun: Error: unknown option "--ntasks-per-socket=3"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 2
+mpirun: Error: unknown option "--ntasks-per-socket=2"
+Type 'mpirun --help' for usage.
+rep 4 scalability -e1 10000 1
+mpirun: Error: unknown option "--ntasks-per-socket=1"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 32
+mpirun: Error: unknown option "--ntasks-per-socket=32"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 31
+mpirun: Error: unknown option "--ntasks-per-socket=31"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 30
+mpirun: Error: unknown option "--ntasks-per-socket=30"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 29
+mpirun: Error: unknown option "--ntasks-per-socket=29"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 28
+mpirun: Error: unknown option "--ntasks-per-socket=28"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 27
+mpirun: Error: unknown option "--ntasks-per-socket=27"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 26
+mpirun: Error: unknown option "--ntasks-per-socket=26"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 25
+mpirun: Error: unknown option "--ntasks-per-socket=25"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 24
+mpirun: Error: unknown option "--ntasks-per-socket=24"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 23
+mpirun: Error: unknown option "--ntasks-per-socket=23"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 22
+mpirun: Error: unknown option "--ntasks-per-socket=22"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 21
+mpirun: Error: unknown option "--ntasks-per-socket=21"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 20
+mpirun: Error: unknown option "--ntasks-per-socket=20"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 19
+mpirun: Error: unknown option "--ntasks-per-socket=19"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 18
+mpirun: Error: unknown option "--ntasks-per-socket=18"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 17
+mpirun: Error: unknown option "--ntasks-per-socket=17"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 16
+mpirun: Error: unknown option "--ntasks-per-socket=16"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 15
+mpirun: Error: unknown option "--ntasks-per-socket=15"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 14
+mpirun: Error: unknown option "--ntasks-per-socket=14"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 13
+mpirun: Error: unknown option "--ntasks-per-socket=13"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 12
+mpirun: Error: unknown option "--ntasks-per-socket=12"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 11
+mpirun: Error: unknown option "--ntasks-per-socket=11"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 10
+mpirun: Error: unknown option "--ntasks-per-socket=10"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 9
+mpirun: Error: unknown option "--ntasks-per-socket=9"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 8
+mpirun: Error: unknown option "--ntasks-per-socket=8"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 7
+mpirun: Error: unknown option "--ntasks-per-socket=7"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 6
+mpirun: Error: unknown option "--ntasks-per-socket=6"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 5
+mpirun: Error: unknown option "--ntasks-per-socket=5"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 4
+mpirun: Error: unknown option "--ntasks-per-socket=4"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 3
+mpirun: Error: unknown option "--ntasks-per-socket=3"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 2
+mpirun: Error: unknown option "--ntasks-per-socket=2"
+Type 'mpirun --help' for usage.
+rep 5 scalability -e1 10000 1
+mpirun: Error: unknown option "--ntasks-per-socket=1"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 32
+mpirun: Error: unknown option "--ntasks-per-socket=32"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 31
+mpirun: Error: unknown option "--ntasks-per-socket=31"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 30
+mpirun: Error: unknown option "--ntasks-per-socket=30"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 29
+mpirun: Error: unknown option "--ntasks-per-socket=29"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 28
+mpirun: Error: unknown option "--ntasks-per-socket=28"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 27
+mpirun: Error: unknown option "--ntasks-per-socket=27"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 26
+mpirun: Error: unknown option "--ntasks-per-socket=26"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 25
+mpirun: Error: unknown option "--ntasks-per-socket=25"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 24
+mpirun: Error: unknown option "--ntasks-per-socket=24"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 23
+mpirun: Error: unknown option "--ntasks-per-socket=23"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 22
+mpirun: Error: unknown option "--ntasks-per-socket=22"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 21
+mpirun: Error: unknown option "--ntasks-per-socket=21"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 20
+mpirun: Error: unknown option "--ntasks-per-socket=20"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 19
+mpirun: Error: unknown option "--ntasks-per-socket=19"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 18
+mpirun: Error: unknown option "--ntasks-per-socket=18"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 17
+mpirun: Error: unknown option "--ntasks-per-socket=17"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 16
+mpirun: Error: unknown option "--ntasks-per-socket=16"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 15
+mpirun: Error: unknown option "--ntasks-per-socket=15"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 14
+mpirun: Error: unknown option "--ntasks-per-socket=14"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 13
+mpirun: Error: unknown option "--ntasks-per-socket=13"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 12
+mpirun: Error: unknown option "--ntasks-per-socket=12"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 11
+mpirun: Error: unknown option "--ntasks-per-socket=11"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 10
+mpirun: Error: unknown option "--ntasks-per-socket=10"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 9
+mpirun: Error: unknown option "--ntasks-per-socket=9"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 8
+mpirun: Error: unknown option "--ntasks-per-socket=8"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 7
+mpirun: Error: unknown option "--ntasks-per-socket=7"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 6
+mpirun: Error: unknown option "--ntasks-per-socket=6"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 5
+mpirun: Error: unknown option "--ntasks-per-socket=5"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 4
+mpirun: Error: unknown option "--ntasks-per-socket=4"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 3
+mpirun: Error: unknown option "--ntasks-per-socket=3"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 2
+mpirun: Error: unknown option "--ntasks-per-socket=2"
+Type 'mpirun --help' for usage.
+rep 6 scalability -e1 10000 1
+mpirun: Error: unknown option "--ntasks-per-socket=1"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 32
+mpirun: Error: unknown option "--ntasks-per-socket=32"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 31
+mpirun: Error: unknown option "--ntasks-per-socket=31"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 30
+mpirun: Error: unknown option "--ntasks-per-socket=30"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 29
+mpirun: Error: unknown option "--ntasks-per-socket=29"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 28
+mpirun: Error: unknown option "--ntasks-per-socket=28"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 27
+mpirun: Error: unknown option "--ntasks-per-socket=27"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 26
+mpirun: Error: unknown option "--ntasks-per-socket=26"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 25
+mpirun: Error: unknown option "--ntasks-per-socket=25"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 24
+mpirun: Error: unknown option "--ntasks-per-socket=24"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 23
+mpirun: Error: unknown option "--ntasks-per-socket=23"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 22
+mpirun: Error: unknown option "--ntasks-per-socket=22"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 21
+mpirun: Error: unknown option "--ntasks-per-socket=21"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 20
+mpirun: Error: unknown option "--ntasks-per-socket=20"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 19
+mpirun: Error: unknown option "--ntasks-per-socket=19"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 18
+mpirun: Error: unknown option "--ntasks-per-socket=18"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 17
+mpirun: Error: unknown option "--ntasks-per-socket=17"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 16
+mpirun: Error: unknown option "--ntasks-per-socket=16"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 15
+mpirun: Error: unknown option "--ntasks-per-socket=15"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 14
+mpirun: Error: unknown option "--ntasks-per-socket=14"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 13
+mpirun: Error: unknown option "--ntasks-per-socket=13"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 12
+mpirun: Error: unknown option "--ntasks-per-socket=12"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 11
+mpirun: Error: unknown option "--ntasks-per-socket=11"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 10
+mpirun: Error: unknown option "--ntasks-per-socket=10"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 9
+mpirun: Error: unknown option "--ntasks-per-socket=9"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 8
+mpirun: Error: unknown option "--ntasks-per-socket=8"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 7
+mpirun: Error: unknown option "--ntasks-per-socket=7"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 6
+mpirun: Error: unknown option "--ntasks-per-socket=6"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 5
+mpirun: Error: unknown option "--ntasks-per-socket=5"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 4
+mpirun: Error: unknown option "--ntasks-per-socket=4"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 3
+mpirun: Error: unknown option "--ntasks-per-socket=3"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 2
+mpirun: Error: unknown option "--ntasks-per-socket=2"
+Type 'mpirun --help' for usage.
+rep 7 scalability -e1 10000 1
+mpirun: Error: unknown option "--ntasks-per-socket=1"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 32
+mpirun: Error: unknown option "--ntasks-per-socket=32"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 31
+mpirun: Error: unknown option "--ntasks-per-socket=31"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 30
+mpirun: Error: unknown option "--ntasks-per-socket=30"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 29
+mpirun: Error: unknown option "--ntasks-per-socket=29"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 28
+mpirun: Error: unknown option "--ntasks-per-socket=28"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 27
+mpirun: Error: unknown option "--ntasks-per-socket=27"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 26
+mpirun: Error: unknown option "--ntasks-per-socket=26"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 25
+mpirun: Error: unknown option "--ntasks-per-socket=25"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 24
+mpirun: Error: unknown option "--ntasks-per-socket=24"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 23
+mpirun: Error: unknown option "--ntasks-per-socket=23"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 22
+mpirun: Error: unknown option "--ntasks-per-socket=22"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 21
+mpirun: Error: unknown option "--ntasks-per-socket=21"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 20
+mpirun: Error: unknown option "--ntasks-per-socket=20"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 19
+mpirun: Error: unknown option "--ntasks-per-socket=19"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 18
+mpirun: Error: unknown option "--ntasks-per-socket=18"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 17
+mpirun: Error: unknown option "--ntasks-per-socket=17"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 16
+mpirun: Error: unknown option "--ntasks-per-socket=16"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 15
+mpirun: Error: unknown option "--ntasks-per-socket=15"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 14
+mpirun: Error: unknown option "--ntasks-per-socket=14"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 13
+mpirun: Error: unknown option "--ntasks-per-socket=13"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 12
+mpirun: Error: unknown option "--ntasks-per-socket=12"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 11
+mpirun: Error: unknown option "--ntasks-per-socket=11"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 10
+mpirun: Error: unknown option "--ntasks-per-socket=10"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 9
+mpirun: Error: unknown option "--ntasks-per-socket=9"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 8
+mpirun: Error: unknown option "--ntasks-per-socket=8"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 7
+mpirun: Error: unknown option "--ntasks-per-socket=7"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 6
+mpirun: Error: unknown option "--ntasks-per-socket=6"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 5
+mpirun: Error: unknown option "--ntasks-per-socket=5"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 4
+mpirun: Error: unknown option "--ntasks-per-socket=4"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 3
+mpirun: Error: unknown option "--ntasks-per-socket=3"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 2
+mpirun: Error: unknown option "--ntasks-per-socket=2"
+Type 'mpirun --help' for usage.
+rep 8 scalability -e1 10000 1
+mpirun: Error: unknown option "--ntasks-per-socket=1"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 32
+mpirun: Error: unknown option "--ntasks-per-socket=32"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 31
+mpirun: Error: unknown option "--ntasks-per-socket=31"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 30
+mpirun: Error: unknown option "--ntasks-per-socket=30"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 29
+mpirun: Error: unknown option "--ntasks-per-socket=29"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 28
+mpirun: Error: unknown option "--ntasks-per-socket=28"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 27
+mpirun: Error: unknown option "--ntasks-per-socket=27"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 26
+mpirun: Error: unknown option "--ntasks-per-socket=26"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 25
+mpirun: Error: unknown option "--ntasks-per-socket=25"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 24
+mpirun: Error: unknown option "--ntasks-per-socket=24"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 23
+mpirun: Error: unknown option "--ntasks-per-socket=23"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 22
+mpirun: Error: unknown option "--ntasks-per-socket=22"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 21
+mpirun: Error: unknown option "--ntasks-per-socket=21"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 20
+mpirun: Error: unknown option "--ntasks-per-socket=20"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 19
+mpirun: Error: unknown option "--ntasks-per-socket=19"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 18
+mpirun: Error: unknown option "--ntasks-per-socket=18"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 17
+mpirun: Error: unknown option "--ntasks-per-socket=17"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 16
+mpirun: Error: unknown option "--ntasks-per-socket=16"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 15
+mpirun: Error: unknown option "--ntasks-per-socket=15"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 14
+mpirun: Error: unknown option "--ntasks-per-socket=14"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 13
+mpirun: Error: unknown option "--ntasks-per-socket=13"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 12
+mpirun: Error: unknown option "--ntasks-per-socket=12"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 11
+mpirun: Error: unknown option "--ntasks-per-socket=11"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 10
+mpirun: Error: unknown option "--ntasks-per-socket=10"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 9
+mpirun: Error: unknown option "--ntasks-per-socket=9"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 8
+mpirun: Error: unknown option "--ntasks-per-socket=8"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 7
+mpirun: Error: unknown option "--ntasks-per-socket=7"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 6
+mpirun: Error: unknown option "--ntasks-per-socket=6"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 5
+mpirun: Error: unknown option "--ntasks-per-socket=5"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 4
+mpirun: Error: unknown option "--ntasks-per-socket=4"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 3
+mpirun: Error: unknown option "--ntasks-per-socket=3"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 2
+mpirun: Error: unknown option "--ntasks-per-socket=2"
+Type 'mpirun --help' for usage.
+rep 9 scalability -e1 10000 1
+mpirun: Error: unknown option "--ntasks-per-socket=1"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 32
+mpirun: Error: unknown option "--ntasks-per-socket=32"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 31
+mpirun: Error: unknown option "--ntasks-per-socket=31"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 30
+mpirun: Error: unknown option "--ntasks-per-socket=30"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 29
+mpirun: Error: unknown option "--ntasks-per-socket=29"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 28
+mpirun: Error: unknown option "--ntasks-per-socket=28"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 27
+mpirun: Error: unknown option "--ntasks-per-socket=27"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 26
+mpirun: Error: unknown option "--ntasks-per-socket=26"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 25
+mpirun: Error: unknown option "--ntasks-per-socket=25"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 24
+mpirun: Error: unknown option "--ntasks-per-socket=24"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 23
+mpirun: Error: unknown option "--ntasks-per-socket=23"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 22
+mpirun: Error: unknown option "--ntasks-per-socket=22"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 21
+mpirun: Error: unknown option "--ntasks-per-socket=21"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 20
+mpirun: Error: unknown option "--ntasks-per-socket=20"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 19
+mpirun: Error: unknown option "--ntasks-per-socket=19"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 18
+mpirun: Error: unknown option "--ntasks-per-socket=18"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 17
+mpirun: Error: unknown option "--ntasks-per-socket=17"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 16
+mpirun: Error: unknown option "--ntasks-per-socket=16"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 15
+mpirun: Error: unknown option "--ntasks-per-socket=15"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 14
+mpirun: Error: unknown option "--ntasks-per-socket=14"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 13
+mpirun: Error: unknown option "--ntasks-per-socket=13"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 12
+mpirun: Error: unknown option "--ntasks-per-socket=12"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 11
+mpirun: Error: unknown option "--ntasks-per-socket=11"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 10
+mpirun: Error: unknown option "--ntasks-per-socket=10"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 9
+mpirun: Error: unknown option "--ntasks-per-socket=9"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 8
+mpirun: Error: unknown option "--ntasks-per-socket=8"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 7
+mpirun: Error: unknown option "--ntasks-per-socket=7"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 6
+mpirun: Error: unknown option "--ntasks-per-socket=6"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 5
+mpirun: Error: unknown option "--ntasks-per-socket=5"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 4
+mpirun: Error: unknown option "--ntasks-per-socket=4"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 3
+mpirun: Error: unknown option "--ntasks-per-socket=3"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 2
+mpirun: Error: unknown option "--ntasks-per-socket=2"
+Type 'mpirun --help' for usage.
+rep 10 scalability -e1 10000 1
+mpirun: Error: unknown option "--ntasks-per-socket=1"
+Type 'mpirun --help' for usage.
+scalability end

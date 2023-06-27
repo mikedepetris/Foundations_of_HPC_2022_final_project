@@ -1,0 +1,47 @@
+Selected type of execution: 1
+make: Nothing to be done for 'all'.
+scale_mpi_thin_thin007_2023-06-26_14-54-42.csv thin007 2023-06-26_14-54-42
+MPI scalability begin
+rep 1 scalability -e1 20000 13
+[thin007:4017951] MCW rank 8 bound to socket 0[core 8[hwt 0]]: [././././././././B/././.][./././././././././././.]
+[thin007:4017951] MCW rank 9 bound to socket 0[core 9[hwt 0]]: [./././././././././B/./.][./././././././././././.]
+[thin007:4017951] MCW rank 10 bound to socket 0[core 10[hwt 0]]: [././././././././././B/.][./././././././././././.]
+[thin007:4017951] MCW rank 11 bound to socket 0[core 11[hwt 0]]: [./././././././././././B][./././././././././././.]
+[thin007:4017951] MCW rank 12 bound to socket 1[core 12[hwt 0]]: [./././././././././././.][B/././././././././././.]
+[thin007:4017951] MCW rank 0 bound to socket 0[core 0[hwt 0]]: [B/././././././././././.][./././././././././././.]
+[thin007:4017951] MCW rank 1 bound to socket 0[core 1[hwt 0]]: [./B/./././././././././.][./././././././././././.]
+[thin007:4017951] MCW rank 2 bound to socket 0[core 2[hwt 0]]: [././B/././././././././.][./././././././././././.]
+[thin007:4017951] MCW rank 3 bound to socket 0[core 3[hwt 0]]: [./././B/./././././././.][./././././././././././.]
+[thin007:4017951] MCW rank 4 bound to socket 0[core 4[hwt 0]]: [././././B/././././././.][./././././././././././.]
+[thin007:4017951] MCW rank 5 bound to socket 0[core 5[hwt 0]]: [./././././B/./././././.][./././././././././././.]
+[thin007:4017951] MCW rank 6 bound to socket 0[core 6[hwt 0]]: [././././././B/././././.][./././././././././././.]
+[thin007:4017951] MCW rank 7 bound to socket 0[core 7[hwt 0]]: [./././././././B/./././.][./././././././././././.]
+rep 1 scalability -e1 20000 16
+[thin007:4018046] MCW rank 3 bound to socket 0[core 3[hwt 0]]: [./././B/./././././././.][./././././././././././.]
+[thin007:4018046] MCW rank 4 bound to socket 0[core 4[hwt 0]]: [././././B/././././././.][./././././././././././.]
+[thin007:4018046] MCW rank 5 bound to socket 0[core 5[hwt 0]]: [./././././B/./././././.][./././././././././././.]
+[thin007:4018046] MCW rank 6 bound to socket 0[core 6[hwt 0]]: [././././././B/././././.][./././././././././././.]
+[thin007:4018046] MCW rank 7 bound to socket 0[core 7[hwt 0]]: [./././././././B/./././.][./././././././././././.]
+[thin007:4018046] MCW rank 8 bound to socket 0[core 8[hwt 0]]: [././././././././B/././.][./././././././././././.]
+[thin007:4018046] MCW rank 9 bound to socket 0[core 9[hwt 0]]: [./././././././././B/./.][./././././././././././.]
+[thin007:4018046] MCW rank 10 bound to socket 0[core 10[hwt 0]]: [././././././././././B/.][./././././././././././.]
+[thin007:4018046] MCW rank 11 bound to socket 0[core 11[hwt 0]]: [./././././././././././B][./././././././././././.]
+[thin007:4018046] MCW rank 12 bound to socket 1[core 12[hwt 0]]: [./././././././././././.][B/././././././././././.]
+[thin007:4018046] MCW rank 13 bound to socket 1[core 13[hwt 0]]: [./././././././././././.][./B/./././././././././.]
+[thin007:4018046] MCW rank 14 bound to socket 1[core 14[hwt 0]]: [./././././././././././.][././B/././././././././.]
+[thin007:4018046] MCW rank 15 bound to socket 1[core 15[hwt 0]]: [./././././././././././.][./././B/./././././././.]
+[thin007:4018046] MCW rank 0 bound to socket 0[core 0[hwt 0]]: [B/././././././././././.][./././././././././././.]
+[thin007:4018046] MCW rank 1 bound to socket 0[core 1[hwt 0]]: [./B/./././././././././.][./././././././././././.]
+[thin007:4018046] MCW rank 2 bound to socket 0[core 2[hwt 0]]: [././B/././././././././.][./././././././././././.]
+slurmstepd: error: *** JOB 14137 ON thin007 CANCELLED AT 2023-06-26T14:57:33 ***
+--------------------------------------------------------------------------
+ORTE has lost communication with a remote daemon.
+
+  HNP daemon   : [[33799,0],0] on node thin007
+  Remote daemon: [[33799,0],2] on node thin010
+
+This is usually due to either a failure of the TCP network
+connection to the node, or possibly an internal failure of
+the daemon itself. We cannot recover from this failure, and
+therefore will terminate the job.
+--------------------------------------------------------------------------
