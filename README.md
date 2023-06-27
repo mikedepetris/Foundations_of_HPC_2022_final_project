@@ -4,7 +4,7 @@
 
 
 AMD provide its own implementation of standard BLAS routine, this implementation is provided in the `BLIS` library, <a href="https://developer.amd.com/amd-aocl/blas-library/"> available here </a>.
-There is also the source code on github.
+There is also the source code on GitHub.
 
 Download it:
 ```
