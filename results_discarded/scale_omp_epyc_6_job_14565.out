@@ -1,0 +1,8 @@
+Selected type of execution: 1
+make: Nothing to be done for 'all'.
+scale_omp_epyc_epyc005_2023-06-27_15-09-47.csv epyc005 2023-06-27_15-09-47
+OMP scalability begin
+rep 1 scalability -e1 10000 1
+gameoflife.x running on 6*1 cores with 6 MPI-tasks and 1 threads
+mpirun -n 6 --map-by ppr:1:socket:PE=1 --bind-to core --report-bindings gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+/var/spool/slurm/d/job14565/slurm_script: line 81: exec: mpirun -n 6 --map-by ppr:1:socket:PE=1 --bind-to core --report-bindings gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q: not found

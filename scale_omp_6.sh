@@ -11,7 +11,7 @@
 #SBATCH --ntasks-per-node 2
 #SBATCH --mem=490G
 #SBATCH --time=02:00:00
-#SBATCH --export=ALL,MPI_MODULE=openMPI/4.1.5/gnu/12.2.1,EXECUTABLE=./gameoflife.x
+#SBATCH --export=ALL,MPI_MODULE=openMPI/4.1.5/gnu/12.2.1,EXECUTABLE=gameoflife.x
 #SBATCH --output=scale_omp_epyc_6_job_%j.out
 
 #SIZE=100
@@ -37,7 +37,7 @@ echo "Selected type of execution: $TYPE"
 #module load openMPI/4.1.5/gnu/12.2.1
 module load "${MPI_MODULE}"
 
-#mpirun -np 1 make all
+mpirun -np 1 make all
 
 export OMP_PLACES=cores
 export OMP_PROC_BIND=close
@@ -78,7 +78,8 @@ for REP in {1..10}; do
       echo "$startexe"
       {
         #echo $startexe
-        exec "$startexe"
+        #exec "$startexe"
+mpirun -n ${SLURM_NTASKS} ${MPIRUN_OPTIONS} ${EXECUTABLE} -r -f pattern_random$SIZE.pgm -n $STEPS -e $TYPE -s $SNAPAT -q
         #mpirun -n 6 --map-by node --bind-to socket --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
         #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 0 -s 0 -q
         #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 1 -s 0 -q

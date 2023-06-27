@@ -1,0 +1,25 @@
+Selected type of execution: 1
+scale_omp_epyc_epyc005_2023-06-27_14-27-16.csv epyc005 2023-06-27_14-27-16
+OMP scalability begin
+rep 1 scalability -e1 10000 128
+./gameoflife.x running on 3*128 cores with 3 MPI-tasks and 128 threads
+mpirun -n 3 --bind-to node --map-by node:PE=128 --report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+--------------------------------------------------------------------------
+The specified binding policy is not recognized:
+
+  Policy: node
+
+Please check for a typo or ensure that the option is a supported
+one.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+It looks like opal_init failed for some reason; your parallel process is
+likely to abort.  There are many reasons that a parallel process can
+fail during opal_init; some of which are due to configuration or
+environment problems.  This failure appears to be an internal failure;
+here's some additional information (which may only be relevant to an
+Open MPI developer):
+
+  opal_hwloc_base_open failed
+  --> Returned value -5 instead of OPAL_SUCCESS
+--------------------------------------------------------------------------

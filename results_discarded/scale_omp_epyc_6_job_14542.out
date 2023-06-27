@@ -1,0 +1,18 @@
+Selected type of execution: 1
+scale_omp_epyc_epyc001.orfeo.hpc_2023-06-27_13-56-02.csv epyc001.orfeo.hpc 2023-06-27_13-56-02
+OMP scalability begin
+rep 1 scalability -e1 10000 384
+./gameoflife.x running on 128*384 cores with 128 MPI-tasks and 384 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=384 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+--------------------------------------------------------------------------
+A request for multiple cpus-per-proc was given, but a directive
+was also given to map to an object level that has less cpus than
+requested ones:
+
+  #cpus-per-proc:  384
+  number of cpus:  64
+  map-by:          BYSOCKET
+
+Please specify a mapping level that has more cpus, or else let us
+define a default mapping that will allow multiple cpus-per-proc.
+--------------------------------------------------------------------------

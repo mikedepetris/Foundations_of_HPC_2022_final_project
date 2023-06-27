@@ -1,0 +1,14 @@
+Selected type of execution: 1
+scale_omp_epyc_epyc005_2023-06-27_13-59-41.csv epyc005 2023-06-27_13-59-41
+OMP scalability begin
+rep 1 scalability -e1 10000 384
+./gameoflife.x running on 384*384 cores with 384 MPI-tasks and 384 threads
+mpirun -n 1 --bind-to core --map-by node:PE=384 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+--------------------------------------------------------------------------
+While computing bindings, we found no available cpus on
+the following node:
+
+  Node:  epyc005
+
+Please check your allocation.
+--------------------------------------------------------------------------

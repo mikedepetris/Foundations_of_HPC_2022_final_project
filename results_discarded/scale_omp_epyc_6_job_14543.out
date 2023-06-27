@@ -1,0 +1,14 @@
+Selected type of execution: 1
+scale_omp_epyc_epyc001.orfeo.hpc_2023-06-27_13-57-34.csv epyc001.orfeo.hpc 2023-06-27_13-57-34
+OMP scalability begin
+rep 1 scalability -e1 10000 384
+./gameoflife.x running on 128*384 cores with 128 MPI-tasks and 384 threads
+mpirun -n 1 --bind-to core --map-by node:PE=384 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+--------------------------------------------------------------------------
+While computing bindings, we found no available cpus on
+the following node:
+
+  Node:  epyc001
+
+Please check your allocation.
+--------------------------------------------------------------------------
