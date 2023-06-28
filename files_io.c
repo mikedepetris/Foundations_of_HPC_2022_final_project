@@ -34,9 +34,7 @@ void calculate_sizes_indexes(int mpi_rank, int mpi_size, long world_size, long *
 //    fclose(image_file);
 //}
 
-double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_size, long local_size
-                            , const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension
-                            , int mpi_rank, int mpi_size, int debug_info) {
+double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_size, long local_size, const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension, int mpi_rank, int mpi_size, int debug_info) {
     double t_io = 0; // returned value: total I/O time spent
 #ifdef DEBUG1
     if (debug_info > 0)
@@ -141,9 +139,7 @@ double file_pgm_write_chunk(unsigned char *world_local, int maxval, long world_s
     return t_io;
 }
 
-double file_pgm_write_chunk_noghost(unsigned char *world_local, int maxval, long world_size, long local_size
-                                    , const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension
-                                    , int mpi_rank, int mpi_size, int debug_info) {
+double file_pgm_write_chunk_noghost(unsigned char *world_local, int maxval, long world_size, long local_size, const char *directoryname, const char *image_filename_prefix, const char *image_filename_suffix, const char *image_filename_extension, int mpi_rank, int mpi_size, int debug_info) {
     double t_io = 0; // returned value: total I/O time spent
 #ifdef DEBUG1
     if (debug_info > 0)

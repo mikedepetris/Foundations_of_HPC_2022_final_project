@@ -13,19 +13,26 @@
 #SBATCH --output=scale_omp_epyc_job_%j.out
 
 #SIZE=100
-STEPS=100
 TYPE="i"
+STEPS=100
+SNAPAT=0
 if [ $# == 1 ]; then
   TYPE="$1"
 fi
-SNAPAT=0
 if [ $# == 2 ]; then
+  TYPE="$1"
   SNAPAT="$2"
+fi
+if [ $# == 3 ]; then
+  TYPE="$1"
+  SNAPAT="$2"
+  SIZE="$3"
 fi
 echo "Selected type of execution: $TYPE"
 
-module load architecture/AMD
-module load openMPI/4.1.4/gnu/12.2.1
+#module load architecture/AMD
+#module load openMPI/4.1.4/gnu/12.2.1
+module load openMPI/4.1.5/gnu/12.2.1
 
 mpirun -np 1 make all
 
@@ -41,30 +48,33 @@ csvname=scale_omp_epyc_$(hostname)_$now.csv
 echo "$csvname $(hostname) $now"
 echo "action,world_size,number_of_steps,number_of_steps_between_file_dumps,mpi_size,omp_get_max_threads,total_time,t_io,t_io_accumulator,t_io_accumulator_average" >"$csvname"
 
-echo scalability begin
+echo OMP scalability begin
 
-for SIZE in 10000 1000 100; do
+for REP in {1..10}; do
+#  for SIZE in 10000; do
 
-if [ "$TYPE" == i ]; then
-  for threads in {1..64}; do
-    echo scalability -i "$SIZE" "$threads"
-    export OMP_NUM_THREADS=$threads
-    mpirun -n 1 --map-by socket gameoflife.x -i -k $SIZE -f pattern_random$SIZE -q >>"$csvname"
-  done
-else
-  for threads in {1..64}; do
-    echo scalability -e"$TYPE" "$SIZE" "$threads"
-    export OMP_NUM_THREADS=$threads
-    {
-      mpirun -n 1 --map-by socket gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
-#      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 0 -s 0 -q
-#      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 1 -s 0 -q
-#      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 2 -s 0 -q
-#      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 3 -s 0 -q
-    } >>"$csvname"
-  done
-fi
+    if [ "$TYPE" == i ]; then
+#SIZE=10000
+      for threads in {1..64}; do
+        echo rep "$REP" scalability -i "$SIZE" "$threads"
+        export OMP_NUM_THREADS=$threads
+        mpirun -n 1 --map-by socket gameoflife.x -i -k "$SIZE" -f pattern_random"$SIZE" -q >>"$csvname"
+      done
+    else
+      for threads in {64..1}; do
+        echo rep "$REP" scalability -e"$TYPE" "$SIZE" "$threads"
+        export OMP_NUM_THREADS=$threads
+        {
+          mpirun -n 1 --map-by socket --report-bindings gameoflife.x -r -f pattern_random"$SIZE".pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
+          #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 0 -s 0 -q
+          #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 1 -s 0 -q
+          #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 2 -s 0 -q
+          #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 3 -s 0 -q
+        } >>"$csvname"
+      done
+    fi
 
+#  done
 done
 
 echo scalability end

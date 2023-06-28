@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <mpi.h>
 #include <string.h>
 #include <omp.h>
@@ -12,8 +11,7 @@
 double initialize_parallel(long total_size, int mpi_size, int mpi_rank, int debug_info) {
     double t_io = 0; // returned value: total I/O time spent
     long chunk_size; // chunk of rows of each MPI task: world_chunk rows / number of threads (mpi_size)
-    chunk_size =
-            total_size % mpi_size - mpi_rank <= 0 ? (long) (total_size / mpi_size) : (long) (total_size / mpi_size) + 1;
+    chunk_size = total_size % mpi_size - mpi_rank <= 0 ? (long) (total_size / mpi_size) : (long) (total_size / mpi_size) + 1;
 #ifdef DEBUG1
     if (debug_info > 0)
         printf("DEBUG1 - initialize_parallel - BEGIN - rank=%d/%d, chunk_size=%ld/%ld\n", mpi_rank, mpi_size, chunk_size, total_size);
@@ -147,8 +145,7 @@ void new_playground(long world_size, const char *filename, int *argc, char ***ar
             if (debug_info > 0)
                 printf("DEBUG1 - initialization - JOIN1: %s%03d_%03d.%s\n", IMAGE_FILENAME_PREFIX_INIT, mpi_size, i, FILE_EXTENSION_PGMPART);
 #endif
-            fn[i] = (char *) malloc(
-                    strlen(IMAGE_FILENAME_PREFIX_INIT) + strlen("_000_000.") + strlen(FILE_EXTENSION_PGMPART) + 1);
+            fn[i] = (char *) malloc(strlen(IMAGE_FILENAME_PREFIX_INIT) + strlen("_000_000.") + strlen(FILE_EXTENSION_PGMPART) + 1);
             sprintf(fn[i], "%s_%03d_%03d.%s", IMAGE_FILENAME_PREFIX_INIT, mpi_size, i, FILE_EXTENSION_PGMPART);
         }
 #ifdef DEBUG1
@@ -202,8 +199,7 @@ void new_playground(long world_size, const char *filename, int *argc, char ***ar
     if (mpi_rank == 0) {
         //printf("Initialization completed, data written to file %s\n", pathname);
         if (csv_output == CSV_OUTPUT_FALSE)
-            printf("mpi=%d, omp=%d, total time=%f, I/O time=%f, I/O time t_io_accumulator=%f, t_io_accumulator mean=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator,
-                    mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
+            printf("mpi=%d, omp=%d, total time=%f, I/O time=%f, I/O time t_io_accumulator=%f, t_io_accumulator mean=%f\n", mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
         else
             printf("i,%ld,0,0,%d,%d,%f,%f,%f,%f\n", world_size, mpi_size, omp_get_max_threads(), MPI_Wtime() - t_start, t_io, t_io_accumulator, mpi_size == 1 ? 0 : t_io_accumulator / (mpi_size - 1));
     }

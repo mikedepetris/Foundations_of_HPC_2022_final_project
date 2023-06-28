@@ -7,7 +7,7 @@
 #SBATCH --partition=EPYC
 #SBATCH --nodes=3
 #SBATCH --exclusive
-#SBATCH --ntasks-per-node 21
+#SBATCH --ntasks-per-node 1
 #SBATCH --mem=490G
 #SBATCH --time=02:00:00
 #SBATCH --output=scale_omp_epyc_3_job_%j.out
@@ -51,30 +51,30 @@ echo "action,world_size,number_of_steps,number_of_steps_between_file_dumps,mpi_s
 echo OMP scalability begin
 
 for REP in {1..10}; do
-#  for SIZE in 10000; do
+  #  for SIZE in 10000; do
 
-    if [ "$TYPE" == i ]; then
-#SIZE=10000
-      for threads in {1..64}; do
-        echo rep $REP scalability -i "$SIZE" "$threads"
-        export OMP_NUM_THREADS=$threads
-        mpirun -n 1 --map-by socket gameoflife.x -i -k $SIZE -f pattern_random$SIZE -q >>"$csvname"
-      done
-    else
-      for threads in {21..1}; do
-        echo rep $REP scalability -e"$TYPE" "$SIZE" "$threads"
-        export OMP_NUM_THREADS=$threads
-        {
-          mpirun -np 3 --map-by node --bind-to socket --report-bindings gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
-          #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 0 -s 0 -q
-          #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 1 -s 0 -q
-          #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 2 -s 0 -q
-          #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 3 -s 0 -q
-        } >>"$csvname"
-      done
-    fi
+  if [ "$TYPE" == i ]; then
+    #SIZE=10000
+    for threads in {1..64}; do
+      echo rep "$REP" scalability -i "$SIZE" "$threads"
+      export OMP_NUM_THREADS=$threads
+      mpirun -n 1 --map-by socket gameoflife.x -i -k "$SIZE" -f pattern_random"$SIZE" -q >>"$csvname"
+    done
+  else
+    for threads in {21..1}; do
+      echo rep "$REP" scalability -e"$TYPE" "$SIZE" "$threads"
+      export OMP_NUM_THREADS=$threads
+      {
+        mpirun -np 3 --map-by node --bind-to socket --report-bindings gameoflife.x -r -f pattern_random"$SIZE".pgm -n $STEPS -e "$TYPE" -s "$SNAPAT" -q
+        #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 0 -s 0 -q
+        #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 1 -s 0 -q
+        #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 2 -s 0 -q
+        #      mpirun -n 1 --map-by node gameoflife.x -r -f pattern_random$SIZE.pgm -n $STEPS -e 3 -s 0 -q
+      } >>"$csvname"
+    done
+  fi
 
-#  done
+  #  done
 done
 
 echo scalability end
