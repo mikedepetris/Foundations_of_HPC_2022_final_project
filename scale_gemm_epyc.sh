@@ -11,10 +11,11 @@
 #SBATCH --time=02:00:00
 #SBATCH --output=scale_gemm_epyc_job_%j.out
 
-module load architecture/AMD
+#module load architecture/AMD
 #module load openMPI/4.1.4/gnu/12.2.1
 module load mkl
-module load openBLAS/0.3.21-omp
+#module load openBLAS/0.3.21-omp
+module load openBLAS/0.3.23-omp
 
 #make
 

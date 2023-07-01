@@ -11,9 +11,10 @@
 #SBATCH --time=02:00:00
 #SBATCH --output=gemm_mkl_thin_job_%j.out
 
-module load architecture/Intel
+#module load architecture/Intel
 module load mkl
-module load openBLAS/0.3.21-omp
+#module load openBLAS/0.3.21-omp
+module load openBLAS/0.3.23-omp
 
 export OMP_NUM_THREADS=12
 export OMP_PLACES=cores

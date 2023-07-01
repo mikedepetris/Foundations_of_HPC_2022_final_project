@@ -11,9 +11,10 @@
 #SBATCH --time=02:00:00
 #SBATCH --output=policy_gemm_epyc_job_%j.out
 
-module load architecture/AMD
+#module load architecture/AMD
 module load mkl
-module load openBLAS/0.3.21-omp
+#module load openBLAS/0.3.21-omp
+module load openBLAS/0.3.23-omp
 
 nt=64
 pl=cores

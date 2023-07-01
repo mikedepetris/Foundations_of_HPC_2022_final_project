@@ -8,10 +8,11 @@
 #SBATCH --time=02:00:00
 #SBATCH --output=dgemm_mkl_epyc_job_%j.out
 
-module load architecture/AMD
+#module load architecture/AMD
 #module load openMPI/4.1.4/gnu (needed?)
 module load mkl
-module load openBLAS/0.3.21-omp
+#module load openBLAS/0.3.21-omp
+module load openBLAS/0.3.23-omp
 
 #hpl: export codes=/u/path_to/hpl-2.3/bin/epyc
 #hpl: mpirun -np 128 --map-by core $codes/xhpl
