@@ -10,7 +10,7 @@
 #SBATCH --ntasks-per-node 64
 #SBATCH --mem=490G
 #SBATCH --time=02:00:00
-#SBATCH --output=sgemm_mkl_epyc_job_%j.out
+#SBATCH --output=sgemm_epyc_job_%j.out
 
 #module load architecture/AMD
 #module load openMPI/4.1.4/gnu/12.2.1
@@ -20,16 +20,15 @@ module load openBLAS/0.3.23-omp
 
 #mpirun -np 1 make all
 
-#export OMP_NUM_THREADS=64
 export OMP_PLACES=cores
 export OMP_PROC_BIND=close
-
-#hpl: export codes=/u/path_to/hpl-2.3/bin/epyc
-#hpl: mpirun -np 128 --map-by core $codes/xhpl
+export OMP_NUM_THREADS=64
+export BLIS_NUM_THREADS=64
+export LD_LIBRARY_PATH=/u/dssc/mdepet00/assignment/exercise2/blis/lib:$LD_LIBRARY_PATH
 
 echo size scalability begin
 
-for LIB in oblas oblas_optimized mkl mkl_optimized; do
+for LIB in blis blis_optimized oblas oblas_optimized mkl mkl_optimized; do
   now=$(date +"%Y-%m-%d_%H-%M-%S")
   csvname=sgemm_"$LIB"_epyc_$(hostname)_$now.csv
   #echo "$csvname $(hostname) $now"
@@ -41,7 +40,7 @@ for LIB in oblas oblas_optimized mkl mkl_optimized; do
   for REP in {1..5}; do
     #increase the size of matrices size from 2000x2000 to 20000x20000 (single precision) and analyse the scaling of the GEMM calculation for at least MKL and openblas.
     for SIZE in {30000..20000..500}; do
-      echo "$csvname","$csvname",$(hostname),rep "$REP" size "$SIZE" srun -n1 --cpus-per-task=64 ./sgemm_$LIB.x "$SIZE" "$SIZE" "$SIZE"'>>'"$csvname"
+      echo sgemm_epyc_job_"$SLURM_JOB_ID".out$'\t'"$csvname"$'\t'"$(hostname)"$'\t'rep "$REP" size "$SIZE" OMP_PLACES=$OMP_PLACES OMP_PROC_BIND=$OMP_PROC_BIND OMP_NUM_THREADS=$OMP_NUM_THREADS BLIS_NUM_THREADS=$BLIS_NUM_THREADS srun -n1 --cpus-per-task=64 ./sgemm_$LIB.x "$SIZE" "$SIZE" "$SIZE"'>>'"$csvname"
       srun -n1 --cpus-per-task=64 ./sgemm_$LIB.x "$SIZE" "$SIZE" "$SIZE" >>"$csvname"
       #srun -n1 --cpus-per-task=64 ./sgemm_oblas.x 2000 2000 2000
     done

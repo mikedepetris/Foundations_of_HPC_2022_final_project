@@ -1,0 +1,83 @@
+Loading mkl version 2022.2.1
+Loading tbb version 2021.7.1
+Loading compiler-rt version 2022.2.1
+size scalability begin
+sgemm_epyc_job_15720.out	sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv	epyc008	rep 1 size 2000 OMP_PLACES=cores OMP_PROC_BIND=close OMP_NUM_THREADS=64 BLIS_NUM_THREADS=64 srun -n1 --cpus-per-task=64 ./sgemm_mkl.x 2000 2000 2000>>sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv
+sgemm_epyc_job_15720.out	sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv	epyc008	rep 1 size 2500 OMP_PLACES=cores OMP_PROC_BIND=close OMP_NUM_THREADS=64 BLIS_NUM_THREADS=64 srun -n1 --cpus-per-task=64 ./sgemm_mkl.x 2500 2500 2500>>sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv
+sgemm_epyc_job_15720.out	sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv	epyc008	rep 1 size 3000 OMP_PLACES=cores OMP_PROC_BIND=close OMP_NUM_THREADS=64 BLIS_NUM_THREADS=64 srun -n1 --cpus-per-task=64 ./sgemm_mkl.x 3000 3000 3000>>sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv
+sgemm_epyc_job_15720.out	sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv	epyc008	rep 1 size 3500 OMP_PLACES=cores OMP_PROC_BIND=close OMP_NUM_THREADS=64 BLIS_NUM_THREADS=64 srun -n1 --cpus-per-task=64 ./sgemm_mkl.x 3500 3500 3500>>sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv
+sgemm_epyc_job_15720.out	sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv	epyc008	rep 1 size 4000 OMP_PLACES=cores OMP_PROC_BIND=close OMP_NUM_THREADS=64 BLIS_NUM_THREADS=64 srun -n1 --cpus-per-task=64 ./sgemm_mkl.x 4000 4000 4000>>sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv
+sgemm_epyc_job_15720.out	sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv	epyc008	rep 1 size 4500 OMP_PLACES=cores OMP_PROC_BIND=close OMP_NUM_THREADS=64 BLIS_NUM_THREADS=64 srun -n1 --cpus-per-task=64 ./sgemm_mkl.x 4500 4500 4500>>sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv
+sgemm_epyc_job_15720.out	sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv	epyc008	rep 1 size 5000 OMP_PLACES=cores OMP_PROC_BIND=close OMP_NUM_THREADS=64 BLIS_NUM_THREADS=64 srun -n1 --cpus-per-task=64 ./sgemm_mkl.x 5000 5000 5000>>sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv
+sgemm_epyc_job_15720.out	sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv	epyc008	rep 1 size 5500 OMP_PLACES=cores OMP_PROC_BIND=close OMP_NUM_THREADS=64 BLIS_NUM_THREADS=64 srun -n1 --cpus-per-task=64 ./sgemm_mkl.x 5500 5500 5500>>sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv
+sgemm_epyc_job_15720.out	sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv	epyc008	rep 1 size 6000 OMP_PLACES=cores OMP_PROC_BIND=close OMP_NUM_THREADS=64 BLIS_NUM_THREADS=64 srun -n1 --cpus-per-task=64 ./sgemm_mkl.x 6000 6000 6000>>sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv
+sgemm_epyc_job_15720.out	sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv	epyc008	rep 1 size 6500 OMP_PLACES=cores OMP_PROC_BIND=close OMP_NUM_THREADS=64 BLIS_NUM_THREADS=64 srun -n1 --cpus-per-task=64 ./sgemm_mkl.x 6500 6500 6500>>sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv
+sgemm_epyc_job_15720.out	sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv	epyc008	rep 1 size 7000 OMP_PLACES=cores OMP_PROC_BIND=close OMP_NUM_THREADS=64 BLIS_NUM_THREADS=64 srun -n1 --cpus-per-task=64 ./sgemm_mkl.x 7000 7000 7000>>sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv
+sgemm_epyc_job_15720.out	sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv	epyc008	rep 1 size 7500 OMP_PLACES=cores OMP_PROC_BIND=close OMP_NUM_THREADS=64 BLIS_NUM_THREADS=64 srun -n1 --cpus-per-task=64 ./sgemm_mkl.x 7500 7500 7500>>sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv
+sgemm_epyc_job_15720.out	sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv	epyc008	rep 1 size 8000 OMP_PLACES=cores OMP_PROC_BIND=close OMP_NUM_THREADS=64 BLIS_NUM_THREADS=64 srun -n1 --cpus-per-task=64 ./sgemm_mkl.x 8000 8000 8000>>sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv
+sgemm_epyc_job_15720.out	sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv	epyc008	rep 1 size 8500 OMP_PLACES=cores OMP_PROC_BIND=close OMP_NUM_THREADS=64 BLIS_NUM_THREADS=64 srun -n1 --cpus-per-task=64 ./sgemm_mkl.x 8500 8500 8500>>sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv
+srun: error: Unable to confirm allocation for job 15720: Unable to contact slurm controller (connect failure)
+srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 15720
+sgemm_epyc_job_15720.out	sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv	epyc008	rep 1 size 9000 OMP_PLACES=cores OMP_PROC_BIND=close OMP_NUM_THREADS=64 BLIS_NUM_THREADS=64 srun -n1 --cpus-per-task=64 ./sgemm_mkl.x 9000 9000 9000>>sgemm_mkl_epyc_epyc008_2023-07-04_09-20-55.csv
+srun: Job 15720 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: Job 15720 step creation still disabled, retrying (Requested nodes are busy)
+srun: error: Unable to create step for job 15720: Job/step already completing or completed
+slurmstepd: error: *** JOB 15720 ON epyc008 CANCELLED AT 2023-07-04T11:21:03 DUE TO TIME LIMIT ***
