@@ -21,7 +21,7 @@ module load openBLAS/0.3.23-omp
 #mpirun -np 1 make all
 
 export OMP_PLACES=cores
-export OMP_PROC_BIND=close
+export OMP_PROC_BIND=spread
 export OMP_NUM_THREADS=24
 export BLIS_NUM_THREADS=24
 export LD_LIBRARY_PATH=/u/dssc/mdepet00/assignment/exercise2/blis/lib:$LD_LIBRARY_PATH
