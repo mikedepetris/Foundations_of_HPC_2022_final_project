@@ -21,7 +21,7 @@ module load openBLAS/0.3.23-omp
 #mpirun -np 1 make all
 
 export OMP_PLACES=cores
-export OMP_PROC_BIND=spread
+export OMP_PROC_BIND=close
 export OMP_NUM_THREADS=64
 export BLIS_NUM_THREADS=64
 export LD_LIBRARY_PATH=/u/dssc/mdepet00/assignment/exercise2/blis/lib:$LD_LIBRARY_PATH
@@ -29,7 +29,8 @@ export LD_LIBRARY_PATH=/u/dssc/mdepet00/assignment/exercise2/blis/lib:$LD_LIBRAR
 echo size scalability begin
 
 now=$(date +"%Y-%m-%d_%H-%M-%S")
-for LIB in oblas_optimized oblas mkl_optimized mkl blis_optimized blis; do
+for LIB in blis; do
+#for LIB in oblas_optimized oblas mkl_optimized mkl blis_optimized blis; do
   csvname=sgemm_"$LIB"_epyc_$(hostname)_$now.csv
   #echo "$csvname $(hostname) $now"
   #echo "$csvname"
@@ -37,12 +38,12 @@ for LIB in oblas_optimized oblas mkl_optimized mkl blis_optimized blis; do
   echo "m,n,k,elapsed1,elapsed2,GFLOPS" >"$csvname"
 done
 for REP in {1..10}; do
-  for LIB in oblas_optimized oblas mkl_optimized mkl blis_optimized blis; do
+  for LIB in blis; do
   csvname=sgemm_"$LIB"_epyc_$(hostname)_$now.csv
   #srun -n1 --cpus-per-task=64 ./sgemm_oblas.x 2000 2000 200>discarded_first_result_"$csvname"
   #echo "$csvname $(hostname) $now">"$csvname"
     #increase the size of matrices size from 2000x2000 to 20000x20000 (single precision) and analyse the scaling of the GEMM calculation for at least MKL and openblas.
-    for SIZE in {30000..2000..500}; do
+    for SIZE in {2000..30000..500}; do
       echo sgemm_epyc_job_"$SLURM_JOB_ID".out$'\t'"$csvname"$'\t'"$(hostname)"$'\t'rep "$REP" size "$SIZE" OMP_PLACES=$OMP_PLACES OMP_PROC_BIND=$OMP_PROC_BIND OMP_NUM_THREADS=$OMP_NUM_THREADS BLIS_NUM_THREADS=$BLIS_NUM_THREADS srun -n1 --cpus-per-task=64 ./sgemm_$LIB.x "$SIZE" "$SIZE" "$SIZE"'>>'"$csvname"
       srun -n1 --cpus-per-task=64 ./sgemm_$LIB.x "$SIZE" "$SIZE" "$SIZE" >>"$csvname"
       #srun -n1 --cpus-per-task=64 ./sgemm_oblas.x 2000 2000 2000

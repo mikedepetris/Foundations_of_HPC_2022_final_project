@@ -6,6 +6,7 @@
 #SBATCH --chdir=/u/dssc/mdepet00/assignment/exercise2
 #SBATCH --partition=THIN
 #SBATCH --nodes=1
+#SBATCH --nodelist=thin008
 #SBATCH --exclusive
 #SBATCH --ntasks-per-node 24
 #SBATCH --mem=490G
@@ -30,15 +31,16 @@ echo size scalability begin
 
 now=$(date +"%Y-%m-%d_%H-%M-%S")
 #module load openBLAS/0.3.21-omp
-for LIB in oblas_optimized oblas mkl_optimized mkl blis_optimized blis; do
+for LIB in oblas; do
   csvname=sgemm_"$LIB"_thin_$(hostname)_$now.csv
   #echo "$csvname $(hostname) $now"
   #echo "$csvname"
   #2000,2000,2000,0.034462963,0.034463,464.266523
   echo "m,n,k,elapsed1,elapsed2,GFLOPS" >"$csvname"
 done
-for REP in {1..10}; do
-  for LIB in oblas_optimized oblas mkl_optimized mkl blis_optimized blis; do
+for REP in {1..5}; do
+#  for LIB in oblas_optimized oblas mkl_optimized mkl blis_optimized blis; do
+  for LIB in oblas; do
   csvname=sgemm_"$LIB"_thin_$(hostname)_$now.csv
   #srun -n1 --cpus-per-task=24 ./sgemm_oblas.x 2000 2000 200>discarded_first_result_"$csvname"
   #echo "$csvname $(hostname) $now">"$csvname"
