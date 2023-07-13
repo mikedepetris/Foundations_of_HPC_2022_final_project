@@ -248,7 +248,7 @@ double evolution_wave_parallel(int mpi_rank, int mpi_size, MPI_Status *mpi_statu
     unsigned char *world;
     long size;
 
-    // iterations has to be done by one single process
+    // iterations have to be done by one single process
     // so make process 0 gather all data from the others
     if (mpi_rank != 0) {
         // other processes send matrix to process 0
