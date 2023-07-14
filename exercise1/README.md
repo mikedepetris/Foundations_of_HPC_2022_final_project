@@ -47,30 +47,31 @@ scalability_weak.xlsx					|spreadsheet used to collect all output from the execu
 
 
 #### Help printed by the program:
-Usage: /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x [options]
- -i initialize a playground
- -r run a playground (needs -f)
- -k <num> playground size (default value 10000, minimum value 100)
- -e [0|1|2|3] evolution type (0: ordered, 1: static, 2: wave, 3: white-black
- -f <string> filename to be written (new_playground) or read (run)
- -n <num> number of steps to be iterated (default value 100, max 99999)
- -s <num> number of steps between two dumps (default 0: print only last state)
- -h print help about program usage
- -q print csv output
- -D print debug informations
- -D2 print advanced debug informations
-Examples:
- to create initial conditions:
- gameoflife.x -i -k 10000 -f initial_condition
- this produces a file named initial_condition.pgm that contains a playground
- of size 10000x10000
- to run a play ground:
- gameoflife.x -r -f initial_condition.pgm -n 10000 -e 1 -s 1
- this evolves the initial status of the file initial_condition.pgm for 10000 steps
- with the static evolution mode, producing a snapshot at every time-step
-Parallel execution:
- mpirun -np 1 gameoflife.x -i -k 100 -f pattern_random
- mpirun -np 4 gameoflife.x -r -f pattern_random -n 3 -e 1 -s 0
+Usage: /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x [options]  
+ -i initialize a playground  
+ -r run a playground (needs -f)  
+ -k <num> playground size (default value 10000, minimum value 100)  
+ -e [0|1|2|3] evolution type (0: ordered, 1: static, 2: wave, 3: white-black  
+ -f <string> filename to be written (new_playground) or read (run)  
+ -n <num> number of steps to be iterated (default value 100, max 99999)  
+ -s <num> number of steps between two dumps (default 0: print only last state)  
+ -h print help about program usage  
+ -q print csv output  
+ -D print debug informations  
+ -D2 print advanced debug informations  
+  
+Examples:  
+     to create initial conditions:  
+         gameoflife.x -i -k 10000 -f initial_condition  
+     this produces a file named initial_condition.pgm that contains a playground of size 10000x10000  
+     to run a play ground:  
+     gameoflife.x -r -f initial_condition.pgm -n 10000 -e 1 -s 1  
+     this evolves the initial status of the file initial_condition.pgm for 10000 steps  
+     with the static evolution mode, producing a snapshot at every time-step  
+  
+Parallel execution:  
+     mpirun -np 1 gameoflife.x -i -k 100 -f pattern_random  
+     mpirun -np 4 gameoflife.x -r -f pattern_random -n 3 -e 1 -s 0  
 
 #### Examples of running in wsl:
 patterns/  
