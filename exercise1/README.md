@@ -47,15 +47,15 @@ scalability_weak.xlsx					|spreadsheet used to collect all output from the execu
 
 #### Examples of running in wsl:
 patterns\
-    still_lifes\
-        pattern_block.pgm 
-        pattern_loaf6.pgm
-    oscillators\
-		pattern_blinker.pgm
-		pattern_blinker32.pgm 
-		pattern_pulsar32.pgm
-	spaceships\
-		pattern_ship32.pgm
+    still_lifes\
+        pattern_block.pgm 
+        pattern_loaf6.pgm
+    oscillators\
+        pattern_blinker.pgm
+        pattern_blinker32.pgm 
+        pattern_pulsar32.pgm
+    spaceships\
+        pattern_ship32.pgm
 
 mpirun -np 1 /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x -i -k 5 -f pattern_random5
 mpirun -np 1 /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x -i -k 6 -f pattern_random6
