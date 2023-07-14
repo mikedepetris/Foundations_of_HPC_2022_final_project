@@ -1,0 +1,46 @@
+Selected type of execution: 0
+make: Nothing to be done for 'all'.
+scale_omp_epyc_epyc004_2023-06-11_19-52-07.csv epyc004 2023-06-11_19-52-07
+scalability begin
+scalability -e0 10000 1
+scalability -e0 10000 2
+scalability -e0 10000 3
+scalability -e0 10000 4
+scalability -e0 10000 5
+scalability -e0 10000 6
+scalability -e0 10000 7
+scalability -e0 10000 8
+scalability -e0 10000 9
+scalability -e0 10000 10
+scalability -e0 10000 11
+scalability -e0 10000 12
+scalability -e0 10000 13
+scalability -e0 10000 14
+scalability -e0 10000 15
+scalability -e0 10000 16
+scalability -e0 10000 17
+ERROR: wrong situation with more processes than domain decomposition slices
+: No such file or directory
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 1.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+scalability -e0 10000 18
+scalability -e0 10000 19
+scalability -e0 10000 20
+scalability -e0 10000 21
+scalability -e0 10000 22
+scalability -e0 10000 23
+scalability -e0 10000 24
+scalability -e0 10000 25
+scalability -e0 10000 26
+scalability -e0 10000 27
+scalability -e0 10000 28
+scalability -e0 10000 29
+scalability -e0 10000 30
+scalability -e0 10000 31
+slurmstepd: error: *** JOB 11937 ON epyc004 CANCELLED AT 2023-06-11T21:52:08 DUE TO TIME LIMIT ***

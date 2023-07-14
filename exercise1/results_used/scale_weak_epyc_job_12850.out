@@ -1,0 +1,40 @@
+Selected type of execution: 1
+make: Nothing to be done for 'all'.
+scale_weak_epyc_epyc002_2023-06-16_07-29-16.csv epyc002 2023-06-16_07-29-16
+WEAK scalability begin
+rep 1 scalability -e1 4000 1
+rep 1 scalability -e1 5657 2
+rep 1 scalability -e1 8000 4
+rep 1 scalability -e1 11314 8
+rep 1 scalability -e1 16000 16
+rep 1 scalability -e1 22627 32
+rep 1 scalability -e1 32000 64
+rep 2 scalability -e1 4000 1
+rep 2 scalability -e1 5657 2
+rep 2 scalability -e1 8000 4
+rep 2 scalability -e1 11314 8
+rep 2 scalability -e1 16000 16
+rep 2 scalability -e1 22627 32
+rep 2 scalability -e1 32000 64
+rep 3 scalability -e1 4000 1
+rep 3 scalability -e1 5657 2
+rep 3 scalability -e1 8000 4
+rep 3 scalability -e1 11314 8
+rep 3 scalability -e1 16000 16
+rep 3 scalability -e1 22627 32
+rep 3 scalability -e1 32000 64
+rep 4 scalability -e1 4000 1
+rep 4 scalability -e1 5657 2
+rep 4 scalability -e1 8000 4
+rep 4 scalability -e1 11314 8
+rep 4 scalability -e1 16000 16
+rep 4 scalability -e1 22627 32
+rep 4 scalability -e1 32000 64
+rep 5 scalability -e1 4000 1
+rep 5 scalability -e1 5657 2
+rep 5 scalability -e1 8000 4
+rep 5 scalability -e1 11314 8
+rep 5 scalability -e1 16000 16
+rep 5 scalability -e1 22627 32
+rep 5 scalability -e1 32000 64
+scalability end

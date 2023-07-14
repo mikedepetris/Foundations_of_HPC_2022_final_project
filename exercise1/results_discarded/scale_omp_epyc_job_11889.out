@@ -1,0 +1,7 @@
+make: Nothing to be done for 'all'.
+scale_omp_epyc_epyc001.orfeo.hpc_2023-06-10_21-07-46.csv epyc001.orfeo.hpc 2023-06-10_21-07-46
+scalability begin
+scalability -e 10000 1
+scalability -e 10000 2
+scalability -e 10000 3
+slurmstepd: error: *** JOB 11889 ON epyc001 CANCELLED AT 2023-06-10T23:08:05 DUE TO TIME LIMIT ***

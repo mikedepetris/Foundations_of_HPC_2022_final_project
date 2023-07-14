@@ -1,0 +1,26 @@
+Selected type of execution: 2
+make: Nothing to be done for 'all'.
+scale_mpi_epyc_epyc008_2023-06-13_21-23-04.csv epyc008 2023-06-13_21-23-04
+MPI scalability begin
+rep 1 scalability -e2 10000 31
+rep 1 scalability -e2 10000 32
+rep 1 scalability -e2 10000 33
+rep 1 scalability -e2 10000 34
+rep 1 scalability -e2 10000 35
+rep 1 scalability -e2 10000 36
+rep 1 scalability -e2 10000 37
+rep 2 scalability -e2 10000 31
+rep 2 scalability -e2 10000 32
+rep 2 scalability -e2 10000 33
+rep 2 scalability -e2 10000 34
+rep 2 scalability -e2 10000 35
+rep 2 scalability -e2 10000 36
+rep 2 scalability -e2 10000 37
+rep 3 scalability -e2 10000 31
+rep 3 scalability -e2 10000 32
+rep 3 scalability -e2 10000 33
+rep 3 scalability -e2 10000 34
+rep 3 scalability -e2 10000 35
+rep 3 scalability -e2 10000 36
+rep 3 scalability -e2 10000 37
+scalability end

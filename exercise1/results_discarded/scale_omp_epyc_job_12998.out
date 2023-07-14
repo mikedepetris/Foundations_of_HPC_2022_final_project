@@ -1,0 +1,17 @@
+Selected type of execution: i
+mpicc -fopenmp gameoflife.h gameoflife.c files_io.h files_io.c new_playground.c evolution_ordered.c evolution_static.c evolution_wave.c evolution_whiteblack.c -o gameoflife.x
+scale_omp_epyc_epyc001.orfeo.hpc_2023-06-16_22-12-30.csv epyc001.orfeo.hpc 2023-06-16_22-12-30
+OMP scalability begin
+rep 1 scalability -i 20000 64
+rep 1 scalability -i 20000 63
+rep 1 scalability -i 20000 62
+rep 1 scalability -i 20000 61
+rep 1 scalability -i 20000 60
+rep 1 scalability -i 20000 59
+rep 1 scalability -i 20000 58
+rep 1 scalability -i 20000 57
+rep 1 scalability -i 20000 56
+rep 1 scalability -i 20000 55
+rep 1 scalability -i 20000 54
+rep 1 scalability -i 20000 53
+slurmstepd: error: *** JOB 12998 ON epyc001 CANCELLED AT 2023-06-16T22:26:20 ***

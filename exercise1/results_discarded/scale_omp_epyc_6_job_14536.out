@@ -1,0 +1,304 @@
+Selected type of execution: 1
+scale_omp_epyc_epyc001.orfeo.hpc_2023-06-27_13-49-43.csv epyc001.orfeo.hpc 2023-06-27_13-49-43
+OMP scalability begin
+rep 1 scalability -e1 10000 1
+./gameoflife.x running on 2*1 cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 1 scalability -e1 10000 2
+./gameoflife.x running on 2*2 cores with 2 MPI-tasks and 2 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=2 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 1 scalability -e1 10000 3
+./gameoflife.x running on 2*3 cores with 2 MPI-tasks and 3 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=3 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 1 scalability -e1 10000 4
+./gameoflife.x running on 2*4 cores with 2 MPI-tasks and 4 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=4 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 1 scalability -e1 10000 5
+./gameoflife.x running on 2*5 cores with 2 MPI-tasks and 5 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=5 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 1 scalability -e1 10000 6
+./gameoflife.x running on 2*6 cores with 2 MPI-tasks and 6 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=6 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 1 scalability -e1 10000 7
+./gameoflife.x running on 2*7 cores with 2 MPI-tasks and 7 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=7 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 1 scalability -e1 10000 8
+./gameoflife.x running on 2*8 cores with 2 MPI-tasks and 8 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=8 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 1 scalability -e1 10000 9
+./gameoflife.x running on 2*9 cores with 2 MPI-tasks and 9 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=9 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 1 scalability -e1 10000 10
+./gameoflife.x running on 2*10 cores with 2 MPI-tasks and 10 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=10 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 2 scalability -e1 10000 1
+./gameoflife.x running on 2*1 cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 2 scalability -e1 10000 2
+./gameoflife.x running on 2*2 cores with 2 MPI-tasks and 2 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=2 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 2 scalability -e1 10000 3
+./gameoflife.x running on 2*3 cores with 2 MPI-tasks and 3 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=3 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 2 scalability -e1 10000 4
+./gameoflife.x running on 2*4 cores with 2 MPI-tasks and 4 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=4 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 2 scalability -e1 10000 5
+./gameoflife.x running on 2*5 cores with 2 MPI-tasks and 5 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=5 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 2 scalability -e1 10000 6
+./gameoflife.x running on 2*6 cores with 2 MPI-tasks and 6 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=6 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 2 scalability -e1 10000 7
+./gameoflife.x running on 2*7 cores with 2 MPI-tasks and 7 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=7 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 2 scalability -e1 10000 8
+./gameoflife.x running on 2*8 cores with 2 MPI-tasks and 8 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=8 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 2 scalability -e1 10000 9
+./gameoflife.x running on 2*9 cores with 2 MPI-tasks and 9 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=9 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 2 scalability -e1 10000 10
+./gameoflife.x running on 2*10 cores with 2 MPI-tasks and 10 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=10 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 3 scalability -e1 10000 1
+./gameoflife.x running on 2*1 cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 3 scalability -e1 10000 2
+./gameoflife.x running on 2*2 cores with 2 MPI-tasks and 2 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=2 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 3 scalability -e1 10000 3
+./gameoflife.x running on 2*3 cores with 2 MPI-tasks and 3 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=3 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 3 scalability -e1 10000 4
+./gameoflife.x running on 2*4 cores with 2 MPI-tasks and 4 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=4 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 3 scalability -e1 10000 5
+./gameoflife.x running on 2*5 cores with 2 MPI-tasks and 5 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=5 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 3 scalability -e1 10000 6
+./gameoflife.x running on 2*6 cores with 2 MPI-tasks and 6 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=6 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 3 scalability -e1 10000 7
+./gameoflife.x running on 2*7 cores with 2 MPI-tasks and 7 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=7 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 3 scalability -e1 10000 8
+./gameoflife.x running on 2*8 cores with 2 MPI-tasks and 8 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=8 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 3 scalability -e1 10000 9
+./gameoflife.x running on 2*9 cores with 2 MPI-tasks and 9 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=9 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 3 scalability -e1 10000 10
+./gameoflife.x running on 2*10 cores with 2 MPI-tasks and 10 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=10 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 4 scalability -e1 10000 1
+./gameoflife.x running on 2*1 cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 4 scalability -e1 10000 2
+./gameoflife.x running on 2*2 cores with 2 MPI-tasks and 2 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=2 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 4 scalability -e1 10000 3
+./gameoflife.x running on 2*3 cores with 2 MPI-tasks and 3 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=3 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 4 scalability -e1 10000 4
+./gameoflife.x running on 2*4 cores with 2 MPI-tasks and 4 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=4 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 4 scalability -e1 10000 5
+./gameoflife.x running on 2*5 cores with 2 MPI-tasks and 5 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=5 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 4 scalability -e1 10000 6
+./gameoflife.x running on 2*6 cores with 2 MPI-tasks and 6 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=6 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 4 scalability -e1 10000 7
+./gameoflife.x running on 2*7 cores with 2 MPI-tasks and 7 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=7 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 4 scalability -e1 10000 8
+./gameoflife.x running on 2*8 cores with 2 MPI-tasks and 8 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=8 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 4 scalability -e1 10000 9
+./gameoflife.x running on 2*9 cores with 2 MPI-tasks and 9 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=9 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 4 scalability -e1 10000 10
+./gameoflife.x running on 2*10 cores with 2 MPI-tasks and 10 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=10 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 5 scalability -e1 10000 1
+./gameoflife.x running on 2*1 cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 5 scalability -e1 10000 2
+./gameoflife.x running on 2*2 cores with 2 MPI-tasks and 2 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=2 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 5 scalability -e1 10000 3
+./gameoflife.x running on 2*3 cores with 2 MPI-tasks and 3 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=3 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 5 scalability -e1 10000 4
+./gameoflife.x running on 2*4 cores with 2 MPI-tasks and 4 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=4 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 5 scalability -e1 10000 5
+./gameoflife.x running on 2*5 cores with 2 MPI-tasks and 5 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=5 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 5 scalability -e1 10000 6
+./gameoflife.x running on 2*6 cores with 2 MPI-tasks and 6 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=6 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 5 scalability -e1 10000 7
+./gameoflife.x running on 2*7 cores with 2 MPI-tasks and 7 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=7 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 5 scalability -e1 10000 8
+./gameoflife.x running on 2*8 cores with 2 MPI-tasks and 8 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=8 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 5 scalability -e1 10000 9
+./gameoflife.x running on 2*9 cores with 2 MPI-tasks and 9 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=9 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 5 scalability -e1 10000 10
+./gameoflife.x running on 2*10 cores with 2 MPI-tasks and 10 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=10 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 6 scalability -e1 10000 1
+./gameoflife.x running on 2*1 cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 6 scalability -e1 10000 2
+./gameoflife.x running on 2*2 cores with 2 MPI-tasks and 2 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=2 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 6 scalability -e1 10000 3
+./gameoflife.x running on 2*3 cores with 2 MPI-tasks and 3 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=3 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 6 scalability -e1 10000 4
+./gameoflife.x running on 2*4 cores with 2 MPI-tasks and 4 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=4 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 6 scalability -e1 10000 5
+./gameoflife.x running on 2*5 cores with 2 MPI-tasks and 5 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=5 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 6 scalability -e1 10000 6
+./gameoflife.x running on 2*6 cores with 2 MPI-tasks and 6 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=6 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 6 scalability -e1 10000 7
+./gameoflife.x running on 2*7 cores with 2 MPI-tasks and 7 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=7 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 6 scalability -e1 10000 8
+./gameoflife.x running on 2*8 cores with 2 MPI-tasks and 8 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=8 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 6 scalability -e1 10000 9
+./gameoflife.x running on 2*9 cores with 2 MPI-tasks and 9 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=9 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 6 scalability -e1 10000 10
+./gameoflife.x running on 2*10 cores with 2 MPI-tasks and 10 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=10 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 7 scalability -e1 10000 1
+./gameoflife.x running on 2*1 cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 7 scalability -e1 10000 2
+./gameoflife.x running on 2*2 cores with 2 MPI-tasks and 2 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=2 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 7 scalability -e1 10000 3
+./gameoflife.x running on 2*3 cores with 2 MPI-tasks and 3 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=3 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 7 scalability -e1 10000 4
+./gameoflife.x running on 2*4 cores with 2 MPI-tasks and 4 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=4 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 7 scalability -e1 10000 5
+./gameoflife.x running on 2*5 cores with 2 MPI-tasks and 5 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=5 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 7 scalability -e1 10000 6
+./gameoflife.x running on 2*6 cores with 2 MPI-tasks and 6 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=6 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 7 scalability -e1 10000 7
+./gameoflife.x running on 2*7 cores with 2 MPI-tasks and 7 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=7 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 7 scalability -e1 10000 8
+./gameoflife.x running on 2*8 cores with 2 MPI-tasks and 8 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=8 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 7 scalability -e1 10000 9
+./gameoflife.x running on 2*9 cores with 2 MPI-tasks and 9 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=9 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 7 scalability -e1 10000 10
+./gameoflife.x running on 2*10 cores with 2 MPI-tasks and 10 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=10 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 8 scalability -e1 10000 1
+./gameoflife.x running on 2*1 cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 8 scalability -e1 10000 2
+./gameoflife.x running on 2*2 cores with 2 MPI-tasks and 2 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=2 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 8 scalability -e1 10000 3
+./gameoflife.x running on 2*3 cores with 2 MPI-tasks and 3 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=3 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 8 scalability -e1 10000 4
+./gameoflife.x running on 2*4 cores with 2 MPI-tasks and 4 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=4 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 8 scalability -e1 10000 5
+./gameoflife.x running on 2*5 cores with 2 MPI-tasks and 5 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=5 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 8 scalability -e1 10000 6
+./gameoflife.x running on 2*6 cores with 2 MPI-tasks and 6 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=6 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 8 scalability -e1 10000 7
+./gameoflife.x running on 2*7 cores with 2 MPI-tasks and 7 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=7 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 8 scalability -e1 10000 8
+./gameoflife.x running on 2*8 cores with 2 MPI-tasks and 8 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=8 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 8 scalability -e1 10000 9
+./gameoflife.x running on 2*9 cores with 2 MPI-tasks and 9 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=9 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 8 scalability -e1 10000 10
+./gameoflife.x running on 2*10 cores with 2 MPI-tasks and 10 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=10 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 9 scalability -e1 10000 1
+./gameoflife.x running on 2*1 cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 9 scalability -e1 10000 2
+./gameoflife.x running on 2*2 cores with 2 MPI-tasks and 2 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=2 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 9 scalability -e1 10000 3
+./gameoflife.x running on 2*3 cores with 2 MPI-tasks and 3 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=3 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 9 scalability -e1 10000 4
+./gameoflife.x running on 2*4 cores with 2 MPI-tasks and 4 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=4 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 9 scalability -e1 10000 5
+./gameoflife.x running on 2*5 cores with 2 MPI-tasks and 5 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=5 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 9 scalability -e1 10000 6
+./gameoflife.x running on 2*6 cores with 2 MPI-tasks and 6 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=6 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 9 scalability -e1 10000 7
+./gameoflife.x running on 2*7 cores with 2 MPI-tasks and 7 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=7 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 9 scalability -e1 10000 8
+./gameoflife.x running on 2*8 cores with 2 MPI-tasks and 8 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=8 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 9 scalability -e1 10000 9
+./gameoflife.x running on 2*9 cores with 2 MPI-tasks and 9 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=9 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 9 scalability -e1 10000 10
+./gameoflife.x running on 2*10 cores with 2 MPI-tasks and 10 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=10 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 10 scalability -e1 10000 1
+./gameoflife.x running on 2*1 cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 10 scalability -e1 10000 2
+./gameoflife.x running on 2*2 cores with 2 MPI-tasks and 2 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=2 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 10 scalability -e1 10000 3
+./gameoflife.x running on 2*3 cores with 2 MPI-tasks and 3 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=3 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 10 scalability -e1 10000 4
+./gameoflife.x running on 2*4 cores with 2 MPI-tasks and 4 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=4 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 10 scalability -e1 10000 5
+./gameoflife.x running on 2*5 cores with 2 MPI-tasks and 5 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=5 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 10 scalability -e1 10000 6
+./gameoflife.x running on 2*6 cores with 2 MPI-tasks and 6 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=6 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 10 scalability -e1 10000 7
+./gameoflife.x running on 2*7 cores with 2 MPI-tasks and 7 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=7 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 10 scalability -e1 10000 8
+./gameoflife.x running on 2*8 cores with 2 MPI-tasks and 8 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=8 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 10 scalability -e1 10000 9
+./gameoflife.x running on 2*9 cores with 2 MPI-tasks and 9 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=9 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 10 scalability -e1 10000 10
+./gameoflife.x running on 2*10 cores with 2 MPI-tasks and 10 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=10 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+scalability end

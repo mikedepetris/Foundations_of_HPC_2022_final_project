@@ -1,0 +1,1304 @@
+Selected type of execution: 1
+Lmod Warning: The architecture selection module has been deprecated. The
+module system will now autonomously handle the proper selection of binaries. 
+While processing the following module(s):
+    Module fullname   Module Filename
+    ---------------   ---------------
+    architecture/AMD  /orfeo/opt/modules/profiles/architecture/AMD.lua
+
+Lmod has detected the following error: The following module(s) are unknown:
+"openMPI/4.1.4/gnu/12.2.1"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "openMPI/4.1.4/gnu/12.2.1"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+/var/spool/slurm/d/job13526/slurm_script: line 36: mpirun: command not found
+scale_omp_epyc_epyc004_2023-06-22_19-32-08.csv epyc004 2023-06-22_19-32-08
+OMP scalability begin
+rep 1 scalability -e1 20000 64
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 63
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 62
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 61
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 60
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 59
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 58
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 57
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 56
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 55
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 54
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 53
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 52
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 51
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 50
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 49
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 48
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 47
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 46
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 45
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 44
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 43
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 42
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 41
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 40
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 39
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 38
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 37
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 36
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 35
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 34
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 33
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 32
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 31
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 30
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 29
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 28
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 27
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 26
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 25
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 24
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 23
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 22
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 21
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 20
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 19
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 18
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 17
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 16
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 15
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 14
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 13
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 12
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 11
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 10
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 9
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 8
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 7
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 6
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 5
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 4
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 3
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 2
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 1 scalability -e1 20000 1
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 64
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 63
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 62
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 61
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 60
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 59
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 58
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 57
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 56
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 55
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 54
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 53
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 52
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 51
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 50
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 49
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 48
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 47
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 46
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 45
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 44
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 43
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 42
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 41
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 40
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 39
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 38
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 37
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 36
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 35
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 34
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 33
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 32
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 31
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 30
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 29
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 28
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 27
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 26
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 25
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 24
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 23
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 22
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 21
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 20
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 19
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 18
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 17
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 16
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 15
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 14
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 13
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 12
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 11
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 10
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 9
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 8
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 7
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 6
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 5
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 4
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 3
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 2
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 2 scalability -e1 20000 1
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 64
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 63
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 62
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 61
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 60
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 59
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 58
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 57
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 56
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 55
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 54
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 53
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 52
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 51
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 50
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 49
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 48
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 47
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 46
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 45
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 44
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 43
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 42
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 41
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 40
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 39
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 38
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 37
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 36
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 35
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 34
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 33
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 32
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 31
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 30
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 29
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 28
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 27
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 26
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 25
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 24
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 23
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 22
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 21
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 20
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 19
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 18
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 17
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 16
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 15
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 14
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 13
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 12
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 11
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 10
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 9
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 8
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 7
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 6
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 5
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 4
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 3
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 2
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 3 scalability -e1 20000 1
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 64
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 63
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 62
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 61
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 60
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 59
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 58
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 57
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 56
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 55
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 54
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 53
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 52
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 51
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 50
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 49
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 48
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 47
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 46
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 45
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 44
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 43
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 42
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 41
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 40
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 39
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 38
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 37
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 36
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 35
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 34
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 33
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 32
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 31
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 30
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 29
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 28
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 27
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 26
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 25
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 24
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 23
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 22
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 21
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 20
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 19
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 18
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 17
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 16
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 15
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 14
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 13
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 12
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 11
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 10
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 9
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 8
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 7
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 6
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 5
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 4
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 3
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 2
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 4 scalability -e1 20000 1
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 64
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 63
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 62
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 61
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 60
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 59
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 58
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 57
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 56
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 55
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 54
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 53
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 52
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 51
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 50
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 49
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 48
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 47
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 46
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 45
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 44
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 43
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 42
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 41
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 40
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 39
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 38
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 37
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 36
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 35
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 34
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 33
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 32
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 31
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 30
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 29
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 28
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 27
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 26
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 25
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 24
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 23
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 22
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 21
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 20
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 19
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 18
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 17
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 16
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 15
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 14
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 13
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 12
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 11
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 10
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 9
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 8
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 7
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 6
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 5
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 4
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 3
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 2
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 5 scalability -e1 20000 1
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 64
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 63
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 62
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 61
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 60
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 59
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 58
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 57
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 56
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 55
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 54
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 53
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 52
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 51
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 50
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 49
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 48
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 47
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 46
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 45
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 44
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 43
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 42
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 41
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 40
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 39
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 38
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 37
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 36
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 35
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 34
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 33
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 32
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 31
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 30
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 29
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 28
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 27
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 26
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 25
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 24
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 23
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 22
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 21
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 20
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 19
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 18
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 17
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 16
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 15
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 14
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 13
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 12
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 11
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 10
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 9
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 8
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 7
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 6
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 5
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 4
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 3
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 2
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 6 scalability -e1 20000 1
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 64
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 63
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 62
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 61
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 60
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 59
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 58
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 57
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 56
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 55
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 54
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 53
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 52
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 51
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 50
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 49
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 48
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 47
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 46
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 45
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 44
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 43
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 42
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 41
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 40
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 39
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 38
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 37
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 36
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 35
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 34
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 33
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 32
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 31
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 30
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 29
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 28
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 27
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 26
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 25
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 24
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 23
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 22
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 21
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 20
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 19
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 18
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 17
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 16
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 15
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 14
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 13
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 12
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 11
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 10
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 9
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 8
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 7
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 6
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 5
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 4
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 3
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 2
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 7 scalability -e1 20000 1
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 64
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 63
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 62
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 61
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 60
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 59
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 58
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 57
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 56
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 55
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 54
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 53
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 52
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 51
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 50
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 49
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 48
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 47
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 46
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 45
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 44
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 43
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 42
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 41
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 40
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 39
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 38
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 37
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 36
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 35
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 34
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 33
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 32
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 31
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 30
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 29
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 28
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 27
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 26
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 25
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 24
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 23
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 22
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 21
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 20
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 19
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 18
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 17
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 16
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 15
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 14
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 13
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 12
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 11
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 10
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 9
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 8
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 7
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 6
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 5
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 4
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 3
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 2
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 8 scalability -e1 20000 1
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 64
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 63
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 62
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 61
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 60
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 59
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 58
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 57
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 56
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 55
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 54
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 53
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 52
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 51
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 50
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 49
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 48
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 47
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 46
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 45
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 44
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 43
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 42
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 41
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 40
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 39
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 38
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 37
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 36
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 35
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 34
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 33
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 32
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 31
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 30
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 29
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 28
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 27
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 26
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 25
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 24
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 23
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 22
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 21
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 20
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 19
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 18
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 17
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 16
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 15
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 14
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 13
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 12
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 11
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 10
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 9
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 8
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 7
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 6
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 5
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 4
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 3
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 2
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 9 scalability -e1 20000 1
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 64
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 63
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 62
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 61
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 60
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 59
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 58
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 57
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 56
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 55
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 54
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 53
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 52
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 51
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 50
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 49
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 48
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 47
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 46
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 45
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 44
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 43
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 42
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 41
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 40
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 39
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 38
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 37
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 36
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 35
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 34
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 33
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 32
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 31
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 30
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 29
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 28
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 27
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 26
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 25
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 24
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 23
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 22
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 21
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 20
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 19
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 18
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 17
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 16
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 15
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 14
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 13
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 12
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 11
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 10
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 9
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 8
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 7
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 6
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 5
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 4
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 3
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 2
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+rep 10 scalability -e1 20000 1
+/var/spool/slurm/d/job13526/slurm_script: line 67: mpirun: command not found
+scalability end

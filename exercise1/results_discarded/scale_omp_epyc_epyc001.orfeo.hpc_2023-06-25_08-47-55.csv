@@ -1,0 +1,4 @@
+action,world_size,number_of_steps,number_of_steps_between_file_dumps,mpi_size,omp_get_max_threads,total_time,t_io,t_io_accumulator,t_io_accumulator_average
+e1,10000,100,100000,2,32,92.939780,0.470614,0.302006,0.302006
+e1,10000,100,100000,2,31,92.895644,0.460949,0.267934,0.267934
+e1,10000,100,100000,2,30,92.897577,0.428365,0.270037,0.270037

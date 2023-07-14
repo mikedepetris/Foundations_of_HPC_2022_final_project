@@ -1,0 +1,15 @@
+Selected type of execution: 1
+scale_omp_epyc_epyc005_2023-06-27_14-37-49.csv epyc005 2023-06-27_14-37-49
+OMP scalability begin
+rep 1 scalability -e1 10000 128
+./gameoflife.x running on 3*128 cores with 3 MPI-tasks and 128 threads
+mpirun -n 3 --bind-to core --map-by core:PE=128 --report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+--------------------------------------------------------------------------
+A request for multiple cpus-per-proc was given, but a directive
+was also given to map to an object level that cannot support that
+directive.
+
+Please specify a mapping level that has more than one cpu, or
+else let us define a default mapping that will allow multiple
+cpus-per-proc.
+--------------------------------------------------------------------------

@@ -1,0 +1,2326 @@
+Selected type of execution: i
+make: Nothing to be done for 'all'.
+scale_omp_epyc_epyc001.orfeo.hpc_2023-06-16_20-34-14.csv epyc001.orfeo.hpc 2023-06-16_20-34-14
+OMP scalability begin
+rep 1 scalability -i 20000 64
+rep 1 scalability -i 20000 63
+rep 1 scalability -i 20000 62
+rep 1 scalability -i 20000 61
+rep 1 scalability -i 20000 60
+rep 1 scalability -i 20000 59
+rep 1 scalability -i 20000 58
+rep 1 scalability -i 20000 57
+rep 1 scalability -i 20000 56
+rep 1 scalability -i 20000 55
+rep 1 scalability -i 20000 54
+rep 1 scalability -i 20000 53
+rep 1 scalability -i 20000 52
+rep 1 scalability -i 20000 51
+rep 1 scalability -i 20000 50
+rep 1 scalability -i 20000 49
+rep 1 scalability -i 20000 48
+rep 1 scalability -i 20000 47
+rep 1 scalability -i 20000 46
+rep 1 scalability -i 20000 45
+rep 1 scalability -i 20000 44
+rep 1 scalability -i 20000 43
+[epyc001:445902:1:445925] Caught signal 7 (Bus error: nonexistent physical address)
+[epyc001:445902:2:445923] Caught signal 7 (Bus error: nonexistent physical address)
+[epyc001:445902:0:445924] Caught signal 7 (Bus error: nonexistent physical address)
+[epyc001:445902:3:445926] Caught signal 7 (Bus error: nonexistent physical address)
+[epyc001:445902:4:445911] Caught signal 7 (Bus error: nonexistent physical address)
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 445902 on node epyc001 exited on signal 7 (Bus error).
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 42
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 41
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 40
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 39
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 38
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 37
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 36
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 35
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 34
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 33
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 32
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 31
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 30
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 29
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 28
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 27
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 26
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 25
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 24
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 23
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 22
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 21
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 20
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 19
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 18
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 17
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 16
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 15
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 14
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 13
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 12
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 11
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 10
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 9
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 8
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 7
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 6
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 5
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 4
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 3
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 2
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 1 scalability -i 20000 1
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 64
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 63
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 62
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 61
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 60
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 59
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 58
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 57
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 56
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 55
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 54
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 53
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 52
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 51
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 50
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 49
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 48
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 47
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 46
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 45
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 44
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 43
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 42
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 41
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 40
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 39
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 38
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 37
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 36
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 35
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 34
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 33
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 32
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 31
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 30
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 29
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 28
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 27
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 26
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 25
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 24
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 23
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 22
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 21
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 20
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 19
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 18
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 17
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 16
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 15
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 14
+--------------------------------------------------------------------------
+Open MPI tried to fork a new process via the "execve" system call but
+failed.  Open MPI checks many things before attempting to launch a
+child process, but nothing is perfect. This error may be indicative
+of another problem on the target host, or even something as silly as
+having specified a directory for your application. Your job will now
+abort.
+
+  Local host:        epyc001
+  Working dir:       /large/___HOME___/dssc/mdepet00/assignment/exercise1
+  Application name:  /u/dssc/mdepet00/assignment/exercise1/gameoflife.x
+  Error:             Exec format error
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun was unable to start the specified application as it encountered an
+error:
+
+Error code: -125
+Error name: The specified application failed to start
+Node: epyc001
+
+when attempting to start process rank 0.
+--------------------------------------------------------------------------
+rep 2 scalability -i 20000 13
+rep 2 scalability -i 20000 12
+rep 2 scalability -i 20000 11
+rep 2 scalability -i 20000 10
+rep 2 scalability -i 20000 9
+rep 2 scalability -i 20000 8
+rep 2 scalability -i 20000 7
+rep 2 scalability -i 20000 6
+rep 2 scalability -i 20000 5
+rep 2 scalability -i 20000 4
+rep 2 scalability -i 20000 3
+rep 2 scalability -i 20000 2
+rep 2 scalability -i 20000 1
+rep 3 scalability -i 20000 64
+rep 3 scalability -i 20000 63
+rep 3 scalability -i 20000 62
+rep 3 scalability -i 20000 61
+rep 3 scalability -i 20000 60
+rep 3 scalability -i 20000 59
+rep 3 scalability -i 20000 58
+rep 3 scalability -i 20000 57
+rep 3 scalability -i 20000 56
+rep 3 scalability -i 20000 55
+rep 3 scalability -i 20000 54
+rep 3 scalability -i 20000 53
+rep 3 scalability -i 20000 52
+rep 3 scalability -i 20000 51
+rep 3 scalability -i 20000 50
+rep 3 scalability -i 20000 49
+rep 3 scalability -i 20000 48
+rep 3 scalability -i 20000 47
+rep 3 scalability -i 20000 46
+rep 3 scalability -i 20000 45
+rep 3 scalability -i 20000 44
+rep 3 scalability -i 20000 43
+rep 3 scalability -i 20000 42
+rep 3 scalability -i 20000 41
+rep 3 scalability -i 20000 40
+rep 3 scalability -i 20000 39
+rep 3 scalability -i 20000 38
+rep 3 scalability -i 20000 37
+rep 3 scalability -i 20000 36
+rep 3 scalability -i 20000 35
+rep 3 scalability -i 20000 34
+rep 3 scalability -i 20000 33
+rep 3 scalability -i 20000 32
+rep 3 scalability -i 20000 31
+rep 3 scalability -i 20000 30
+rep 3 scalability -i 20000 29
+rep 3 scalability -i 20000 28
+rep 3 scalability -i 20000 27
+rep 3 scalability -i 20000 26
+rep 3 scalability -i 20000 25
+rep 3 scalability -i 20000 24
+rep 3 scalability -i 20000 23
+slurmstepd: error: *** JOB 12993 ON epyc001 CANCELLED AT 2023-06-16T22:12:11 ***

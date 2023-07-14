@@ -1,0 +1,7 @@
+Selected type of execution: 3
+make: Nothing to be done for 'all'.
+scale_omp_epyc_epyc002_2023-06-13_00-27-01.csv epyc002 2023-06-13_00-27-01
+scalability begin
+rep 1 scalability -e3 10000 28
+rep 2 scalability -e3 10000 28
+scalability end

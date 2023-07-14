@@ -1,0 +1,9 @@
+Selected type of execution: 1
+scale_omp_epyc_epyc005_2023-06-27_14-06-11.csv epyc005 2023-06-27_14-06-11
+OMP scalability begin
+rep 1 scalability -e1 10000 128
+./gameoflife.x running on 3*128 cores with 3 MPI-tasks and 128 threads
+mpirun -n 3 --bind-to core --map-by node:PE=128 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+[epyc005:26137] MCW rank 0 is not bound (or bound to all available processors)
+[epyc007:09321] MCW rank 2 is not bound (or bound to all available processors)
+[epyc006:31728] MCW rank 1 is not bound (or bound to all available processors)

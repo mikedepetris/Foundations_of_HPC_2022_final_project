@@ -1,0 +1,36 @@
+Selected type of execution: 2
+make: Nothing to be done for 'all'.
+scale_omp_epyc_epyc001.orfeo.hpc_2023-06-11_19-52-16.csv epyc001.orfeo.hpc 2023-06-11_19-52-16
+scalability begin
+scalability -e2 10000 1
+scalability -e2 10000 2
+scalability -e2 10000 3
+scalability -e2 10000 4
+scalability -e2 10000 5
+scalability -e2 10000 6
+scalability -e2 10000 7
+scalability -e2 10000 8
+scalability -e2 10000 9
+scalability -e2 10000 10
+scalability -e2 10000 11
+scalability -e2 10000 12
+scalability -e2 10000 13
+scalability -e2 10000 14
+scalability -e2 10000 15
+scalability -e2 10000 16
+scalability -e2 10000 17
+scalability -e2 10000 18
+scalability -e2 10000 19
+scalability -e2 10000 20
+scalability -e2 10000 21
+scalability -e2 10000 22
+scalability -e2 10000 23
+scalability -e2 10000 24
+scalability -e2 10000 25
+scalability -e2 10000 26
+scalability -e2 10000 27
+scalability -e2 10000 28
+scalability -e2 10000 29
+scalability -e2 10000 30
+scalability -e2 10000 31
+slurmstepd: error: *** JOB 11939 ON epyc001 CANCELLED AT 2023-06-11T21:52:38 DUE TO TIME LIMIT ***

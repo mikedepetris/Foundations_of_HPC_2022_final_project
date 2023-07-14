@@ -1,0 +1,617 @@
+Selected type of execution: 1
+make: Nothing to be done for 'all'.
+scale_omp_thin_thin007_2023-06-28_17-47-59.csv thin007 2023-06-28_17-47-59
+OMP scalability begin
+rep 1 scalability -e1 1000 1
+./gameoflife.x running on  cores with 2 MPI-tasks and 1 threads
+mpirun -n 2 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random1000.pgm -n 100 -e 1 -s 0 -q
+[thin007:131712] MCW rank 1 bound to socket 1[core 12[hwt 0]]: [./././././././././././.][B/././././././././././.]
+[thin007:131712] MCW rank 0 bound to socket 0[core 0[hwt 0]]: [B/././././././././././.][./././././././././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '1'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{0}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '1'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{1}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+rep 1 scalability -e1 1000 2
+./gameoflife.x running on  cores with 2 MPI-tasks and 2 threads
+mpirun -n 2 --bind-to core --map-by socket:PE=2 -report-bindings ./gameoflife.x -r -f pattern_random1000.pgm -n 100 -e 1 -s 0 -q
+[thin007:131726] MCW rank 0 bound to socket 0[core 0[hwt 0]], socket 0[core 1[hwt 0]]: [B/B/./././././././././.][./././././././././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '2'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{0},{2}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+[thin007:131726] MCW rank 1 bound to socket 1[core 12[hwt 0]], socket 1[core 13[hwt 0]]: [./././././././././././.][B/B/./././././././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '2'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{1},{3}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+rep 1 scalability -e1 1000 3
+./gameoflife.x running on  cores with 2 MPI-tasks and 3 threads
+mpirun -n 2 --bind-to core --map-by socket:PE=3 -report-bindings ./gameoflife.x -r -f pattern_random1000.pgm -n 100 -e 1 -s 0 -q
+[thin007:131740] MCW rank 0 bound to socket 0[core 0[hwt 0]], socket 0[core 1[hwt 0]], socket 0[core 2[hwt 0]]: [B/B/B/././././././././.][./././././././././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '3'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{0},{2},{4}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+[thin007:131740] MCW rank 1 bound to socket 1[core 12[hwt 0]], socket 1[core 13[hwt 0]], socket 1[core 14[hwt 0]]: [./././././././././././.][B/B/B/././././././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '3'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{1},{3},{5}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+rep 1 scalability -e1 1000 4
+./gameoflife.x running on  cores with 2 MPI-tasks and 4 threads
+mpirun -n 2 --bind-to core --map-by socket:PE=4 -report-bindings ./gameoflife.x -r -f pattern_random1000.pgm -n 100 -e 1 -s 0 -q
+[thin007:131759] MCW rank 0 bound to socket 0[core 0[hwt 0]], socket 0[core 1[hwt 0]], socket 0[core 2[hwt 0]], socket 0[core 3[hwt 0]]: [B/B/B/B/./././././././.][./././././././././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '4'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{0},{2},{4},{6}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+[thin007:131759] MCW rank 1 bound to socket 1[core 12[hwt 0]], socket 1[core 13[hwt 0]], socket 1[core 14[hwt 0]], socket 1[core 15[hwt 0]]: [./././././././././././.][B/B/B/B/./././././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '4'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{1},{3},{5},{7}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+rep 1 scalability -e1 1000 5
+./gameoflife.x running on  cores with 2 MPI-tasks and 5 threads
+mpirun -n 2 --bind-to core --map-by socket:PE=5 -report-bindings ./gameoflife.x -r -f pattern_random1000.pgm -n 100 -e 1 -s 0 -q
+[thin007:131773] MCW rank 0 bound to socket 0[core 0[hwt 0]], socket 0[core 1[hwt 0]], socket 0[core 2[hwt 0]], socket 0[core 3[hwt 0]], socket 0[core 4[hwt 0]]: [B/B/B/B/B/././././././.][./././././././././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '5'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{0},{2},{4},{6},{8}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+[thin007:131773] MCW rank 1 bound to socket 1[core 12[hwt 0]], socket 1[core 13[hwt 0]], socket 1[core 14[hwt 0]], socket 1[core 15[hwt 0]], socket 1[core 16[hwt 0]]: [./././././././././././.][B/B/B/B/B/././././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '5'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{1},{3},{5},{7},{9}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+rep 1 scalability -e1 1000 6
+./gameoflife.x running on  cores with 2 MPI-tasks and 6 threads
+mpirun -n 2 --bind-to core --map-by socket:PE=6 -report-bindings ./gameoflife.x -r -f pattern_random1000.pgm -n 100 -e 1 -s 0 -q
+[thin007:131787] MCW rank 0 bound to socket 0[core 0[hwt 0]], socket 0[core 1[hwt 0]], socket 0[core 2[hwt 0]], socket 0[core 3[hwt 0]], socket 0[core 4[hwt 0]], socket 0[core 5[hwt 0]]: [B/B/B/B/B/B/./././././.][./././././././././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '6'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{0},{2},{4},{6},{8},{10}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+[thin007:131787] MCW rank 1 bound to socket 1[core 12[hwt 0]], socket 1[core 13[hwt 0]], socket 1[core 14[hwt 0]], socket 1[core 15[hwt 0]], socket 1[core 16[hwt 0]], socket 1[core 17[hwt 0]]: [./././././././././././.][B/B/B/B/B/B/./././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '6'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{1},{3},{5},{7},{9},{11}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+rep 1 scalability -e1 1000 7
+./gameoflife.x running on  cores with 2 MPI-tasks and 7 threads
+mpirun -n 2 --bind-to core --map-by socket:PE=7 -report-bindings ./gameoflife.x -r -f pattern_random1000.pgm -n 100 -e 1 -s 0 -q
+[thin007:131801] MCW rank 0 bound to socket 0[core 0[hwt 0]], socket 0[core 1[hwt 0]], socket 0[core 2[hwt 0]], socket 0[core 3[hwt 0]], socket 0[core 4[hwt 0]], socket 0[core 5[hwt 0]], socket 0[core 6[hwt 0]]: [B/B/B/B/B/B/B/././././.][./././././././././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '7'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{0},{2},{4},{6},{8},{10},{12}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+[thin007:131801] MCW rank 1 bound to socket 1[core 12[hwt 0]], socket 1[core 13[hwt 0]], socket 1[core 14[hwt 0]], socket 1[core 15[hwt 0]], socket 1[core 16[hwt 0]], socket 1[core 17[hwt 0]], socket 1[core 18[hwt 0]]: [./././././././././././.][B/B/B/B/B/B/B/././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '7'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{1},{3},{5},{7},{9},{11},{13}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+rep 1 scalability -e1 1000 8
+./gameoflife.x running on  cores with 2 MPI-tasks and 8 threads
+mpirun -n 2 --bind-to core --map-by socket:PE=8 -report-bindings ./gameoflife.x -r -f pattern_random1000.pgm -n 100 -e 1 -s 0 -q
+[thin007:131815] MCW rank 0 bound to socket 0[core 0[hwt 0]], socket 0[core 1[hwt 0]], socket 0[core 2[hwt 0]], socket 0[core 3[hwt 0]], socket 0[core 4[hwt 0]], socket 0[core 5[hwt 0]], socket 0[core 6[hwt 0]], socket 0[core 7[hwt 0]]: [B/B/B/B/B/B/B/B/./././.][./././././././././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '8'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{0},{2},{4},{6},{8},{10},{12},{14}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+[thin007:131815] MCW rank 1 bound to socket 1[core 12[hwt 0]], socket 1[core 13[hwt 0]], socket 1[core 14[hwt 0]], socket 1[core 15[hwt 0]], socket 1[core 16[hwt 0]], socket 1[core 17[hwt 0]], socket 1[core 18[hwt 0]], socket 1[core 19[hwt 0]]: [./././././././././././.][B/B/B/B/B/B/B/B/./././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '8'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{1},{3},{5},{7},{9},{11},{13},{15}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+rep 1 scalability -e1 1000 9
+./gameoflife.x running on  cores with 2 MPI-tasks and 9 threads
+mpirun -n 2 --bind-to core --map-by socket:PE=9 -report-bindings ./gameoflife.x -r -f pattern_random1000.pgm -n 100 -e 1 -s 0 -q
+[thin007:131829] MCW rank 0 bound to socket 0[core 0[hwt 0]], socket 0[core 1[hwt 0]], socket 0[core 2[hwt 0]], socket 0[core 3[hwt 0]], socket 0[core 4[hwt 0]], socket 0[core 5[hwt 0]], socket 0[core 6[hwt 0]], socket 0[core 7[hwt 0]], socket 0[core 8[hwt 0]]: [B/B/B/B/B/B/B/B/B/././.][./././././././././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '9'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{0},{2},{4},{6},{8},{10},{12},{14},{16}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+[thin007:131829] MCW rank 1 bound to socket 1[core 12[hwt 0]], socket 1[core 13[hwt 0]], socket 1[core 14[hwt 0]], socket 1[core 15[hwt 0]], socket 1[core 16[hwt 0]], socket 1[core 17[hwt 0]], socket 1[core 18[hwt 0]], socket 1[core 19[hwt 0]], socket 1[core 20[hwt 0]]: [./././././././././././.][B/B/B/B/B/B/B/B/B/././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '9'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{1},{3},{5},{7},{9},{11},{13},{15},{17}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+rep 1 scalability -e1 1000 10
+./gameoflife.x running on  cores with 2 MPI-tasks and 10 threads
+mpirun -n 2 --bind-to core --map-by socket:PE=10 -report-bindings ./gameoflife.x -r -f pattern_random1000.pgm -n 100 -e 1 -s 0 -q
+[thin007:131847] MCW rank 0 bound to socket 0[core 0[hwt 0]], socket 0[core 1[hwt 0]], socket 0[core 2[hwt 0]], socket 0[core 3[hwt 0]], socket 0[core 4[hwt 0]], socket 0[core 5[hwt 0]], socket 0[core 6[hwt 0]], socket 0[core 7[hwt 0]], socket 0[core 8[hwt 0]], socket 0[core 9[hwt 0]]: [B/B/B/B/B/B/B/B/B/B/./.][./././././././././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '10'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{0},{2},{4},{6},{8},{10},{12},{14},{16},{18}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+[thin007:131847] MCW rank 1 bound to socket 1[core 12[hwt 0]], socket 1[core 13[hwt 0]], socket 1[core 14[hwt 0]], socket 1[core 15[hwt 0]], socket 1[core 16[hwt 0]], socket 1[core 17[hwt 0]], socket 1[core 18[hwt 0]], socket 1[core 19[hwt 0]], socket 1[core 20[hwt 0]], socket 1[core 21[hwt 0]]: [./././././././././././.][B/B/B/B/B/B/B/B/B/B/./.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '10'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{1},{3},{5},{7},{9},{11},{13},{15},{17},{19}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+rep 1 scalability -e1 1000 11
+./gameoflife.x running on  cores with 2 MPI-tasks and 11 threads
+mpirun -n 2 --bind-to core --map-by socket:PE=11 -report-bindings ./gameoflife.x -r -f pattern_random1000.pgm -n 100 -e 1 -s 0 -q
+[thin007:131863] MCW rank 1 bound to socket 1[core 12[hwt 0]], socket 1[core 13[hwt 0]], socket 1[core 14[hwt 0]], socket 1[core 15[hwt 0]], socket 1[core 16[hwt 0]], socket 1[core 17[hwt 0]], socket 1[core 18[hwt 0]], socket 1[core 19[hwt 0]], socket 1[core 20[hwt 0]], socket 1[core 21[hwt 0]], socket 1[core 22[hwt 0]]: [./././././././././././.][B/B/B/B/B/B/B/B/B/B/B/.]
+[thin007:131863] MCW rank 0 bound to socket 0[core 0[hwt 0]], socket 0[core 1[hwt 0]], socket 0[core 2[hwt 0]], socket 0[core 3[hwt 0]], socket 0[core 4[hwt 0]], socket 0[core 5[hwt 0]], socket 0[core 6[hwt 0]], socket 0[core 7[hwt 0]], socket 0[core 8[hwt 0]], socket 0[core 9[hwt 0]], socket 0[core 10[hwt 0]]: [B/B/B/B/B/B/B/B/B/B/B/.][./././././././././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '11'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{0},{2},{4},{6},{8},{10},{12},{14},{16},{18},{20}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '11'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{1},{3},{5},{7},{9},{11},{13},{15},{17},{19},{21}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+rep 1 scalability -e1 1000 12
+./gameoflife.x running on  cores with 2 MPI-tasks and 12 threads
+mpirun -n 2 --bind-to core --map-by socket:PE=12 -report-bindings ./gameoflife.x -r -f pattern_random1000.pgm -n 100 -e 1 -s 0 -q
+[thin007:131877] MCW rank 0 bound to socket 0[core 0[hwt 0]], socket 0[core 1[hwt 0]], socket 0[core 2[hwt 0]], socket 0[core 3[hwt 0]], socket 0[core 4[hwt 0]], socket 0[core 5[hwt 0]], socket 0[core 6[hwt 0]], socket 0[core 7[hwt 0]], socket 0[core 8[hwt 0]], socket 0[core 9[hwt 0]], socket 0[core 10[hwt 0]], socket 0[core 11[hwt 0]]: [B/B/B/B/B/B/B/B/B/B/B/B][./././././././././././.]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '12'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{0},{2},{4},{6},{8},{10},{12},{14},{16},{18},{20},{22}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+[thin007:131877] MCW rank 1 bound to socket 1[core 12[hwt 0]], socket 1[core 13[hwt 0]], socket 1[core 14[hwt 0]], socket 1[core 15[hwt 0]], socket 1[core 16[hwt 0]], socket 1[core 17[hwt 0]], socket 1[core 18[hwt 0]], socket 1[core 19[hwt 0]], socket 1[core 20[hwt 0]], socket 1[core 21[hwt 0]], socket 1[core 22[hwt 0]], socket 1[core 23[hwt 0]]: [./././././././././././.][B/B/B/B/B/B/B/B/B/B/B/B]
+
+OPENMP DISPLAY ENVIRONMENT BEGIN
+  _OPENMP = '201511'
+  OMP_DYNAMIC = 'FALSE'
+  OMP_NESTED = 'FALSE'
+  OMP_NUM_THREADS = '12'
+  OMP_SCHEDULE = 'DYNAMIC'
+  OMP_PROC_BIND = 'CLOSE'
+  OMP_PLACES = '{1},{3},{5},{7},{9},{11},{13},{15},{17},{19},{21},{23}'
+  OMP_STACKSIZE = '0'
+  OMP_WAIT_POLICY = 'PASSIVE'
+  OMP_THREAD_LIMIT = '4294967295'
+  OMP_MAX_ACTIVE_LEVELS = '1'
+  OMP_NUM_TEAMS = '0'
+  OMP_TEAMS_THREAD_LIMIT = '0'
+  OMP_CANCELLATION = 'FALSE'
+  OMP_DEFAULT_DEVICE = '0'
+  OMP_MAX_TASK_PRIORITY = '0'
+  OMP_DISPLAY_AFFINITY = 'TRUE'
+  OMP_AFFINITY_FORMAT = 'level %L thread %i affinity %A'
+  OMP_ALLOCATOR = 'omp_default_mem_alloc'
+  OMP_TARGET_OFFLOAD = 'DEFAULT'
+OPENMP DISPLAY ENVIRONMENT END
+scalability end

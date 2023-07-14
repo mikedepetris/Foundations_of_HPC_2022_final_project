@@ -1,0 +1,23 @@
+Selected type of execution: i
+make: Nothing to be done for 'all'.
+scale_omp_epyc_epyc007_2023-06-16_16-57-45.csv epyc007 2023-06-16_16-57-45
+OMP scalability begin
+rep 1 scalability -i 50000 19
+rep 1 scalability -i 50000 20
+rep 1 scalability -i 50000 21
+rep 1 scalability -i 50000 22
+rep 1 scalability -i 50000 23
+rep 1 scalability -i 50000 24
+rep 1 scalability -i 50000 25
+rep 1 scalability -i 50000 26
+rep 1 scalability -i 50000 27
+rep 1 scalability -i 50000 28
+rep 1 scalability -i 50000 29
+rep 1 scalability -i 50000 30
+rep 1 scalability -i 50000 31
+rep 1 scalability -i 50000 32
+rep 1 scalability -i 50000 33
+rep 1 scalability -i 50000 34
+rep 1 scalability -i 50000 35
+rep 1 scalability -i 50000 36
+slurmstepd: error: *** JOB 12975 ON epyc007 CANCELLED AT 2023-06-16T18:57:46 DUE TO TIME LIMIT ***

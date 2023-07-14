@@ -1,0 +1,34 @@
+Selected type of execution: 1
+scale_omp_epyc_epyc001.orfeo.hpc_2023-06-27_13-45-17.csv epyc001.orfeo.hpc 2023-06-27_13-45-17
+OMP scalability begin
+rep 1 scalability -e1 10000 1
+./gameoflife.x running on  cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 2 scalability -e1 10000 1
+./gameoflife.x running on  cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 3 scalability -e1 10000 1
+./gameoflife.x running on  cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 4 scalability -e1 10000 1
+./gameoflife.x running on  cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 5 scalability -e1 10000 1
+./gameoflife.x running on  cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 6 scalability -e1 10000 1
+./gameoflife.x running on  cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 7 scalability -e1 10000 1
+./gameoflife.x running on  cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 8 scalability -e1 10000 1
+./gameoflife.x running on  cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 9 scalability -e1 10000 1
+./gameoflife.x running on  cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+rep 10 scalability -e1 10000 1
+./gameoflife.x running on  cores with 2 MPI-tasks and 1 threads
+mpirun -n 1 --bind-to core --map-by socket:PE=1 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+scalability end

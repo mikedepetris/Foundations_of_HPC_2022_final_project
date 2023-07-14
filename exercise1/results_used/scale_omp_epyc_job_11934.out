@@ -1,0 +1,40 @@
+Selected type of execution: i
+make: Nothing to be done for 'all'.
+scale_omp_epyc_epyc001.orfeo.hpc_2023-06-11_19-41-40.csv epyc001.orfeo.hpc 2023-06-11_19-41-40
+scalability begin
+rep 1 scalability -i 10000 1
+rep 1 scalability -i 10000 2
+rep 1 scalability -i 10000 3
+rep 1 scalability -i 10000 4
+rep 1 scalability -i 10000 5
+rep 1 scalability -i 10000 6
+rep 1 scalability -i 10000 7
+rep 1 scalability -i 10000 8
+rep 1 scalability -i 10000 9
+rep 1 scalability -i 10000 10
+rep 1 scalability -i 10000 11
+rep 1 scalability -i 10000 12
+rep 1 scalability -i 10000 13
+rep 1 scalability -i 10000 14
+rep 1 scalability -i 10000 15
+rep 1 scalability -i 10000 16
+rep 1 scalability -i 10000 17
+rep 1 scalability -i 10000 18
+rep 1 scalability -i 10000 19
+rep 1 scalability -i 10000 20
+rep 1 scalability -i 10000 21
+rep 1 scalability -i 10000 22
+rep 1 scalability -i 10000 23
+rep 1 scalability -i 10000 24
+rep 1 scalability -i 10000 25
+rep 1 scalability -i 10000 26
+rep 1 scalability -i 10000 27
+rep 1 scalability -i 10000 28
+rep 1 scalability -i 10000 29
+rep 1 scalability -i 10000 30
+rep 1 scalability -i 10000 31
+rep 1 scalability -i 10000 32
+rep 1 scalability -i 10000 33
+rep 1 scalability -i 10000 34
+rep 1 scalability -i 10000 35
+slurmstepd: error: *** JOB 11934 ON epyc001 CANCELLED AT 2023-06-11T19:52:14 ***

@@ -1,0 +1,7 @@
+Selected type of execution: i
+make: Nothing to be done for 'all'.
+scale_mpi_thin_thin007_2023-06-25_12-06-36.csv thin007 2023-06-25_12-06-36
+MPI scalability begin
+rep 1 scalability -i 10000 1
+rep 1 scalability -i 10000 2
+slurmstepd: error: *** JOB 13887 ON thin007 CANCELLED AT 2023-06-25T12:06:40 ***

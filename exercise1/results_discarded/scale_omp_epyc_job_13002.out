@@ -1,0 +1,11 @@
+Selected type of execution: i
+make: Nothing to be done for 'all'.
+scale_omp_epyc_epyc001.orfeo.hpc_2023-06-16_22-27-42.csv epyc001.orfeo.hpc 2023-06-16_22-27-42
+OMP scalability begin
+rep 1 scalability -i 20000 64
+rep 1 scalability -i 20000 63
+rep 1 scalability -i 20000 62
+rep 1 scalability -i 20000 61
+rep 1 scalability -i 20000 60
+rep 1 scalability -i 20000 59
+slurmstepd: error: *** JOB 13002 ON epyc001 CANCELLED AT 2023-06-16T22:36:11 ***

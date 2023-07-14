@@ -1,0 +1,18 @@
+Selected type of execution: 1
+scale_omp_epyc_epyc005_2023-06-27_14-25-38.csv epyc005 2023-06-27_14-25-38
+OMP scalability begin
+rep 1 scalability -e1 10000 128
+./gameoflife.x running on 384*128 cores with 384 MPI-tasks and 128 threads
+mpirun -n 384 --bind-to core --map-by node:PE=128 -report-bindings ./gameoflife.x -r -f pattern_random10000.pgm -n 100 -e 1 -s 0 -q
+--------------------------------------------------------------------------
+A request was made to bind to that would result in binding more
+processes than cpus on a resource:
+
+   Bind to:     CORE
+   Node:        epyc005
+   #processes:  2
+   #cpus:       1
+
+You can override this protection by adding the "overload-allowed"
+option to your binding directive.
+--------------------------------------------------------------------------

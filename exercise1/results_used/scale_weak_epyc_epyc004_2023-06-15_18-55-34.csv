@@ -1,0 +1,93 @@
+action,world_size,number_of_steps,number_of_steps_between_file_dumps,mpi_size,omp_get_max_threads,total_time,t_io,t_io_accumulator,t_io_accumulator_average
+e1,100,100,100000,1,1,1.104367,0.048568,0.000000,0.000000
+ERROR occurred while reading file=pattern_random141.pgm
+ERROR occurred while reading file=pattern_random200.pgm
+ERROR occurred while reading file=pattern_random283.pgm
+ERROR occurred while reading file=pattern_random400.pgm
+ERROR occurred while reading file=pattern_random566.pgm
+ERROR occurred while reading file=pattern_random800.pgm
+ERROR occurred while reading file=pattern_random1131.pgm
+ERROR occurred while reading file=pattern_random1600.pgm
+ERROR occurred while reading file=pattern_random2263.pgm
+ERROR occurred while reading file=pattern_random3200.pgm
+ERROR occurred while reading file=pattern_random4525.pgm
+ERROR occurred while reading file=pattern_random6400.pgm
+ERROR occurred while reading file=pattern_random9051.pgm
+ERROR occurred while reading file=pattern_random12800.pgm
+ERROR occurred while reading file=pattern_random18102.pgm
+ERROR occurred while reading file=pattern_random25600.pgm
+ERROR occurred while reading file=pattern_random36204.pgm
+ERROR occurred while reading file=pattern_random51200.pgm
+ERROR occurred while reading file=pattern_random72408.pgm
+ERROR occurred while reading file=pattern_random102400.pgm
+ERROR occurred while reading file=pattern_random144815.pgm
+ERROR occurred while reading file=pattern_random204800.pgm
+ERROR occurred while reading file=pattern_random289631.pgm
+e1,100,100,100000,1,1,1.058669,0.005641,0.000000,0.000000
+ERROR occurred while reading file=pattern_random141.pgm
+ERROR occurred while reading file=pattern_random200.pgm
+ERROR occurred while reading file=pattern_random283.pgm
+ERROR occurred while reading file=pattern_random400.pgm
+ERROR occurred while reading file=pattern_random566.pgm
+ERROR occurred while reading file=pattern_random800.pgm
+ERROR occurred while reading file=pattern_random1131.pgm
+ERROR occurred while reading file=pattern_random1600.pgm
+ERROR occurred while reading file=pattern_random2263.pgm
+ERROR occurred while reading file=pattern_random3200.pgm
+ERROR occurred while reading file=pattern_random4525.pgm
+ERROR occurred while reading file=pattern_random6400.pgm
+ERROR occurred while reading file=pattern_random9051.pgm
+ERROR occurred while reading file=pattern_random12800.pgm
+ERROR occurred while reading file=pattern_random18102.pgm
+ERROR occurred while reading file=pattern_random25600.pgm
+ERROR occurred while reading file=pattern_random36204.pgm
+ERROR occurred while reading file=pattern_random51200.pgm
+ERROR occurred while reading file=pattern_random72408.pgm
+ERROR occurred while reading file=pattern_random102400.pgm
+ERROR occurred while reading file=pattern_random144815.pgm
+ERROR occurred while reading file=pattern_random204800.pgm
+ERROR occurred while reading file=pattern_random289631.pgm
+e1,100,100,100000,1,1,1.059209,0.005668,0.000000,0.000000
+ERROR occurred while reading file=pattern_random141.pgm
+ERROR occurred while reading file=pattern_random200.pgm
+ERROR occurred while reading file=pattern_random283.pgm
+ERROR occurred while reading file=pattern_random400.pgm
+ERROR occurred while reading file=pattern_random566.pgm
+ERROR occurred while reading file=pattern_random800.pgm
+ERROR occurred while reading file=pattern_random1131.pgm
+ERROR occurred while reading file=pattern_random1600.pgm
+ERROR occurred while reading file=pattern_random2263.pgm
+ERROR occurred while reading file=pattern_random3200.pgm
+ERROR occurred while reading file=pattern_random4525.pgm
+ERROR occurred while reading file=pattern_random6400.pgm
+ERROR occurred while reading file=pattern_random9051.pgm
+ERROR occurred while reading file=pattern_random12800.pgm
+ERROR occurred while reading file=pattern_random18102.pgm
+ERROR occurred while reading file=pattern_random25600.pgm
+ERROR occurred while reading file=pattern_random36204.pgm
+ERROR occurred while reading file=pattern_random51200.pgm
+ERROR occurred while reading file=pattern_random72408.pgm
+ERROR occurred while reading file=pattern_random102400.pgm
+ERROR occurred while reading file=pattern_random144815.pgm
+ERROR occurred while reading file=pattern_random204800.pgm
+ERROR occurred while reading file=pattern_random289631.pgm
+e1,100,100,100000,1,1,1.066071,0.011215,0.000000,0.000000
+e1,141,100,100000,2,1,1.066058,0.010312,0.004982,0.004982
+e1,200,100,100000,3,1,1.087158,0.024515,0.015893,0.007946
+e1,283,100,100000,4,1,1.114877,0.035449,0.019128,0.006376
+e1,400,100,100000,5,1,1.139280,0.037098,0.029397,0.007349
+e1,566,100,100000,6,1,1.155745,0.014529,0.037728,0.007546
+e1,800,100,100000,7,1,1.234296,0.017102,0.047980,0.007997
+e1,1131,100,100000,8,1,1.369620,0.040460,0.055352,0.007907
+e1,1600,100,100000,9,1,1.611087,0.051696,0.084571,0.010571
+e1,2263,100,100000,10,1,1.988263,0.039022,0.128228,0.014248
+e1,3200,100,100000,11,1,2.721623,0.048295,0.207038,0.020704
+e1,4525,100,100000,12,1,4.088295,0.067535,0.340632,0.030967
+e1,6400,100,100000,13,1,6.704332,0.136722,0.872095,0.072675
+e1,9051,100,100000,14,1,11.445870,0.183698,1.184548,0.091119
+e1,12800,100,100000,15,1,20.788136,0.380813,2.706871,0.193348
+e1,18102,100,100000,16,1,39.055228,1.688869,4.233920,0.282261
+e1,25600,100,100000,17,1,72.201008,1.493745,5.848768,0.365548
+e1,36204,100,100000,18,1,134.614837,2.028834,15.196529,0.893913
+e1,51200,100,100000,19,1,256.111848,3.344909,21.307680,1.183760
+e1,72408,100,100000,20,1,486.713382,6.316113,38.090020,2.004738

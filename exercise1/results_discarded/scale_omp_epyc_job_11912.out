@@ -1,0 +1,6 @@
+Selected type of execution: i
+mpicc -fopenmp gameoflife.h gameoflife.c files_io.h files_io.c new_playground.c evolution_ordered.c evolution_static.c evolution_wave.c evolution_whiteblack.c -o gameoflife.x
+scale_omp_epyc_epyc001.orfeo.hpc_2023-06-11_11-56-47.csv epyc001.orfeo.hpc 2023-06-11_11-56-47
+scalability begin
+scalability -i 10000 1
+slurmstepd: error: *** JOB 11912 ON epyc001 CANCELLED AT 2023-06-11T12:00:11 ***
