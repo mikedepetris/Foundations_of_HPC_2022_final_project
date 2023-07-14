@@ -7,7 +7,6 @@ This is the final assignment for the 2022/2023 Foundations of High Performance C
 It consists of two mandatory exercises.
 
 ### Structure of this github directory: 
-````
 ----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------
 patterns\								|several pmg image files of well known patterns that generate interesting evolutions
 results_discarded\						|all the output files that have been discarded due to execution or configuration errors
@@ -44,5 +43,4 @@ scalability_MPI_thin.xlsx				|spreadsheet used to collect all output from the ex
 scalability_OMP.xlsx					|spreadsheet used to collect all output from the executions on the EPYC nodes for the OpenMP scalability to produce tables and graphic charts
 scalability_OMP_thin.xlsx				|spreadsheet used to collect all output from the executions on the THIN nodes for the OpenMP scalability to produce tables and graphic charts
 scalability_weak.xlsx					|spreadsheet used to collect all output from the executions for the weak scalability to produce tables and graphic charts
-````
 
