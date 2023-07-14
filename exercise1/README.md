@@ -47,8 +47,8 @@ scalability_weak.xlsx					|spreadsheet used to collect all output from the execu
 
 #### Examples of running in wsl:
 patterns\
-	still_lifes\
-		pattern_block.pgm 
+    still_lifes\
+        pattern_block.pgm 
 		pattern_loaf6.pgm
 	oscillators\
 		pattern_blinker.pgm
