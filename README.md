@@ -1,5 +1,7 @@
 # Foundations of HPC 2022 final project
 
+Student: Michele De Petris IN2000137
+
 This is the final assigmment for the 2022/2023 Foundations of High Performance Computing course, part of the MSc in Data Science and Scientific Computing at University of Trieste (all related material can be found at https://github.com/Foundations-of-HPC/Foundations_of_HPC_2022/tree/main/Assignment).
 It consists of two mandatory exercises.
 
