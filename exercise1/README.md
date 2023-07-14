@@ -7,6 +7,7 @@ This is the final assignment for the 2022/2023 Foundations of High Performance C
 It consists of two mandatory exercises.
 
 ### Structure of this github directory: 
+file                                    |description
 ----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------
 patterns\								|several pmg image files of well known patterns that generate interesting evolutions
 results_discarded\						|all the output files that have been discarded due to execution or configuration errors
