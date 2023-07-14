@@ -45,3 +45,23 @@ scalability_OMP.xlsx					|spreadsheet used to collect all output from the execut
 scalability_OMP_thin.xlsx				|spreadsheet used to collect all output from the executions on the THIN nodes for the OpenMP scalability to produce tables and graphic charts
 scalability_weak.xlsx					|spreadsheet used to collect all output from the executions for the weak scalability to produce tables and graphic charts
 
+#### Examples of running in wsl:
+patterns\
+	still_lifes\
+		pattern_block.pgm 
+		pattern_loaf6.pgm
+	oscillators\
+		pattern_blinker.pgm
+		pattern_blinker32.pgm 
+		pattern_pulsar32.pgm
+	spaceships\
+		pattern_ship32.pgm
+
+mpirun -np 1 /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x -i -k 5 -f pattern_random5
+mpirun -np 1 /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x -i -k 6 -f pattern_random6
+mpirun -np 1 /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x -r -f pattern_block.pgm  -n 2000 -e 1 -s1
+mpirun -np 1 /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x -r -f pattern_loaf6.pgm  -n 2000 -e 1 -s1
+mpirun -np 1 /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x -r -f pattern_blinker5.pgm -n 2000 -e 1 -s1
+mpirun -np 1 /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x -r -f patterns/oscillators/pattern_blinker.pgm -n 2000 -e 1 -s1
+mpirun -np 4 /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x -r -f pattern_pulsar32.pgm -n 2000 -e 1 -s1
+mpirun -np 4 /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x -r -f pattern_ship32.pgm -n 2000 -e 1 -s1
