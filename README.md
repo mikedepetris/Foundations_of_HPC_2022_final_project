@@ -6,8 +6,8 @@ It consists of two mandatory exercises.
 ### Structure of this github directory: 
 
 ````
-README.md 
-report.pdf
+[README.md](README.md)
+[report.pdf](README.md)
 exercise1/README.md 
 exercise1/all the files for exercise 1 
 exercise2/README.md 
