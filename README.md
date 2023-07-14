@@ -6,8 +6,8 @@ It consists of two mandatory exercises.
 ### Structure of this github directory: 
 
 ````
-[README.md](README.md)
-[report.pdf](README.md)
+README.md
+report.pdf
 exercise1/README.md 
 exercise1/all the files for exercise 1 
 exercise2/README.md 
@@ -16,8 +16,8 @@ exercise2/all the files for exercise 2
 
 where: 
 
-- report.pdf            contains a detailed report of all the exercises in this documents.
-- README.md             is a file in markdown language that describes briefly what was done. 
+- [report.pdf](report.pdf)            contains a detailed report of all the exercises in this documents.
+- [README.md](README.md)             is a file in markdown language that describes briefly what was done. 
 - exercise1/README.MD   explains all the files present in the directory and gives detailed information on
   - which software stack should be used to compile the codes and run all the programs.
   - a short description of scripts used to complete the exercise.
