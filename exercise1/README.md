@@ -46,7 +46,35 @@ scalability_OMP_thin.xlsx				|spreadsheet used to collect all output from the ex
 scalability_weak.xlsx					|spreadsheet used to collect all output from the executions for the weak scalability to produce tables and graphic charts
 
 
-#### Help printed by the program:
+#### Manually builng the executable
+cd /u/dssc/mdepet00/assignment/exercise1  
+salloc -n 1 -N1 -p EPYC --time=1:0:0  
+	(remember to exit when done)  
+	salloc -n 128 -N1 -p THIN --time=1:0:0  
+		(salloc -n1 -t 1:00:00 -p THIN)  
+module load architecture/AMD  
+	(module load architecture/Intel)  
+module load openMPI/4.1.4/gnu/12.2.1  
+    ... edit the makefile  
+srun -n1 make all  
+	(srun -n1 make clean)  
+
+#### Useful commands
+alias cd1="cd /u/dssc/mdepet00/assignment/exercise1"  
+alias cd2="cd /u/dssc/mdepet00/assignment/exercise2"  
+chmod +x *.sh  
+history|grep sinfo  
+history|grep -- -k (to display past invocations with -k parameter)  
+!<id> (to recall command line from history)  
+salloc -n 128 -N1 -p EPYC --time=2:0:0  
+salloc -n 24 -N1 -p THIN --time=2:0:0  
+exit  
+watch '<command>’  
+sinfo -N --format="%.15N %.6D %.10P %.11T %.4c %.10z %.8m %.10e %.9O %.15C"'  
+squeue --format="%.6i %.9P %.22j %.10u %.10M %.6D %.5C %.7m %.93R %.8T %l %L"  
+w
+
+#### Help printed by the program
 Usage: /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x [options]  
  -i initialize a playground  
  -r run a playground (needs -f)  
@@ -73,7 +101,9 @@ Parallel execution:
      mpirun -np 1 gameoflife.x -i -k 100 -f pattern_random  
      mpirun -np 4 gameoflife.x -r -f pattern_random -n 3 -e 1 -s 0  
 
-#### Examples of running in wsl:
+#### Examples of running in wsl
+sudo apt install openmpi-bin libopenmpi-dev
+
 patterns/  
     still_lifes/  
         pattern_block.pgm  
@@ -93,3 +123,24 @@ mpirun -np 1 /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x -r -f patt
 mpirun -np 1 /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x -r -f patterns/oscillators/pattern_blinker.pgm -n 2000 -e 1 -s1  
 mpirun -np 4 /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x -r -f pattern_pulsar32.pgm -n 2000 -e 1 -s1  
 mpirun -np 4 /mnt/c/dev/HPC/gameoflife/cmake-build-debug/gameoflife.x -r -f pattern_ship32.pgm -n 2000 -e 1 -s1  
+
+#### Examples of running on ORFEO
+sbatch -J scale_omp2_1_0_1000 scale_omp_2.sh 1 0 1000  
+sbatch -J scale_omp4_1_0_1000 scale_omp_4.sh 1 0 1000  
+sbatch -J scale_omp4_1_0_1000 scale_omp_4.sh 1 0 1000  
+sbatch -J scale_omp3_1_0_1000 scale_omp_3.sh 1 0 1000  
+sbatch -J scale_omp2thin_1_0_1000 scale_omp_2_thin.sh 1 0 1000  
+
+#### Video animations creation from image sequences
+Imagemagick command line tool:  
+The tool can be installed as a package, and then run specifying the delay between frames in milliseconds, instructing to repeat the animation in a loop, taking all the “pgm” snapshot files as input, and writing to an output “ship.gif” animated gif:  
+  
+sudo apt install imagemagick-6.q16  
+convert -delay 20 -loop 0 *.pgm ship.gif  
+  
+ffmpeg:  
+ffmpeg tool can be installed and run, this time producing an MP4 video file. Using a video file codec, the result is a video with soft borders, that may give a more appreciable display effect, but that can hide the actual information about the alive cells.  
+A slideshow video with one image per second can be produced by:  
+  
+ffmpeg -framerate 1 -pattern_type glob -i '*.pgm' -c:v libx264 -r   
+30 -pix_fmt yuv420p out.mp4  

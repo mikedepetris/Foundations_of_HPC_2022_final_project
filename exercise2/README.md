@@ -38,3 +38,13 @@ thin.txt				|output of command srun lscpu>thin.txt
 gemm_cores.xlsm			|spreadsheet used to collect all output from the executions for the cores scalability to produce tables and graphic charts
 gemm_size.xlsm			|spreadsheet used to collect all output from the executions for the size scalability to produce tables and graphic charts
 
+#### Examples of running on ORFEO
+sbatch strong_dgemm_epyc128.sh  
+sbatch strong_sgemm_epyc128.sh  
+sbatch strong_dgemm_thin24.sh   
+sbatch strong_sgemm_thin24.sh   
+sbatch strong_dgemm_epyc128.sh  
+sbatch strong_sgemm_epyc128.sh  
+sbatch strong_dgemm_thin24.sh   
+watch 'squeue --format="%.8i %.9P %.22j %.10u %.9M %.6D %.5C %.7m %.92R %.8T %l %L"'  
+watch 'sinfo -N --format="%.15N %.6D %.10P %.11T %.4c %.10z %.8m %.10e %.9O %.15C"'  
